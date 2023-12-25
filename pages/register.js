@@ -31,7 +31,7 @@ const Login = () => {
             <input type="email" placeholder="Enter Your Email" />
             <input type="password" placeholder="Enter Your Password" />
           </form>
-          <div className={styles.btn}>Login</div>
+          <div className={styles.btn}>Signup</div>
         </div>
       </div>
       <Footer />

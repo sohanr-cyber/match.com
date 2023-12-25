@@ -62,6 +62,7 @@ const Search = ({ setOpenFilter, locationData }) => {
       console.log(error)
     }
   }
+
   useEffect(() => {
     fetchDistricts(location.city)
   }, [location.city])
@@ -80,7 +81,6 @@ const Search = ({ setOpenFilter, locationData }) => {
 
     setLocations({ ...locations, upazillas: ['All', ...upazillasHere] })
   }, [location.district, locations.districts])
-  console.log(router.query.universityNames)
 
   const [height, setHeight] = useState({
     feetFrom: router.query.feetFrom || 4,

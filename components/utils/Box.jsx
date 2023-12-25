@@ -49,8 +49,7 @@ const Box = ({ data }) => {
       router.push(
         `/profile?gender=${gender}&maritalStatuses=${[maritalStatus].join(
           ','
-        )}&city=${city}&district=${currentDistrict}&upazilla=${currentUpazilla}&feetFrom=${4}&inchesFrom=${5}&feetTo=${6}&inchesTo=${5}
-        )}&page=1`
+        )}&city=${city}&district=${currentDistrict}&upazilla=${currentUpazilla}&feetFrom=${4}&inchesFrom=${5}&feetTo=${6}&inchesTo=${5}&page=${1}`
       )
     } catch (error) {
       console.log(error)
