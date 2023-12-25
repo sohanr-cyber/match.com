@@ -1,0 +1,54 @@
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.wrapper form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    width: 100%;
+
+}
+
+.wrapper .form__container {
+    background-color: white;
+    border-radius: 5px;
+}
+
+.wrapper .flex {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+}
+
+
+.wrapper .flex .left,
+.wrapper .flex .right {
+    width: 100%;
+    text-align: center;
+    padding: 7px 0;
+}
+
+.wrapper form input {
+    padding: 7px;
+    border-radius: 5px;
+    border: 1px solid grey;
+}
+
+.wrapper .btn {
+    background: var(--btn);
+    color: white;
+    padding: 7px;
+    text-align: center;
+    border-radius: 0px 0 5px 5px;
+    cursor: pointer;
+}

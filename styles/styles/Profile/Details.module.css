@@ -1,0 +1,12 @@
+.wrapper {
+    min-height: 100vh;
+    /* padding-top: 70px; */
+    ;
+    display: flex;
+}
+
+@media (max-width: 720px) {
+    .wrapper {
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,43 @@
+import React from "react";
+import styles from "../styles/Signin.module.css";
+import Logo from "@/components/utils/Logo";
+import { useRouter } from "next/router";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+const Login = () => {
+  const router = useRouter();
+  return (
+    <>
+      <Navbar />
+      <div className={styles.wrapper}>
+        <div className={styles.logo}>
+          <Logo />
+        </div>
+        <div className={styles.form__container}>
+          <div className={styles.flex}>
+            <div
+              className={styles.left}
+              style={{ borderBottom: "2px solid blue" }}
+            >
+              Login
+            </div>{" "}
+            <div
+              className={styles.right}
+              onClick={() => router.push("/register")}
+            >
+              Signup
+            </div>
+          </div>
+          <form>
+            <input type="email" placeholder="Enter Your Email" />
+            <input type="password" placeholder="Enter Your Password" />
+          </form>
+          <div className={styles.btn}>Signup</div>
+        </div>
+      </div>
+      <Footer />
+    </>
+  );
+};
+
+export default Login;

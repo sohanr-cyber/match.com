@@ -1,0 +1,15 @@
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+
+}
+
+
+
+.flex span {
+    border: 1px solid green;
+    background: rgb(0, 149, 0, 0.1);
+    color: white;
+}

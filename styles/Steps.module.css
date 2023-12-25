@@ -1,0 +1,79 @@
+.wrapper {
+    padding: 50px 25px;
+    text-align: center;
+    min-height: 50vh;
+
+}
+
+.wrapper h1,
+.wrapper p {
+    text-transform: capitalize;
+}
+
+
+
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    gap: 15px;
+}
+
+.flex .item {
+    border: 1px solid black;
+    padding: 10px;
+    aspect-ratio: 1/1;
+    border-radius: 5px;
+    max-width: 180px;
+}
+
+.flex .title {
+    font-weight: bold;
+    margin: 10px 0;
+    ;
+}
+
+
+@media (max-width: 570px) {
+    .wrapper {
+        flex-direction: column;
+        padding: 30px 15px;
+        text-align: left;
+    }
+
+    .flex {
+        flex-direction: column;
+        width: 100%;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    .flex .item {
+        display: flex;
+        width: 100%;
+        min-width: none;
+        max-width: none;
+        aspect-ratio: none;
+        max-height: 100px;
+        gap: 10px;
+        text-align: left;
+    }
+
+    .flex .item .imageContainer {
+        flex: 1
+    }
+
+    .flex .item .rightItem {
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex: 2;
+    }
+
+    .flex .item .title {
+    margin: 0 ;
+    }
+}

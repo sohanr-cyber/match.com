@@ -1,5 +1,5 @@
 {
-  "name": "match.com",
+  "name": "matrimony",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,12 +9,20 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "react": "^18",
-    "react-dom": "^18",
-    "next": "14.0.4"
-  },
-  "devDependencies": {
-    "eslint": "^8",
-    "eslint-config-next": "14.0.4"
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.0",
+    "@mui/material": "^5.15.0",
+    "@next/font": "14.0.4",
+    "axios": "^1.6.2",
+    "eslint": "8.55.0",
+    "eslint-config-next": "14.0.4",
+    "faker": "^5.5.3",
+    "mongoose": "^8.0.3",
+    "next": "14.0.4",
+    "next-connect": "^0.13.0",
+    "nextjs-progressbar": "^0.0.16",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   }
 }

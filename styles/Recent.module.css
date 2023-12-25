@@ -1,0 +1,28 @@
+.wrapper {
+    padding: 50px 15px;
+    text-align: center;
+
+}
+
+.wrapper h1 {}
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 25px 0;
+
+}
+
+@media (max-width:570px) {
+    .wrapper {
+        padding: 30px 15px;
+        text-align: left;
+    }
+
+    .flex {
+        margin: 15px 0;
+
+    }
+}

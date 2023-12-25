@@ -1,0 +1,136 @@
+.wrapper {
+    padding: 25px;
+    background-color: rgba(0, 191, 255, 0.1);
+}
+
+.wrapper .heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    font-size: 120%;
+    background: var(--btn);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    ;
+
+}
+
+.wrapper form {}
+
+.wrapper .heading span {
+    padding: 1px 8px;
+    background: var(--btn);
+    border-radius: 50%;
+    color: white;
+}
+
+.wrapper form {
+    margin: 10px 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 20px;
+    grid-row-gap: 10px;
+}
+
+.wrapper form span {
+    margin: 0 10px;
+}
+
+.wrapper form input,
+.wrapper form textarea,
+.wrapper form select {
+    border-radius: 5px;
+    border: none;
+    padding: 5px 7px;
+    width: 100%;
+    margin: 0 10px;
+
+}
+
+
+.wrapper form textarea {
+    resize: none;
+    height: 100%;
+}
+
+.wrapper form label {
+    font-weight: bold;
+    /* background-color: red; */
+    display: inline-block;
+    min-width: 180px;
+    max-width: 180px;
+}
+
+.wrapper form .field .options {
+
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: flex-start;
+
+}
+
+.wrapper form .field .options span {
+    border: 1px solid lightblue;
+    border-radius: 5px;
+    padding: 3px 5px;
+    margin-right: 3.5px;
+    margin-bottom: 6.5px;
+    background-color: rgb(0, 148, 0, 0.5);
+    cursor: pointer;
+
+}
+
+.wrapper .field {
+    display: flex;
+    align-items: flex-start;
+    /* gap: 10px; */
+}
+
+.flex {
+    display: flex;
+}
+
+
+@media (max-width:720px) {
+    .field {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .wrapper form input,
+    .wrapper form textarea,
+    .wrapper form select {
+        margin: 0 0px;
+        /* display: inline; */
+
+    }
+
+    .wrapper form .options {
+        margin: 0 -10px;
+        /* background-color: red; */
+    }
+
+    .wrapper form label {
+        min-width: 100%;
+    }
+
+}
+
+@media (max-width:570px) {
+    .wrapper {
+        padding: 15px;
+    }
+
+    .wrapper form {
+        margin: 10px 0;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-column-gap: 20px;
+        grid-row-gap: 10px;
+    }
+}
