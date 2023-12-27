@@ -77,7 +77,7 @@ class UserRepository {
       const education = await this.education.FindEducationByUserId(userId)
       const expectation = await this.expectation.FindExpectationByUserId(userId)
       const personal = await this.personal.FindPersonalByUserId(userId)
-      
+
       // console.log({
       //   existingUser,
       //   family,
@@ -88,6 +88,7 @@ class UserRepository {
       //   expectation,
       //   personal
       // })
+      await db.disconnect()
 
       return {
         existingUser,

@@ -11,7 +11,16 @@ const Physical = ({ physical }) => {
       <div className={styles.details}>
         <div className={styles.flex}>
           <div className={styles.key}>Height : </div>
-          <div className={styles.value}>{physical.height ? <></> : '--'} </div>
+          <div className={styles.value}>
+            {physical.height ? (
+              <>
+                {' '}
+                {Math.floor(data.height / 12)}&quot;{data.height % 12}&apos;
+              </>
+            ) : (
+              '--'
+            )}{' '}
+          </div>
         </div>
         <div className={styles.flex}>
           <div className={styles.key}>Weight : </div>
