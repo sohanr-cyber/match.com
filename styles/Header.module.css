@@ -19,6 +19,8 @@
     height: 100%;
     width: 100%;
     background-color: rgb(0, 0, 255, 0.2);
+    backdrop-filter: blur(2px);
+
 
 }
 
@@ -31,12 +33,16 @@
 }
 
 .box {
-    background-color: rgb(248, 248, 248);
     padding: 15px;
     border-radius: 5px;
     z-index: 2;
     color: black;
     width: 100%;
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+
 
 
 }
@@ -111,7 +117,9 @@
     border: none;
     height: 100%;
     /* background: rgb(0, 183, 255); */
-    /* color: white; */
+    color: black;
+    background-color: rgb(0, 0, 255, 0.1);
+
 
 }
 
@@ -119,7 +127,7 @@
 .box .flex .searchbyId input::placeholder {
     /* color: white; */
     font-weight: bold;
-    /* color: black; */
+    color: rgb(36, 36, 36);
 
 }
 

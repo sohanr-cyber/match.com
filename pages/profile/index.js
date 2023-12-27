@@ -8,7 +8,7 @@ import BASE_URL from '@/config'
 import Search from '@/components/Search'
 import Pagination from '@/components/Pagination'
 const Profile = ({ data, locationData }) => {
-  const [openfilter, setOpenFilter] = useState(false)
+  const [openfilter, setOpenFilter] = useState(true)
   return (
     <>
       {openfilter && (

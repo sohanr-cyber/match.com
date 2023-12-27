@@ -14,7 +14,6 @@
     "@mui/icons-material": "^5.15.0",
     "@mui/material": "^5.15.0",
     "@next/codemod": "^14.0.4",
-    "@next/font": "14.0.4",
     "axios": "^1.6.2",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",

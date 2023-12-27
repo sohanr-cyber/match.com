@@ -9,8 +9,12 @@
     left: 0;
     right: 0;
     z-index: 3;
-    background: linear-gradient(90deg, rgb(0, 52, 20), green);
-    color: white;
+    /* background: linear-gradient(90deg, rgba(0, 114, 44, 0.2), rgb(8, 201, 8, 0.3)); */
+    /* color: white; */
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(6.5px);
+    -webkit-backdrop-filter: blur(6.5px);
 }
 
 .wrapper .items {

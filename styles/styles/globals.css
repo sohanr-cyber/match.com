@@ -7,7 +7,7 @@
 }
 
 :root {
-  --btn: linear-gradient(45deg, rgb(30, 30, 178), rgb(0, 183, 255));
+  --btn: linear-gradient(45deg, rgb(30, 30, 178, 0.5), rgb(0, 183, 255, 0.5));
 }
 
 html,

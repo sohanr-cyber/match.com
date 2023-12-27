@@ -7,7 +7,10 @@
     max-height: 100vh;
     /* min-width: 180px; */
     overflow-y: scroll;
-
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(6.5px);
+    -webkit-backdrop-filter: blur(6.5px);
 }
 
 
@@ -15,10 +18,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 15px;
+    padding: 15px 15px;
     font-weight: bold;
-    /* background: var(--btn);
-    color: white; */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
 }
 
 .top .close {
@@ -60,11 +64,16 @@
     border: none;
     border-radius: 5px;
 
+
 }
 
 .flex input {
     border: none;
     max-width: 80px;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 3px 6px 0 rgba(31, 38, 135, 0.17);
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
 }
 
 
@@ -95,4 +104,8 @@
     border: none;
     min-width: 110px;
     max-width: 110px;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 3px 6px 0 rgba(31, 38, 135, 0.17);
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
 }

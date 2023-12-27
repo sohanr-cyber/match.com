@@ -3,10 +3,13 @@
     top: 0;
     left: 0;
     z-index: 4;
-    background: aliceblue;
     max-height: 100vh;
-    /* min-width: 180px; */
     overflow-y: scroll;
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(6.5px);
+    -webkit-backdrop-filter: blur(6.5px);
+    background-color: red;
 
 }
 
@@ -56,7 +59,7 @@
 .flex input,
 .flex label {
     margin: 5px 0;
-    padding:  7px;
+    padding: 7px;
     border: none;
     border-radius: 5px;
 
