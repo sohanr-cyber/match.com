@@ -29,25 +29,34 @@ const Introduction = ({ data }) => {
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>Name</div>
-            <div className={styles.value}>{data.name}</div>
+            <div className={styles.value}>{data.name || '--'}</div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>Age</div>
-            <div className={styles.value}>{calculateAge(data.bornAt)}</div>
+            <div className={styles.value}>
+              {data.bornAt ? calculateAge(data.bornAt) : '--'}
+            </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>height</div>
             <div className={styles.value}>
-              {Math.floor(data.height / 12)}&quot;{data.height % 12}&apos;
+              {data.height ? (
+                <>
+                  {' '}
+                  {Math.floor(data.height / 12)}&quot;{data.height % 12}&apos;
+                </>
+              ) : (
+                '--'
+              )}{' '}
             </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>Color</div>
-            <div className={styles.value}>{data.skinColor} </div>
+            <div className={styles.value}>{data.skinColor || '--'} </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>BodyType</div>
-            <div className={styles.value}>{data.bodyType} </div>
+            <div className={styles.value}>{data.bodyType || '---'} </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>Type Of Education:</div>
@@ -60,17 +69,13 @@ const Introduction = ({ data }) => {
           <div className={styles.flex}>
             <div className={styles.key}>Location</div>
             <div className={styles.value}>
-              {data.city} || {data.district} || {data.upazilla}
+              {data.city || '--'} || {data.district || '--'} ||{' '}
+              {data.upazilla || '--'}
             </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>Piety</div>
-            <div className={styles.value}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
-              veniam praesentium similique tempora accusamus cumque consectetur
-              eligendi. Deleniti, aut incidunt deserunt aspernatur recusandae,
-              atque perspiciatis cupiditate earum dolorem id exercitationem?
-            </div>
+            <div className={styles.value}>{data.piety || '--'}</div>
           </div>
         </div>
       </div>
