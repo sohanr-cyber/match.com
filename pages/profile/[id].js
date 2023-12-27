@@ -41,7 +41,7 @@ const ProfileDetails = ({
           <Expectation expectation={expectation} />
         </div>
         <div className={styles.right}>
-          <Similar similar={similar} />
+          {/* <Similar similar={similar} /> */}
         </div>
       </div>
       <Footer />
@@ -64,14 +64,14 @@ export async function getServerSideProps ({ query }) {
     }
   }
 
-  const fetchSimilar = async () => {
+  // const fetchSimilar = async () => {
     try {
       const { data } = await axios.get(`${BASE_URL}/api/auth/recent`)
       return data
     } catch (error) {
       console.log(error)
     }
-  }
+  // }
 
   const {
     existingUser: user,
@@ -96,7 +96,7 @@ export async function getServerSideProps ({ query }) {
       expectation,
       personal,
       family,
-      similar
+      // similar
     }
   }
 }
