@@ -1,7 +1,7 @@
-import nextConnect from "next-connect";
-import User from "@/database/model/User";
-import faker from "faker";
-import db from "@/database/connection";
+import nextConnect from 'next-connect'
+import User from '@/database/model/User'
+import faker from 'faker'
+import db from '@/database/connection'
 import {
   institutes,
   districts,
@@ -14,20 +14,22 @@ import {
   upazillas,
   skinColors,
   bodyTypes,
-  sessions,
-} from "./data";
+  sessions
+} from './data'
+import UserService from '@/services/user-service'
 
-
-const handler = nextConnect();
+const handler = nextConnect()
 handler.get(async (req, res) => {
   try {
-    await db.connect();
-    const user = await User.findOne({ _id: req.query.id });
-    await db.disconnect();
-    return res.status(200).json(user);
-  } catch (error) {
-    return res.status(500).json({ error: "Internal Server Error" });
-  }
-});
+    console.log('runnign')
+    await db.connect()
+    const service = new UserService()
+    const user = await service.FindUserProfileById(req.query.id)
 
-export default handler;
+    return res.status(200).send(user)
+  } catch (error) {
+    return res.status(500).json({ error: 'Internal Server Error' })
+  }
+})
+
+export default handler

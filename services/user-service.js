@@ -61,6 +61,12 @@ class UserService {
     }
   }
 
+  async FindUserProfileById (userId) {
+    const existingUser = await this.repository.FindUserProfileById(userId)
+    console.log({ existingUser })
+    return existingUser
+  }
+
   async UpdateUser (userInputs) {
     const { email, password, ...DataToUpdate } = userInputs
     const existingUser = await this.repository.UpdateUser(DataToUpdate)

@@ -18,7 +18,11 @@ class FamilyRepository {
     try {
       await db.connect()
       const existingFamily = await Family.findOne({ user: userId })
-      return existingFamily
+      if (existingFamily) {
+        return
+      } else {
+        return {}
+      }
     } catch (error) {
       console.log(error)
     }

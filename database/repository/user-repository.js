@@ -66,11 +66,38 @@ class UserRepository {
     }
   }
 
-  async FindUserFullProfile ({ email }) {
+  async FindUserProfileById (userId) {
     try {
       await db.connect()
-      const existingCustomer = await User.findOne({ email: email })
-      return existingCustomer
+      const existingUser = await User.findOne({ _id: userId })
+      const family = await this.family.FindFamilyByUserId(userId)
+      const address = await this.address.FindAddressByUserId(userId)
+      const religion = await this.religion.FindReligionByUserId(userId)
+      const physical = await this.physical.FindPhysicalByUserId(userId)
+      const education = await this.education.FindEducationByUserId(userId)
+      const expectation = await this.expectation.FindExpectationByUserId(userId)
+      const personal = await this.personal.FindPersonalByUserId(userId)
+      // console.log({
+      //   existingUser,
+      //   family,
+      //   address,
+      //   religion,
+      //   physical,
+      //   education,
+      //   expectation,
+      //   personal
+      // })
+
+      return {
+        existingUser,
+        family,
+        address,
+        religion,
+        physical,
+        education,
+        expectation,
+        personal
+      }
     } catch (error) {
       console.log(error)
     }

@@ -40,7 +40,7 @@ const ValidateSignature = async req => {
 
 const FormateData = data => {
   if (data) {
-    return { data }
+    return data
   } else {
     // throw new Error('Data Not found!')
     console.log({ data })
