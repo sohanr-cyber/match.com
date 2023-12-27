@@ -84,7 +84,7 @@ export async function getServerSideProps ({ query }) {
     family
   } = await fetch()
 
-  const similar = await fetchSimilar()
+  // const similar = await fetchSimilar()
 
   return {
     props: {
