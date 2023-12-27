@@ -18,9 +18,10 @@ class ReligionRepository {
     try {
       await db.connect()
       const existingReligion = await Religion.findOne({ user: userId })
+      console.log({ existingReligion })
       return existingReligion
     } catch (error) {
-      console.log(error)
+      console.log({ error })
       return {
         msg: 'error Occured'
       }
