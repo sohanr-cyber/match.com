@@ -52,42 +52,11 @@ export default ProfileDetails
 
 export async function getServerSideProps ({ query }) {
   const { id } = query
-  console.log({ id })
 
-  const fetch = async () => {
-    try {
-      const { data } = await axios.get(`${BASE_URL}/api/auth/${id}`)
-      return data
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  // const fetchSimilar = async () => {
   try {
-    const { data } = await axios.get(`${BASE_URL}/api/auth/recent`)
-    return data
-  } catch (error) {
-    console.log(error)
-  }
-  // }
-
-  const {
-    existingUser: user,
-    address,
-    religion,
-    physical,
-    education,
-    expectation,
-    personal,
-    family
-  } = await fetch()
-
-  // const similar = await fetchSimilar()
-
-  return {
-    props: {
-      user,
+    const { data } = await axios.get(`${BASE_URL}/api/auth/${id}`)
+    const {
+      existingUser,
       address,
       religion,
       physical,
@@ -95,7 +64,24 @@ export async function getServerSideProps ({ query }) {
       expectation,
       personal,
       family
-      // similar
+    } = data
+
+    return {
+      props: {
+        user: existingUser,
+        address,
+        religion,
+        physical,
+        education,
+        expectation,
+        personal,
+        family
+      }
+    }
+  } catch (error) {
+    console.log(error)
+    return {
+      props: {} // Return an empty props object or handle errors accordingly
     }
   }
 }

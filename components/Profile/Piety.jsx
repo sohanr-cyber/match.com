@@ -11,22 +11,22 @@ const Piety = ({ religion }) => {
       <div className={styles.details}>
         <div className={styles.flex}>
           <div className={styles.key}> Times Your Pray: </div>
-          <div className={styles.value}>{religion.prayer || '--'}</div>
+          <div className={styles.value}>{religion?.prayer || '--'}</div>
         </div>
         <div className={styles.flex}>
           <div className={styles.key}>
             How many Times You Missed prayer a week :{' '}
           </div>
-          <div className={styles.value}>{religion.missingPrayer || '--'} </div>
+          <div className={styles.value}>{religion?.missingPrayer || '--'} </div>
         </div>
         <div className={styles.flex}>
           <div className={styles.key}>Outfit:</div>
-          <div className={styles.value}>{religion.outfit || '--'}</div>
+          <div className={styles.value}>{religion?.outfit || '--'}</div>
         </div>
         <div className={styles.flex}>
           <div className={styles.key}>How is your Recitation Of Quran: </div>
           <div className={styles.value}>
-            {religion.quranRecitation || '--'}{' '}
+            {religion?.quranRecitation || '--'}{' '}
           </div>
         </div>
         <div className={styles.flex}>

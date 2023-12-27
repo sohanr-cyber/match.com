@@ -15,15 +15,15 @@ const Address = ({ address }) => {
         </div>
         <div className={styles.flex}>
           <div className={styles.key}>District : </div>
-          <div className={styles.value}>{address.district || '--'} </div>
+          <div className={styles.value}>{address?.district || '--'} </div>
         </div>
         <div className={styles.flex}>
           <div className={styles.key}>Upazilla : </div>
-          <div className={styles.value}>{address.upazilla || '--'} </div>
+          <div className={styles.value}>{address?.upazilla || '--'} </div>
         </div>
         <div className={styles.flex}>
           <div className={styles.key}>Address : </div>
-          <div className={styles.value}> {address.location || '--'} </div>
+          <div className={styles.value}> {address?.location || '--'} </div>
         </div>
       </div>
     </div>

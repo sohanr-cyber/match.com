@@ -11,20 +11,19 @@ const Family = ({ family }) => {
       <div className={styles.details}>
         <div className={styles.flex}>
           <div className={styles.key}>Father Infomation: </div>
-          <div className={styles.value}> {family.father || '--'} </div>
+          <div className={styles.value}> {family?.father || '--'} </div>
         </div>
         <div className={styles.flex}>
           <div className={styles.key}>Mother Information: </div>
-          <div className={styles.value}> {family.mother || '--'} </div>
+          <div className={styles.value}> {family?.mother || '--'} </div>
         </div>
         <div className={styles.flex}>
           <div className={styles.key}>Sibling Information: </div>
-          <div className={styles.value}>{family.sibling || '--'} </div>
+          <div className={styles.value}>{family?.sibling || '--'} </div>
         </div>
         <div className={styles.flex}>
           <div className={styles.key}>Family Status : </div>
-          <div className={styles.value}>
-            {family.status || "--"} </div>
+          <div className={styles.value}>{family?.status || '--'} </div>
         </div>
       </div>
     </div>

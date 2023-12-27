@@ -40,7 +40,7 @@ const Introduction = ({ data }) => {
           <div className={styles.flex}>
             <div className={styles.key}>height</div>
             <div className={styles.value}>
-              {data.height ? (
+              {data?.height ? (
                 <>
                   {' '}
                   {Math.floor(data.height / 12)}&quot;{data.height % 12}&apos;

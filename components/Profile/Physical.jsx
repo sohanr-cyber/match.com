@@ -12,10 +12,11 @@ const Physical = ({ physical }) => {
         <div className={styles.flex}>
           <div className={styles.key}>Height : </div>
           <div className={styles.value}>
-            {physical.height ? (
+            {physical?.height ? (
               <>
                 {' '}
-                {Math.floor(data.height / 12)}&quot;{data.height % 12}&apos;
+                {Math.floor(physical.height / 12)}&quot;{physical.height % 12}
+                &apos;
               </>
             ) : (
               '--'
@@ -24,23 +25,23 @@ const Physical = ({ physical }) => {
         </div>
         <div className={styles.flex}>
           <div className={styles.key}>Weight : </div>
-          <div className={styles.value}>{physical.weight || '--'} KG </div>
+          <div className={styles.value}>{physical?.weight || '--'} KG </div>
         </div>
         <div className={styles.flex}>
           <div className={styles.key}>Hair Color : </div>
-          <div className={styles.value}>{physical.hair || '--'} </div>
+          <div className={styles.value}>{physical?.hair || '--'} </div>
         </div>
         <div className={styles.flex}>
           <div className={styles.key}>Complextion : </div>
-          <div className={styles.value}>{physical.skinColor || '--'} </div>
+          <div className={styles.value}>{physical?.skinColor || '--'} </div>
         </div>
         <div className={styles.flex}>
           <div className={styles.key}>Body Type : </div>
-          <div className={styles.value}>{physical.bodyType || '--'} </div>
+          <div className={styles.value}>{physical?.bodyType || '--'} </div>
         </div>
         <div className={styles.flex}>
           <div className={styles.key}>Blood Group : </div>
-          <div className={styles.value}>{physical.blood || '--'} </div>
+          <div className={styles.value}>{physical?.blood || '--'} </div>
         </div>
       </div>
     </div>
