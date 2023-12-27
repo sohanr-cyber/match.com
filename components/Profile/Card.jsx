@@ -42,25 +42,34 @@ const Card = ({ user, index }) => {
       <div className={styles.bottom}>
         <div className={styles.flex}>
           <div className={styles.key}>Age:</div>
-          <div className={styles.value}>{calculateAge(user?.bornAt)}</div>
+          <div className={styles.value}>
+            {user?.bornAt ? calculateAge(user?.bornAt) : '--'}
+          </div>
         </div>
         <div className={styles.flex}>
           <div className={styles.key}>Height:</div>
           <div className={styles.value}>
-            {Math.floor(user?.height / 12)}&quot;{user?.height % 12}&apos;
+            {user?.height ? (
+              <>
+                {' '}
+                {Math.floor(user?.height / 12)}&quot;{user?.height % 12}&apos;
+              </>
+            ) : (
+              '--'
+            )}{' '}
           </div>
         </div>
         <div className={styles.flex}>
           <div className={styles.key}>Color:</div>
-          <div className={styles.value}>{user?.skinColor} </div>
+          <div className={styles.value}>{user?.skinColor || '--'} </div>
         </div>
         <div className={styles.flex}>
           <div className={styles.key}>Body:</div>
-          <div className={styles.value}>{user?.bodyType}</div>
+          <div className={styles.value}>{user?.bodyType || '--'}</div>
         </div>
         <div className={styles.flex}>
           <div className={styles.key}>Ocupation:</div>
-          <div className={styles.value}>{user?.profession}</div>
+          <div className={styles.value}>{user?.profession || '--'}</div>
         </div>
 
         <div className={styles.interactions}>

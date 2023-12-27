@@ -1,37 +1,38 @@
-function ageToDateOfBirth(age) {
-  var currentDate = new Date();
-  var currentYear = currentDate.getFullYear();
-  var birthYear = currentYear - age;
+import { ValidateSignature } from './utility/index.js'
 
-  var dateOfBirth = new Date(birthYear, 0, 1);
-  return dateOfBirth.toISOString().split("T")[0]; // Format as YYYY-MM-DD
+function ageToDateOfBirth (age) {
+  var currentDate = new Date()
+  var currentYear = currentDate.getFullYear()
+  var birthYear = currentYear - age
+
+  var dateOfBirth = new Date(birthYear, 0, 1)
+  return dateOfBirth.toISOString().split('T')[0] // Format as YYYY-MM-DD
 }
 
-function calculateAge(dateOfBirth) {
+function calculateAge (dateOfBirth) {
   // Parse the date of birth
-  const dob = new Date(dateOfBirth);
+  const dob = new Date(dateOfBirth)
 
   // Get the current date
-  const currentDate = new Date();
+  const currentDate = new Date()
 
   // Calculate the difference in years
-  let age = currentDate.getFullYear() - dob.getFullYear();
+  let age = currentDate.getFullYear() - dob.getFullYear()
 
   // Check if the birthday has occurred this year or not
-  const currentMonth = currentDate.getMonth();
-  const birthMonth = dob.getMonth();
+  const currentMonth = currentDate.getMonth()
+  const birthMonth = dob.getMonth()
   if (
     currentMonth < birthMonth ||
     (currentMonth === birthMonth && currentDate.getDate() < dob.getDate())
   ) {
-    age--;
+    age--
   }
 
-  return age;
+  return age
 }
 
-
-const transparency = 0.2;
+const transparency = 0.2
 const colorsWithTransparency = [
   `rgba(255, 0, 0, ${transparency})`, // Red with 10% opacity
   `rgba(0, 255, 0, ${transparency})`, // Green with 10% opacity
@@ -52,7 +53,15 @@ const colorsWithTransparency = [
   `rgba(0, 255, 127, ${transparency})`, // Spring Green with 10% opacity
   `rgba(255, 140, 0, ${transparency})`, // Dark Orange with 10% opacity
   `rgba(75, 0, 130, ${transparency})`, // Indigo with 10% opacity
-  `rgba(173, 216, 230, ${transparency})`, // Light Blue with 10% opacity
-];
+  `rgba(173, 216, 230, ${transparency})` // Light Blue with 10% opacity
+]
 
-export { calculateAge, colorsWithTransparency ,ageToDateOfBirth};
+const isAuth = async (req, res, next) => {
+  const isAuthorized = await ValidateSignature(req)
+  if (isAuthorized) {
+    return next()
+  }
+  return res.status(403).json({ message: 'Not Authorized' })
+}
+
+export { calculateAge, colorsWithTransparency, ageToDateOfBirth, isAuth }

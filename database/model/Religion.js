@@ -1,29 +1,31 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
 const religionScheama = mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: 'User',
       required: true,
-      unique: true,
+      unique: true
     },
     outfit: { type: String },
     outfitDate: { type: String },
     mahram: { type: String },
     quranRecitation: {
-      type: String,
+      type: String
     },
     watch: {
-      type: String,
+      type: String
     },
     bornAt: {
-      type: String,
+      type: String
     },
+    prayer: { type: String },
+    missingPrayer:{type:String}
   },
   { timestamps: true }
-);
+)
 
 const Religion =
-  mongoose.models.Religion || mongoose.model("Religion", religionScheama);
-export default Religion;
+  mongoose.models.Religion || mongoose.model('Religion', religionScheama)
+export default Religion

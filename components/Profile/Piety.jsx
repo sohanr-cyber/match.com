@@ -1,7 +1,7 @@
-import React from "react";
-import styles from "../../styles/Profile/Personal.module.css";
+import React from 'react'
+import styles from '../../styles/Profile/Personal.module.css'
 
-const Piety = () => {
+const Piety = ({ religion }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.heading}>
@@ -11,31 +11,30 @@ const Piety = () => {
       <div className={styles.details}>
         <div className={styles.flex}>
           <div className={styles.key}> Times Your Pray: </div>
-          <div className={styles.value}>- </div>
+          <div className={styles.value}>{religion.prayer || '--'}</div>
         </div>
         <div className={styles.flex}>
           <div className={styles.key}>
-            How many Times You Missed prayer a week :{" "}
+            How many Times You Missed prayer a week :{' '}
           </div>
-          <div className={styles.value}>0 </div>
+          <div className={styles.value}>{religion.missingPrayer || '--'} </div>
         </div>
         <div className={styles.flex}>
           <div className={styles.key}>Outfit:</div>
-          <div className={styles.value}>
-            {" "}
-            Borkha , Niqab , covering face , hand , feet{" "}
-          </div>
+          <div className={styles.value}>{religion.outfit || '--'}</div>
         </div>
         <div className={styles.flex}>
           <div className={styles.key}>How is your Recitation Of Quran: </div>
-          <div className={styles.value}> </div>
+          <div className={styles.value}>
+            {religion.quranRecitation || '--'}{' '}
+          </div>
         </div>
         <div className={styles.flex}>
           <div className={styles.key}>
-            write some islamic book you have finished :{" "}
+            write some islamic book you have finished :{' '}
           </div>
           <div className={styles.value}>
-            The Quran and Moon , Gog and Magoog , Tazkiya , Rahitul Makhtum{" "}
+            The Quran and Moon , Gog and Magoog , Tazkiya , Rahitul Makhtum{' '}
           </div>
         </div>
         <div className={styles.flex}>
@@ -46,7 +45,7 @@ const Piety = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Piety;
+export default Piety

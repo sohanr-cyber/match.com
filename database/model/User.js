@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
 const userSchema = mongoose.Schema(
   {
@@ -6,61 +6,64 @@ const userSchema = mongoose.Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String },
     gender: {
-      type: String,
+      type: String
     },
     maritalStatus: {
-      type: String,
+      type: String
     },
 
     city: {
-      type: String,
+      type: String
     },
     district: {
-      type: String,
+      type: String
     },
     upazilla: {
-      type: String,
+      type: String
     },
     educationType: { type: String },
     education: { type: String },
     institute: {
-      type: String,
+      type: String
     },
     session: {
-      type: String,
+      type: String
     },
 
     profession: {
-      type: String,
+      type: String
+    },
+    salt: {
+      type: String
     },
 
     height: {
-      type: Number,
+      type: Number
     },
     skinColor: {
-      type: String,
+      type: String
     },
     bodyType: { type: String },
 
     bornAt: {
-      type: Date,
+      type: Date
     },
     approved: {
       type: Boolean,
-      default: false,
+      default: false
     },
     click: {
-      type: Number,
+      type: Number
     },
     impression: {
-      type: Number,
+      type: Number
     },
     averageMonthlyIncome: {
-      type: Number,
-    },
+      type: Number
+    }
   },
   { timestamps: true }
-);
+)
 
-const User = mongoose.models.User || mongoose.model("User", userSchema);
-export default User;
+const User = mongoose.models.User || mongoose.model('User', userSchema)
+export default User

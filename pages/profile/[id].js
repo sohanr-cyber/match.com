@@ -14,20 +14,31 @@ import Similar from '@/components/Profile/Similar'
 import axios from 'axios'
 import BASE_URL from '@/config'
 
-const ProfileDetails = ({ data, similar }) => {
+const ProfileDetails = ({
+  data,
+  similar,
+  personal,
+  family,
+  expectation,
+  physical,
+  address,
+  education,
+  religion
+}) => {
+  console.log({ address })
   return (
     <>
       <Navbar />
       <div className={styles.wrapper} style={{ minHeight: '100vh' }}>
         <div className={styles.left}>
           <Introduction data={data} />
-          <Personal />
-          <Physical />
-          <Education />
-          <Piety />
-          <Address />
-          <Family />
-          <Expectation />
+          <Personal personal={personal} />
+          <Physical physical={physical} />
+          <Education education={education} />
+          <Piety religion={religion} />
+          <Address address={address} />
+          <Family family={family} />
+          <Expectation expectation={expectation} />
         </div>
         <div className={styles.right}>
           <Similar similar={similar} />
@@ -62,13 +73,60 @@ export async function getServerSideProps ({ query }) {
     }
   }
 
+  const fetchPersonal = async () => {
+    const { data } = await axios.get(`${BASE_URL}/api/personal/${id}`)
+    return data
+  }
+  const fetchFamily = async () => {
+    const { data } = await axios.get(`${BASE_URL}/api/family/${id}`)
+    return data
+  }
+  const fetchEducation = async () => {
+    const { data } = await axios.get(`${BASE_URL}/api/education/${id}`)
+    return data
+  }
+
+  const fetchPhysical = async () => {
+    const { data } = await axios.get(`${BASE_URL}/api/physical/${id}`)
+    return data
+  }
+
+  const fetchAddress = async () => {
+    const { data } = await axios.get(`${BASE_URL}/api/address/${id}`)
+    return data
+  }
+
+  const fetchReligion = async () => {
+    const { data } = await axios.get(`${BASE_URL}/api/family/${id}`)
+    return data
+  }
+
+  const fetchExpectation = async () => {
+    const { data } = await axios.get(`${BASE_URL}/api/expectation/${id}`)
+    return data
+  }
+
   const data = await fetch()
   const similar = await fetchSimilar()
+  const personal = await fetchPersonal()
+  const family = await fetchFamily()
+  const expectation = await fetchExpectation()
+  const physical = await fetchPhysical()
+  const address = await fetchAddress()
+  const religion = await fetchReligion()
+  const education = await fetchEducation()
 
   return {
     props: {
       data,
-      similar // Pass null or handle error scenario
+      similar,
+      personal,
+      family,
+      expectation,
+      physical,
+      address,
+      religion,
+      education
     }
   }
 }

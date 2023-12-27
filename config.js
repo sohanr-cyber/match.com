@@ -1,9 +1,11 @@
-let BASE_URL;
+let BASE_URL
 
-if (process.env.NODE_ENV !== "production") {
-  BASE_URL = "http://localhost:3000";
+if (process.env.NODE_ENV !== 'production') {
+  BASE_URL = 'http://localhost:3000'
 } else {
-  BASE_URL = "https://muslimmatch.vercel.app";
+  BASE_URL = 'https://muslimmatch.vercel.app'
 }
 
-export default BASE_URL;
+const APP_SECRET = process.env.APP_SECRET
+export default BASE_URL
+export { APP_SECRET }
