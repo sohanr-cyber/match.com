@@ -1,13 +1,8 @@
 .container {
-    /* border: 1px solid lightgray; */
     border-radius: 5px;
     max-width: 200px;
     min-width: 200px;
     padding: 10px;
-    /* background: linear-gradient(rgba(55, 0, 60), rgba(255, 0, 242)); */
-    /* background: linear-gradient(skyblue, rgb(0, 0, 0)); */
-    color: rgb(0, 0, 0, 0.8);
-    box-shadow: 1px 2px 1px 1px rgba(0, 0, 0, 0.15);
     cursor: pointer;
     background: rgba(255, 255, 255, 0.25);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
@@ -47,6 +42,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 6px 22px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(6px);
 }
 
 
@@ -68,7 +65,6 @@
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    color: rgb(0, 0, 0, 0.8);
     cursor: pointer;
 }
 
@@ -81,12 +77,7 @@
     margin-left: -5px;
 }
 
-.interactions .likes:hover,
-.interactions .clicks:hover,
-.interactions .dislikes:hover {
-    background-color: white;
 
-}
 
 @media (max-width:570px) {
     .container {

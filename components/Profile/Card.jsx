@@ -25,10 +25,12 @@ const Card = ({ user, index }) => {
           style={
             user?.gender == 'Male'
               ? {
-                  backgroundColor: `${colorsWithTransparency[index]}`
+                  backgroundColor: `${colorsWithTransparency[index]}`,
+                  boxShadow: `0 6px 22px 0 ${colorsWithTransparency[index]})`
                 }
               : {
-                  backgroundColor: `${colorsWithTransparency[index]}`
+                  backgroundColor: `${colorsWithTransparency[index]}`,
+                  boxShadow: `0 6px 22px 0 ${colorsWithTransparency[index]})`
                 }
           }
         >
