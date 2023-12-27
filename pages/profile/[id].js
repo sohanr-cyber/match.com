@@ -22,8 +22,7 @@ const ProfileDetails = ({
   education,
   expectation,
   personal,
-  family,
-  similar
+  family
 }) => {
   console.log({ address })
   return (
@@ -65,12 +64,12 @@ export async function getServerSideProps ({ query }) {
   }
 
   // const fetchSimilar = async () => {
-    try {
-      const { data } = await axios.get(`${BASE_URL}/api/auth/recent`)
-      return data
-    } catch (error) {
-      console.log(error)
-    }
+  try {
+    const { data } = await axios.get(`${BASE_URL}/api/auth/recent`)
+    return data
+  } catch (error) {
+    console.log(error)
+  }
   // }
 
   const {
@@ -95,7 +94,7 @@ export async function getServerSideProps ({ query }) {
       education,
       expectation,
       personal,
-      family,
+      family
       // similar
     }
   }
