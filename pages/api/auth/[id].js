@@ -17,8 +17,8 @@ import {
   sessions,
 } from "./data";
 
-const handler = nextConnect();
 
+const handler = nextConnect();
 handler.get(async (req, res) => {
   try {
     await db.connect();

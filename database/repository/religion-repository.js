@@ -21,6 +21,9 @@ class ReligionRepository {
       return existingReligion
     } catch (error) {
       console.log(error)
+      return {
+        msg: 'error Occured'
+      }
     }
   }
 
