@@ -15,15 +15,15 @@ import axios from 'axios'
 import BASE_URL from '@/config'
 
 const ProfileDetails = ({
-  data,
-  similar,
+  user,
+  address,
+  religion,
+  physical,
+  education,
+  expectation,
   personal,
   family,
-  expectation,
-  physical,
-  address,
-  education,
-  religion
+  similar
 }) => {
   console.log({ address })
   return (
@@ -31,7 +31,7 @@ const ProfileDetails = ({
       <Navbar />
       <div className={styles.wrapper} style={{ minHeight: '100vh' }}>
         <div className={styles.left}>
-          <Introduction data={data} />
+          <Introduction data={user} />
           <Personal personal={personal} />
           <Physical physical={physical} />
           <Education education={education} />
@@ -73,60 +73,30 @@ export async function getServerSideProps ({ query }) {
     }
   }
 
-  const fetchPersonal = async () => {
-    const { data } = await axios.get(`${BASE_URL}/api/personal/${id}`)
-    return data
-  }
-  const fetchFamily = async () => {
-    const { data } = await axios.get(`${BASE_URL}/api/family/${id}`)
-    return data
-  }
-  const fetchEducation = async () => {
-    const { data } = await axios.get(`${BASE_URL}/api/education/${id}`)
-    return data
-  }
+  const {
+    existingUser: user,
+    address,
+    religion,
+    physical,
+    education,
+    expectation,
+    personal,
+    family
+  } = await fetch()
 
-  const fetchPhysical = async () => {
-    const { data } = await axios.get(`${BASE_URL}/api/physical/${id}`)
-    return data
-  }
-
-  const fetchAddress = async () => {
-    const { data } = await axios.get(`${BASE_URL}/api/address/${id}`)
-    return data
-  }
-
-  const fetchReligion = async () => {
-    const { data } = await axios.get(`${BASE_URL}/api/family/${id}`)
-    return data
-  }
-
-  const fetchExpectation = async () => {
-    const { data } = await axios.get(`${BASE_URL}/api/expectation/${id}`)
-    return data
-  }
-
-  const data = await fetch()
   const similar = await fetchSimilar()
-  const personal = await fetchPersonal()
-  const family = await fetchFamily()
-  const expectation = await fetchExpectation()
-  const physical = await fetchPhysical()
-  const address = await fetchAddress()
-  const religion = await fetchReligion()
-  const education = await fetchEducation()
 
   return {
     props: {
-      data,
-      similar,
-      personal,
-      family,
-      expectation,
-      physical,
+      user,
       address,
       religion,
-      education
+      physical,
+      education,
+      expectation,
+      personal,
+      family,
+      similar
     }
   }
 }

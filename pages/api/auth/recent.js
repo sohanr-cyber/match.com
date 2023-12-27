@@ -28,6 +28,7 @@ handler.get(async (req, res) => {
     await db.connect()
     const users = await User.find({}).sort({ _id: -1 }).limit(5).lean()
     res.status(200).json(users)
+    await db.disconnect()
   } catch (error) {
     res.status(400)
   }
