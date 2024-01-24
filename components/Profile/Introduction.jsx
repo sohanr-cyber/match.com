@@ -60,7 +60,7 @@ const Introduction = ({ data }) => {
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>Type Of Education:</div>
-            <div className={styles.value}>{data.educationTypes || '--'}</div>
+            <div className={styles.value}>{data.educationType || '--'}</div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>Ocupation</div>

@@ -1,20 +1,28 @@
-import React, { useState } from "react";
-import styles from "./../styles/Navbar.module.css";
-import Logo from "./utils/Logo";
-import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
-import { useRouter } from "next/router";
+import React, { useEffect, useState } from 'react'
+import styles from './../styles/Navbar.module.css'
+import Logo from './utils/Logo'
+import MenuIcon from '@mui/icons-material/Menu'
+import CloseIcon from '@mui/icons-material/Close'
+import { useRouter } from 'next/router'
+import { useDispatch, useSelector } from 'react-redux'
+import { logout } from '@/redux/userSlice'
 const Navbar = () => {
-  const router = useRouter();
-  const [phone, setPhone] = useState();
-
+  const router = useRouter()
+  const [phone, setPhone] = useState()
+  const userInfo = useSelector(state => state.user.userInfo)
+  const [isClient, setIsClient] = useState(false)
+  const dispatch = useDispatch()
+  
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
   return (
     <div className={styles.wrapper}>
       <div className={styles.logo}>
         <Logo />
       </div>
       <div className={styles.items}>
-        <div className={styles.item} onClick={() => router.push("/")}>
+        <div className={styles.item} onClick={() => router.push('/')}>
           Home
         </div>
         <div className={styles.item}>Search</div>
@@ -22,9 +30,19 @@ const Navbar = () => {
         <div className={styles.item}>Contact Us</div>
       </div>
       <div className={styles.right}>
-        <div className={styles.item} onClick={() => router.push("/login")}>
-          Sign In
-        </div>
+        {isClient && userInfo ? (
+          <div
+            style={{ background: 'red' }}
+            className={styles.item}
+            onClick={() => dispatch(logout())}
+          >
+            Logout
+          </div>
+        ) : (
+          <div className={styles.item} onClick={() => router.push('/login')}>
+            Sign In
+          </div>
+        )}
       </div>
       <div className={styles.menu}>
         <MenuIcon onClick={() => setPhone(true)} />
@@ -47,7 +65,7 @@ const Navbar = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

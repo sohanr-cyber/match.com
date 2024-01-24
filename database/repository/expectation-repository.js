@@ -28,7 +28,7 @@ class ExpectationRepository {
       await db.connect()
 
       const UpdatedExpectation = await Expectation.findOneAndUpdate(
-        { _id: Id },
+        { user: Id },
         {
           ...DataToUpdate
         },

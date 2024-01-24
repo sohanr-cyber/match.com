@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { Inter } from "next/font/google"
+import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import Navbar from '@/components/Navbar'
 import Header from '@/components/Header'
@@ -15,12 +15,10 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home ({ data, recent }) {
   return (
     <>
-      <Navbar />
       <Header data={data} />
       <Steps />
       <RegisterBanner />
       <Recent recent={recent} />
-      <Footer />
       {/* <Search /> */}
     </>
   )
@@ -34,6 +32,7 @@ const fetchData = async () => {
     console.log(error)
   }
 }
+
 const recentUsers = async () => {
   try {
     const { data } = await axios.get(`${BASE_URL}/api/auth/recent`)

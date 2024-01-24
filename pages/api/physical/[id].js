@@ -1,4 +1,5 @@
 import PhysicalService from '@/services/physical-service'
+import { isAuth } from '@/utils'
 import nextConnect from 'next-connect'
 
 const handler = nextConnect()
@@ -14,12 +15,14 @@ handler.get(async (req, res) => {
   }
 })
 
+handler.use(isAuth)
+
 handler.put(async (req, res) => {
   try {
     const service = new PhysicalService()
-    const id = req.query.id
+    const id = req.user._id
 
-    const { data: user } = await service.UpdatePhysical(id, req.body)
+    const user = await service.UpdatePhysical(id, req.body)
     res.status(200).json(user)
   } catch (error) {
     res.status(400)

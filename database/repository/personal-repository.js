@@ -33,7 +33,7 @@ class PersonalRepository {
       await db.connect()
 
       const UpdatePersonal = await Personal.findOneAndUpdate(
-        { _id: Id },
+        { user: Id },
         {
           ...DataToUpdate
         },

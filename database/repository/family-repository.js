@@ -33,7 +33,7 @@ class FamilyRepository {
       await db.connect()
 
       const UpdateFamily = await Family.findOneAndUpdate(
-        { _id: Id },
+        { user: Id },
         {
           ...DataToUpdate
         },

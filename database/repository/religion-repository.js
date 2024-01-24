@@ -33,7 +33,7 @@ class ReligionRepository {
       await db.connect()
 
       const UpdateReligion = await Religion.findOneAndUpdate(
-        { _id: Id },
+        { user: Id },
         {
           ...DataToUpdate
         },

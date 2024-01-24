@@ -17,7 +17,6 @@ const Profile = ({ data, locationData }) => {
           locationData={locationData.data}
         />
       )}
-      <Navbar />
       <div className={styles.wrapper}>
         <div className={styles.flex}>
           <div
@@ -40,7 +39,6 @@ const Profile = ({ data, locationData }) => {
           currentPage={data.currentPage}
         />
       </div>
-      <Footer />
     </>
   )
 }

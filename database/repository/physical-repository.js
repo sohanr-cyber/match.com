@@ -29,7 +29,7 @@ class PhysicalRepository {
       await db.connect()
 
       const UpdatePhysical = await Physical.findOneAndUpdate(
-        { _id: Id },
+        { user: Id },
         {
           ...DataToUpdate
         },

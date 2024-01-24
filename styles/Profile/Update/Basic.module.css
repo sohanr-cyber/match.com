@@ -94,6 +94,20 @@
 }
 
 
+
+.save {
+    background: green;
+    max-width: 120px;
+    text-align: center;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+
+
+
+}
+
 @media (max-width:720px) {
     .field {
         display: flex;

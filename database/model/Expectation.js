@@ -13,11 +13,12 @@ const expectationSchema = mongoose.Schema(
         type: String
       }
     ],
-    minheight: {
+    minHeight: {
       type: Number
     },
     maxHeight: { type: Number },
     educations: [{ type: String }],
+    educationTypes: [{ type: String }],
     meritalStatuses: [{ type: String }],
     skinColors: [
       {
@@ -26,12 +27,8 @@ const expectationSchema = mongoose.Schema(
     ],
     bodyTypes: [{ type: String }],
 
-    bornAtFrom: {
-      type: Date
-    },
-    bornAtTo: {
-      type: Date
-    },
+    minAge: { type: Number },
+    maxAge: { type: Number },
     districts: [{ type: String }],
     description: { type: String }
   },

@@ -15,12 +15,13 @@ const physicalSchema = mongoose.Schema(
     height: {
       type: Number
     },
+
     issue: {
       type: String
     },
     blood: { type: String },
     bodyType: { type: String },
-    bodyColor: { type: String }
+    skinColor: { type: String }
   },
   { timestamps: true }
 )

@@ -42,7 +42,7 @@ class UserService {
       console.log({ existingUser })
       if (existingUser) {
         const validPassword = await ValidatePassword(
-          password,
+          password.toString(),
           existingUser.password,
           existingUser.salt
         )
@@ -55,7 +55,7 @@ class UserService {
         }
       }
 
-      return FormateData(null)
+      return FormateData({ error: 'User Not Found' })
     } catch (error) {
       console.log(error)
     }

@@ -18,12 +18,20 @@ const Family = ({ family }) => {
           <div className={styles.value}> {family?.mother || '--'} </div>
         </div>
         <div className={styles.flex}>
-          <div className={styles.key}>Sibling Information: </div>
-          <div className={styles.value}>{family?.sibling || '--'} </div>
+          <div className={styles.key}>Brother Information: </div>
+          <div className={styles.value}>{family?.brother || '--'} </div>
+        </div>
+        <div className={styles.flex}>
+          <div className={styles.key}>Sister Information: </div>
+          <div className={styles.value}>{family?.brother || '--'} </div>
         </div>
         <div className={styles.flex}>
           <div className={styles.key}>Family Status : </div>
-          <div className={styles.value}>{family?.status || '--'} </div>
+          <div className={styles.value}>{family?.eStatus || '--'} </div>
+        </div>
+        <div className={styles.flex}>
+          <div className={styles.key}>How much they follow religion : </div>
+          <div className={styles.value}>{family?.rStatus || '--'} </div>
         </div>
       </div>
     </div>

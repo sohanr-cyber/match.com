@@ -20,7 +20,8 @@ const familySchema = mongoose.Schema(
 
     eStatus: {
       type: String
-    }
+    },
+    agreement: { type: String }
   },
   { timestamps: true }
 )

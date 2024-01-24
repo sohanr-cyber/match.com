@@ -33,15 +33,25 @@ const Piety = ({ religion }) => {
           <div className={styles.key}>
             write some islamic book you have finished :{' '}
           </div>
-          <div className={styles.value}>
-            The Quran and Moon , Gog and Magoog , Tazkiya , Rahitul Makhtum{' '}
+          <div className={styles.value}>{religion?.books || '---'} </div>
+        </div>
+        <div className={styles.flex}>
+          <div className={styles.key}>
+            write some of your Islamic Scholars:{' '}
           </div>
+          <div className={styles.value}>{religion?.scholars || '---'} </div>
+        </div>
+        <div className={styles.flex}>
+          <div className={styles.key}>Good things about you : </div>
+          <div className={styles.value}>{religion?.piety || '---'} </div>
         </div>
         <div className={styles.flex}>
           <div className={styles.key}>Every Day Deeds: </div>
-          <div className={styles.value}>
-            Reciting Quran , Study Hadidth , Hearing Islamic Lecture
-          </div>
+          <div className={styles.value}>{religion?.deeds || '---'} </div>
+        </div>
+        <div className={styles.flex}>
+          <div className={styles.key}>Tell about your interest , hobby</div>
+          <div className={styles.value}>{religion?.interest || '---'} </div>
         </div>
       </div>
     </div>

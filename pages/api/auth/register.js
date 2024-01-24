@@ -9,7 +9,7 @@ handler.post(async (req, res) => {
     const service = new UserService()
     const { email, password, name } = req.body
 
-    const { data: user } = await service.SignUp({ email, password, name })
+    const user = await service.SignUp({ email, password, name })
     res.status(200).json(user)
   } catch (error) {
     console.log(error)
@@ -22,7 +22,7 @@ handler.put(async (req, res) => {
   try {
     const service = new UserService()
 
-    const { data: user } = await service.UpdateUser({
+    const user = await service.UpdateUser({
       ...req.body,
       _id: req.user._id
     })

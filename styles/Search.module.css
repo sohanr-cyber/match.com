@@ -70,10 +70,7 @@
 .flex input {
     border: none;
     max-width: 80px;
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 3px 6px 0 rgba(31, 38, 135, 0.17);
-    backdrop-filter: blur(1px);
-    -webkit-backdrop-filter: blur(1px);
+
 }
 
 
@@ -106,8 +103,5 @@
     border: none;
     min-width: 110px;
     max-width: 110px;
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 3px 6px 0 rgba(31, 38, 135, 0.17);
-    backdrop-filter: blur(1px);
-    -webkit-backdrop-filter: blur(1px);
+  
 }

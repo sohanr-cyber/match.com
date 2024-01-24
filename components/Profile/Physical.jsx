@@ -25,7 +25,7 @@ const Physical = ({ physical }) => {
         </div>
         <div className={styles.flex}>
           <div className={styles.key}>Weight : </div>
-          <div className={styles.value}>{physical?.weight || '--'} KG </div>
+          <div className={styles.value}>{physical?.mass || '--'} KG </div>
         </div>
         <div className={styles.flex}>
           <div className={styles.key}>Hair Color : </div>

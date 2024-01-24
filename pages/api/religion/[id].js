@@ -20,7 +20,7 @@ handler.put(async (req, res) => {
     const service = new ReligionService()
     const id = req.query.id
 
-    const { data: user } = await service.UpdateReligion(id, req.body)
+    const user= await service.UpdateReligion(id, req.body)
     res.status(200).json(user)
   } catch (error) {
     res.status(400)

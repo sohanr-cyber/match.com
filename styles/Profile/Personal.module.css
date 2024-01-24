@@ -28,6 +28,7 @@
 
 .wrapper .flex .key {
     font-weight: bold;
+    text-transform: capitalize;
 }
 
 @media (max-width:570px) {
@@ -35,7 +36,10 @@
     .wrapper .details,
     .wrapper .heading {
         padding: 15px 15px;
+
     }
+
+
 
 
 }
@@ -46,6 +50,15 @@
 
     .wrapper .details {
         gap: 12px;
+
+
+    }
+
+    .wrapper .details {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-column-gap: 10px;
+        grid-row-gap: 15px;
     }
 
     .wrapper .details .flex {

@@ -94,17 +94,9 @@
     display: flex;
 }
 
-.save {
-    display: inline-block;
-    background-color: green;
-    padding: 5px 10px;
-    border-radius: 5px;
-    color: white;
-    min-width: 100px;
-    margin-right: 0;
-    margin: auto
+.wrapper .submit {
+    color: green
 }
-
 
 @media (max-width:720px) {
     .field {

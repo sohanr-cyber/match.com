@@ -17,11 +17,12 @@ const religionScheama = mongoose.Schema(
     watch: {
       type: String
     },
-    bornAt: {
-      type: String
-    },
+    books: { type: String },
     prayer: { type: String },
-    missingPrayer:{type:String}
+    missingPrayer: { type: String },
+    scholars: { type: String },
+    piety: { type: String },
+    interest: { type: String }
   },
   { timestamps: true }
 )

@@ -7,11 +7,15 @@ handler.post(async (req, res) => {
   try {
     const service = new UserService()
     const { email, password } = req.body
-    const { data: user } = await service.SignIn({
+    const user = await service.SignIn({
       email,
-      password: password.toString()
+      password: password
     })
-    res.status(200).json(user)
+
+    if (user.error) {
+      return res.status(400).send(user)
+    }
+    return res.status(200).json(user)
   } catch (error) {
     res.status(400)
   }

@@ -27,7 +27,6 @@ const ProfileDetails = ({
   console.log({ address })
   return (
     <>
-      <Navbar />
       <div className={styles.wrapper} style={{ minHeight: '100vh' }}>
         <div className={styles.left}>
           <Introduction data={user} />
@@ -43,7 +42,6 @@ const ProfileDetails = ({
           {/* <Similar similar={similar} /> */}
         </div>
       </div>
-      <Footer />
     </>
   )
 }

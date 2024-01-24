@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
 
+::selection {
+  background-color: black;
+  color: rgb(34, 192, 254)
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -49,6 +54,25 @@ a {
   width: 12px;
   backdrop-filter: blur(5px);
 }
+
+
+input,
+select,
+textarea {
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 3px 9px 0 rgba(31, 38, 135, 0.17);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+  font-family: 'Ubuntu', sans-serif;
+
+
+}
+
+
+
+
+
 
 
 @media (max-width:570px) {
