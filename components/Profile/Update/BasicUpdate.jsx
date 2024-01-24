@@ -14,7 +14,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
-import SearchSelector from '@/components/utils/searchSelector'
+import SearchSelector from '@/components/utils/SearchSelector'
 import { StickyNote2Sharp } from '@mui/icons-material'
 
 const Basic = ({ profile, setProfile }) => {
@@ -218,6 +218,60 @@ const Basic = ({ profile, setProfile }) => {
           </div> */}
           <div className={styles.field}>
             <label>Session</label>
+            <select
+              onChange={e =>
+                setProfile({ ...profile, session: e.target.value })
+              }
+            >
+              {sessions.map((item, index) => (
+                <option
+                  value={item}
+                  key={index}
+                  selected={item == profile.session ? true : false}
+                >
+                  {item}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className={styles.field}>
+            <label>City/Division</label>
+            <select
+              onChange={e =>
+                setProfile({ ...profile, session: e.target.value })
+              }
+            >
+              {sessions.map((item, index) => (
+                <option
+                  value={item}
+                  key={index}
+                  selected={item == profile.session ? true : false}
+                >
+                  {item}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className={styles.field}>
+            <label>District</label>
+            <select
+              onChange={e =>
+                setProfile({ ...profile, session: e.target.value })
+              }
+            >
+              {sessions.map((item, index) => (
+                <option
+                  value={item}
+                  key={index}
+                  selected={item == profile.session ? true : false}
+                >
+                  {item}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className={styles.field}>
+            <label>Upazilla</label>
             <select
               onChange={e =>
                 setProfile({ ...profile, session: e.target.value })

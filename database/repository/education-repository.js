@@ -28,7 +28,7 @@ class EducationRepository {
       await db.connect()
 
       const UpdateEducation = await Education.findOneAndUpdate(
-        { _id: Id },
+        { user: Id },
         {
           ...DataToUpdate
         },

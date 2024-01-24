@@ -11,8 +11,11 @@ import {
 } from '@/pages/api/auth/data'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
+import { finishLoading, startLoading } from '@/redux/stateSlice'
+import axios from 'axios'
 
-const Education = ({ data }) => {
+const Education = ({ education: data
+ }) => {
   const [education, setEducation] = useState({ ...data })
   const dispatch = useDispatch()
   const router = useRouter()
@@ -49,16 +52,114 @@ const Education = ({ data }) => {
       <form className={styles.formContainer}>
         <div className={styles.field}>
           <label>Education Type</label>
+          <div className={styles.options}>
+            {educationTypes.map((item, index) => (
+              <span
+                onClick={() =>
+                  setEducation({ ...education, educationType: item })
+                }
+                style={
+                  item == education.educationType
+                    ? {
+                        background: 'blue',
+                        color: 'white'
+                      }
+                    : {}
+                }
+                key={index}
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.field}>
+          <label>Profession</label>
+          <input
+            type='text'
+            value={education.profession}
+            onChange={e =>
+              setEducation({ ...education, profession: e.target.value })
+            }
+          />
+        </div>
+        <div className={styles.field}>
+          <label>Monthly Income</label>
+          <input
+            type='number'
+            value={education.income}
+            onChange={e =>
+              setEducation({ ...education, income: e.target.value })
+            }
+          />
+        </div>
+
+        <div className={styles.field}>
+          <label>SSC(school-date-result)</label>
+          <input
+            type='text'
+            value={education.ssc}
+            onChange={e => setEducation({ ...education, ssc: e.target.value })}
+          />
+        </div>
+        <div className={styles.field}>
+          <label>HSC(college-date-result)</label>
+          <input
+            type='text'
+            value={education.hsc}
+            onChange={e => setEducation({ ...education, hsc: e.target.value })}
+          />
+        </div>
+        <div className={styles.field}>
+          <label>Hons(college/Uni-date-result)</label>
+          <input
+            type='text'
+            value={education.hons}
+            onChange={e => setEducation({ ...education, hons: e.target.value })}
+          />
+        </div>
+        <div className={styles.field}>
+          <label>Master(college/Uni-date-result)</label>
+          <input
+            type='text'
+            value={education.masters}
+            onChange={e =>
+              setEducation({ ...education, masters: e.target.value })
+            }
+          />
+        </div>
+
+        <div className={styles.field}>
+          <label>University</label>
           <select
             onChange={e =>
-              setProfile({ ...profile, educationType: e.target.value })
+              setEducation({ ...education, institute: e.target.value })
             }
           >
-            {educationTypes.map((item, index) => (
+            {institutes.map((item, index) => (
               <option
                 value={item}
                 key={index}
-                selected={item == education.educationType ? true : false}
+                selected={education.institute == item ? true : false}
+              >
+                {item}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className={styles.field}>
+          <label>Session</label>
+          <select
+            onChange={e =>
+              setEducation({ ...education, session: e.target.value })
+            }
+          >
+            {sessions.map((item, index) => (
+              <option
+                value={item}
+                key={index}
+                selected={item == education.session ? true : false}
               >
                 {item}
               </option>
@@ -67,66 +168,29 @@ const Education = ({ data }) => {
         </div>
         <div className={styles.field}>
           <label>Education</label>
-          <select
-            onChange={e =>
-              setProfile({ ...education, education: e.target.value })
-            }
-          >
+          <div className={styles.options}>
             {educationalStatus.map((item, index) => (
-              <option
-                value={item}
+              <span
+                onClick={() => setEducation({ ...education, education: item })}
+                style={
+                  item == education.education
+                    ? {
+                        background: 'blue',
+                        color: 'white'
+                      }
+                    : {}
+                }
                 key={index}
-                selected={item == education.education ? true : false}
               >
                 {item}
-              </option>
+              </span>
             ))}
-          </select>
-        </div>
-        <div className={styles.field}>
-          <label>Profession</label>
-          <input type='text' />
-        </div>
-
-        <div className={styles.field}>
-          <label>SSC(school-date-result)</label>
-          <input type='text' />
-        </div>
-        <div className={styles.field}>
-          <label>HSC(college-date-result)</label>
-          <input type='text' />
-        </div>
-        <div className={styles.field}>
-          <label>Hons(college/Uni-date-result)</label>
-          <input type='text' />
-        </div>
-        <div className={styles.field}>
-          <label>Master(college/Uni-date-result)</label>
-          <input type='text' />
-        </div>
-
-        <div className={styles.field}>
-          <label>University</label>
-          <select name='profession'>
-            {institutes.map((item, index) => (
-              <option value={item} key={index}>
-                {item}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className={styles.field}>
-          <label>Session</label>
-          <select name='profession'>
-            {sessions.map((item, index) => (
-              <option value={item} key={index}>
-                {item}
-              </option>
-            ))}
-          </select>
+          </div>
         </div>
       </form>
-      <div className={styles.save}>Save</div>
+      <div className={styles.save} onClick={() => update()}>
+        Save
+      </div>
     </div>
   )
 }

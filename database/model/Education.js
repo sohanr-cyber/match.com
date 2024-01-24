@@ -15,17 +15,17 @@ const educationSchema = mongoose.Schema(
         end: { type: String }
       }
     ],
+    institute: { type: String },
+    profession: { type: String },
     educationType: { type: String },
-    sscDate: { type: String },
-    sscResult: { type: String },
-    hscDate: { type: String },
-    hscResult: { type: String },
-    honsDate: { type: String },
-    honsResult: { type: String },
-    mastersDate: { type: String },
-    mastersResult: { type: String },
+    ssc: { type: String },
+    hsc: { type: String },
+    hons: { type: String },
+    masters: { type: String },
+    income: { type: Number },
+    education: { type: String },
     current: { type: String },
-    other: { type: String }
+    session: { type: String }
   },
   { timestamps: true }
 )
