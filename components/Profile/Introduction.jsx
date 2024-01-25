@@ -1,12 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '../../styles/Profile/Introuduction.module.css'
 import Image from 'next/image'
 import { calculateAge } from '@/utils'
 import { educationTypes } from '@/pages/api/auth/data'
 import CreateIcon from '@mui/icons-material/Create'
 import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
 const Introduction = ({ data }) => {
   const router = useRouter()
+  const userInfo = useSelector(state => state.user.userInfo)
+
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.flex}>
@@ -21,11 +30,13 @@ const Introduction = ({ data }) => {
         <div className={styles.right}>
           <div className={styles.top}>
             <div className={styles.id}>{data._id}</div>
-            <div className={styles.update}>
-              <CreateIcon
-                onClick={() => router.push(`/profile/update/${data._id}`)}
-              />
-            </div>
+            {isClient && userInfo?.id == router.query.id && (
+              <div className={styles.update}>
+                <CreateIcon
+                  onClick={() => router.push(`/profile/update/${data._id}`)}
+                />
+              </div>
+            )}
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>Name</div>

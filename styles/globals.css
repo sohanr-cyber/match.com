@@ -22,8 +22,10 @@ body {
   overflow-x: hidden;
   /* background-color: rgb(255, 255, 255); */
   font-family: 'Ubuntu', sans-serif;
-  background: linear-gradient(91deg, rgba(0, 126, 236, 0.1), white, rgb(0, 183, 255, 0.1) 50%);
-  color: rgb(0, 0, 0, 0.8)
+  background: linear-gradient(45deg, rgba(0, 126, 236, 0.1), rgb(255, 255, 255, 0.1), rgba(0, 126, 236, 0.1));
+  color: rgb(0, 0, 0, 0.8);
+  max-height: 100vh;
+
 }
 
 

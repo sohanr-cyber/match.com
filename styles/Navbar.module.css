@@ -33,6 +33,11 @@
     cursor: pointer
 }
 
+.item:hover {
+    color: rgb(0, 183, 255);
+    font-weight: bold;
+}
+
 .menu {
     display: none;
     color: rgb(13, 116, 227);

@@ -21,6 +21,7 @@ const userSchema = mongoose.Schema(
     upazilla: {
       type: String
     },
+
     educationType: { type: String },
     education: { type: String },
     institute: {
@@ -60,7 +61,28 @@ const userSchema = mongoose.Schema(
     },
     averageMonthlyIncome: {
       type: Number
-    }
+    },
+    proposalRecieved: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        unique: true
+      }
+    ],
+    proposalSent: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        unique: true
+      }
+    ],
+    proposalAccepted: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        unique: true
+      }
+    ]
   },
   { timestamps: true }
 )

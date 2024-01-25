@@ -54,6 +54,14 @@
     align-items: center;
 }
 
+.link {
+    cursor: pointer;
+}
+
+.link:hover {
+    color: rgb(0, 183, 255);
+    color: green
+}
 
 @media (max-width: 570px) {
     .wrapper {

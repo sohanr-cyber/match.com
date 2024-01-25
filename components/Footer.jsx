@@ -1,9 +1,11 @@
-import React from "react";
-import Logo from "./utils/Logo";
-import styles from "../styles/Footer.module.css";
-import Image from "next/image";
-import CopyrightIcon from "@mui/icons-material/Copyright";
+import React from 'react'
+import Logo from './utils/Logo'
+import styles from '../styles/Footer.module.css'
+import Image from 'next/image'
+import CopyrightIcon from '@mui/icons-material/Copyright'
+import { useRouter } from 'next/router'
 const Footer = () => {
+  const router = useRouter()
   return (
     <>
       <div className={styles.wrapper}>
@@ -19,7 +21,9 @@ const Footer = () => {
         <div className={styles.mid}>
           <h2 className={styles.heading}>Our Site</h2>
           <div className={styles.flex}>
-            <div className={styles.link}>Home</div>
+            <div className={styles.link} onClick={() => router.push('/')}>
+              Home
+            </div>
             <div className={styles.link}>Search</div>
           </div>
           <div className={styles.flex}>
@@ -27,8 +31,18 @@ const Footer = () => {
             <div className={styles.link}>Our Software</div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.link}>Privacy Policy</div>
-            <div className={styles.link}>Terms & conditions</div>
+            <div
+              className={styles.link}
+              onClick={() => router.push('/privacy-policy')}
+            >
+              Privacy Policy
+            </div>
+            <div
+              className={styles.link}
+              onClick={() => router.push('/terms-and-conditions')}
+            >
+              Terms & conditions
+            </div>
           </div>
         </div>
         <div className={styles.right}>
@@ -41,22 +55,22 @@ const Footer = () => {
           </div>
           <div className={styles.social__media__links}>
             <Image
-              src={"https://cdn-icons-png.flaticon.com/128/5968/5968764.png"}
-              width="35"
-              height="35"
-              alt=""
+              src={'https://cdn-icons-png.flaticon.com/128/5968/5968764.png'}
+              width='35'
+              height='35'
+              alt=''
             />
             <Image
-              src={"https://cdn-icons-png.flaticon.com/128/3955/3955024.png"}
-              width="35"
-              height="35"
-              alt=""
+              src={'https://cdn-icons-png.flaticon.com/128/3955/3955024.png'}
+              width='35'
+              height='35'
+              alt=''
             />
             <Image
-              src={"https://cdn-icons-png.flaticon.com/128/733/733585.png"}
-              width="35"
-              height="35"
-              alt=""
+              src={'https://cdn-icons-png.flaticon.com/128/733/733585.png'}
+              width='35'
+              height='35'
+              alt=''
             />
           </div>
         </div>
@@ -66,7 +80,7 @@ const Footer = () => {
         2022 All Rights Reserved
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

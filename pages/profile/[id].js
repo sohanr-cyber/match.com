@@ -13,6 +13,7 @@ import Piety from '@/components/Profile/Piety'
 import Similar from '@/components/Profile/Similar'
 import axios from 'axios'
 import BASE_URL from '@/config'
+import Proposal from '@/components/Activity/Proposal'
 
 const ProfileDetails = ({
   user,
@@ -30,6 +31,7 @@ const ProfileDetails = ({
       <div className={styles.wrapper} style={{ minHeight: '100vh' }}>
         <div className={styles.left}>
           <Introduction data={user} />
+          <Proposal />
           <Personal personal={personal} />
           <Physical physical={physical} />
           <Education education={education} />
