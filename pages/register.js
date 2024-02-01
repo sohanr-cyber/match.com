@@ -50,7 +50,6 @@ const Login = () => {
 
   return (
     <>
-      <Navbar />
       <div className={styles.wrapper}>
         <div className={styles.logo}>
           <Logo />
@@ -96,7 +95,6 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   )
 }

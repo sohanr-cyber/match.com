@@ -45,7 +45,6 @@ const Login = () => {
   }
   return (
     <>
-      <Navbar />
       <div className={styles.wrapper}>
         <div className={styles.logo}>
           <Logo />

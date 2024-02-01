@@ -9,6 +9,23 @@ import {
   FormateData
 } from '@/utility/index'
 
+function hideSensitiveInformation (userObject) {
+  // Clone the existing user object to avoid modifying the original
+  const newUserObject = JSON.parse(JSON.stringify(userObject))
+
+  // Hide sensitive information in 'existingUser'
+  delete newUserObject.existingUser.name
+  delete newUserObject.existingUser.email
+  // delete newUserObject.existingUser.savedIds
+  // delete newUserObject.existingUser.saverIds
+
+  // Hide sensitive information in 'personal'
+  delete newUserObject.personal.firstName
+  delete newUserObject.personal.lastName
+
+  return newUserObject
+}
+
 class UserService {
   constructor () {
     this.repository = new UserRepository()
@@ -70,8 +87,8 @@ class UserService {
 
   async FindUserProfileById (userId) {
     const existingUser = await this.repository.FindUserProfileById(userId)
-    console.log({ existingUser })
-    return existingUser
+    // console.log({ existingUser })
+    return hideSensitiveInformation(existingUser)
   }
 
   async UpdateUser (userInputs) {

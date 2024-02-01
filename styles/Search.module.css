@@ -8,9 +8,10 @@
     /* min-width: 180px; */
     overflow-y: scroll;
     background: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    /* box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); */
     backdrop-filter: blur(6.5px);
-    -webkit-backdrop-filter: blur(6.5px);
+    border-right: 1px solid rgba(31, 38, 135, 0.37);
+
 }
 
 
@@ -103,5 +104,5 @@
     border: none;
     min-width: 110px;
     max-width: 110px;
-  
+
 }
