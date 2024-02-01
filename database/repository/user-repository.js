@@ -119,6 +119,84 @@ class UserRepository {
     }
   }
 
+  // request from saverId to savedId
+  // saverId(req.user._id) = who have saved this profile Id
+  // savedId = what i have saved (profile user goonaa save)
+  async UpdateSavedUser (saverId, savedId) {
+    try {
+      await db.connect()
+
+      // Update the savedUser
+      const staredUser = await User.findOne({ _id: savedId })
+      if (!staredUser.saverIds?.includes(saverId)) {
+        staredUser.saverIds?.push(saverId)
+        await staredUser.save()
+      } else {
+        staredUser.saverIds?.pull(saverId)
+        await staredUser.save()
+      }
+
+      // Update the requesting user
+      const reqUser = await User.findOne({ _id: saverId })
+      if (!reqUser.savedIds?.includes(savedId)) {
+        reqUser.savedIds?.push(savedId)
+        await reqUser.save()
+      } else {
+        reqUser.savedIds?.pull(savedId)
+        await reqUser.save()
+      }
+
+      return {
+        reqUser: { saverIds: reqUser.saverIds, savedIds: reqUser.savedIds },
+        staredUser: {
+          saverIds: staredUser.saverIds,
+          savedIds: staredUser.savedIds
+        }
+      }
+    } catch (error) {
+      console.error(error)
+      // You might want to throw the error or handle it appropriately
+      throw error
+    }
+  }
+
+  async UpdateUserProposal (sender, reciever) {
+    try {
+      await db.connect()
+      const senderUpdated = await User.findOneAndUpdate(
+        { _id: sender },
+        { $push: { proposalSend: sender } },
+        { new: true }
+      )
+
+      const recieverUpdated = await User.findOneAndUpdate(
+        { _id: reciever },
+        { $push: { proposalRecieved: sender } },
+        { new: true }
+      )
+      await db.disconnect()
+      return recieverUpdated
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async RetrieveSavedUsers (UserId) {
+    try {
+      await db.connect()
+      const user = await User.findOne({ _id: UserId })
+        .select('savedIds')
+        .populate({
+          path: 'savedIds',
+          select: '_id height profession'
+        })
+
+      return user
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   async DeleteUserById (id) {
     try {
       await db.connect()

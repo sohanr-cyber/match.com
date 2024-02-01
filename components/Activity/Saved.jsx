@@ -6,18 +6,23 @@ import Card from '../Profile/Card'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 
-const Proposal = () => {
+const Saved = () => {
   const [proposals, setProposals] = useState([])
   const [open, setOpen] = useState(false)
   const userInfo = useSelector(state => state.user.userInfo)
   const router = useRouter()
-  
+
   const recentUsers = async () => {
     try {
       const { data } = await axios.get(
-        `${BASE_URL}/api/proposal?userId=${userInfo.id}`
+        `${BASE_URL}/api/user?UserId=${router.query.id}`,
+        {
+          headers: {
+            Authorization: 'Bearer ' + userInfo.token
+          }
+        }
       )
-      setProposals(data)
+      setProposals(data.savedIds)
     } catch (error) {
       console.log(error)
     }
@@ -25,14 +30,12 @@ const Proposal = () => {
 
   useEffect(() => {
     recentUsers()
-  }, [])
+  }, [router.query.id])
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.heading}>
-        <div className={styles.title}>
-          Proposal Recieved (0{proposals.length || "0"})
-        </div>
+        <div className={styles.title}>Saved Profile (0{proposals.length})</div>
         <div className={styles.toggle} onClick={() => setOpen(prev => !prev)}>
           {open ? '-' : '+'}
         </div>
@@ -42,20 +45,7 @@ const Proposal = () => {
           {proposals?.map((item, index) => (
             <>
               <div className={styles.item}>
-                <Card
-                  user={
-                    router.query.id == item.sender._id
-                      ? item.reciever
-                      : item.sender
-                  }
-                  index={index}
-                />
-                {userInfo.id == router.query.id && (
-                  <div className={styles.action}>
-                    <div className={styles.accept}>Accept</div>
-                    <div className={styles.decline}>Decline</div>
-                  </div>
-                )}
+                <Card user={item} index={index} />
               </div>
             </>
           ))}
@@ -65,4 +55,4 @@ const Proposal = () => {
   )
 }
 
-export default Proposal
+export default Saved

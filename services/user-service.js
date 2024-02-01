@@ -16,7 +16,10 @@ class UserService {
 
   async SignUp (userInputs) {
     const { email, password, name } = userInputs
-
+    const existingUser = await this.repository.FindUser({ email })
+    if (existingUser) {
+      return FormateData({ error: 'Email Already Exist !' })
+    }
     let salt = await GenerateSalt()
     let userPassword = await GeneratePassword(password, salt)
     const existUser = await this.repository.CreateUser({
@@ -39,7 +42,9 @@ class UserService {
       console.log(userInputs)
       const { email, password } = userInputs
       const existingUser = await this.repository.FindUser({ email })
-      console.log({ existingUser })
+      if (!existingUser) {
+        return FormateData({ error: 'User Not Found With This Gmail !' })
+      }
       if (existingUser) {
         const validPassword = await ValidatePassword(
           password.toString(),
@@ -52,6 +57,8 @@ class UserService {
             _id: existingUser._id
           })
           return FormateData({ id: existingUser._id, token })
+        } else {
+          return FormateData({ error: "Password Didn't Match !" })
         }
       }
 
@@ -71,6 +78,24 @@ class UserService {
     const { email, password, ...DataToUpdate } = userInputs
     const existingUser = await this.repository.UpdateUser(DataToUpdate)
     return FormateData(existingUser)
+  }
+  async UpdateUserProposal (sender, reciever) {
+    const existingUser = await this.repository.UpdateUserProposal(
+      sender,
+      reciever
+    )
+    return FormateData(existingUser)
+  }
+
+  async UpdateSavedUser (UserInput) {
+    const { saverId, savedId } = UserInput
+    const result = await this.repository.UpdateSavedUser(saverId, savedId)
+    return result
+  }
+
+  async RetrieveSavedUsers (UserId) {
+    const result = await this.repository.RetrieveSavedUsers(UserId)
+    return result
   }
 }
 

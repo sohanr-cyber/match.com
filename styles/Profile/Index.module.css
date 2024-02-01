@@ -1,7 +1,7 @@
 .wrapper {
     min-height: 100vh;
     padding: 70px 25px;
-
+    width: 100%
 }
 
 .wrapper .flex {

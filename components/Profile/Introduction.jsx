@@ -5,16 +5,51 @@ import { calculateAge } from '@/utils'
 import { educationTypes } from '@/pages/api/auth/data'
 import CreateIcon from '@mui/icons-material/Create'
 import { useRouter } from 'next/router'
-import { useSelector } from 'react-redux'
-const Introduction = ({ data }) => {
+import { useDispatch, useSelector } from 'react-redux'
+import StarBorderIcon from '@mui/icons-material/StarBorder'
+import StarIcon from '@mui/icons-material/Star'
+import axios from 'axios'
+import { finishLoading, startLoading } from '@/redux/stateSlice'
+const Introduction = ({ data: profile }) => {
   const router = useRouter()
   const userInfo = useSelector(state => state.user.userInfo)
-
   const [isClient, setIsClient] = useState(false)
+  const dispatch = useDispatch()
+  const [saverIds, setSaverIds] = useState(profile.saverIds)
 
   useEffect(() => {
     setIsClient(true)
   }, [])
+
+  useEffect(() => {
+    setSaverIds(profile.saverIds)
+  }, [router.query.id])
+
+  const saveProfile = async () => {
+    try {
+      if (!userInfo) {
+        router.push('/login')
+      }
+      dispatch(startLoading())
+      const { data } = await axios.put(
+        '/api/user',
+        {
+          savedId: router.query.id
+        },
+        {
+          headers: {
+            Authorization: 'Bearer ' + userInfo.token
+          }
+        }
+      )
+      setSaverIds(data.staredUser.saverIds)
+
+      dispatch(finishLoading())
+    } catch (error) {
+      dispatch(finishLoading())
+      console.log(error)
+    }
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -29,32 +64,48 @@ const Introduction = ({ data }) => {
         </div>
         <div className={styles.right}>
           <div className={styles.top}>
-            <div className={styles.id}>{data._id}</div>
-            {isClient && userInfo?.id == router.query.id && (
-              <div className={styles.update}>
-                <CreateIcon
-                  onClick={() => router.push(`/profile/update/${data._id}`)}
-                />
+            <div className={styles.id}>{profile._id}</div>
+            {isClient && (
+              <div className={styles.action}>
+                {router.query.id != userInfo?.id && (
+                  <div className={styles.icon} onClick={() => saveProfile()}>
+                    {saverIds?.find(i => i == userInfo?.id) ? (
+                      <StarIcon />
+                    ) : (
+                      <StarBorderIcon />
+                    )}
+                  </div>
+                )}
+                {userInfo?.id == router.query.id && (
+                  <div className={styles.icon}>
+                    <CreateIcon
+                      onClick={() =>
+                        router.push(`/profile/update/${profile._id}`)
+                      }
+                    />
+                  </div>
+                )}
               </div>
             )}
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>Name</div>
-            <div className={styles.value}>{data.name || '--'}</div>
+            <div className={styles.value}>{profile.name || '--'}</div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>Age</div>
             <div className={styles.value}>
-              {data.bornAt ? calculateAge(data.bornAt) : '--'}
+              {profile.bornAt ? calculateAge(profile.bornAt) : '--'}
             </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>height</div>
             <div className={styles.value}>
-              {data?.height ? (
+              {profile?.height ? (
                 <>
                   {' '}
-                  {Math.floor(data.height / 12)}&quot;{data.height % 12}&apos;
+                  {Math.floor(profile.height / 12)}&quot;{profile.height % 12}
+                  &apos;
                 </>
               ) : (
                 '--'
@@ -63,30 +114,30 @@ const Introduction = ({ data }) => {
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>Color</div>
-            <div className={styles.value}>{data.skinColor || '--'} </div>
+            <div className={styles.value}>{profile.skinColor || '--'} </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>BodyType</div>
-            <div className={styles.value}>{data.bodyType || '---'} </div>
+            <div className={styles.value}>{profile.bodyType || '---'} </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>Type Of Education:</div>
-            <div className={styles.value}>{data.educationType || '--'}</div>
+            <div className={styles.value}>{profile.educationType || '--'}</div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>Ocupation</div>
-            <div className={styles.value}>{data.profession || '--'}</div>
+            <div className={styles.value}>{profile.profession || '--'}</div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>Location</div>
             <div className={styles.value}>
-              {data.city || '--'} || {data.district || '--'} ||{' '}
-              {data.upazilla || '--'}
+              {profile.city || '--'} || {profile.district || '--'} ||{' '}
+              {profile.upazilla || '--'}
             </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>Piety</div>
-            <div className={styles.value}>{data.piety || '--'}</div>
+            <div className={styles.value}>{profile.piety || '--'}</div>
           </div>
         </div>
       </div>

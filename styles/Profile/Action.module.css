@@ -1,0 +1,20 @@
+.wrapper {
+    padding: 15px 25px;
+
+}
+
+.wrapper .flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+
+.wrapper .flex .item {
+    background: var(--btn);
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}

@@ -37,11 +37,11 @@ const Update = ({
       />
       <Education education={{ ...education }} />
       <Physical physical={{ ...physical }} />
-
       <Religion religion={religion} />
       <Address address={address} />
       <Family family={family} />
       <Expectation expectation={expectation} />
+      
     </>
   )
 }

@@ -12,7 +12,7 @@ const Navbar = () => {
   const userInfo = useSelector(state => state.user.userInfo)
   const [isClient, setIsClient] = useState(false)
   const dispatch = useDispatch()
-  
+
   useEffect(() => {
     setIsClient(true)
   }, [])
@@ -28,6 +28,14 @@ const Navbar = () => {
         <div className={styles.item}>Search</div>
         <div className={styles.item}>Plans</div>
         <div className={styles.item}>Contact Us</div>
+        {isClient && userInfo && (
+          <div
+            className={styles.item}
+            onClick={() => router.push(`/profile/${userInfo.id}`)}
+          >
+            Profile
+          </div>
+        )}
       </div>
       <div className={styles.right}>
         {isClient && userInfo ? (

@@ -14,9 +14,11 @@ const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const dispatch = useDispatch()
+  const [error, setError] = useState('')
 
   const Login = async () => {
     if (!email || !password) {
+      setError('Fill All The Field Correctly ')
       return
     }
     dispatch(startLoading())
@@ -26,7 +28,10 @@ const Login = () => {
         password
       })
 
-      if (data) {
+      if (data.error) {
+        setError(data.error)
+      }
+      if (!data.error) {
         console.log(data)
         router.push(`/profile/${data.id}`)
         dispatch(login(data))
@@ -34,7 +39,7 @@ const Login = () => {
       dispatch(finishLoading())
     } catch (error) {
       dispatch(finishLoading())
-
+      setError('Something Went Wrong !')
       console.log(error)
     }
   }
@@ -73,13 +78,15 @@ const Login = () => {
               value={password}
               onChange={e => setPassword(e.target.value)}
             />
+            {error && (
+              <div style={{ color: 'red', fontSize: '90%' }}>{error}</div>
+            )}
           </form>
           <div className={styles.btn} onClick={() => Login()}>
             Login
           </div>
         </div>
       </div>
-      <Footer />
     </>
   )
 }

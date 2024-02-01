@@ -1,5 +1,5 @@
 import Personal from '@/components/Profile/Personal'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './../../styles/Profile/Details.module.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -14,6 +14,10 @@ import Similar from '@/components/Profile/Similar'
 import axios from 'axios'
 import BASE_URL from '@/config'
 import Proposal from '@/components/Activity/Proposal'
+import Action from '@/components/Activity/Action'
+import Saved from '@/components/Activity/Saved'
+import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
 
 const ProfileDetails = ({
   user,
@@ -26,12 +30,20 @@ const ProfileDetails = ({
   family
 }) => {
   console.log({ address })
+  const userInfo = useSelector(state => state.user.userInfo)
+  const router = useRouter()
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
   return (
     <>
       <div className={styles.wrapper} style={{ minHeight: '100vh' }}>
         <div className={styles.left}>
           <Introduction data={user} />
-          <Proposal />
+          {isClient && router.query.id == userInfo?.id && <Proposal />}
           <Personal personal={personal} />
           <Physical physical={physical} />
           <Education education={education} />
@@ -39,6 +51,8 @@ const ProfileDetails = ({
           <Address address={address} />
           <Family family={family} />
           <Expectation expectation={expectation} />
+          {isClient && router.query.id == userInfo?.id && <Saved />}
+          <Action user={user} />
         </div>
         <div className={styles.right}>
           {/* <Similar similar={similar} /> */}

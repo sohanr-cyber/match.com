@@ -7,17 +7,23 @@ import Footer from '@/components/Footer'
 import { useDispatch } from 'react-redux'
 import { login } from '@/redux/userSlice'
 import axios from 'axios'
+import { red } from '@mui/material/colors'
+import * as EmailValidator from 'email-validator'
+import { finishLoading, startLoading } from '@/redux/stateSlice'
 const Login = () => {
   const router = useRouter()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const dispatch = useDispatch()
+  const [error, setError] = useState('')
 
   const register = async () => {
-    if (!email || !password || !name) {
+    if (!EmailValidator.validate(email) || !password || !name) {
+      setError('Fill All The Field Correctly !')
       return
     }
+    dispatch(startLoading())
     try {
       const { data } = await axios.post('/api/auth/register', {
         name,
@@ -25,12 +31,19 @@ const Login = () => {
         password
       })
 
-      if (data) {
+      if (data.error) {
+        setError(data.error)
+      }
+
+      if (!data.error) {
         console.log(data)
         router.push(`/profile/${data.id}`)
         dispatch(login(data))
       }
+      dispatch(finishLoading())
     } catch (error) {
+      dispatch(finishLoading())
+      setError('Something Went Wrong !')
       console.log(error)
     }
   }
@@ -74,6 +87,9 @@ const Login = () => {
               value={password}
               onChange={e => setPassword(e.target.value)}
             />
+            {error && (
+              <div style={{ color: 'red', fontSize: '90%' }}>{error}</div>
+            )}
           </form>
           <div className={styles.btn} onClick={() => register()}>
             Signup

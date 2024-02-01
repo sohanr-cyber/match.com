@@ -12,9 +12,6 @@ handler.post(async (req, res) => {
       password: password
     })
 
-    if (user.error) {
-      return res.status(400).send(user)
-    }
     return res.status(200).json(user)
   } catch (error) {
     res.status(400)

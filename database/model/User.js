@@ -82,6 +82,20 @@ const userSchema = mongoose.Schema(
         ref: 'User',
         unique: true
       }
+    ],
+    savedIds: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        unique: true
+      }
+    ],
+    saverIds: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        unique: true
+      }
     ]
   },
   { timestamps: true }
