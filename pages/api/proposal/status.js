@@ -4,13 +4,15 @@ import nextConnect from 'next-connect'
 
 const handler = nextConnect()
 
+// poke
 handler.post(async (req, res) => {
   try {
     const service = new ProposalService()
-    const { sender, reciever, message } = req.body
+    const { sender, message, Id } = req.body
 
-    const user = await service.CreateProposal({ sender, reciever, message })
-    res.status(200).json(user)
+    const data = await service.Pock({ sender, Id, message })
+    console.log({ data })
+    res.status(200).json(data)
   } catch (error) {
     console.log(error)
     res.status(400)
@@ -30,18 +32,16 @@ handler.get(async (req, res) => {
   }
 })
 
-// Accept Proposal
+// Decline Proposal
 handler.use(isAuth)
 handler.put(async (req, res) => {
   try {
-    const { Id, acceptor, sender } = req.body
+    const { Id, sender, reciever } = req.body
     const service = new ProposalService()
 
-    const user = await service.UpdateProposal({
-      Id: req.body.Id,
-      acceptor,
-      sender,
-      status: 'Accepted'
+    const user = await service.DeclineProposal({
+      Id: Id,
+      status: 'Declined'
     })
     res.status(200).json(user)
   } catch (error) {

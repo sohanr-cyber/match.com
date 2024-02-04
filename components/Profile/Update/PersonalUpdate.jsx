@@ -20,9 +20,19 @@ const Basic = ({ personal: data }) => {
   const dispatch = useDispatch()
   const router = useRouter()
   const userInfo = useSelector(state => state.user.userInfo)
-  console.log({personal})
-
+  console.log({ personal })
+  const [error, setError] = useState('')
   const update = async () => {
+    if (
+      !personal.bornAt ||
+      !personal.firstName ||
+      !personal.lastName ||
+      !personal.gender ||
+      !personal.maritalStatus
+    ) {
+      setError('Fill All The Field !')
+      return
+    }
     try {
       dispatch(startLoading())
       const { data } = await axios.put(
@@ -89,39 +99,44 @@ const Basic = ({ personal: data }) => {
 
         <div className={styles.field}>
           <label>Gender</label>
-          <select
-            onChange={e => setPersonal({ ...personal, gender: e.target.value })}
-          >
+          <div className={styles.options}>
             {['Male', 'Female'].map((item, index) => (
-              <option
-                value={item}
+              <span
+                style={
+                  personal.gender == item
+                    ? { background: 'blue', color: 'white' }
+                    : {}
+                }
+                onClick={() => setPersonal({ ...personal, gender: item })}
                 key={index}
-                selected={item == personal.gender ? true : false}
               >
                 {item}
-              </option>
+              </span>
             ))}
-          </select>
+          </div>
         </div>
         <div className={styles.field}>
           <label>Marital Status</label>
-          <select
-            onChange={e =>
-              setPersonal({ ...personal, maritalStatus: e.target.value })
-            }
-          >
-            {maritalStatuses.map((item, index) => (
-              <option
-                value={item}
+          <div className={styles.options}>
+            {[...maritalStatuses].map((item, index) => (
+              <span
+                style={
+                  personal.maritalStatus == item
+                    ? { background: 'blue', color: 'white' }
+                    : {}
+                }
+                onClick={() =>
+                  setPersonal({ ...personal, maritalStatus: item })
+                }
                 key={index}
-                selected={item == personal.maritalStatus ? true : false}
               >
                 {item}
-              </option>
+              </span>
             ))}
-          </select>
+          </div>
         </div>
       </form>
+      {error && <p style={{ fontSize: '80%', color: 'red' }}>{error}</p>}
       <div className={styles.save} onClick={() => update()}>
         Save
       </div>

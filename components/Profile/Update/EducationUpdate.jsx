@@ -14,13 +14,12 @@ import { useRouter } from 'next/router'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
 import axios from 'axios'
 
-const Education = ({ education: data
- }) => {
+const Education = ({ education: data }) => {
   const [education, setEducation] = useState({ ...data })
   const dispatch = useDispatch()
   const router = useRouter()
   const userInfo = useSelector(state => state.user.userInfo)
-
+  const [error, setError] = useState('')
   const update = async () => {
     try {
       dispatch(startLoading())
@@ -188,6 +187,8 @@ const Education = ({ education: data
           </div>
         </div>
       </form>
+      {error && <p style={{ color: 'red', fontSize: '90%' }}>{error}</p>}
+
       <div className={styles.save} onClick={() => update()}>
         Save
       </div>

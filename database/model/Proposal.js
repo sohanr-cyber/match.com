@@ -14,7 +14,9 @@ const proposalSchema = mongoose.Schema(
     },
     status: { type: String, default: 'pending' },
     message: { type: String },
-    resolvedAt: { type: Date }
+    resolvedAt: { type: Date },
+    pockedAt: { type: Date },
+    pokeCount: { type: Number, default: 0 }
   },
   { timestamps: true }
 )

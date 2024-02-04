@@ -38,6 +38,27 @@ const ValidateSignature = async req => {
   }
 }
 
+const ValidateSignatureOptional = async req => {
+  try {
+    const { authorization: signature } = req.headers
+    console.log({ signature })
+    if (signature) {
+      const payload = await jwt.verify(signature.split(' ')[1], APP_SECRET)
+      req.user = payload
+      console.log("from if statement")
+      return true
+    } else {
+      req.user = {}
+      console.log("form else statement")
+      return true
+    }
+
+    console.log('req user', req.user)
+  } catch (error) {
+    console.log(error)
+    return false
+  }
+}
 const FormateData = data => {
   if (data) {
     return data
@@ -53,5 +74,6 @@ export {
   ValidatePassword,
   GenerateSignature,
   ValidateSignature,
-  FormateData
+  FormateData,
+  ValidateSignatureOptional
 }

@@ -20,7 +20,8 @@ const Update = ({
   education,
   expectation,
   personal,
-  family
+  family,
+  locationData
 }) => {
   const [profile, setProfile] = useState({
     ...user,
@@ -29,7 +30,11 @@ const Update = ({
   })
   return (
     <>
-      <Basic profile={profile} setProfile={setProfile} />
+      <Basic
+        profile={profile}
+        setProfile={setProfile}
+        locationData={locationData}
+      />
       <Personal
         personal={{
           ...personal
@@ -41,9 +46,17 @@ const Update = ({
       <Address address={address} />
       <Family family={family} />
       <Expectation expectation={expectation} />
-      
     </>
   )
+}
+
+const fetchData = async () => {
+  try {
+    const { data } = await axios.get('https://bdapis.com/api/v1.1/divisions')
+    return data.data
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 export async function getServerSideProps ({ query }) {
@@ -62,6 +75,8 @@ export async function getServerSideProps ({ query }) {
       family
     } = data
 
+    const locationData = await fetchData()
+
     return {
       props: {
         user: existingUser,
@@ -71,7 +86,8 @@ export async function getServerSideProps ({ query }) {
         education,
         expectation,
         personal,
-        family
+        family,
+        locationData
       }
     }
   } catch (error) {

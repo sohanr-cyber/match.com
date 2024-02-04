@@ -7,7 +7,8 @@ import {
   educationTypes,
   educationalStatus,
   institutes,
-  sessions
+  sessions,
+  maritalStatuses
 } from '@/pages/api/auth/data'
 
 import axios from 'axios'
@@ -17,13 +18,32 @@ import { finishLoading, startLoading } from '@/redux/stateSlice'
 import SearchSelector from '@/components/utils/SearchSelector'
 import { StickyNote2Sharp } from '@mui/icons-material'
 
-const Basic = ({ profile, setProfile }) => {
+const Basic = ({ profile, setProfile, locationData }) => {
   const router = useRouter()
   const userInfo = useSelector(state => state.user.userInfo)
-
+  const [error, setError] = useState('')
+  const [districts, setDistricts] = useState([])
   const dispatch = useDispatch()
 
   const update = async () => {
+    if (
+      !profile.name ||
+      !profile.bornAt ||
+      !profile.profession ||
+      !profile.education ||
+      !profile.skinColor ||
+      !profile.bodyType ||
+      !profile.city ||
+      !profile.district ||
+      !profile.upazilla ||
+      !profile.gender ||
+      !profile.maritalStatus ||
+      !profile.heightFeet ||
+      !profile.heightInches
+    ) {
+      setError('Fill All The Required Field !')
+      return
+    }
     try {
       dispatch(startLoading())
       const { data } = await axios.put(
@@ -48,6 +68,21 @@ const Basic = ({ profile, setProfile }) => {
       console.log(error)
     }
   }
+
+  const fetchDistrict = async city => {
+    try {
+      const { data } = await axios.get(
+        `https://bdapis.com/api/v1.1/division/${city}`
+      )
+      setDistricts(data.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    fetchDistrict(profile.city || locationData[0].division)
+  }, [profile.city])
 
   return (
     <>
@@ -142,7 +177,6 @@ const Basic = ({ profile, setProfile }) => {
           <div className={styles.field}>
             <label>Education</label>
             <div className={styles.options}>
-              {' '}
               {educationalStatus.map((item, index) => (
                 <span
                   style={
@@ -195,7 +229,45 @@ const Basic = ({ profile, setProfile }) => {
             </div>
           </div>
           <div className={styles.field}>
-            <label>University</label>
+            <label>Gender</label>
+            <div className={styles.options}>
+              {['Male', 'Female'].map((item, index) => (
+                <span
+                  style={
+                    profile.gender == item
+                      ? { background: 'blue', color: 'white' }
+                      : {}
+                  }
+                  onClick={() => setProfile({ ...profile, gender: item })}
+                  key={index}
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div className={styles.field}>
+            <label>Marital Status</label>
+            <div className={styles.options}>
+              {[...maritalStatuses].map((item, index) => (
+                <span
+                  style={
+                    profile.maritalStatus == item
+                      ? { background: 'blue', color: 'white' }
+                      : {}
+                  }
+                  onClick={() =>
+                    setProfile({ ...profile, maritalStatus: item })
+                  }
+                  key={index}
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div className={styles.field}>
+            <label>University (Optional)</label>
             <select
               onChange={e =>
                 setProfile({ ...profile, institute: e.target.value })
@@ -217,7 +289,7 @@ const Basic = ({ profile, setProfile }) => {
             <SearchSelector options={institutes} />
           </div> */}
           <div className={styles.field}>
-            <label>Session</label>
+            <label>Session (Optional)</label>
             <select
               onChange={e =>
                 setProfile({ ...profile, session: e.target.value })
@@ -237,17 +309,15 @@ const Basic = ({ profile, setProfile }) => {
           <div className={styles.field}>
             <label>City/Division</label>
             <select
-              onChange={e =>
-                setProfile({ ...profile, session: e.target.value })
-              }
+              className={styles.value}
+              onChange={e => setProfile({ ...profile, city: e.target.value })}
             >
-              {sessions.map((item, index) => (
+              {locationData.map((item, index) => (
                 <option
-                  value={item}
                   key={index}
-                  selected={item == profile.session ? true : false}
+                  selected={profile.city == item.division ? true : false}
                 >
-                  {item}
+                  {item.division}
                 </option>
               ))}
             </select>
@@ -255,17 +325,18 @@ const Basic = ({ profile, setProfile }) => {
           <div className={styles.field}>
             <label>District</label>
             <select
+              className={styles.value}
               onChange={e =>
-                setProfile({ ...profile, session: e.target.value })
+                setProfile({ ...profile, district: e.target.value })
               }
             >
-              {sessions.map((item, index) => (
+              {districts.map((item, index) => (
                 <option
-                  value={item}
                   key={index}
-                  selected={item == profile.session ? true : false}
+                  value={item.district}
+                  selected={item.district == profile.district ? true : false}
                 >
-                  {item}
+                  {item.district}
                 </option>
               ))}
             </select>
@@ -273,22 +344,29 @@ const Basic = ({ profile, setProfile }) => {
           <div className={styles.field}>
             <label>Upazilla</label>
             <select
+              className={styles.value}
               onChange={e =>
-                setProfile({ ...profile, session: e.target.value })
+                setProfile({
+                  ...profile,
+                  upazilla: e.target.value
+                })
               }
             >
-              {sessions.map((item, index) => (
-                <option
-                  value={item}
-                  key={index}
-                  selected={item == profile.session ? true : false}
-                >
-                  {item}
-                </option>
-              ))}
+              {districts
+                .find(i => i.district == profile.district)
+                ?.upazilla.map((item, index) => (
+                  <option
+                    key={index}
+                    value={item}
+                    selected={item == profile.upazilla ? true : false}
+                  >
+                    {item}
+                  </option>
+                ))}
             </select>
           </div>
         </form>
+        {error && <p style={{ color: 'red', fontSize: '90%' }}>{error}</p>}
         <div className={styles.save} onClick={() => update()}>
           Save
         </div>

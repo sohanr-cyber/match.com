@@ -18,6 +18,7 @@ import Action from '@/components/Activity/Action'
 import Saved from '@/components/Activity/Saved'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
+import { parse } from 'cookie'
 
 const ProfileDetails = ({
   user,
@@ -52,7 +53,9 @@ const ProfileDetails = ({
           <Family family={family} />
           <Expectation expectation={expectation} />
           {isClient && router.query.id == userInfo?.id && <Saved />}
-          <Action user={user} />
+          {isClient && router.query.id != userInfo?.id && (
+            <Action user={user} />
+          )}
         </div>
         <div className={styles.right}>
           {/* <Similar similar={similar} /> */}
@@ -64,11 +67,22 @@ const ProfileDetails = ({
 
 export default ProfileDetails
 
-export async function getServerSideProps ({ query }) {
-  const { id } = query
+export async function getServerSideProps (context) {
+  const { id } = context.query
+  const { req } = context
+  const cookies = parse(req.headers.cookie || '')
+  console.log({ cookies })
+  const userInfo = JSON.parse(cookies['userInfo'])
+  console.log({ userInfo })
 
   try {
-    const { data } = await axios.get(`${BASE_URL}/api/auth/${id}`)
+    const { data } = userInfo
+      ? await axios.get(`${BASE_URL}/api/auth/${id}`, {
+          headers: {
+            Authorization: `Bearer ${userInfo?.token}`
+          }
+        })
+      : await axios.get(`${BASE_URL}/api/auth/${id}`)
     const {
       existingUser,
       address,

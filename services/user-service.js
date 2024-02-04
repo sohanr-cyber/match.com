@@ -9,10 +9,17 @@ import {
   FormateData
 } from '@/utility/index'
 
-function hideSensitiveInformation (userObject) {
+function hideSensitiveInformation (userObject, reqUserId) {
   // Clone the existing user object to avoid modifying the original
   const newUserObject = JSON.parse(JSON.stringify(userObject))
-
+  console.log({ reqUserId })
+  if (
+    newUserObject.existingUser.proposalSent?.find(i => reqUserId) ||
+    newUserObject.existingUser.proposalAccepted?.find(i => reqUserId) ||
+    newUserObject.existingUser._id == reqUserId
+  ) {
+    return newUserObject
+  }
   // Hide sensitive information in 'existingUser'
   delete newUserObject.existingUser.name
   delete newUserObject.existingUser.email
@@ -85,10 +92,9 @@ class UserService {
     }
   }
 
-  async FindUserProfileById (userId) {
+  async FindUserProfileById (userId, reqUserId) {
     const existingUser = await this.repository.FindUserProfileById(userId)
-    // console.log({ existingUser })
-    return hideSensitiveInformation(existingUser)
+    return hideSensitiveInformation(existingUser, reqUserId)
   }
 
   async UpdateUser (userInputs) {
@@ -96,14 +102,36 @@ class UserService {
     const existingUser = await this.repository.UpdateUser(DataToUpdate)
     return FormateData(existingUser)
   }
-  async UpdateUserProposal (sender, reciever) {
-    const existingUser = await this.repository.UpdateUserProposal(
+  async UpdateUserProposal ({ sender, reciever }) {
+    const existingUser = await this.repository.UpdateUserProposal({
       sender,
       reciever
-    )
+    })
+    return FormateData(existingUser)
+  }
+  async AcceptUserProposal ({ sender, acceptor }) {
+    const existingUser = await this.repository.AcceptUserProposal({
+      sender,
+      acceptor
+    })
     return FormateData(existingUser)
   }
 
+  async DeclineUserProposal ({ sender, acceptor }) {
+    const existingUser = await this.repository.AcceptUserProposal({
+      sender,
+      acceptor
+    })
+    return FormateData(existingUser)
+  }
+
+  async WithdrawUserProposal ({ sender, reciever }) {
+    const existingUsers = await this.repository.WithdrawUserProposal({
+      sender,
+      reciever
+    })
+    return FormateData(existingUsers)
+  }
   async UpdateSavedUser (UserInput) {
     const { saverId, savedId } = UserInput
     const result = await this.repository.UpdateSavedUser(saverId, savedId)

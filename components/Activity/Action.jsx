@@ -10,7 +10,7 @@ const Action = ({ user }) => {
     <div className={styles.wrapper}>
       <div className={styles.flex}>
         <div className={styles.item}>
-          {user?.saverIds.find(i => i == userInfo?.id) ? (
+          {/* {user?.saverIds.find(i => i == userInfo?.id) ? (
             <div className={styles.title} onClick={() => setOpenForm(true)}>
               Proposed
             </div>
@@ -18,7 +18,11 @@ const Action = ({ user }) => {
             <div className={styles.title} onClick={() => setOpenForm(true)}>
               Send Proposal
             </div>
-          )}
+          )} */}
+
+          <div className={styles.title} onClick={() => setOpenForm(true)}>
+            Send Proposal
+          </div>
         </div>
         <div className={styles.item}>
           <div className={styles.title}>Save This Biodata</div>

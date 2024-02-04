@@ -25,7 +25,7 @@ const Basic = ({ expectation: data }) => {
   const dispatch = useDispatch()
   const router = useRouter()
   const userInfo = useSelector(state => state.user.userInfo)
-
+  const [error, setError] = useState('')
   const update = async () => {
     try {
       dispatch(startLoading())
@@ -294,7 +294,8 @@ const Basic = ({ expectation: data }) => {
               }
             ></textarea>
           </div>
-        </form>{' '}
+        </form>
+        {error && <p style={{ color: 'red', fontSize: '90%' }}>{error}</p>}
         <div className={styles.save} onClick={() => update()}>
           Save
         </div>

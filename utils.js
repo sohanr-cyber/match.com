@@ -1,4 +1,4 @@
-import { ValidateSignature } from './utility/index.js'
+import { ValidateSignature, ValidateSignatureOptional } from './utility/index.js'
 
 function ageToDateOfBirth (age) {
   var currentDate = new Date()
@@ -64,4 +64,17 @@ const isAuth = async (req, res, next) => {
   return res.status(403).json({ message: 'Not Authorized' })
 }
 
-export { calculateAge, colorsWithTransparency, ageToDateOfBirth, isAuth }
+const isAuthOptional = async (req, res, next) => {
+  const isAuthorized = await ValidateSignatureOptional(req)
+  if (isAuthorized) {
+    return next()
+  }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+  return res.status(403).json({ message: 'Not Authorized' })
+}
+export {
+  calculateAge,
+  colorsWithTransparency,
+  ageToDateOfBirth,
+  isAuth,
+  isAuthOptional
+}

@@ -15,14 +15,14 @@ const Introduction = ({ data: profile }) => {
   const userInfo = useSelector(state => state.user.userInfo)
   const [isClient, setIsClient] = useState(false)
   const dispatch = useDispatch()
-  const [saverIds, setSaverIds] = useState(profile.saverIds)
+  const [saverIds, setSaverIds] = useState(profile?.saverIds)
 
   useEffect(() => {
     setIsClient(true)
   }, [])
 
   useEffect(() => {
-    setSaverIds(profile.saverIds)
+    setSaverIds(profile?.saverIds)
   }, [router.query.id])
 
   const saveProfile = async () => {
@@ -64,7 +64,7 @@ const Introduction = ({ data: profile }) => {
         </div>
         <div className={styles.right}>
           <div className={styles.top}>
-            <div className={styles.id}>{profile._id}</div>
+            <div className={styles.id}>{profile?._id}</div>
             {isClient && (
               <div className={styles.action}>
                 {router.query.id != userInfo?.id && (
@@ -90,12 +90,12 @@ const Introduction = ({ data: profile }) => {
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>Name</div>
-            <div className={styles.value}>{profile.name || '--'}</div>
+            <div className={styles.value}>{profile?.name || '--'}</div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>Age</div>
             <div className={styles.value}>
-              {profile.bornAt ? calculateAge(profile.bornAt) : '--'}
+              {profile?.bornAt ? calculateAge(profile?.bornAt) : '--'}
             </div>
           </div>
           <div className={styles.flex}>
@@ -114,30 +114,30 @@ const Introduction = ({ data: profile }) => {
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>Color</div>
-            <div className={styles.value}>{profile.skinColor || '--'} </div>
+            <div className={styles.value}>{profile?.skinColor || '--'} </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>BodyType</div>
-            <div className={styles.value}>{profile.bodyType || '---'} </div>
+            <div className={styles.value}>{profile?.bodyType || '---'} </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>Type Of Education:</div>
-            <div className={styles.value}>{profile.educationType || '--'}</div>
+            <div className={styles.value}>{profile?.educationType || '--'}</div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>Ocupation</div>
-            <div className={styles.value}>{profile.profession || '--'}</div>
+            <div className={styles.value}>{profile?.profession || '--'}</div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>Location</div>
             <div className={styles.value}>
-              {profile.city || '--'} || {profile.district || '--'} ||{' '}
-              {profile.upazilla || '--'}
+              {profile?.city || '--'} || {profile?.district || '--'} ||{' '}
+              {profile?.upazilla || '--'}
             </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>Piety</div>
-            <div className={styles.value}>{profile.piety || '--'}</div>
+            <div className={styles.value}>{profile?.piety || '--'}</div>
           </div>
         </div>
       </div>

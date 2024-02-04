@@ -69,7 +69,13 @@ class UserRepository {
   async FindUserProfileById (userId) {
     try {
       await db.connect()
-      const existingUser = await User.findOne({ _id: userId })
+      const existingUser = await User.findOne(
+        { _id: userId },
+        {
+          password: 0,
+          salt: 0
+        }
+      )
       const family = await this.family.FindFamilyByUserId(userId)
       const address = await this.address.FindAddressByUserId(userId)
       const religion = await this.religion.FindReligionByUserId(userId)
@@ -160,12 +166,13 @@ class UserRepository {
     }
   }
 
-  async UpdateUserProposal (sender, reciever) {
+  // sending - recieving proposal
+  async UpdateUserProposal ({ sender, reciever }) {
     try {
       await db.connect()
       const senderUpdated = await User.findOneAndUpdate(
         { _id: sender },
-        { $push: { proposalSend: sender } },
+        { $push: { proposalSent: reciever } },
         { new: true }
       )
 
@@ -175,7 +182,75 @@ class UserRepository {
         { new: true }
       )
       await db.disconnect()
-      return recieverUpdated
+      return { senderUpdated, recieverUpdated }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async AcceptUserProposal ({ acceptor, sender }) {
+    try {
+      await db.connect()
+      const updated = await User.findOneAndUpdate(
+        { _id: acceptor },
+        { $push: { proposalAccepted: sender } },
+        { new: true }
+      )
+      await db.disconnect()
+      console.log({ updated })
+      return updated
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async DeclineUserProposal ({ acceptor, sender }) {
+    try {
+      await db.connect()
+      const updated = await User.findOneAndUpdate(
+        { _id: acceptor },
+        { $pull: { proposalAccepted: sender } },
+        { new: true }
+      )
+      await db.disconnect()
+      console.log({ updated })
+      return updated
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async WithdrawUserProposal ({ reciever, sender }) {
+    try {
+      await db.connect()
+      const updatedSender = await User.findOneAndUpdate(
+        { _id: sender },
+        { $pull: { proposalSent: reciever } },
+        { new: true }
+      )
+
+      const updatedReciever = await User.findOneAndUpdate(
+        {
+          _id: reciever
+        },
+        {
+          $pull: {
+            proposalRecieved: sender
+          }
+        },
+        {
+          new: true
+        }
+      )
+      console.log({
+        updatedReciever,
+        updatedSender
+      })
+      await db.disconnect()
+      return {
+        updatedReciever,
+        updatedSender
+      }
     } catch (error) {
       console.log(error)
     }

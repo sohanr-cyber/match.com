@@ -43,21 +43,33 @@ class ProposalRepository {
     }
   }
 
-  async FindAllProposals () {}
+  async FindProposalById (Id) {
+    try {
+      await db.connect()
+      const existingProposal = await Proposal.findOne({ _id: Id })
+      await db.disconnect()
+      return existingProposal
+    } catch (error) {
+      console.log({ error })
+      return {
+        error: 'error Occured'
+      }
+    }
+  }
 
-  async UpdateProposal (Id, DataToUpdate) {
+  async UpdateProposal ({ Id, status }) {
     try {
       await db.connect()
 
       const UpdateProposal = await Proposal.findOneAndUpdate(
-        { user: Id },
-        {
-          ...DataToUpdate
-        },
+        { _id: Id },
+        { status, resolvedAt: new Date() },
         {
           new: true
         }
       )
+      await db.disconnect()
+
       if (UpdateProposal) {
         return UpdateProposal
       } else {
@@ -68,10 +80,36 @@ class ProposalRepository {
     }
   }
 
+  async UpdatePoke (Id) {
+    try {
+      const existing = await Proposal.findOne({ _id: Id })
+        .populate(
+          'sender',
+          '_id , name  , email , gender , profession ,  height ,skinColor '
+        ) // Replace 'username' with the fields you want to populate for sender
+        .populate(
+          'reciever',
+          '_id , name  , email , gender , profession ,  height ,skinColor '
+        ) // Replace 'username' with the fields you want to populate for receiver
+        .exec()
+      if (existing.pokeCount > 3) {
+        return {
+          error: 'You have reached maximum pock '
+        }
+      } else {
+        existing.pokeCount += 1
+        await existing.save()
+        return existing
+      }
+    } catch (error) {
+      return { error: 'error occured' }
+    }
+  }
+
   async DeleteProposalById (id) {
     try {
       await db.connect()
-      const deletedProposal = await Proposal.findByIdAndRemove({ _id: id })
+      const deletedProposal = await Proposal.findOneAndDelete({ _id: id })
       return deletedProposal
     } catch (error) {
       console.log(error)

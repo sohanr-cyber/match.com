@@ -17,14 +17,16 @@ import {
   sessions
 } from './data'
 import UserService from '@/services/user-service'
+import { isAuth, isAuthOptional } from '@/utils'
 
 const handler = nextConnect()
+handler.use(isAuthOptional)
 handler.get(async (req, res) => {
   try {
-    console.log('runnign')
     await db.connect()
     const service = new UserService()
-    const user = await service.FindUserProfileById(req.query.id)
+    console.log(req.user._id, 'api')
+    const user = await service.FindUserProfileById(req.query.id, req.user?._id)
 
     return res.status(200).send(user)
   } catch (error) {
