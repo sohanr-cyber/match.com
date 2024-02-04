@@ -72,14 +72,13 @@ export async function getServerSideProps (context) {
   const { req } = context
   const cookies = parse(req.headers.cookie || '')
   console.log({ cookies })
-  const userInfo = JSON.parse(cookies['userInfo'])
-  console.log({ userInfo })
+  const userInfo = cookies['userInfo']
 
   try {
     const { data } = userInfo
       ? await axios.get(`${BASE_URL}/api/auth/${id}`, {
           headers: {
-            Authorization: `Bearer ${userInfo?.token}`
+            Authorization: `Bearer ${JSON.parse(userInfo)?.token}`
           }
         })
       : await axios.get(`${BASE_URL}/api/auth/${id}`)
