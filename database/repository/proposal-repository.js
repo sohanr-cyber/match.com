@@ -4,10 +4,14 @@ import Proposal from '../model/Proposal'
 class ProposalRepository {
   async CreateProposal (DataToCreate) {
     try {
+      await db.connect()
+
       const instance = new Proposal({
         ...DataToCreate
       })
       const instanceResult = await instance.save()
+      await db.disconnect()
+
       // Send Mail to reciever
 
       return instanceResult
@@ -82,6 +86,7 @@ class ProposalRepository {
 
   async UpdatePoke (Id) {
     try {
+      await db.connect()
       const existing = await Proposal.findOne({ _id: Id })
         .populate(
           'sender',
@@ -99,6 +104,7 @@ class ProposalRepository {
       } else {
         existing.pokeCount += 1
         await existing.save()
+        await db.disconnect()
         return existing
       }
     } catch (error) {
@@ -110,6 +116,8 @@ class ProposalRepository {
     try {
       await db.connect()
       const deletedProposal = await Proposal.findOneAndDelete({ _id: id })
+      await db.disconnect()
+
       return deletedProposal
     } catch (error) {
       console.log(error)

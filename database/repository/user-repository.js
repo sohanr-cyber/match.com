@@ -84,16 +84,6 @@ class UserRepository {
       const expectation = await this.expectation.FindExpectationByUserId(userId)
       const personal = await this.personal.FindPersonalByUserId(userId)
 
-      // console.log({
-      //   existingUser,
-      //   family,
-      //   address,
-      //   religion,
-      //   physical,
-      //   education,
-      //   expectation,
-      //   personal
-      // })
       await db.disconnect()
 
       return {
@@ -119,6 +109,7 @@ class UserRepository {
         { ...dataToUpdate },
         { new: true }
       )
+      await db.disconnect()
       return existingUser
     } catch (error) {
       console.log(error)
@@ -151,6 +142,7 @@ class UserRepository {
         reqUser.savedIds?.pull(savedId)
         await reqUser.save()
       }
+      await db.disconnect()
 
       return {
         reqUser: { saverIds: reqUser.saverIds, savedIds: reqUser.savedIds },
@@ -265,6 +257,7 @@ class UserRepository {
           path: 'savedIds',
           select: '_id height profession'
         })
+      await db.disconnect()
 
       return user
     } catch (error) {
@@ -276,6 +269,8 @@ class UserRepository {
     try {
       await db.connect()
       const deletedUser = await User.findByIdAndRemove({ _id: id })
+      await db.disconnect()
+
       return deletedUser
     } catch (error) {
       console.log(error)
