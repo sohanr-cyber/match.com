@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
 import axios from 'axios'
+import Moment from 'react-moment/dist'
 
 const Education = ({ education: data }) => {
   const [education, setEducation] = useState({ ...data })
@@ -54,8 +55,15 @@ const Education = ({ education: data }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.heading}>
-        <span className={styles.number}>3</span>
-        <div className={styles.title}>Education & Career</div>
+        <div className={styles.left}>
+          <span>3</span>
+          <div className={styles.title}>Education & Career</div>
+        </div>
+        {education.updatedAt && (
+          <div className={styles.right}>
+            Updated <Moment fromNow>{education.updatedAt}</Moment>
+          </div>
+        )}
       </div>
       <form className={styles.formContainer}>
         <div className={styles.field}>

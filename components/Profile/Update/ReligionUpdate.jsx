@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
+import Moment from 'react-moment/dist'
 
 const Religion = ({ religion: data }) => {
   const [religion, setReligion] = useState({
@@ -49,8 +50,15 @@ const Religion = ({ religion: data }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.heading}>
-        <span className={styles.number}>3</span>
-        <div className={styles.title}>Religion</div>
+        <div className={styles.left}>
+          <span>5</span>
+          <div className={styles.title}>Religion</div>
+        </div>
+        {religion.updatedAt && (
+          <div className={styles.right}>
+            Updated <Moment fromNow>{religion.updatedAt}</Moment>
+          </div>
+        )}
       </div>
       <form className={styles.formContainer}>
         <div className={styles.field}>

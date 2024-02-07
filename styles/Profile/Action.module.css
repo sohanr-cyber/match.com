@@ -12,9 +12,10 @@
 
 
 .wrapper .flex .item {
-    background: var(--btn);
+    /* background: var(--btn); */
     padding: 5px;
     border-radius: 5px;
-    color: white;
+    /* color: white; */
     cursor: pointer;
+    text-align: center;
 }

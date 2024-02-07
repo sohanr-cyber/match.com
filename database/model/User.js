@@ -98,7 +98,8 @@ const userSchema = mongoose.Schema(
         unique: true
       }
     ],
-    categories: [{ type: String }]
+    categories: [{ type: String }],
+    active: { type: Boolean, default: false }
   },
   { timestamps: true }
 )

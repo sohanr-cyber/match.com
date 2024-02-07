@@ -19,6 +19,7 @@ import Saved from '@/components/Activity/Saved'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import { parse } from 'cookie'
+import Activate from '@/components/Profile/Update/Activate'
 
 const ProfileDetails = ({
   user,
@@ -55,6 +56,20 @@ const ProfileDetails = ({
           {isClient && router.query.id == userInfo?.id && <Saved />}
           {isClient && router.query.id != userInfo?.id && (
             <Action user={user} />
+          )}
+          {isClient && router.query.id == userInfo?.id && (
+            <Activate
+              profile={{
+                user,
+                address,
+                religion,
+                physical,
+                education,
+                expectation,
+                personal,
+                family
+              }}
+            />
           )}
         </div>
         <div className={styles.right}>

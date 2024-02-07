@@ -15,6 +15,7 @@ import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
 import { useRouter } from 'next/router'
+import Moment from 'react-moment/dist'
 
 const Basic = ({ locationData, address: data }) => {
   const [districts, setDistricts] = useState([])
@@ -81,8 +82,15 @@ const Basic = ({ locationData, address: data }) => {
       style={{ backgroundColor: 'aliceblue' }}
     >
       <div className={styles.heading}>
-        <span className={styles.number}>5</span>
-        <div className={styles.title}>Address</div>
+        <div className={styles.left}>
+          <span>6</span>
+          <div className={styles.title}>Address</div>
+        </div>
+        {address.updatedAt && (
+          <div className={styles.right}>
+            Updated <Moment fromNow>{address.updatedAt}</Moment>
+          </div>
+        )}
       </div>
       <form className={styles.form__Container}>
         <div className={styles.field}>

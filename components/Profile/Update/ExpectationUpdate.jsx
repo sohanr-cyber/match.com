@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
 import axios from 'axios'
+import Moment from 'react-moment/dist'
 
 const Basic = ({ expectation: data }) => {
   const [expectation, setExpectation] = useState({
@@ -65,8 +66,15 @@ const Basic = ({ expectation: data }) => {
     <>
       <div className={styles.wrapper} style={{ backgroundColor: 'aliceblue' }}>
         <div className={styles.heading}>
-          <span className={styles.number}>7</span>
-          <div className={styles.title}>Your Expectation</div>
+          <div className={styles.left}>
+            <span>6</span>
+            <div className={styles.title}>Expectation</div>
+          </div>
+          {expectation.updatedAt && (
+            <div className={styles.right}>
+              Updated <Moment fromNow>{expectation.updatedAt}</Moment>
+            </div>
+          )}
         </div>
         <form className={styles.formContainer}>
           <div className={styles.field}>

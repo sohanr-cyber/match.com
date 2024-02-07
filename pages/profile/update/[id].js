@@ -12,6 +12,7 @@ import Expectation from '@/components/Profile/Update/ExpectationUpdate'
 import axios from 'axios'
 import BASE_URL from '@/config'
 import { parse } from 'cookie'
+import Activate from '@/components/Profile/Update/Activate'
 
 const Update = ({
   user,
@@ -47,6 +48,18 @@ const Update = ({
       <Address address={address} locationData={locationData} />
       <Family family={family} />
       <Expectation expectation={expectation} />
+      <Activate
+        profile={
+          (user,
+          address,
+          religion,
+          physical,
+          education,
+          expectation,
+          personal,
+          family)
+        }
+      />
     </>
   )
 }

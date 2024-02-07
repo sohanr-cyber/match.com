@@ -32,6 +32,7 @@ const SendProposal = ({ setOpenForm }) => {
       if (data) {
         setOpenForm(false)
         console.log({ data })
+        router.reload()
       }
       dispatch(finishLoading())
     } catch (error) {

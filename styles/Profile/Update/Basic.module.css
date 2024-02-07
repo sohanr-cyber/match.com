@@ -126,6 +126,16 @@
     font-weight: normal
 }
 
+
+.container {
+    border-radius: 5px;
+    padding: 5px;
+}
+
+
+
+
+
 @media (max-width:720px) {
     .field {
         display: flex;
