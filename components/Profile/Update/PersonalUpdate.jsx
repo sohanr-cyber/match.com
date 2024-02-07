@@ -14,6 +14,7 @@ import { finishLoading, startLoading } from '@/redux/stateSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import axios from 'axios'
+import Moment from 'react-moment/dist'
 
 const Basic = ({ personal: data }) => {
   const [personal, setPersonal] = useState({ ...data })
@@ -61,8 +62,15 @@ const Basic = ({ personal: data }) => {
       style={{ backgroundColor: 'aliceblue', paddingTop: '25px' }}
     >
       <div className={styles.heading}>
-        <span className={styles.number}>2</span>
-        <div className={styles.title}>Personal Information</div>
+        <div className={styles.left}>
+          <span>2</span>
+          <div className={styles.title}>Personal Information</div>
+        </div>
+        {personal.updatedAt && (
+          <div className={styles.right}>
+            Updated <Moment fromNow>{personal.updatedAt}</Moment>
+          </div>
+        )}
       </div>
       <form className={styles.formContainer}>
         <div className={styles.field}>

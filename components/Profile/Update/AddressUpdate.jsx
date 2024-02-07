@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '@/styles/Profile/Update/Basic.module.css'
 import {
   professions,
@@ -11,55 +11,156 @@ import {
   maritalStatuses
 } from '@/pages/api/auth/data'
 
-const Basic = () => {
+import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
+import { finishLoading, startLoading } from '@/redux/stateSlice'
+import { useRouter } from 'next/router'
+
+const Basic = ({ locationData, address: data }) => {
+  const [districts, setDistricts] = useState([])
+  const [address, setAddress] = useState({ ...data })
+  const [error, setError] = useState('')
+  const router = useRouter()
+  const dispatch = useDispatch()
+  const userInfo = useSelector(state => state.user.userInfo)
+  const fetchDistrict = async city => {
+    try {
+      const { data } = await axios.get(
+        `https://bdapis.com/api/v1.1/division/${city}`
+      )
+      setDistricts(data.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    fetchDistrict(address.city || locationData[0].division)
+  }, [address.city])
+
+  const update = async () => {
+    if (
+      !address.city ||
+      !address.district ||
+      !address.upazilla ||
+      !address.location
+    ) {
+      setError('Fill All The Required Field !')
+      return
+    }
+    try {
+      setError('')
+      dispatch(startLoading())
+      const { data } = await axios.put(
+        `/api/address/${router.query.id}`,
+        {
+          ...address
+        },
+        {
+          headers: {
+            Authorization: 'Bearer ' + userInfo.token
+          }
+        }
+      )
+
+      if (data) {
+        setAddress({ ...data })
+        dispatch(finishLoading())
+      }
+    } catch (error) {
+      dispatch(finishLoading())
+      setError('Something Went Wrong !')
+      console.log(error)
+    }
+  }
+
   return (
-    <div className={styles.wrapper} style={{ backgroundColor: 'aliceblue' }}>
+    <div
+      Id={'addresss'}
+      className={styles.wrapper}
+      style={{ backgroundColor: 'aliceblue' }}
+    >
       <div className={styles.heading}>
         <span className={styles.number}>5</span>
         <div className={styles.title}>Address</div>
       </div>
       <form className={styles.form__Container}>
         <div className={styles.field}>
-          <label>City</label>
-          <select>
-            {['Dhaka', 'Rangpur', 'Barishal', 'Mymensingh'].map(
-              (item, index) => (
-                <option value={item} key={index}>
-                  {item}
-                </option>
-              )
-            )}
+          <label>City/Division {address.city} </label>
+          <select
+            className={styles.value}
+            onChange={e => setAddress({ ...address, city: e.target.value })}
+          >
+            {[
+              {
+                division: 'Not Selected'
+              },
+              ...locationData
+            ].map((item, index) => (
+              <option
+                key={index}
+                selected={address?.city == item.division ? true : false}
+              >
+                {item.division}
+              </option>
+            ))}
           </select>
         </div>
         <div className={styles.field}>
           <label>District</label>
-          <select>
-            {['All', 'Dhaka', 'Rangpur', 'Barishal', 'Mymensingh'].map(
-              (item, index) => (
-                <option value={item} key={index}>
-                  {item}
-                </option>
-              )
-            )}
+          <select
+            className={styles.value}
+            onChange={e => setAddress({ ...address, district: e.target.value })}
+          >
+            {[{ district: 'Not Selectd' }, ...districts].map((item, index) => (
+              <option
+                key={index}
+                value={item.district}
+                selected={item.district == address.district ? true : false}
+              >
+                {item.district}
+              </option>
+            ))}
           </select>
         </div>
         <div className={styles.field}>
-          <label>Upazilla</label>
-          <select>
-            {['All', 'Dhaka', 'Rangpur', 'Barishal', 'Mymensingh'].map(
-              (item, index) => (
-                <option value={item} key={index}>
+          <label>Upazilla </label>
+          <select
+            className={styles.value}
+            onChange={e =>
+              setAddress({
+                ...address,
+                upazilla: e.target.value
+              })
+            }
+          >
+            <option>Not Selected</option>
+            {districts
+              .find(i => i.district == address.district)
+              ?.upazilla.map((item, index) => (
+                <option
+                  key={index}
+                  value={item}
+                  selected={item == address.upazilla ? true : false}
+                >
                   {item}
                 </option>
-              )
-            )}
+              ))}
           </select>
         </div>
         <div className={styles.field}>
-          <label>Address</label>
-          <input type='text' />
+          <label>Location</label>
+          <input
+            type='text'
+            value={address.location}
+            onChange={e => setAddress({ ...address, location: e.target.value })}
+          />
         </div>
-      </form>
+      </form>{' '}
+      {error && <p style={{ fontSize: '80%', color: 'red' }}>{error}</p>}
+      <div className={styles.save} onClick={() => update()}>
+        Save
+      </div>
     </div>
   )
 }

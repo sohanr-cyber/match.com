@@ -47,7 +47,13 @@ const Basic = ({ expectation: data }) => {
         }
       )
 
-      setExpectation(data)
+      setExpectation({
+        ...data,
+        maxHeightFeet: parseInt(data.maxHeight / 12),
+        maxHeightInches: data.maxHeight % 12,
+        minHeightFeet: parseInt(data.minHeight / 12),
+        minHeightInches: data.minHeight % 12
+      })
       dispatch(finishLoading())
     } catch (error) {
       dispatch(finishLoading())

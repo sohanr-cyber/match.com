@@ -22,9 +22,23 @@ const Religion = ({ family: data }) => {
   const dispatch = useDispatch()
   const router = useRouter()
   const userInfo = useSelector(state => state.user.userInfo)
+  const [error, setError] = useState('')
 
   const update = async () => {
+    if (
+      !family.father ||
+      !family.mother ||
+      !family.brother ||
+      !family.sister ||
+      !family.rStatus ||
+      !family.eStatus ||
+      !family.agreement
+    ) {
+      setError('Fill All The Field')
+      return
+    }
     try {
+      setError('')
       dispatch(startLoading())
       const { data } = await axios.put(
         `/api/family/${router.query.id}`,
@@ -41,6 +55,7 @@ const Religion = ({ family: data }) => {
       setFamily(data)
       dispatch(finishLoading())
     } catch (error) {
+      setError('Something Went Wrong !')
       dispatch(finishLoading())
       console.log(error)
     }
@@ -119,6 +134,7 @@ const Religion = ({ family: data }) => {
           ></textarea>
         </div>
       </form>{' '}
+      {error && <p style={{ color: 'red', fontSize: '90%' }}>{error}</p>}
       <div className={styles.save} onClick={() => update()}>
         Save
       </div>

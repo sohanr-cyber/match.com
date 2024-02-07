@@ -23,9 +23,22 @@ const Basic = ({ physical: data }) => {
   const dispatch = useDispatch()
   const router = useRouter()
   const userInfo = useSelector(state => state.user.userInfo)
-
+  const [error, setError] = useState('')
   const update = async () => {
+    if (
+      !physical.heightFeet ||
+      !physical.heightInches ||
+      !physical.issue ||
+      !physical.skinColor ||
+      !physical.bodyType ||
+      !physical.blood ||
+      !physical.mass
+    ) {
+      setError('Fill All The Field ')
+      return
+    }
     try {
+      setError('')
       dispatch(startLoading())
       const { data } = await axios.put(
         `/api/physical/${router.query.id}`,
@@ -42,10 +55,15 @@ const Basic = ({ physical: data }) => {
         }
       )
       console.log(data)
-      setPhysical(data)
+      setPhysical({
+        ...data,
+        heightFeet: parseInt(data.height / 12),
+        heightInches: data.height % 12
+      })
       dispatch(finishLoading())
     } catch (error) {
       dispatch(finishLoading())
+      setError('Something Went Wrong !')
       console.log(error)
     }
   }
@@ -92,56 +110,67 @@ const Basic = ({ physical: data }) => {
         </div>
         <div className={styles.field}>
           <label>Skin Color</label>
-          <select
-            onChange={e =>
-              setPhysical({ ...physical, skinColor: e.target.value })
-            }
-          >
+          <div className={styles.options}>
             {skinColors.map((item, index) => (
-              <option
-                value={item}
+              <span
+                onClick={() => setPhysical({ ...physical, skinColor: item })}
+                style={
+                  item == physical.skinColor
+                    ? {
+                        background: 'blue',
+                        color: 'white'
+                      }
+                    : {}
+                }
                 key={index}
-                selected={item == physical.skinColor ? true : false}
               >
                 {item}
-              </option>
+              </span>
             ))}
-          </select>
+          </div>
         </div>
 
         <div className={styles.field}>
           <label>Body Type</label>
-          <select
-            onChange={e =>
-              setPhysical({ ...physical, bodyType: e.target.value })
-            }
-          >
+          <div className={styles.options}>
             {bodyTypes.map((item, index) => (
-              <option
-                value={item}
+              <span
+                onClick={() => setPhysical({ ...physical, bodyType: item })}
+                style={
+                  item == physical.bodyType
+                    ? {
+                        background: 'blue',
+                        color: 'white'
+                      }
+                    : {}
+                }
                 key={index}
-                selected={item == physical.bodyType ? true : false}
               >
                 {item}
-              </option>
+              </span>
             ))}
-          </select>
+          </div>
         </div>
         <div className={styles.field}>
           <label>Blood Group</label>
-          <select
-            onChange={e => setPhysical({ ...physical, blood: e.target.value })}
-          >
+          <div className={styles.options}>
             {['O+', 'A+', 'B+', 'AB+', 'A-', 'B-', 'O-'].map((item, index) => (
-              <option
-                value={item}
+              <span
+                onClick={() => setPhysical({ ...physical, blood: item })}
+                style={
+                  item == physical.blood
+                    ? {
+                        background: 'blue',
+                        color: 'white'
+                      }
+                    : {}
+                }
                 key={index}
-                selected={item == physical.bodyType ? true : false}
               >
                 {item}
-              </option>
+              </span>
             ))}
-          </select>
+          </div>
         </div>
         <div className={styles.field}>
           <label>Any Physical Issue ? </label>
@@ -153,6 +182,7 @@ const Basic = ({ physical: data }) => {
           />
         </div>
       </form>
+      {error && <p style={{ color: 'red', fontSize: '90%' }}>{error}</p>}
       <div className={styles.save} onClick={() => update()}>
         Save
       </div>

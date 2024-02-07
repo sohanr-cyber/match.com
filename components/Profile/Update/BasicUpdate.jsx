@@ -16,7 +16,8 @@ import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
 import SearchSelector from '@/components/utils/SearchSelector'
-import { StickyNote2Sharp } from '@mui/icons-material'
+
+import Moment from 'react-moment'
 
 const Basic = ({ profile, setProfile, locationData }) => {
   const router = useRouter()
@@ -31,6 +32,7 @@ const Basic = ({ profile, setProfile, locationData }) => {
       !profile.bornAt ||
       !profile.profession ||
       !profile.education ||
+      !profile.educationType ||
       !profile.skinColor ||
       !profile.bodyType ||
       !profile.city ||
@@ -45,6 +47,7 @@ const Basic = ({ profile, setProfile, locationData }) => {
       return
     }
     try {
+      setError('')
       dispatch(startLoading())
       const { data } = await axios.put(
         '/api/auth/register',
@@ -61,7 +64,11 @@ const Basic = ({ profile, setProfile, locationData }) => {
         }
       )
       console.log(data)
-      setProfile(data)
+      setProfile({
+        ...data,
+        heightFeet: parseInt(data.height / 12),
+        heightInches: data.height % 12
+      })
       dispatch(finishLoading())
     } catch (error) {
       dispatch(finishLoading())
@@ -89,15 +96,22 @@ const Basic = ({ profile, setProfile, locationData }) => {
       <div className={styles.wrapper} style={{ paddingTop: '70px' }}>
         <h2 style={{ marginBottom: '10px' }}>Update Your Profile</h2>
         <div className={styles.heading}>
-          <span className={styles.number}>1</span>
-          <div className={styles.title}>Basic Information</div>
+          <div className={styles.left}>
+            <span>1</span>
+            <div className={styles.title}>Basic Information</div>
+          </div>
+          {profile.updatedAt && (
+            <div className={styles.right}>
+              Updated <Moment fromNow>{profile.updatedAt}</Moment>
+            </div>
+          )}
         </div>
         <form className={styles.formContainer}>
           <div className={styles.field}>
             <label>Name</label>
             <input
               type='text'
-              value={profile.name}
+              value={profile?.name}
               onChange={e => setProfile({ ...profile, name: e.target.value })}
             />
           </div>
@@ -117,7 +131,7 @@ const Basic = ({ profile, setProfile, locationData }) => {
             <div className={styles.flex}>
               <input
                 type='number'
-                value={profile.heightFeet}
+                value={profile?.heightFeet}
                 onChange={e =>
                   setProfile({ ...profile, heightFeet: e.target.value })
                 }
@@ -125,7 +139,7 @@ const Basic = ({ profile, setProfile, locationData }) => {
               <span> feet</span>
               <input
                 type='number'
-                value={profile.heightInches}
+                value={profile?.heightInches}
                 onChange={e =>
                   setProfile({ ...profile, heightInches: e.target.value })
                 }
@@ -273,7 +287,7 @@ const Basic = ({ profile, setProfile, locationData }) => {
                 setProfile({ ...profile, institute: e.target.value })
               }
             >
-              {institutes.map((item, index) => (
+              {['Not Selected', ...institutes].map((item, index) => (
                 <option
                   value={item}
                   key={index}
@@ -295,7 +309,7 @@ const Basic = ({ profile, setProfile, locationData }) => {
                 setProfile({ ...profile, session: e.target.value })
               }
             >
-              {sessions.map((item, index) => (
+              {['Not Selected', ...sessions].map((item, index) => (
                 <option
                   value={item}
                   key={index}
@@ -307,12 +321,17 @@ const Basic = ({ profile, setProfile, locationData }) => {
             </select>
           </div>
           <div className={styles.field}>
-            <label>City/Division</label>
+            <label>City/Division </label>
             <select
               className={styles.value}
               onChange={e => setProfile({ ...profile, city: e.target.value })}
             >
-              {locationData.map((item, index) => (
+              {[
+                {
+                  division: 'Not Selected'
+                },
+                ...locationData
+              ].map((item, index) => (
                 <option
                   key={index}
                   selected={profile.city == item.division ? true : false}
@@ -330,19 +349,21 @@ const Basic = ({ profile, setProfile, locationData }) => {
                 setProfile({ ...profile, district: e.target.value })
               }
             >
-              {districts.map((item, index) => (
-                <option
-                  key={index}
-                  value={item.district}
-                  selected={item.district == profile.district ? true : false}
-                >
-                  {item.district}
-                </option>
-              ))}
+              {[{ district: 'Not Selectd' }, ...districts].map(
+                (item, index) => (
+                  <option
+                    key={index}
+                    value={item.district}
+                    selected={item.district == profile.district ? true : false}
+                  >
+                    {item.district}
+                  </option>
+                )
+              )}
             </select>
           </div>
           <div className={styles.field}>
-            <label>Upazilla</label>
+            <label>Upazilla </label>
             <select
               className={styles.value}
               onChange={e =>
@@ -352,6 +373,7 @@ const Basic = ({ profile, setProfile, locationData }) => {
                 })
               }
             >
+              <option>Not Selected</option>
               {districts
                 .find(i => i.district == profile.district)
                 ?.upazilla.map((item, index) => (

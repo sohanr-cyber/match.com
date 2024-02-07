@@ -30,7 +30,7 @@ class AddressRepository {
       await db.connect()
 
       const UpdateAddress = await Address.findOneAndUpdate(
-        { _id: Id },
+        { user: Id },
         {
           ...DataToUpdate
         },

@@ -13,8 +13,20 @@
     color: white;
     padding: 5px;
     border-radius: 5px;
-    ;
+    justify-content: space-between;
 
+}
+
+
+.wrapper .heading .left {
+    display: flex;
+    gap: 10px
+}
+
+.wrapper .heading .right {
+    font-size: 80%;
+    font-weight: normal;
+    color: green
 }
 
 .wrapper form {}
@@ -106,6 +118,12 @@
 
 
 
+}
+
+
+.time {
+    font-size: 80%;
+    font-weight: normal
 }
 
 @media (max-width:720px) {

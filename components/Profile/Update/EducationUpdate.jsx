@@ -21,7 +21,16 @@ const Education = ({ education: data }) => {
   const userInfo = useSelector(state => state.user.userInfo)
   const [error, setError] = useState('')
   const update = async () => {
+    if (
+      !education.educationType ||
+      !education.profession ||
+      !education.education
+    ) {
+      setError('Fill All The Required Field ')
+      return
+    }
     try {
+      setError('')
       dispatch(startLoading())
       const { data } = await axios.put(
         `/api/education/${router.query.id}`,
@@ -50,7 +59,7 @@ const Education = ({ education: data }) => {
       </div>
       <form className={styles.formContainer}>
         <div className={styles.field}>
-          <label>Education Type</label>
+          <label>Education Type(Required)</label>
           <div className={styles.options}>
             {educationTypes.map((item, index) => (
               <span
@@ -74,7 +83,7 @@ const Education = ({ education: data }) => {
         </div>
 
         <div className={styles.field}>
-          <label>Profession</label>
+          <label>Profession(Rquired)</label>
           <input
             type='text'
             value={education.profession}

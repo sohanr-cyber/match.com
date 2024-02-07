@@ -11,6 +11,7 @@ import Family from '@/components/Profile/Update/FamilyUpdate'
 import Expectation from '@/components/Profile/Update/ExpectationUpdate'
 import axios from 'axios'
 import BASE_URL from '@/config'
+import { parse } from 'cookie'
 
 const Update = ({
   user,
@@ -43,7 +44,7 @@ const Update = ({
       <Education education={{ ...education }} />
       <Physical physical={{ ...physical }} />
       <Religion religion={religion} />
-      <Address address={address} />
+      <Address address={address} locationData={locationData} />
       <Family family={family} />
       <Expectation expectation={expectation} />
     </>
@@ -59,11 +60,19 @@ const fetchData = async () => {
   }
 }
 
-export async function getServerSideProps ({ query }) {
-  const { id } = query
+export async function getServerSideProps (context) {
+  const { id } = context.query
+  const { req } = context
+  const cookies = parse(req.headers.cookie || '')
+  console.log({ cookies })
+  const userInfo = cookies['userInfo']
 
   try {
-    const { data } = await axios.get(`${BASE_URL}/api/auth/${id}`)
+    const { data } = await axios.get(`${BASE_URL}/api/auth/${id}`, {
+      headers: {
+        Authorization: 'Bearer ' + JSON.parse(userInfo).token
+      }
+    })
     const {
       existingUser,
       address,

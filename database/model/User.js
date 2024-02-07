@@ -90,13 +90,15 @@ const userSchema = mongoose.Schema(
         unique: true
       }
     ],
+
     saverIds: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         unique: true
       }
-    ]
+    ],
+    categories: [{ type: String }]
   },
   { timestamps: true }
 )
