@@ -8,7 +8,8 @@ import {
   institutes,
   educationTypes,
   educationalStatus,
-  categoryFront
+  categoryFront,
+  categoriesBackFront
 } from '@/pages/api/auth/data'
 import { ageToDateOfBirth } from '@/utils'
 
@@ -698,18 +699,18 @@ const Search = ({ setOpenFilter, locationData }) => {
           className={styles.options}
           style={{ maxHeight: '30vh', overflow: 'scroll' }}
         >
-          {categoryFront.map((item, index) => (
+          {categoriesBackFront().map((item, index) => (
             <div className={styles.flex} key={index}>
               <div className={styles.icon}>
-                {router.query.universityNames
+                {router.query.categories
                   ?.split(',')
-                  .find(each => each == item) ? (
+                  .find(each => each == Object.keys(item)[0]) ? (
                   <CheckBoxIcon
                     onClick={() =>
                       updateRoute({
-                        universityNames: router.query.universityNames
+                        categories: router.query.categories
                           ?.split(',')
-                          .filter(i => i != item)
+                          .filter(i => i != Object.keys(item)[0])
                           .join(',')
                       })
                     }
@@ -718,18 +719,18 @@ const Search = ({ setOpenFilter, locationData }) => {
                   <CheckBoxOutlineBlankIcon
                     onClick={() =>
                       updateRoute({
-                        universityNames: router.query.universityNames
+                        categories: router.query.categories
                           ? [
-                              ...router.query.universityNames.split(','),
-                              item
+                              ...router.query.categories.split(','),
+                              Object.keys(item)[0]
                             ].join(',')
-                          : [item].join(',')
+                          : [Object.keys(item)[0]].join(',')
                       })
                     }
                   />
                 )}
               </div>
-              <div className={styles.value}>{item}</div>
+              <div className={styles.value}>{item[Object.keys(item)[0]]}</div>
             </div>
           ))}
         </div>

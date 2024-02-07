@@ -379,6 +379,15 @@ const categoryFront = [
   'Orphan',
   'Interested To Be Second Wife'
 ]
+
+const categoriesBackFront = () => {
+  let obj = categories.map((category, index) => ({
+    [category]: categoryFront[index]
+  }))
+
+  return obj
+}
+
 export {
   institutes,
   districts,
@@ -396,5 +405,7 @@ export {
   educationTypes,
   heights,
   educationalStatus,
-  categoryFront
+  categoryFront,
+  categories,
+  categoriesBackFront
 }

@@ -19,7 +19,8 @@ import {
   sessions,
   educationTypes,
   maritalStatuses,
-  educationalStatus
+  educationalStatus,
+  categories
 } from './data'
 import Education from '@/database/model/Education'
 import Personal from '@/database/model/Personal'
@@ -58,7 +59,9 @@ handler.post(async (req, res) => {
         averageMonthlyIncome: faker.random.number({ min: 20000, max: 80000 }),
         height: faker.random.arrayElement(
           heights.map(i => i.feet * 12 + i.inches)
-        )
+        ),
+
+        categories: categories
       }
 
       console.log({ dummyUser })

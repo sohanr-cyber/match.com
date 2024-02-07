@@ -60,7 +60,8 @@ export async function getServerSideProps (context) {
     educationalStatuses,
     bornAtTo,
     bornAtFrom,
-    page
+    page,
+    categories
   } = context.query
 
   const url = `${BASE_URL}/api/auth/user-filter?gender=${
@@ -73,9 +74,9 @@ export async function getServerSideProps (context) {
     educationTypes || 'All'
   }&universityNames=${universityNames || 'All'}&educationalStatuses=${
     educationalStatuses || 'All'
-  }&bornAtFrom=${bornAtFrom || 'All'}&bornAtTo=${bornAtTo || 'All'}&page=${
-    page || 1
-  }`
+  }&bornAtFrom=${bornAtFrom || 'All'}&bornAtTo=${
+    bornAtTo || 'All'
+  }&categories=${categories || 'All'}&page=${page || 1}`
 
   const fetchData = async () => {
     try {

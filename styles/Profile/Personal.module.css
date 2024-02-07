@@ -31,6 +31,15 @@
     text-transform: capitalize;
 }
 
+.wrapper .toggle {
+    border: 1px solid lightblue;
+    padding: 1px 5px;
+    border-radius: 5px;
+    min-width: 20px;
+    text-align: center;
+    background:var(--btn);
+}
+
 @media (max-width:570px) {
 
     .wrapper .details,

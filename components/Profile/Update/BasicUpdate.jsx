@@ -8,7 +8,8 @@ import {
   educationalStatus,
   institutes,
   sessions,
-  maritalStatuses
+  maritalStatuses,
+  categoriesBackFront
 } from '@/pages/api/auth/data'
 
 import axios from 'axios'
@@ -386,6 +387,38 @@ const Basic = ({ profile, setProfile, locationData }) => {
                   </option>
                 ))}
             </select>
+          </div>
+          <div className={styles.field}>
+            <label>Body Type</label>
+            <div className={styles.options}>
+              {categoriesBackFront().map((item, index) => (
+                <span
+                  style={
+                    profile.categories.find(i => i == Object.keys(item)[0])
+                      ? {
+                          background: 'blue',
+                          color: 'white'
+                        }
+                      : {}
+                  }
+                  key={index}
+                  onClick={() =>
+                    setProfile({
+                      ...profile,
+                      categories: profile.categories.find(
+                        i => i == Object.keys(item)[0]
+                      )
+                        ? profile.categories.filter(
+                            i => i != Object.keys(item)[0]
+                          )
+                        : [...profile.categories, Object.keys(item)[0]]
+                    })
+                  }
+                >
+                  {item[Object.keys(item)[0]]}
+                </span>
+              ))}
+            </div>
           </div>
         </form>
         {error && <p style={{ color: 'red', fontSize: '90%' }}>{error}</p>}

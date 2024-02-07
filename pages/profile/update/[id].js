@@ -48,18 +48,6 @@ const Update = ({
       <Address address={address} locationData={locationData} />
       <Family family={family} />
       <Expectation expectation={expectation} />
-      <Activate
-        profile={
-          (user,
-          address,
-          religion,
-          physical,
-          education,
-          expectation,
-          personal,
-          family)
-        }
-      />
     </>
   )
 }

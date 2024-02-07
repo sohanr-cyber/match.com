@@ -47,7 +47,8 @@ handler.get(async (req, res) => {
       maritalStatuses,
       educationTypes,
       universityNames,
-      educationalStatuses
+      educationalStatuses,
+      categories
     } = req.query
 
     const filters = {}
@@ -94,6 +95,9 @@ handler.get(async (req, res) => {
 
     if (educationalStatuses && educationalStatuses !== 'All')
       filters.education = { $in: educationalStatuses.split(',') }
+
+    if (categories && categories !== 'All')
+      filters.categories = { $in: categories.split(',') }
 
     await db.connect()
     page = page || 1

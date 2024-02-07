@@ -11,6 +11,7 @@
     /* box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); */
     backdrop-filter: blur(6.5px);
     border-right: 1px solid rgba(31, 38, 135, 0.37);
+    min-height: 100vh;
 
 }
 
@@ -41,6 +42,17 @@
     background-color: rgb(0, 0, 255, 0.1);
     padding: 10px 15px;
     font-weight: bold;
+    box-shadow: 1px 1px 1px rgb(0, 0, 255, 0.1);
+
+}
+
+.togle {
+    border: 1px solid lightblue;
+    padding: 0 5px;
+    min-width: 20px;
+    border-radius: 5px;
+    text-align: center;
+    background-color: rgb(0, 0, 255, 0.1);
 
 }
 
