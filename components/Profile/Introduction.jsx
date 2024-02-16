@@ -6,8 +6,8 @@ import { educationTypes } from '@/pages/api/auth/data'
 import CreateIcon from '@mui/icons-material/Create'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
-import StarBorderIcon from '@mui/icons-material/StarBorder'
-import StarIcon from '@mui/icons-material/Star'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
+import FavoriteIcon from '@mui/icons-material/Favorite'
 import axios from 'axios'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
 const Introduction = ({ data: profile }) => {
@@ -70,9 +70,9 @@ const Introduction = ({ data: profile }) => {
                 {router.query.id != userInfo?.id && (
                   <div className={styles.icon} onClick={() => saveProfile()}>
                     {saverIds?.find(i => i == userInfo?.id) ? (
-                      <StarIcon />
+                      <FavoriteIcon style={{ color: 'red' }} />
                     ) : (
-                      <StarBorderIcon />
+                      <FavoriteBorderIcon style={{ color: 'red' }} />
                     )}
                   </div>
                 )}

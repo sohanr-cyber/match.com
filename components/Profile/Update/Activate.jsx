@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
 import axios from 'axios'
 import { Router, useRouter } from 'next/router'
+import { login } from '@/redux/userSlice'
 const Activate = ({ profile }) => {
   const [worthActivating, setActivating] = useState(
     profile.user.gender &&
@@ -42,7 +43,12 @@ const Activate = ({ profile }) => {
           }
         }
       )
-
+      dispatch(
+        login({
+          ...userInfo,
+          active: profile.user.active == true ? false : true
+        })
+      )
       router.reload()
 
       dispatch(finishLoading())
@@ -70,7 +76,7 @@ const Activate = ({ profile }) => {
             marginBottom: '10px'
           }}
         >
-          You Can Also Deactivate Your Profile 
+          You Can Also Deactivate Your Profile
         </div>
       ) : (
         <div

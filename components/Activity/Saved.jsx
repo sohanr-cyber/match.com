@@ -3,14 +3,41 @@ import styles from '../../styles/Profile/Proposal.module.css'
 import BASE_URL from '@/config'
 import axios from 'axios'
 import Card from '../Profile/Card'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
+import Table from '../Profile/Table'
+import { finishLoading, startLoading } from '@/redux/stateSlice'
 
 const Saved = () => {
   const [proposals, setProposals] = useState([])
-  const [open, setOpen] = useState(false)
+  const [table, setTable] = useState(true)
   const userInfo = useSelector(state => state.user.userInfo)
   const router = useRouter()
+  const dispatch = useDispatch()
+  const handleLike = async () => {
+    try {
+      if (!userInfo) {
+        router.push('/login')
+      }
+      dispatch(startLoading())
+      const { data } = await axios.put(
+        '/api/user',
+        {
+          savedId: router.query.id
+        },
+        {
+          headers: {
+            Authorization: 'Bearer ' + userInfo.token
+          }
+        }
+      )
+      recentUsers()
+      dispatch(finishLoading())
+    } catch (error) {
+      dispatch(finishLoading())
+      console.log(error)
+    }
+  }
 
   const recentUsers = async () => {
     try {
@@ -37,20 +64,20 @@ const Saved = () => {
       <div className={styles.heading}>
         <div className={styles.title}>Saved Profile (0{proposals.length})</div>
         <div className={styles.toggle} onClick={() => setOpen(prev => !prev)}>
-          {open ? '-' : '+'}
+          {table ? '-' : '+'}
         </div>
       </div>
-      {open && (
+      {
         <div className={styles.flex}>
           {proposals?.map((item, index) => (
             <>
               <div className={styles.item}>
-                <Card user={item} index={index} />
+                <Card user={item} index={index} handleLike={handleLike} />
               </div>
             </>
           ))}
         </div>
-      )}
+      }
     </div>
   )
 }

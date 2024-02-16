@@ -83,7 +83,8 @@ class UserRepository {
       const education = await this.education.FindEducationByUserId(userId)
       const expectation = await this.expectation.FindExpectationByUserId(userId)
       const personal = await this.personal.FindPersonalByUserId(userId)
-
+      existingUser.click += 1
+      await existingUser.save()
       await db.disconnect()
 
       return {
@@ -255,8 +256,9 @@ class UserRepository {
         .select('savedIds')
         .populate({
           path: 'savedIds',
-          select: '_id height profession'
+          select: '_id height profession saverIds'
         })
+
       await db.disconnect()
 
       return user

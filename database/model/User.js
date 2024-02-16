@@ -54,7 +54,8 @@ const userSchema = mongoose.Schema(
       default: false
     },
     click: {
-      type: Number
+      type: Number,
+      default: 0
     },
     impression: {
       type: Number

@@ -24,7 +24,7 @@ const Action = ({ user }) => {
           <Icon
             image={'https://cdn-icons-png.flaticon.com/128/8500/8500126.png'}
             title={
-              user.proposalRecieved.find(i => i == userInfo.id)
+              user?.proposalRecieved.find(i => i == userInfo?.id)
                 ? 'Proposal Sent'
                 : 'Send Proposal'
             }
@@ -32,7 +32,7 @@ const Action = ({ user }) => {
               setOpenForm(true)
             }}
             allowed={
-              user.proposalRecieved.find(i => i == userInfo.id) ? false : true
+              user?.proposalRecieved.find(i => i == userInfo.id) ? false : true
             }
           />
         </div>

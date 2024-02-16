@@ -4,8 +4,17 @@
     ;
     /* display: flex; */
     width: 100%;
+    gap: 15px;
 
 }
+
+/* .wrapper .left {
+    flex: 1
+}
+
+.wrapper .left {
+    flex: 4
+} */
 
 @media (max-width: 720px) {
     .wrapper {

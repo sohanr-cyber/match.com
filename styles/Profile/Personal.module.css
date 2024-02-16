@@ -32,12 +32,13 @@
 }
 
 .wrapper .toggle {
-    border: 1px solid lightblue;
+    /* border: 1px solid lightblue; */
     padding: 1px 5px;
     border-radius: 5px;
     min-width: 20px;
     text-align: center;
-    background:var(--btn);
+    background: var(--btn);
+    cursor: pointer;
 }
 
 @media (max-width:570px) {

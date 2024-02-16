@@ -31,11 +31,11 @@ class ProposalRepository {
       })
         .populate(
           'sender',
-          '_id , name  , email , gender , profession ,  height ,skinColor '
+          '_id , name  , email , gender , profession ,  height ,skinColor , city , district , upazilla '
         ) // Replace 'username' with the fields you want to populate for sender
         .populate(
           'reciever',
-          '_id , name  , email , gender , profession ,  height ,skinColor '
+          '_id , name  , email , gender , profession ,  height ,skinColor , city , district , upazilla '
         ) // Replace 'username' with the fields you want to populate for receiver
         .exec()
       return existingProposal

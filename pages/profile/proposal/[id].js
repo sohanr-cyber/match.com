@@ -1,6 +1,6 @@
 import Personal from '@/components/Profile/Personal'
 import React, { useEffect, useState } from 'react'
-import styles from './../../styles/Profile/Details.module.css'
+import styles from './../../../styles/Profile/Details.module.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import Introduction from '@/components/Profile/Introduction'
@@ -43,33 +43,12 @@ const ProfileDetails = ({
 
   return (
     <>
-      <div className={styles.wrapper} style={{ minHeight: '100vh' }}>
+      <div
+        className={styles.wrapper}
+        style={{ minHeight: '100vh', paddingTop: '70px' }}
+      >
         <div className={styles.left}>
-          <Introduction data={user} />
-          <Personal personal={personal} />
-          <Physical physical={physical} />
-          <Education education={education} />
-          <Piety religion={religion} />
-          <Address address={address} />
-          <Family family={family} />
-          <Expectation expectation={expectation} />
-          {isClient && router.query.id != userInfo?.id && (
-            <Action user={user} />
-          )}
-          {isClient && router.query.id == userInfo?.id && (
-            <Activate
-              profile={{
-                user,
-                address,
-                religion,
-                physical,
-                education,
-                expectation,
-                personal,
-                family
-              }}
-            />
-          )}
+          {isClient && router.query.id == userInfo?.id && <Proposal />}
         </div>
         <div className={styles.right}>
           {/* <Similar similar={similar} /> */}

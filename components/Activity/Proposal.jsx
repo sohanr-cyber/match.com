@@ -6,10 +6,14 @@ import Card from '../Profile/Card'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
+import ViewColumnIcon from '@mui/icons-material/ViewColumn'
+import TableRowsIcon from '@mui/icons-material/TableRows'
+import { TableRow } from '@mui/material'
+import Table from '../Profile/Table'
 
 const Proposal = () => {
   const [proposals, setProposals] = useState([])
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(true)
   const userInfo = useSelector(state => state.user.userInfo)
   const router = useRouter()
   const dispatch = useDispatch()
@@ -24,6 +28,7 @@ const Proposal = () => {
       console.log(error)
     }
   }
+  const [table, setTable] = useState(true)
 
   useEffect(() => {
     fethProposals()
@@ -121,11 +126,11 @@ const Proposal = () => {
         <div className={styles.title}>
           Proposals (0{proposals.length || '0'})
         </div>
-        <div className={styles.toggle} onClick={() => setOpen(prev => !prev)}>
-          {open ? '-' : '+'}
+        <div className={styles.toggle} onClick={() => setTable(prev => !prev)}>
+          {table ? <ViewColumnIcon /> : <TableRowsIcon />}
         </div>
       </div>
-      {open && (
+      {!table ? (
         <div className={styles.flex}>
           {proposals?.map((item, index) => (
             <>
@@ -138,95 +143,6 @@ const Proposal = () => {
                   }
                   index={index}
                 />
-
-                {/* {userInfo.id == router.query.id && (
-                  <div className={styles.action}>
-                    {item.sender._id == userInfo.id ? (
-                      item.status == 'Accepted' ? (
-                        <div className={styles.accept}>Accepted</div>
-                      ) : item.status == 'Withdrawn' ? (
-                        <div
-                          className={styles.accept}
-                          style={{
-                            background: 'grey',
-                            color: 'lightgrey',
-                            cursor: 'not-allowed'
-                          }}
-                        >
-                          Poke
-                        </div>
-                      ) : (
-                        <div className={styles.accept}>Poke</div>
-                      )
-                    ) : item.status == 'Accepted' ? (
-                      <div className={styles.accept}>Accepted</div>
-                    ) : item.status == 'Withdrawn' ? (
-                      <div
-                        className={styles.accept}
-                        style={{
-                          background: 'grey',
-                          color: 'lightgrey',
-                          cursor: 'not-allowed'
-                        }}
-                      >
-                        Accept
-                      </div>
-                    ) : (
-                      <div
-                        className={styles.accept}
-                        onClick={() =>
-                          acceptProposal({
-                            Id: item._id,
-                            acceptor: item.reciever,
-                            sender: item.sender
-                          })
-                        }
-                      >
-                        Accept
-                      </div>
-                    )}
-                    {item.status == 'Declined' ? (
-                      <div className={styles.decline}>Declined</div>
-                    ) : item.sender != userInfo.id ? (
-                      <div
-                        className={styles.decline}
-                        onClick={() =>
-                          declineProposal({
-                            Id: item._id,
-                            acceptor: item.reciever,
-                            sender: item.sender
-                          })
-                        }
-                      >
-                        Decline
-                      </div>
-                    ) : item.status == 'Withdrawn' ? (
-                      <div
-                        className={styles.decline}
-                        style={{
-                          background: 'grey',
-                          color: 'lightgrey',
-                          cursor: 'not-allowed'
-                        }}
-                      >
-                        withdrawn
-                      </div>
-                    ) : (
-                      <div
-                        className={styles.decline}
-                        onClick={() =>
-                          withdraw({
-                            Id: item._id,
-                            reciever: item.reciever._id,
-                            sender: item.sender._id
-                          })
-                        }
-                      >
-                        withdraw
-                      </div>
-                    )}
-                  </div>
-                )} */}
 
                 {userInfo.id == item.sender._id ? (
                   <>
@@ -403,6 +319,14 @@ const Proposal = () => {
             </>
           ))}
         </div>
+      ) : (
+        <Table
+          proposals={proposals}
+          acceptProposal={acceptProposal}
+          withdraw={withdraw}
+          decline={decline}
+          poke={poke}
+        />
       )}
     </div>
   )

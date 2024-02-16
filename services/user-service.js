@@ -58,7 +58,12 @@ class UserService {
       email: email,
       _id: existUser._id
     })
-    return FormateData({ id: existUser._id, token })
+    return FormateData({
+      id: existUser._id,
+      token,
+      name: existUser.name,
+      active: existUser.active
+    })
   }
 
   async SignIn (userInputs) {
@@ -80,7 +85,12 @@ class UserService {
             email: existingUser.email,
             _id: existingUser._id
           })
-          return FormateData({ id: existingUser._id, token })
+          return FormateData({
+            id: existingUser._id,
+            token,
+            name: existingUser.name,
+            active: existingUser.active
+          })
         } else {
           return FormateData({ error: "Password Didn't Match !" })
         }

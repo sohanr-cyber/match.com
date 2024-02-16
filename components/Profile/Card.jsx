@@ -6,8 +6,12 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt'
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye'
 import { useRouter } from 'next/router'
-const Card = ({ user, index }) => {
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import { useSelector } from 'react-redux'
+
+const Card = ({ user, index, handleLike }) => {
   const router = useRouter()
+  const userInfo = useSelector(state => state.user.userInfo)
 
   return (
     <div
@@ -17,82 +21,92 @@ const Card = ({ user, index }) => {
           colorsWithTransparency[index]
         },${faker.random.arrayElement(colorsWithTransparency)})`
       }}
-      onClick={() => router.push(`/profile/${user._id}`)}
     >
-      <div className={styles.top}>
-        <div
-          className={styles.pic}
-          style={
-            user?.gender == 'Male'
-              ? {
-                  backgroundColor: `${colorsWithTransparency[index]}`,
-                  boxShadow: `0 6px 22px 0 ${colorsWithTransparency[index]})`
-                }
-              : {
-                  backgroundColor: `${colorsWithTransparency[index]}`,
-                  boxShadow: `0 6px 22px 0 ${colorsWithTransparency[index]})`
-                }
-          }
-        >
-          {user?.gender == 'Male' ? (
-            <div style={{ color: 'green', zIndex: '1' }}>M</div>
-          ) : (
-            <div style={{ color: 'rgb(0, 183, 255)', zIndex: '1' }}>F</div>
-          )}
+      <div
+        className={styles.container__wrapper}
+        onClick={() => router.push(`/profile/${user._id}`)}
+      >
+        <div className={styles.top}>
+          <div
+            className={styles.pic}
+            style={
+              user?.gender == 'Male'
+                ? {
+                    backgroundColor: `${colorsWithTransparency[index]}`,
+                    boxShadow: `0 6px 22px 0 ${colorsWithTransparency[index]})`
+                  }
+                : {
+                    backgroundColor: `${colorsWithTransparency[index]}`,
+                    boxShadow: `0 6px 22px 0 ${colorsWithTransparency[index]})`
+                  }
+            }
+          >
+            {user?.gender == 'Male' ? (
+              <div style={{ color: 'green', zIndex: '1' }}>M</div>
+            ) : (
+              <div style={{ color: 'rgb(0, 183, 255)', zIndex: '1' }}>F</div>
+            )}
+          </div>
+        </div>
+        <div className={styles.bottom}>
+          <div className={styles.flex}>
+            <div className={styles.key}>Age:</div>
+            <div className={styles.value}>
+              {user?.bornAt ? calculateAge(user?.bornAt) : '--'}
+            </div>
+          </div>
+          <div className={styles.flex}>
+            <div className={styles.key}>Height:</div>
+            <div className={styles.value}>
+              {user?.height ? (
+                <>
+                  {' '}
+                  {Math.floor(user?.height / 12)}&quot;{user?.height % 12}&apos;
+                </>
+              ) : (
+                '--'
+              )}{' '}
+            </div>
+          </div>
+          <div className={styles.flex}>
+            <div className={styles.key}>Color:</div>
+            <div className={styles.value}>{user?.skinColor || '--'} </div>
+          </div>
+          <div className={styles.flex}>
+            <div className={styles.key}>Body:</div>
+            <div className={styles.value}>{user?.bodyType || '--'}</div>
+          </div>
+          <div className={styles.flex}>
+            <div className={styles.key}>Ocupation:</div>
+            <div className={styles.value}>{user?.profession || '--'}</div>
+          </div>
         </div>
       </div>
-      <div className={styles.bottom}>
-        <div className={styles.flex}>
-          <div className={styles.key}>Age:</div>
-          <div className={styles.value}>
-            {user?.bornAt ? calculateAge(user?.bornAt) : '--'}
-          </div>
-        </div>
-        <div className={styles.flex}>
-          <div className={styles.key}>Height:</div>
-          <div className={styles.value}>
-            {user?.height ? (
-              <>
-                {' '}
-                {Math.floor(user?.height / 12)}&quot;{user?.height % 12}&apos;
-              </>
+      <div className={styles.interactions}>
+        <div
+          className={styles.likes}
+          onClick={() => handleLike && handleLike()}
+        >
+          <div className={styles.icon}>
+            {user?.saverIds?.find(i => i == userInfo?.id) ? (
+              <FavoriteIcon style={{ fontSize: '140%', color: 'red' }} />
             ) : (
-              '--'
-            )}{' '}
-          </div>
-        </div>
-        <div className={styles.flex}>
-          <div className={styles.key}>Color:</div>
-          <div className={styles.value}>{user?.skinColor || '--'} </div>
-        </div>
-        <div className={styles.flex}>
-          <div className={styles.key}>Body:</div>
-          <div className={styles.value}>{user?.bodyType || '--'}</div>
-        </div>
-        <div className={styles.flex}>
-          <div className={styles.key}>Ocupation:</div>
-          <div className={styles.value}>{user?.profession || '--'}</div>
-        </div>
-
-        <div className={styles.interactions}>
-          <div className={styles.likes}>
-            <div className={styles.icon}>
               <FavoriteBorderIcon style={{ fontSize: '140%' }} />
-            </div>
-            <div className={styles.count}>12</div>
+            )}
           </div>
-          <div className={styles.dislikes}>
-            <div className={styles.icon}>
-              <ThumbDownOffAltIcon style={{ fontSize: '140%' }} />
-            </div>
-            <div className={styles.count}>23</div>
+          <div className={styles.count}>12</div>
+        </div>
+        <div className={styles.dislikes}>
+          <div className={styles.icon}>
+            <ThumbDownOffAltIcon style={{ fontSize: '140%' }} />
           </div>
-          <div className={styles.clicks}>
-            <div className={styles.icon}>
-              <RemoveRedEyeIcon style={{ fontSize: '140%' }} />
-            </div>
-            <div className={styles.count}>12k</div>
+          <div className={styles.count}>23</div>
+        </div>
+        <div className={styles.clicks}>
+          <div className={styles.icon}>
+            <RemoveRedEyeIcon style={{ fontSize: '140%' }} />
           </div>
+          <div className={styles.count}>{user?.click || 0}</div>
         </div>
       </div>
     </div>
