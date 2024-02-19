@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '@/redux/userSlice'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import SideNavbar from './Profile/SideNavbar'
+import CancelIcon from '@mui/icons-material/Cancel'
 const Navbar = () => {
   const router = useRouter()
   const [phone, setPhone] = useState()
@@ -54,12 +55,22 @@ const Navbar = () => {
       <div className={styles.right}>
         {isClient && userInfo ? (
           <div className={styles.icon}>
-            <AccountCircleIcon
-              onClick={() => {
-                setOpen(prev => !prev)
-                setPhone(false)
-              }}
-            />
+            {open ? (
+              <CancelIcon
+                onClick={() => {
+                  setOpen(prev => !prev)
+                  setPhone(false)
+                }}
+                style={{ color: 'red' }}
+              />
+            ) : (
+              <AccountCircleIcon
+                onClick={() => {
+                  setOpen(prev => !prev)
+                  setPhone(false)
+                }}
+              />
+            )}
           </div>
         ) : (
           <div className={styles.item} onClick={() => router.push('/login')}>

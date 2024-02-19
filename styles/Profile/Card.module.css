@@ -83,14 +83,16 @@
 
 @media (max-width:570px) {
     .container {
+        max-width: none;
+    }
+
+    .container .container__wrapper {
         width: 100%;
         display: flex;
         flex-direction: row;
         align-items: flex-start;
         gap: 10px;
-        max-width: none;
     }
-
 
 
 

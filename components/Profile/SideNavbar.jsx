@@ -29,12 +29,12 @@ const SideNavbar = ({ handleLogout }) => {
           </div>
         </div>
         <div className={styles.name}>{userInfo.name}</div>
-        <div
+        {/* <div
           className={styles.btn}
           onClick={() => router.push(`/profile/${userInfo.id}`)}
         >
           My profile
-        </div>
+        </div> */}
       </div>
       <div className={styles.items}>
         <div
@@ -44,7 +44,7 @@ const SideNavbar = ({ handleLogout }) => {
           <div className={styles.icon}>
             <DashboardIcon />
           </div>
-          <div className={styles.title}>Dashboard</div>
+          <div className={styles.title}>My Profile</div>
         </div>
         <div
           className={styles.item}

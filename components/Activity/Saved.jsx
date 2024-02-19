@@ -14,6 +14,7 @@ const Saved = () => {
   const userInfo = useSelector(state => state.user.userInfo)
   const router = useRouter()
   const dispatch = useDispatch()
+  
   const handleLike = async () => {
     try {
       if (!userInfo) {
@@ -63,9 +64,6 @@ const Saved = () => {
     <div className={styles.wrapper}>
       <div className={styles.heading}>
         <div className={styles.title}>Saved Profile (0{proposals.length})</div>
-        <div className={styles.toggle} onClick={() => setOpen(prev => !prev)}>
-          {table ? '-' : '+'}
-        </div>
       </div>
       {
         <div className={styles.flex}>

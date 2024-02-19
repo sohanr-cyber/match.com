@@ -79,6 +79,7 @@ const Introduction = ({ data: profile }) => {
                 {userInfo?.id == router.query.id && (
                   <div className={styles.icon}>
                     <CreateIcon
+                      style={{ color: 'green' }}
                       onClick={() =>
                         router.push(`/profile/update/${profile._id}`)
                       }
