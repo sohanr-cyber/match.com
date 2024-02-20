@@ -44,17 +44,17 @@ const recentUsers = async () => {
   }
 }
 
-export async function getServerSideProps () {
-  try {
-    // const data = await fetchData()
-    // const recent = await recentUsers()
-    return {
-      props: {
-        // data
-        //  recent
-      }
-    }
-  } catch (error) {
-    console.log(error)
-  }
-}
+// export async function getServerSideProps () {
+//   try {
+//     // const data = await fetchData()
+//     // const recent = await recentUsers()
+//     return {
+//       props: {
+//         // data
+//         //  recent
+//       }
+//     }
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
