@@ -12,12 +12,12 @@ import axios from 'axios'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home ({
-  data
+  // data
   // recent
 }) {
   return (
     <>
-      <Header data={data} />
+      {/* <Header data={data} /> */}
       <Steps />
       <RegisterBanner />
       {/* <Recent recent={recent} /> */}
@@ -43,13 +43,14 @@ const recentUsers = async () => {
     console.log(error)
   }
 }
+
 export async function getServerSideProps () {
   try {
-    const data = await fetchData()
+    // const data = await fetchData()
     // const recent = await recentUsers()
     return {
       props: {
-        data
+        // data
         //  recent
       }
     }
