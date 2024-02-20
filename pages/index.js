@@ -8,16 +8,14 @@ import Recent from '@/components/Recent'
 import Footer from '@/components/Footer'
 import RegisterBanner from '@/components/RegisterBanner'
 import axios from 'axios'
-// import BASE_URL from '@/config'
+import BASE_URL from '@/config'
+import Search from '@/components/Search'
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home ({
-  // data
-  // recent
-}) {
+export default function Home ({ data }) {
   return (
     <>
-      {/* <Header data={data} /> */}
+      <Header data={data} />
       <Steps />
       <RegisterBanner />
       {/* <Recent recent={recent} /> */}
@@ -44,17 +42,17 @@ const recentUsers = async () => {
   }
 }
 
-// export async function getServerSideProps () {
-//   try {
-//     // const data = await fetchData()
-//     // const recent = await recentUsers()
-//     return {
-//       props: {
-//         // data
-//         //  recent
-//       }
-//     }
-//   } catch (error) {
-//     console.log(error)
-//   }
-// }
+export async function getServerSideProps () {
+  try {
+    const data = await fetchData()
+    // const recent = await recentUsers()
+    return {
+      props: {
+        data,
+        // recent
+      }
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
