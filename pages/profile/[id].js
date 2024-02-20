@@ -21,6 +21,7 @@ import { useSelector } from 'react-redux'
 import { parse } from 'cookie'
 import Activate from '@/components/Profile/Update/Activate'
 import SideNavbar from '@/components/Profile/SideNavbar'
+import Others from '@/components/Profile/Others'
 
 const ProfileDetails = ({
   user,
@@ -53,6 +54,7 @@ const ProfileDetails = ({
           <Address address={address} />
           <Family family={family} />
           <Expectation expectation={expectation} />
+          <Others data={user} />
           {isClient && router.query.id != userInfo?.id && (
             <Action user={user} />
           )}

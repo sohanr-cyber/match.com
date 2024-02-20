@@ -86,6 +86,7 @@ const Login = () => {
               value={password}
               onChange={e => setPassword(e.target.value)}
             />
+
             {error && (
               <div style={{ color: 'red', fontSize: '90%' }}>{error}</div>
             )}

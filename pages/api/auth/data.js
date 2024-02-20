@@ -367,21 +367,29 @@ const educationalStatus = [
 const categories = [
   'Student',
   'StudentWithJob',
+  'InterestedInDivorced',
+  'InterestedInDivorcedChild',
   'Nulliparous',
   'Autism',
   'Orphan',
-  'Second Wife',
-  'New Muslim'
+  'SecondWife',
+  'NewMuslim',
+  'Emigrant',
+  'InterestedInEmigrant'
 ]
 
 const categoryFront = [
   'Not an Issue with Marrying a Student/Job Seeker',
   'Not an Issue with Marrying a Student/Job Seeker Having Halal Incom',
+  'Interested in Marrying a Divorced',
+  'Interested in Marrying a Divorced Having Children ',
   'Nulliparous Females',
   'Autism Spectrum',
   'Orphan Status',
-  'Interested in Polygyny (Being a Second Wife)',
-  'New Muslim'
+  'Interested in Polygyny (Being/Want a Second Wife)',
+  'New Muslim',
+  'Emigrant',
+  'Interested In Emigrant'
 ]
 
 const categoriesBackFront = () => {
