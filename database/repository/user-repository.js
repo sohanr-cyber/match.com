@@ -18,16 +18,20 @@ class UserRepository {
     this.education = new EducationRepository()
     this.expectation = new ExpectationRepository()
   }
-  async CreateUser ({ email, password, name, salt }) {
+  async CreateUser ({ email, password, name, salt, gender }) {
     try {
       await db.connect()
+
       const user = new User({
         email,
         password,
         salt,
-        name
+        name,
+        gender
       })
+
       const userResult = await user.save()
+      
       const family = await this.family.CreateFamily({
         user: userResult._id
       })
@@ -47,7 +51,8 @@ class UserRepository {
         user: userResult._id
       })
       const personal = await this.personal.CreatePersonal({
-        user: userResult._id
+        user: userResult._id,
+        gender: userResult.gender
       })
 
       return userResult

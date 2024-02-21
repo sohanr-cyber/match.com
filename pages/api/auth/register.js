@@ -7,9 +7,9 @@ const handler = nextConnect()
 handler.post(async (req, res) => {
   try {
     const service = new UserService()
-    const { email, password, name } = req.body
+    const { email, password, name, gender } = req.body
 
-    const user = await service.SignUp({ email, password, name })
+    const user = await service.SignUp({ email, password, name, gender })
     res.status(200).json(user)
   } catch (error) {
     console.log(error)

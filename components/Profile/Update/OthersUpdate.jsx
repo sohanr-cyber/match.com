@@ -8,7 +8,8 @@ import {
   educationalStatus,
   institutes,
   sessions,
-  maritalStatuses
+  maritalStatuses,
+  categories
 } from '@/pages/api/auth/data'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
 import { useDispatch, useSelector } from 'react-redux'
@@ -16,30 +17,18 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import Moment from 'react-moment/dist'
 
-const OthersUpdate = ({ personal: data }) => {
-  const [personal, setPersonal] = useState({ ...data })
+const OthersUpdate = ({ profile, setProfile }) => {
   const dispatch = useDispatch()
   const router = useRouter()
   const userInfo = useSelector(state => state.user.userInfo)
-  console.log({ personal })
   const [error, setError] = useState('')
   const update = async () => {
-    if (
-      !personal.bornAt ||
-      !personal.firstName ||
-      !personal.lastName ||
-      !personal.gender ||
-      !personal.maritalStatus
-    ) {
-      setError('Fill All The Field !')
-      return
-    }
     try {
       dispatch(startLoading())
       const { data } = await axios.put(
-        `/api/personal/${router.query.id}`,
+        '/api/auth/register',
         {
-          ...personal
+          ...profile
         },
         {
           headers: {
@@ -47,8 +36,7 @@ const OthersUpdate = ({ personal: data }) => {
           }
         }
       )
-      console.log(data)
-      setPersonal(data)
+      setProfile(data)
       dispatch(finishLoading())
     } catch (error) {
       dispatch(finishLoading())
@@ -63,84 +51,345 @@ const OthersUpdate = ({ personal: data }) => {
     >
       <div className={styles.heading}>
         <div className={styles.left}>
-          <span>2</span>
-          <div className={styles.title}>Personal Information</div>
+          <span>7</span>
+          <div className={styles.title}>Others</div>
         </div>
-        {personal.updatedAt && (
+        {profile.updatedAt && (
           <div className={styles.right}>
-            Updated <Moment fromNow>{personal.updatedAt}</Moment>
+            Updated <Moment fromNow>{profile.updatedAt}</Moment>
           </div>
         )}
       </div>
       <form className={styles.formContainer}>
         <div className={styles.field}>
-          <label>First Name</label>
-          <input
-            type='text'
-            onChange={e =>
-              setPersonal({ ...personal, firstName: e.target.value })
-            }
-            value={personal.firstName}
-          />
-        </div>
-        <div className={styles.field}>
-          <label>Last Name</label>
-          <input
-            type='text'
-            onChange={e =>
-              setPersonal({ ...personal, lastName: e.target.value })
-            }
-            value={personal.lastName}
-          />
-        </div>
-        <div className={styles.field}>
-          <label>Date Of Birth</label>
-          <input
-            type='date'
-            value={
-              personal.bornAt &&
-              new Date(personal.bornAt).toISOString().split('T')[0]
-            }
-            onChange={e => setPersonal({ ...personal, bornAt: e.target.value })}
-          />
+          <label>Are You Interested in Marrying a Divorced?</label>
+          <div className={styles.options}>
+            <span
+              style={
+                profile.categories.find(i => i == 'InterestedInDivorced')
+                  ? { background: 'blue', color: 'white' }
+                  : {}
+              }
+              onClick={() =>
+                setProfile({
+                  ...profile,
+                  categories: !profile.categories.find(
+                    i => i == 'InterestedInDivorced'
+                  ) && [...profile.categories, 'InterestedInDivorced']
+                })
+              }
+            >
+              Yes
+            </span>
+            <span
+              style={
+                !profile.categories.find(i => i == 'InterestedInDivorced')
+                  ? { background: 'blue', color: 'white' }
+                  : {}
+              }
+              onClick={() =>
+                setProfile({
+                  ...profile,
+                  categories:
+                    profile.categories.find(i => i == 'InterestedInDivorced') &&
+                    profile.categories.filter(i => i != 'InterestedInDivorced')
+                })
+              }
+            >
+              No
+            </span>
+          </div>
         </div>
 
         <div className={styles.field}>
-          <label>Gender</label>
+          <label>Are You Interested in Marrying a Divorced Having Child?</label>
           <div className={styles.options}>
-            {['Male', 'Female'].map((item, index) => (
-              <span
-                style={
-                  personal.gender == item
-                    ? { background: 'blue', color: 'white' }
-                    : {}
-                }
-                onClick={() => setPersonal({ ...personal, gender: item })}
-                key={index}
-              >
-                {item}
-              </span>
-            ))}
+            <span
+              style={
+                profile.categories.find(i => i == 'InterestedInDivorcedChild')
+                  ? { background: 'blue', color: 'white' }
+                  : {}
+              }
+              onClick={() =>
+                setProfile({
+                  ...profile,
+                  categories: !profile.categories.find(
+                    i => i == 'InterestedInDivorcedChild'
+                  ) && [...profile.categories, 'InterestedInDivorcedChild']
+                })
+              }
+            >
+              Yes
+            </span>
+            <span
+              style={
+                !profile.categories.find(i => i == 'InterestedInDivorcedChild')
+                  ? { background: 'blue', color: 'white' }
+                  : {}
+              }
+              onClick={() =>
+                setProfile({
+                  ...profile,
+                  categories:
+                    profile.categories.find(
+                      i => i == 'InterestedInDivorcedChild'
+                    ) &&
+                    profile.categories.filter(
+                      i => i != 'InterestedInDivorcedChild'
+                    )
+                })
+              }
+            >
+              No
+            </span>
+          </div>
+        </div>
+
+        <div className={styles.field}>
+          <label>Are You Interested in Marrying a Student/Job Seeker?</label>
+          <div className={styles.options}>
+            <span
+              style={
+                profile.categories.find(i => i == 'Student')
+                  ? { background: 'blue', color: 'white' }
+                  : {}
+              }
+              onClick={() =>
+                setProfile({
+                  ...profile,
+                  categories: !profile.categories.find(i => i == 'Student') && [
+                    ...profile.categories,
+                    'Student'
+                  ]
+                })
+              }
+            >
+              Yes
+            </span>
+            <span
+              style={
+                !profile.categories.find(i => i == 'Student')
+                  ? { background: 'blue', color: 'white' }
+                  : {}
+              }
+              onClick={() =>
+                setProfile({
+                  ...profile,
+                  categories:
+                    profile.categories.find(i => i == 'Student') &&
+                    profile.categories.filter(i => i != 'Student')
+                })
+              }
+            >
+              No
+            </span>
           </div>
         </div>
         <div className={styles.field}>
-          <label>Marital Status</label>
+          <label>
+            Are You Interested in Marrying a Student/Job Seeker Having Some
+            Job/Income?
+          </label>
           <div className={styles.options}>
-            {[...maritalStatuses].map((item, index) => (
-              <span
-                style={
-                  personal.maritalStatus == item
-                    ? { background: 'blue', color: 'white' }
-                    : {}
-                }
-                onClick={() =>
-                  setPersonal({ ...personal, maritalStatus: item })
-                }
-                key={index}
-              >
-                {item}
-              </span>
-            ))}
+            <span
+              style={
+                profile.categories.find(i => i == 'StudentWithJob')
+                  ? { background: 'blue', color: 'white' }
+                  : {}
+              }
+              onClick={() =>
+                setProfile({
+                  ...profile,
+                  categories: !profile.categories.find(
+                    i => i == 'StudentWithJob'
+                  ) && [...profile.categories, 'StudentWithJob']
+                })
+              }
+            >
+              Yes
+            </span>
+            <span
+              style={
+                !profile.categories.find(i => i == 'StudentWithJob')
+                  ? { background: 'blue', color: 'white' }
+                  : {}
+              }
+              onClick={() =>
+                setProfile({
+                  ...profile,
+                  categories:
+                    profile.categories.find(i => i == 'StudentWithJob') &&
+                    profile.categories.filter(i => i != 'StudentWithJob')
+                })
+              }
+            >
+              No
+            </span>
+          </div>
+        </div>
+
+        <div className={styles.field}>
+          <label>
+            Are You Interested in Marrying a Student/Job Seeker Having Some
+            Job/Income?
+          </label>
+          <div className={styles.options}>
+            <span
+              style={
+                profile.categories.find(i => i == 'StudentWithJob')
+                  ? { background: 'blue', color: 'white' }
+                  : {}
+              }
+              onClick={() =>
+                setProfile({
+                  ...profile,
+                  categories: !profile.categories.find(
+                    i => i == 'StudentWithJob'
+                  ) && [...profile.categories, 'StudentWithJob']
+                })
+              }
+            >
+              Yes
+            </span>
+            <span
+              style={
+                !profile.categories.find(i => i == 'StudentWithJob')
+                  ? { background: 'blue', color: 'white' }
+                  : {}
+              }
+              onClick={() =>
+                setProfile({
+                  ...profile,
+                  categories:
+                    profile.categories.find(i => i == 'StudentWithJob') &&
+                    profile.categories.filter(i => i != 'StudentWithJob')
+                })
+              }
+            >
+              No
+            </span>
+          </div>
+        </div>
+
+        <div className={styles.field}>
+          <label>
+            Are You Interested in Polynomy ( being or taking second wife) ?{' '}
+          </label>
+          <div className={styles.options}>
+            <span
+              style={
+                profile.categories.find(i => i == 'SecondWife')
+                  ? { background: 'blue', color: 'white' }
+                  : {}
+              }
+              onClick={() =>
+                setProfile({
+                  ...profile,
+                  categories: !profile.categories.find(
+                    i => i == 'SecondWife'
+                  ) && [...profile.categories, 'SecondWife']
+                })
+              }
+            >
+              Yes
+            </span>
+            <span
+              style={
+                !profile.categories.find(i => i == 'SecondWife')
+                  ? { background: 'blue', color: 'white' }
+                  : {}
+              }
+              onClick={() =>
+                setProfile({
+                  ...profile,
+                  categories:
+                    profile.categories.find(i => i == 'SecondWife') &&
+                    profile.categories.filter(i => i != 'SecondWife')
+                })
+              }
+            >
+              No
+            </span>
+          </div>
+        </div>
+
+        <div className={styles.field}>
+          <label>Are You An Emigrant ? </label>
+          <div className={styles.options}>
+            <span
+              style={
+                profile.categories.find(i => i == 'Emigrant')
+                  ? { background: 'blue', color: 'white' }
+                  : {}
+              }
+              onClick={() =>
+                setProfile({
+                  ...profile,
+                  categories: !profile.categories.find(
+                    i => i == 'Emigrant'
+                  ) && [...profile.categories, 'Emigrant']
+                })
+              }
+            >
+              Yes
+            </span>
+            <span
+              style={
+                !profile.categories.find(i => i == 'Emigrant')
+                  ? { background: 'blue', color: 'white' }
+                  : {}
+              }
+              onClick={() =>
+                setProfile({
+                  ...profile,
+                  categories:
+                    profile.categories.find(i => i == 'Emigrant') &&
+                    profile.categories.filter(i => i != 'Emigrant')
+                })
+              }
+            >
+              No
+            </span>
+          </div>
+        </div>
+
+        <div className={styles.field}>
+          <label>Are You Interested In Marrying An Emigrant ? </label>
+          <div className={styles.options}>
+            <span
+              style={
+                profile.categories.find(i => i == 'InterestedInEmigrant')
+                  ? { background: 'blue', color: 'white' }
+                  : {}
+              }
+              onClick={() =>
+                setProfile({
+                  ...profile,
+                  categories: !profile.categories.find(
+                    i => i == 'InterestedInEmigrant'
+                  ) && [...profile.categories, 'InterestedInEmigrant']
+                })
+              }
+            >
+              Yes
+            </span>
+            <span
+              style={
+                !profile.categories.find(i => i == 'InterestedInEmigrant')
+                  ? { background: 'blue', color: 'white' }
+                  : {}
+              }
+              onClick={() =>
+                setProfile({
+                  ...profile,
+                  categories:
+                    profile.categories.find(i => i == 'InterestedInEmigrant') &&
+                    profile.categories.filter(i => i != 'InterestedInEmigrant')
+                })
+              }
+            >
+              No
+            </span>
           </div>
         </div>
       </form>

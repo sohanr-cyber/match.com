@@ -39,7 +39,6 @@ const Basic = ({ profile, setProfile, locationData }) => {
       !profile.city ||
       !profile.district ||
       !profile.upazilla ||
-      !profile.gender ||
       !profile.maritalStatus ||
       !profile.heightFeet ||
       !profile.heightInches
@@ -243,7 +242,7 @@ const Basic = ({ profile, setProfile, locationData }) => {
               ))}
             </div>
           </div>
-          <div className={styles.field}>
+          {/* <div className={styles.field}>
             <label>Gender</label>
             <div className={styles.options}>
               {['Male', 'Female'].map((item, index) => (
@@ -260,7 +259,7 @@ const Basic = ({ profile, setProfile, locationData }) => {
                 </span>
               ))}
             </div>
-          </div>
+          </div> */}
           <div className={styles.field}>
             <label>Marital Status</label>
             <div className={styles.options}>
@@ -387,38 +386,6 @@ const Basic = ({ profile, setProfile, locationData }) => {
                   </option>
                 ))}
             </select>
-          </div>
-          <div className={styles.field}>
-            <label>Body Type</label>
-            <div className={styles.options}>
-              {categoriesBackFront().map((item, index) => (
-                <span
-                  style={
-                    profile.categories.find(i => i == Object.keys(item)[0])
-                      ? {
-                          background: 'blue',
-                          color: 'white'
-                        }
-                      : {}
-                  }
-                  key={index}
-                  onClick={() =>
-                    setProfile({
-                      ...profile,
-                      categories: profile.categories.find(
-                        i => i == Object.keys(item)[0]
-                      )
-                        ? profile.categories.filter(
-                            i => i != Object.keys(item)[0]
-                          )
-                        : [...profile.categories, Object.keys(item)[0]]
-                    })
-                  }
-                >
-                  {item[Object.keys(item)[0]]}
-                </span>
-              ))}
-            </div>
           </div>
         </form>
         {error && <p style={{ color: 'red', fontSize: '90%' }}>{error}</p>}

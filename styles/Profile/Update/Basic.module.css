@@ -76,11 +76,13 @@
 }
 
 .wrapper form .field .options {
-
     display: flex;
     flex-wrap: wrap;
     width: 100%;
     justify-content: flex-start;
+    max-height: 120px;
+    overflow-y: scroll;
+    /* background-color: aliceblue; */
 
 }
 
@@ -174,5 +176,9 @@
         grid-template-columns: repeat(1, 1fr);
         grid-column-gap: 20px;
         grid-row-gap: 10px;
+    }
+
+    .wrapper .heading .right {
+        display: none
     }
 }

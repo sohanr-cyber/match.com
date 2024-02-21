@@ -28,7 +28,6 @@ const Basic = ({ personal: data }) => {
       !personal.bornAt ||
       !personal.firstName ||
       !personal.lastName ||
-      !personal.gender ||
       !personal.maritalStatus
     ) {
       setError('Fill All The Field !')
@@ -105,24 +104,6 @@ const Basic = ({ personal: data }) => {
           />
         </div>
 
-        <div className={styles.field}>
-          <label>Gender</label>
-          <div className={styles.options}>
-            {['Male', 'Female'].map((item, index) => (
-              <span
-                style={
-                  personal.gender == item
-                    ? { background: 'blue', color: 'white' }
-                    : {}
-                }
-                onClick={() => setPersonal({ ...personal, gender: item })}
-                key={index}
-              >
-                {item}
-              </span>
-            ))}
-          </div>
-        </div>
         <div className={styles.field}>
           <label>Marital Status</label>
           <div className={styles.options}>

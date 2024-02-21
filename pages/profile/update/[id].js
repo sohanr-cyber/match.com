@@ -49,7 +49,7 @@ const Update = ({
       <Address address={address} locationData={locationData} />
       <Family family={family} />
       <Expectation expectation={expectation} />
-      <OthersUpdate />
+      <OthersUpdate profile={profile} setProfile={setProfile} />
     </>
   )
 }

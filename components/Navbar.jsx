@@ -39,8 +39,19 @@ const Navbar = () => {
         <div className={styles.item} onClick={() => router.push('/')}>
           Home
         </div>
-        <div className={styles.item}>Search</div>
-        <div className={styles.item}>Plans</div>
+        <div
+          className={styles.item}
+          onClick={() =>
+            router.push(
+              '/profile?gender=All&maritalStatuses=All&city=All&district=All&upazilla=All&feetFrom=4&inchesFrom=5&feetTo=6&inchesTo=5&page=1'
+            )
+          }
+        >
+          Search
+        </div>
+        <div className={styles.item} onClick={() => router.push('/plans')}>
+          Plans
+        </div>
         <div className={styles.item}>Contact Us</div>
         {isClient && userInfo && (
           <div

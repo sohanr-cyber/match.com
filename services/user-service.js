@@ -39,7 +39,7 @@ class UserService {
   }
 
   async SignUp (userInputs) {
-    const { email, password, name } = userInputs
+    const { email, password, name, gender } = userInputs
     const existingUser = await this.repository.FindUser({ email })
     if (existingUser) {
       return FormateData({ error: 'Email Already Exist !' })
@@ -50,7 +50,8 @@ class UserService {
       email,
       password: userPassword,
       name,
-      salt
+      salt,
+      gender
     })
     console.log({ existUser })
 

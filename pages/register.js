@@ -15,20 +15,23 @@ const Login = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [gender, setGender] = useState('')
   const dispatch = useDispatch()
   const [error, setError] = useState('')
 
   const register = async () => {
-    if (!EmailValidator.validate(email) || !password || !name) {
+    if (!EmailValidator.validate(email) || !password || !name || !gender) {
       setError('Fill All The Field Correctly !')
       return
     }
     dispatch(startLoading())
     try {
+      setError('')
       const { data } = await axios.post('/api/auth/register', {
         name,
         email,
-        password
+        password,
+        gender
       })
 
       if (data.error) {
@@ -86,6 +89,21 @@ const Login = () => {
               value={password}
               onChange={e => setPassword(e.target.value)}
             />
+
+            <label style={{ color: 'grey' }}>Chose Your Gender</label>
+            <div className={styles.options}>
+              {['Male', 'Female'].map((item, index) => (
+                <span
+                  style={
+                    gender == item ? { background: 'blue', color: 'white' } : {}
+                  }
+                  onClick={() => setGender(item)}
+                  key={index}
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
 
             {error && (
               <div style={{ color: 'red', fontSize: '90%' }}>{error}</div>
