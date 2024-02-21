@@ -38,12 +38,12 @@ const Update = ({
         setProfile={setProfile}
         locationData={locationData}
       />
-      <Personal
+      {/* <Personal
         personal={{
           ...personal
         }}
-      />
-      <Education education={{ ...education }} />
+      /> */}
+      <Education education={{ ...education }} profile={profile} />
       <Physical physical={{ ...physical }} />
       <Religion religion={religion} />
       <Address address={address} locationData={locationData} />

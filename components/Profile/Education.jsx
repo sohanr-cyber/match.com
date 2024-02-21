@@ -27,6 +27,11 @@ const Ecucation = ({ education }) => {
             <div className={styles.key}>Annual Income : </div>
             <div className={styles.value}> {education?.income || '---'} </div>
           </div>
+
+          <div className={styles.flex}>
+            <div className={styles.key}>Skills : </div>
+            <div className={styles.value}> {education?.skills || '---'} </div>
+          </div>
           <div className={styles.flex}>
             <div className={styles.key}>University : </div>
             <div className={styles.value}>{education?.institute || '---'} </div>
@@ -43,6 +48,7 @@ const Ecucation = ({ education }) => {
             <div className={styles.key}>HSC/Equivalent:</div>
             <div className={styles.value}>{education?.hsc || '---'}</div>
           </div>
+          
           {education.hons && (
             <div className={styles.flex}>
               <div className={styles.key}>Hons/Equivalent: </div>
@@ -56,6 +62,22 @@ const Ecucation = ({ education }) => {
               <div className={styles.value}>{education?.masters || '---'}</div>
             </div>
           )}
+
+          <div className={styles.flex}>
+            <div className={styles.key}>
+              Do You Have Intention of Doing Job After Marriage ?{' '}
+            </div>
+            <div className={styles.value}>{education?.jobAfter || '---'}</div>
+          </div>
+
+          <div className={styles.flex}>
+            <div className={styles.key}>
+              Do You Have Intention of Continuing Study After Marriage ?{' '}
+            </div>
+            <div className={styles.value}>{education?.studyAfter || '---'}</div>
+          </div>
+
+
         </div>
       )}
     </div>

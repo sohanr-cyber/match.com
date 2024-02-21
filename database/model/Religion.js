@@ -22,7 +22,9 @@ const religionScheama = mongoose.Schema(
     missingPrayer: { type: String },
     scholars: { type: String },
     piety: { type: String },
-    interest: { type: String }
+    interest: { type: String },
+    regularDeeds: { type: String },
+    badHabit: { Type: String }
   },
   { timestamps: true }
 )

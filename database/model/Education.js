@@ -26,7 +26,8 @@ const educationSchema = mongoose.Schema(
     education: { type: String },
     current: { type: String },
     session: { type: String },
-    subject: { type: String }
+    subject: { type: String },
+    skills: { type: String }
   },
   { timestamps: true }
 )

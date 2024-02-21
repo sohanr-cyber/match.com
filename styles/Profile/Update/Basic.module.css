@@ -20,7 +20,12 @@
 
 .wrapper .heading .left {
     display: flex;
-    gap: 10px
+    gap: 10px;
+
+}
+
+.wrapper .heading .left span {
+    display: none
 }
 
 .wrapper .heading .right {

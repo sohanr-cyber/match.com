@@ -6,7 +6,7 @@ const Piety = ({ religion }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.heading}>
-        <div className={styles.title}>Religiosity</div>
+        <div className={styles.title}>Personal & Religion</div>
         <div className={styles.toggle} onClick={() => setOpen(prev => !prev)}>
           {open ? '-' : '+'}
         </div>
@@ -48,6 +48,26 @@ const Piety = ({ religion }) => {
             </div>
             <div className={styles.value}>{religion?.scholars || '---'} </div>
           </div>
+          <div className={styles.flex}>
+            <div className={styles.key}>
+              Do Your Have Any Habit of Drug(...Smoking):{' '}
+            </div>
+            <div className={styles.value}>{religion?.scholars || '---'} </div>
+          </div>
+          <div className={styles.flex}>
+            <div className={styles.key}>
+              Do You maintain Mahram , Non-Mahram?:{' '}
+            </div>
+            <div className={styles.value}>{religion?.scholars || '---'} </div>
+          </div>
+
+          <div className={styles.flex}>
+            <div className={styles.key}>
+              Are You Connected to any Job Related Your Religion?:{' '}
+            </div>
+            <div className={styles.value}>{religion?.scholars || '---'} </div>
+          </div>
+
           <div className={styles.flex}>
             <div className={styles.key}>Good things about you : </div>
             <div className={styles.value}>{religion?.piety || '---'} </div>

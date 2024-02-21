@@ -52,7 +52,7 @@ const Religion = ({ religion: data }) => {
       <div className={styles.heading}>
         <div className={styles.left}>
           <span>5</span>
-          <div className={styles.title}>Religion</div>
+          <div className={styles.title}>Personal & Religion</div>
         </div>
         {religion.updatedAt && (
           <div className={styles.right}>
@@ -62,7 +62,7 @@ const Religion = ({ religion: data }) => {
       </div>
       <form className={styles.formContainer}>
         <div className={styles.field}>
-          <label>Outfit outside you home ?</label>
+          <label>Whate are the Outfit outside your home ?</label>
           <textarea
             value={religion.outfit}
             onChange={e => setReligion({ ...religion, outfit: e.target.value })}
@@ -101,6 +101,42 @@ const Religion = ({ religion: data }) => {
             value={religion.quranRecitation}
             onChange={e =>
               setReligion({ ...religion, quranRecitation: e.target.value })
+            }
+          ></textarea>
+        </div>
+        <div className={styles.field}>
+          <label>Do You Maintain Mahram Non-Mahram? </label>
+          <textarea
+            value={religion.mahram}
+            onChange={e => setReligion({ ...religion, mahram: e.target.value })}
+          ></textarea>
+        </div>
+        <div className={styles.field}>
+          <label>Do You Watch Movie / Tv Serial ? </label>
+          <textarea
+            value={religion.watch}
+            onChange={e => setReligion({ ...religion, watch: e.target.value })}
+          ></textarea>
+        </div>
+
+        <div className={styles.field}>
+          <label>Do You have Bad Habit of Drug(i.e smoking) ? </label>
+          <textarea
+            value={religion.badHabit}
+            onChange={e =>
+              setReligion({ ...religion, badHabit: e.target.value })
+            }
+          ></textarea>
+        </div>
+        <div className={styles.field}>
+          <label>
+            Beside Fardh Deeds , Do you have any Nafle/Sunnah Deeds that you
+            never miss at least for 6 months.
+          </label>
+          <textarea
+            value={religion.regularDeeds}
+            onChange={e =>
+              setReligion({ ...religion, regularDeeds: e.target.value })
             }
           ></textarea>
         </div>

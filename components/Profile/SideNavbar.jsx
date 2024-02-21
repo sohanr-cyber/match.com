@@ -13,6 +13,9 @@ import Logo from '../utils/Logo'
 const SideNavbar = ({ handleLogout }) => {
   const userInfo = useSelector(state => state.user.userInfo)
   const router = useRouter()
+  const { pathname, asPath, query } = router
+  console.log(router)
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.profile}>
@@ -94,7 +97,16 @@ const SideNavbar = ({ handleLogout }) => {
           <div className={styles.icon}>
             <SettingsIcon />
           </div>
-          <div className={styles.title}>Setting</div>
+          <div
+            className={styles.title}
+            onClick={() =>
+              router.push({ pathname, query }, asPath, {
+                locale: router.locale == 'bn' ? 'en-US' : 'bn'
+              })
+            }
+          >
+            Setting
+          </div>
         </div>
       </div>
     </div>

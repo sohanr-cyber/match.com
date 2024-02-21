@@ -15,7 +15,7 @@ import { finishLoading, startLoading } from '@/redux/stateSlice'
 import axios from 'axios'
 import Moment from 'react-moment/dist'
 
-const Education = ({ education: data }) => {
+const Education = ({ education: data, profile }) => {
   const [education, setEducation] = useState({ ...data })
   const dispatch = useDispatch()
   const router = useRouter()
@@ -99,6 +99,16 @@ const Education = ({ education: data }) => {
               setEducation({ ...education, profession: e.target.value })
             }
           />
+        </div>
+        <div className={styles.field}>
+          <label>Skills</label>
+          <textarea
+            type='text'
+            value={education.skills}
+            onChange={e =>
+              setEducation({ ...education, skills: e.target.value })
+            }
+          ></textarea>
         </div>
         <div className={styles.field}>
           <label>Monthly Income</label>
@@ -203,6 +213,34 @@ const Education = ({ education: data }) => {
             ))}
           </div>
         </div>
+
+        {profile.gender == 'Female' && (
+          <>
+            {' '}
+            <div className={styles.field}>
+              <label>Do You Have Intention of Doing Job After Marriage ?</label>
+              <input
+                type='text'
+                value={education.jobAfter}
+                onChange={e =>
+                  setEducation({ ...education, jobAfter: e.target.value })
+                }
+              />
+            </div>
+            <div className={styles.field}>
+              <label>
+                Do You Have Intention of Continuing Study After Marriage?
+              </label>
+              <input
+                type='text'
+                value={education.studyAfter}
+                onChange={e =>
+                  setEducation({ ...education, studyAfter: e.target.value })
+                }
+              />
+            </div>
+          </>
+        )}
       </form>
       {error && <p style={{ color: 'red', fontSize: '90%' }}>{error}</p>}
 

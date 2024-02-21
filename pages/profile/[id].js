@@ -47,7 +47,7 @@ const ProfileDetails = ({
       <div className={styles.wrapper} style={{ minHeight: '100vh' }}>
         <div className={styles.left}>
           <Introduction data={user} />
-          <Personal personal={personal} />
+          {/* <Personal personal={personal} /> */}
           <Physical physical={physical} />
           <Education education={education} />
           <Piety religion={religion} />
