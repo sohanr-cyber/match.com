@@ -1,18 +1,60 @@
-function encodeStringToNumber (str) {
-  let encodedNumber = ''
-  for (let i = 0; i < str.length; i++) {
-    encodedNumber += str.charCodeAt(i).toString().padStart(3, '0')
+const axios = require('axios')
+let dict = {}
+let arr = []
+
+const fs = require('fs')
+
+const fetchCity = async () => {
+  try {
+    const { data } = await axios.get('https://bdapis.com/api/v1.1/divisions')
+    data.data.forEach(e => {
+      dict[e.division] = e.divisionbn
+      arr.push(e.division)
+    })
+    if (data) {
+      fetchD()
+      // createJSONFile('location.json', { arr: fetchD() })
+    }
+  } catch (error) {
+    console.log(error)
   }
-  return encodedNumber
 }
 
-function decodeNumberToString (encodedNumber) {
-  let decodedString = ''
-  for (let i = 0; i < encodedNumber.length; i += 3) {
-    decodedString += String.fromCharCode(
-      parseInt(encodedNumber.substr(i, 3), 10)
+fetchCity()
+
+let d = []
+const fetchD = async (index = 0) => {
+  if (index >= arr.length) {
+    createJSONFile('location.json', { arr: d })
+    return d
+  }
+  try {
+    const { data } = await axios.get(
+      `https://bdapis.com/api/v1.1/division/${arr[index]}`
     )
+    if (data) {
+      data.data.forEach(i => {
+        d = [...d, i.district, ...i.upazilla]
+      })
+      fetchD((index += 1))
+    }
+  } catch (error) {
+    console.log(error)
   }
-  return decodedString
 }
 
+function createJSONFile (filename, data) {
+  // Convert the JavaScript object to JSON format
+  const jsonData = JSON.stringify(data, null, 2)
+
+  // Write the JSON data to a file
+  fs.writeFile(filename, jsonData, 'utf8', err => {
+    if (err) {
+      console.error('Error writing JSON file:', err)
+    } else {
+      console.log('JSON file created successfully!')
+    }
+  })
+}
+
+// createJSONFile('filename', { name: 'sohan' })

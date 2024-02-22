@@ -16,6 +16,7 @@ import { ageToDateOfBirth } from '@/utils'
 import { useRouter } from 'next/router'
 import { ImportExport } from '@mui/icons-material'
 import axios from 'axios'
+import Ln from './utils/Ln'
 const Search = ({ setOpenFilter, locationData }) => {
   const router = useRouter()
   const [filters, setFilters] = useState([
@@ -116,7 +117,9 @@ const Search = ({ setOpenFilter, locationData }) => {
       </div>
       {/* Allow Chose Location */}
       <div className={styles.heading}>
-        <div className={styles.title}>Location</div>
+        <div className={styles.title}>
+          <Ln item={'Location'} />
+        </div>
         <div
           className={styles.togle}
           onClick={() =>
@@ -131,7 +134,10 @@ const Search = ({ setOpenFilter, locationData }) => {
       {filters.find(i => i == 'location') && (
         <div className={`${styles.options} ${styles.location}`}>
           <div className={styles.flex}>
-            <div className={styles.icon}>City</div>
+            <div className={styles.icon}>
+              {' '}
+              <Ln item={'City'} />
+            </div>
             <select
               className={styles.value}
               onChange={e => setLocation({ ...location, city: e.target.value })}
@@ -143,14 +149,17 @@ const Search = ({ setOpenFilter, locationData }) => {
                     value={item.division}
                     selected={item == router.query.city ? true : false}
                   >
-                    {item}
+                    <Ln item={item} />
                   </option>
                 )
               )}
             </select>
           </div>
           <div className={styles.flex}>
-            <div className={styles.icon}>District</div>
+            <div className={styles.icon}>
+              {' '}
+              <Ln item={'District'} />
+            </div>
             <select
               className={styles.value}
               onChange={e =>
@@ -163,13 +172,16 @@ const Search = ({ setOpenFilter, locationData }) => {
                   value={item.district}
                   selected={item.district == location.district ? true : false}
                 >
-                  {item.district}
+                  <Ln item={item.district} />
                 </option>
               ))}
             </select>
           </div>
           <div className={styles.flex}>
-            <div className={styles.icon}>Upazilla</div>
+            <div className={styles.icon}>
+              {' '}
+              <Ln item={'Upazilla'} />
+            </div>
             <select
               className={styles.value}
               onChange={e =>
@@ -185,7 +197,7 @@ const Search = ({ setOpenFilter, locationData }) => {
                   value={item}
                   selected={item == location.upazilla ? true : false}
                 >
-                  {item}
+                  <Ln item={item} />
                 </option>
               ))}
             </select>
@@ -198,14 +210,17 @@ const Search = ({ setOpenFilter, locationData }) => {
               })
             }
           >
-            Apply
+            <Ln item={'Apply'} />
           </div>
         </div>
       )}
 
       {/* Allow Chose Gender */}
       <div className={styles.heading}>
-        <div className={styles.title}>Gender</div>
+        <div className={styles.title}>
+          {' '}
+          <Ln item={'Gender'} />
+        </div>
         <div
           className={styles.togle}
           onClick={() =>
@@ -243,7 +258,9 @@ const Search = ({ setOpenFilter, locationData }) => {
                 />
               )}
             </div>
-            <div className={styles.value}>Male</div>
+            <div className={styles.value}>
+              <Ln item={'Male'} />
+            </div>
           </div>
           <div className={styles.flex}>
             {router.query.gender == 'All' || router.query.gender == 'Female' ? (
@@ -265,14 +282,19 @@ const Search = ({ setOpenFilter, locationData }) => {
                 }
               />
             )}
-            <div className={styles.value}>Female</div>
+            <div className={styles.value}>
+              <Ln item={'Female'} />
+            </div>
           </div>
         </div>
       )}
 
       {/* Allow Chose Age */}
       <div className={styles.heading}>
-        <div className={styles.title}>Age</div>
+        <div className={styles.title}>
+          {' '}
+          <Ln item={'Age'} />
+        </div>
         <div
           className={styles.togle}
           onClick={() =>
@@ -294,13 +316,16 @@ const Search = ({ setOpenFilter, locationData }) => {
               alignItems: 'center'
             }}
           >
-            <label>Minimum </label>{' '}
+            <label>
+              {' '}
+              <Ln item={'Minimum'} />
+            </label>{' '}
             <input
               type='number'
               value={age.min}
               onChange={e => setAge({ ...age, min: e.target.value })}
             />{' '}
-            year
+            <Ln item={'year'} />
           </div>
           <div
             className={styles.flex}
@@ -310,13 +335,16 @@ const Search = ({ setOpenFilter, locationData }) => {
               alignItems: 'center'
             }}
           >
-            <label>Maximum</label>
+            <label>
+              {' '}
+              <Ln item={'Maximum'} />
+            </label>
             <input
               type='number'
               value={age.max}
               onChange={e => setAge({ ...age, max: e.target.value })}
             />{' '}
-            year
+            <Ln item={'year'} />
           </div>
           <div
             className={styles.apply}
@@ -327,14 +355,17 @@ const Search = ({ setOpenFilter, locationData }) => {
               })
             }
           >
-            Apply
+            <Ln item={'Apply'} />
           </div>
         </div>
       )}
 
       {/* Allow chose Height */}
       <div className={styles.heading}>
-        <div className={styles.title}>Height</div>
+        <div className={styles.title}>
+          {' '}
+          <Ln item={'Height'} />
+        </div>
         <div
           className={styles.togle}
           onClick={() =>
@@ -348,7 +379,9 @@ const Search = ({ setOpenFilter, locationData }) => {
       </div>
       {filters.find(i => i == 'height') && (
         <div className={styles.options}>
-          <label>From </label>{' '}
+          <label>
+            <Ln item={'From'} />{' '}
+          </label>{' '}
           <div
             className={styles.flex}
             style={{
@@ -363,7 +396,7 @@ const Search = ({ setOpenFilter, locationData }) => {
               value={height.feetFrom}
               onChange={e => setHeight({ ...height, feetFrom: e.target.value })}
             />{' '}
-            feet
+            <Ln item={'feet'} />{' '}
             <input
               type='number'
               style={{ width: '60px' }}
@@ -372,9 +405,12 @@ const Search = ({ setOpenFilter, locationData }) => {
                 setHeight({ ...height, inchesFrom: e.target.value })
               }
             />
-            inches
+            <Ln item={'inches'} />{' '}
           </div>
-          <label>To</label>{' '}
+          <label>
+            {' '}
+            <Ln item={'To'} />{' '}
+          </label>{' '}
           <div
             className={styles.flex}
             style={{
@@ -389,24 +425,26 @@ const Search = ({ setOpenFilter, locationData }) => {
               value={height.feetTo}
               onChange={e => setHeight({ ...height, feetTo: e.target.value })}
             />
-            feet{' '}
+            <Ln item={'feet'} />{' '}
             <input
               type='number'
               style={{ width: '60px' }}
               value={height.inchesTo}
               onChange={e => setHeight({ ...height, inchesTo: e.target.value })}
             />
-            inches
+            <Ln item={'inches'} />{' '}
           </div>
           <div className={styles.apply} onClick={() => updateRoute(height)}>
-            Apply
+            <Ln item={'Apply'} />{' '}
           </div>
         </div>
       )}
 
       {/* Allow chose Merital Status */}
       <div className={styles.heading}>
-        <div className={styles.title}>Marital Status</div>
+        <div className={styles.title}>
+          <Ln item={'Marital Status'} />{' '}
+        </div>
         <div
           className={styles.togle}
           onClick={() =>
@@ -451,7 +489,9 @@ const Search = ({ setOpenFilter, locationData }) => {
                   />
                 )}{' '}
               </div>
-              <div className={styles.value}>{item}</div>
+              <div className={styles.value}>
+                <Ln item={item} />
+              </div>
             </div>
           ))}
         </div>
@@ -459,7 +499,10 @@ const Search = ({ setOpenFilter, locationData }) => {
 
       {/* Allow Chose Professional Status */}
       <div className={styles.heading}>
-        <div className={styles.title}>Profession</div>
+        <div className={styles.title}>
+          {' '}
+          <Ln item={'Profession'} />{' '}
+        </div>
         <div
           className={styles.togle}
           onClick={() =>
@@ -506,7 +549,9 @@ const Search = ({ setOpenFilter, locationData }) => {
                   />
                 )}
               </div>
-              <div className={styles.value}>{item}</div>
+              <div className={styles.value}>
+                <Ln item={item} />{' '}
+              </div>
             </div>
           ))}
         </div>
@@ -514,7 +559,9 @@ const Search = ({ setOpenFilter, locationData }) => {
 
       {/* Allow Chose Educational Type */}
       <div className={styles.heading}>
-        <div className={styles.title}>Education Type</div>
+        <div className={styles.title}>
+          <Ln item={'Education Type'} />{' '}
+        </div>
         <div
           className={styles.togle}
           onClick={() =>
@@ -562,7 +609,9 @@ const Search = ({ setOpenFilter, locationData }) => {
                   />
                 )}
               </div>
-              <div className={styles.value}>{item}</div>
+              <div className={styles.value}>
+                <Ln item={item} />{' '}
+              </div>
             </div>
           ))}
         </div>
@@ -570,7 +619,10 @@ const Search = ({ setOpenFilter, locationData }) => {
 
       {/* Allow Chose Educational Status */}
       <div className={styles.heading}>
-        <div className={styles.title}>Education</div>
+        <div className={styles.title}>
+          {' '}
+          <Ln item={'Education'} />{' '}
+        </div>
         <div
           className={styles.togle}
           onClick={() =>
@@ -618,7 +670,9 @@ const Search = ({ setOpenFilter, locationData }) => {
                   />
                 )}
               </div>
-              <div className={styles.value}>{item}</div>
+              <div className={styles.value}>
+                <Ln item={item} />{' '}
+              </div>
             </div>
           ))}
         </div>
@@ -626,7 +680,10 @@ const Search = ({ setOpenFilter, locationData }) => {
 
       {/* Allow Chose University Status */}
       <div className={styles.heading}>
-        <div className={styles.title}>College/University</div>
+        <div className={styles.title}>
+          {' '}
+          <Ln item={'College/Universtiy'} />{' '}
+        </div>
         <div
           className={styles.togle}
           onClick={() =>
@@ -682,7 +739,10 @@ const Search = ({ setOpenFilter, locationData }) => {
 
       {/* Allow Chose Category */}
       <div className={styles.heading}>
-        <div className={styles.title}>Category</div>
+        <div className={styles.title}>
+          {' '}
+          <Ln item={'Category'} />{' '}
+        </div>
         <div
           className={styles.togle}
           onClick={() =>
@@ -730,7 +790,9 @@ const Search = ({ setOpenFilter, locationData }) => {
                   />
                 )}
               </div>
-              <div className={styles.value}>{item[Object.keys(item)[0]]}</div>
+              <div className={styles.value}>
+                <Ln item={item[Object.keys(item)[0]]} />
+              </div>
             </div>
           ))}
         </div>

@@ -10,6 +10,7 @@ import {
   institutes
 } from '@/pages/api/auth/data'
 import SearchIcon from '@mui/icons-material/Search'
+import Ln from './Ln'
 
 const Box = ({ data }) => {
   const [city, setCity] = useState('All')
@@ -65,30 +66,41 @@ const Box = ({ data }) => {
       <form>
         <div className={styles.field}>
           {' '}
-          <label>I am Looking for</label>
+          <label>
+            <Ln item={'I am Looking for'} />
+          </label>
           <select default='All' onChange={e => setGender(e.target.value)}>
             {['All', 'Male', 'Female'].map((item, index) => (
-              <option key={index}>{item}</option>
+              <option key={index}>
+                <Ln item={item} />
+              </option>
             ))}
           </select>
         </div>
         <div className={styles.field}>
           {' '}
-          <label>Marital Status</label>
+          <label>
+            <Ln item={'Marital Status'} />
+          </label>
           <select
             default='Unmarried'
             onChange={e => setMaritalStatus(e.target.value)}
           >
-            {['All', 'Never Married', 'Married', 'Divorced'].map(
+            {['All', 'Never Married', 'Married', 'Divorced', , 'Widowed'].map(
               (item, index) => (
-                <option key={index}>{item}</option>
+                <option key={index}>
+                  {' '}
+                  <Ln item={item} />
+                </option>
               )
             )}
           </select>
         </div>
 
         <div className={styles.field}>
-          <label>City </label>
+          <label>
+            <Ln item={'City'} />
+          </label>
           <select onChange={e => setCity(e.target.value)}>
             {[{ division: 'All' }, ...data.data].map((item, index) => (
               <option
@@ -96,13 +108,16 @@ const Box = ({ data }) => {
                 value={item.division}
                 selected={item.division == 'All' ? true : false}
               >
-                {item.division}
+                <Ln item={item.division} />
               </option>
             ))}
           </select>
         </div>
         <div className={styles.field}>
-          <label>District</label>
+          <label>
+            {' '}
+            <Ln item={'District'} />
+          </label>
           <select
             onChange={e => {
               setCurrentDistrict(e.target.value)
@@ -128,7 +143,7 @@ const Box = ({ data }) => {
                     value={item.district}
                     selected={item.district == currentDistrict ? true : false}
                   >
-                    {item.district}
+                    <Ln item={item.district} />
                   </option>
                 )
             )}
@@ -136,7 +151,10 @@ const Box = ({ data }) => {
         </div>
 
         <div className={styles.field}>
-          <label>Upazilla</label>
+          <label>
+            {' '}
+            <Ln item={'Upazilla'} />
+          </label>
           <select
             default='Dhaka'
             onChange={e => setCurrentUpazilla(e.target.value)}
@@ -146,7 +164,7 @@ const Box = ({ data }) => {
                 key={index}
                 selected={item == currentUpazilla ? true : false}
               >
-                {item}
+                <Ln item={item} />
               </option>
             ))}
           </select>
@@ -154,12 +172,16 @@ const Box = ({ data }) => {
       </form>
       <div className={styles.flex}>
         <div className={styles.search} onClick={() => search()}>
-          Search
+          <Ln item={'Search'} />
         </div>
         <div className={styles.searchbyId}>
           <input
             type='text'
-            placeholder='Search Profile By Id'
+            placeholder={
+              router.locale == 'fr'
+                ? 'আইডি দ্বারা প্রোফাইল অনুসন্ধান করুন'
+                : 'Search Profile By Id'
+            }
             value={profileId}
             onChange={e => setProfileId(e.target.value)}
           />

@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./MATH.COM:/app
+    environment:
+      - NODE_ENV=production
+      # Add any additional environment variables specific to the frontend if needed
+
+  backend:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./MATH.COM:/app
+    environment:
+      - MONGODB_URI=${MONGODB_URI}
+      - APP_SECRET=${APP_SECRET}
+      # Add any additional environment variables needed for the backend service
+
+  # Add additional services as needed

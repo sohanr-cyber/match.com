@@ -101,7 +101,7 @@ const SideNavbar = ({ handleLogout }) => {
             className={styles.title}
             onClick={() =>
               router.push({ pathname, query }, asPath, {
-                locale: router.locale == 'bn' ? 'en-US' : 'bn'
+                locale: router.locale == 'fr' ? 'en-US' : 'fr'
               })
             }
           >

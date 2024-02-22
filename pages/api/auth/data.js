@@ -187,13 +187,12 @@ const averageMonthlyIncomes = [
 ]
 
 const skinColors = [
+  'Very Fair',
   'Fair',
-  'Light',
-  'Medium',
-  'Olive',
+  // 'Medium',
+  'Light Brown',
   'Brown',
-  'Dark'
-  // Add more as needed
+  'Black'
 ]
 const datesOfBirth = [
   '1995-01-01',
@@ -218,6 +217,7 @@ const sessions = [
   '20015-16',
   '20014-15'
 ]
+
 const upazillas = [
   // Dhaka Division
   'Dhaka Sadar',
@@ -390,7 +390,7 @@ const heights = [
   { feet: 5, inches: 8 }
 ]
 
-const maritalStatuses = ['Never Married', 'Divorced', 'Married']
+const maritalStatuses = ['Never Married', 'Divorced', 'Married', 'Widowed']
 
 const educationalStatus = [
   'Associates',

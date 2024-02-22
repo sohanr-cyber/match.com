@@ -15,6 +15,9 @@ import { useRouter } from 'next/router'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
 import axios from 'axios'
 import Moment from 'react-moment/dist'
+import dict from '@/dictionary'
+import Ln from '../../utils/Ln'
+
 const Basic = ({ physical: data }) => {
   const [physical, setPhysical] = useState({
     ...data,
@@ -132,7 +135,7 @@ const Basic = ({ physical: data }) => {
                 }
                 key={index}
               >
-                {item}
+                <Ln item={item} />
               </span>
             ))}
           </div>
