@@ -16,6 +16,7 @@ const Navbar = () => {
   const [isClient, setIsClient] = useState(false)
   const dispatch = useDispatch()
   const [open, setOpen] = useState(false)
+  const { pathname, locale, query, asPath } = router
 
   useEffect(() => {
     setIsClient(true)
@@ -49,9 +50,37 @@ const Navbar = () => {
         >
           Search
         </div>
-        <div className={styles.item} onClick={() => router.push('/plans')}>
-          Plans
+        <div
+          className={styles.item}
+          onClick={() =>
+            router.push({ pathname, query }, asPath, {
+              locale: router.locale == 'bn' ? 'en-US' : 'bn'
+            })
+          }
+        >
+          {locale == 'en-US' ? (
+            <span
+              style={{
+                color: 'red',
+                backgroundColor: 'yellow',
+                padding: '3px 5px'
+              }}
+            >
+              বাংলা
+            </span>
+          ) : (
+            <span
+              style={{
+                color: 'white',
+                backgroundColor: 'red',
+                padding: '3px 5px'
+              }}
+            >
+              English
+            </span>
+          )}
         </div>
+
         <div className={styles.item}>Contact Us</div>
         {isClient && userInfo && (
           <div

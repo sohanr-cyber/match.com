@@ -31,7 +31,8 @@ const ProfileDetails = ({
   education,
   expectation,
   personal,
-  family
+  family,
+  locale
 }) => {
   console.log({ address })
   const userInfo = useSelector(state => state.user.userInfo)
@@ -46,17 +47,17 @@ const ProfileDetails = ({
     <>
       <div className={styles.wrapper} style={{ minHeight: '100vh' }}>
         <div className={styles.left}>
-          <Introduction data={user} />
+          <Introduction data={user} ln={locale} />
           {/* <Personal personal={personal} /> */}
-          <Physical physical={physical} />
-          <Education education={education} />
-          <Piety religion={religion} />
-          <Address address={address} />
+          <Physical physical={physical} ln={locale} />
+          <Education education={education} ln={locale} />
+          <Piety religion={religion} ln={locale} />
+          <Address address={address} ln={locale} />
           <Family family={family} />
-          <Expectation expectation={expectation} />
-          <Others data={user} />
+          <Expectation expectation={expectation} ln={locale} />
+          <Others data={user} ln={locale} />
           {isClient && router.query.id != userInfo?.id && (
-            <Action user={user} />
+            <Action user={user} ln={locale} />
           )}
           {isClient && router.query.id == userInfo?.id && (
             <Activate
@@ -70,6 +71,7 @@ const ProfileDetails = ({
                 personal,
                 family
               }}
+              ln={locale}
             />
           )}
         </div>
@@ -85,6 +87,7 @@ export default ProfileDetails
 
 export async function getServerSideProps (context) {
   const { id } = context.query
+  const { locale } = context
   const { req } = context
   const cookies = parse(req.headers.cookie || '')
   console.log({ cookies })
@@ -118,7 +121,8 @@ export async function getServerSideProps (context) {
         education,
         expectation,
         personal,
-        family
+        family,
+        locale
       }
     }
   } catch (error) {

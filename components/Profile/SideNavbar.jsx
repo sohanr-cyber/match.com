@@ -10,11 +10,13 @@ import EmailIcon from '@mui/icons-material/Email'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import Logo from '../utils/Logo'
+import { getText } from '@/Translation/sideNavbar'
+
 const SideNavbar = ({ handleLogout }) => {
   const userInfo = useSelector(state => state.user.userInfo)
   const router = useRouter()
+  const locale = router.locale
   const { pathname, asPath, query } = router
-  console.log(router)
 
   return (
     <div className={styles.wrapper}>
@@ -22,7 +24,6 @@ const SideNavbar = ({ handleLogout }) => {
         <Logo />
         <div className={styles.image}>
           <div className={styles.pic}>
-            {' '}
             {userInfo.active ? (
               <span style={{ background: 'green' }}></span>
             ) : (
@@ -47,7 +48,7 @@ const SideNavbar = ({ handleLogout }) => {
           <div className={styles.icon}>
             <DashboardIcon />
           </div>
-          <div className={styles.title}>My Profile</div>
+          <div className={styles.title}>{getText('mProfile', locale)}</div>
         </div>
         <div
           className={styles.item}
@@ -56,7 +57,7 @@ const SideNavbar = ({ handleLogout }) => {
           <div className={styles.icon}>
             <EditNoteIcon />
           </div>
-          <div className={styles.title}>Edit Profile</div>
+          <div className={styles.title}>{getText('eProfile', locale)}</div>
         </div>
         <div
           className={styles.item}
@@ -65,7 +66,7 @@ const SideNavbar = ({ handleLogout }) => {
           <div className={styles.icon}>
             <EmailIcon />
           </div>
-          <div className={styles.title}>Proposal</div>
+          <div className={styles.title}>{getText('proposal', locale)}</div>
         </div>
         <div
           className={styles.item}
@@ -74,7 +75,7 @@ const SideNavbar = ({ handleLogout }) => {
           <div className={styles.icon}>
             <FavoriteIcon />
           </div>
-          <div className={styles.title}>Liked</div>
+          <div className={styles.title}>{getText('liked', locale)}</div>
         </div>
         {/* <div
           className={styles.item}
@@ -90,7 +91,7 @@ const SideNavbar = ({ handleLogout }) => {
             <LogoutIcon />
           </div>
           <div className={styles.title} onClick={() => handleLogout()}>
-            Logout
+            {getText('logout', locale)}
           </div>
         </div>
         <div className={styles.item}>
@@ -105,7 +106,7 @@ const SideNavbar = ({ handleLogout }) => {
               })
             }
           >
-            Setting
+            {getText('setting', locale)}
           </div>
         </div>
       </div>

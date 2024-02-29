@@ -4,35 +4,33 @@ import styles from '../styles/Footer.module.css'
 import Image from 'next/image'
 import CopyrightIcon from '@mui/icons-material/Copyright'
 import { useRouter } from 'next/router'
+import { getText } from '@/Translation/footer'
 const Footer = () => {
   const router = useRouter()
+  const ln = router.locale
+  console.log(router)
   return (
     <>
       <div className={styles.wrapper}>
         <div className={styles.left}>
           <Logo />
-          <div className={styles.about}>
-            At MuslimMatch.com, we believe in fostering meaningful connections
-            grounded in faith, culture, and shared values. Our platform is
-            dedicated to helping individuals within the Muslim community find
-            their ideal life partners while upholding the principles of Islam.
-          </div>
+          <div className={styles.about}>{getText('c', ln)}</div>
         </div>
         <div className={styles.mid}>
-          <h2 className={styles.heading}>Our Site</h2>
+          <h2 className={styles.heading}>{getText('h1', ln)}</h2>
           <div className={styles.flex}>
             <div className={styles.link} onClick={() => router.push('/')}>
-              Home
+              {getText('home', ln)}
             </div>
-            <div className={styles.link}>Search</div>
+            <div className={styles.link}>{getText('search', ln)}</div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.link}>Plans</div>
+            <div className={styles.link}>{getText('plans', ln)}</div>
             <div
               className={styles.link}
               onClick={() => router.push('https://quince-tech.vercel.app')}
             >
-              Our Software
+              {getText('software', ln)}
             </div>
           </div>
           <div className={styles.flex}>
@@ -40,23 +38,23 @@ const Footer = () => {
               className={styles.link}
               onClick={() => router.push('/privacy-policy')}
             >
-              Privacy Policy
+              {getText('privacy', ln)}
             </div>
             <div
               className={styles.link}
               onClick={() => router.push('/terms-and-conditions')}
             >
-              Terms & conditions
+              {getText('terms', ln)}{' '}
             </div>
           </div>
         </div>
         <div className={styles.right}>
-          <h2 className={styles.heading}>Contact Us</h2>
+          <h2 className={styles.heading}>{getText('h2', ln)}</h2>
           <div className={styles.mail}>
-            Mail Us: <span>mail@gmail.com</span>
+            {getText('mail', ln)}: <span>mail@gmail.com</span>
           </div>
           <div className={styles.call}>
-            Call Us: <span>mail@gmail.com</span>
+            {getText('call', ln)}: <span>mail@gmail.com</span>
           </div>
           <div className={styles.social__media__links}>
             <Image

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styles from '../../styles/Profile/Introuduction.module.css'
 import Image from 'next/image'
-import { calculateAge } from '@/utils'
+import { calculateAge, heightToFeet } from '@/utils'
 import { educationTypes } from '@/pages/api/auth/data'
 import CreateIcon from '@mui/icons-material/Create'
 import { useRouter } from 'next/router'
@@ -10,7 +10,8 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import axios from 'axios'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
-const Introduction = ({ data: profile }) => {
+import { getText } from '@/Translation/profile'
+const Introduction = ({ data: profile, ln }) => {
   const router = useRouter()
   const userInfo = useSelector(state => state.user.userInfo)
   const [isClient, setIsClient] = useState(false)
@@ -90,54 +91,46 @@ const Introduction = ({ data: profile }) => {
             )}
           </div>
           <div className={styles.flex}>
-            <div className={styles.key}>Name</div>
+            <div className={styles.key}>{getText('name', ln)}</div>
             <div className={styles.value}>{profile?.name || '--'}</div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.key}>Age</div>
+            <div className={styles.key}>{getText('age', ln)}</div>
             <div className={styles.value}>
-              {profile?.bornAt ? calculateAge(profile?.bornAt) : '--'}
+              {profile?.bornAt ? calculateAge(profile?.bornAt, ln) : '--'}
             </div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.key}>height</div>
+            <div className={styles.key}>{getText('height', ln)}</div>
             <div className={styles.value}>
-              {profile?.height ? (
-                <>
-                  {' '}
-                  {Math.floor(profile.height / 12)}&quot;{profile.height % 12}
-                  &apos;
-                </>
-              ) : (
-                '--'
-              )}{' '}
+              {profile?.height ? heightToFeet(profile.height, ln) : '--'}{' '}
             </div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.key}>Color</div>
+            <div className={styles.key}>{getText('color', ln)}</div>
             <div className={styles.value}>{profile?.skinColor || '--'} </div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.key}>BodyType</div>
+            <div className={styles.key}>{getText('body', ln)}</div>
             <div className={styles.value}>{profile?.bodyType || '---'} </div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.key}>Type Of Education:</div>
+            <div className={styles.key}>{getText('educationType', ln)}</div>
             <div className={styles.value}>{profile?.educationType || '--'}</div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.key}>Ocupation</div>
+            <div className={styles.key}>{getText('ocupation', ln)}</div>
             <div className={styles.value}>{profile?.profession || '--'}</div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.key}>Location</div>
+            <div className={styles.key}>{getText('location', ln)}</div>
             <div className={styles.value}>
               {profile?.city || '--'} || {profile?.district || '--'} ||{' '}
               {profile?.upazilla || '--'}
             </div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.key}>Piety</div>
+            <div className={styles.key}>{getText('piety', ln)}</div>
             <div className={styles.value}>{profile?.piety || '--'}</div>
           </div>
         </div>

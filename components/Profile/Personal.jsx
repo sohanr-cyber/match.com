@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import styles from '../../styles/Profile/Personal.module.css'
+import { getText } from '@/Translation/profile'
 
-const Personal = ({ personal }) => {
+const Personal = ({ personal, ln }) => {
   const [open, setOpen] = useState(false)
   return (
     <div className={styles.wrapper}>
       <div className={styles.heading}>
-        <div className={styles.title}>Personal Information</div>
+        <div className={styles.title}>{getText('pr', ln)}</div>
         <div className={styles.toggle} onClick={() => setOpen(prev => !prev)}>
           {open ? '-' : '+'}
         </div>

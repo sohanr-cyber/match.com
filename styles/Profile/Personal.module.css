@@ -24,6 +24,7 @@
 .wrapper .flex {
     display: flex;
     gap: 15px;
+    align-items: flex-start
 }
 
 .wrapper .flex .key {

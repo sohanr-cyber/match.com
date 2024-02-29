@@ -1,4 +1,8 @@
-import { ValidateSignature, ValidateSignatureOptional } from './utility/index.js'
+import Profile from './pages/profile/index.js'
+import {
+  ValidateSignature,
+  ValidateSignatureOptional
+} from './utility/index.js'
 
 function ageToDateOfBirth (age) {
   var currentDate = new Date()
@@ -9,7 +13,7 @@ function ageToDateOfBirth (age) {
   return dateOfBirth.toISOString().split('T')[0] // Format as YYYY-MM-DD
 }
 
-function calculateAge (dateOfBirth) {
+function calculateAge (dateOfBirth, ln) {
   // Parse the date of birth
   const dob = new Date(dateOfBirth)
 
@@ -29,7 +33,9 @@ function calculateAge (dateOfBirth) {
     age--
   }
 
-  return age
+  if (ln && ln == 'bn') {
+    return englishToBangla(age)
+  } else return age
 }
 
 const transparency = 0.2
@@ -56,6 +62,36 @@ const colorsWithTransparency = [
   `rgba(173, 216, 230, ${transparency})` // Light Blue with 10% opacity
 ]
 
+function englishToBangla (number) {
+  const banglaNumbers = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯']
+  const englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+
+  let banglaNumber = ''
+  const numberString = number.toString()
+
+  for (let i = 0; i < numberString.length; i++) {
+    const index = englishNumbers.indexOf(numberString[i])
+    if (index !== -1) {
+      banglaNumber += banglaNumbers[index]
+    } else {
+      banglaNumber += numberString[i]
+    }
+  }
+
+  return banglaNumber
+}
+//{Math.floor(profile.height / 12)}&quot;{profile.height % 12}
+
+function heightToFeet (height, ln) {
+  if (ln == 'en-Us') {
+    return `${Math.floor(height / 12)}"${height % 12}'`
+  } else {
+    return `${englishToBangla(Math.floor(height / 12))}"${englishToBangla(
+      height % 12
+    )}'`
+  }
+}
+
 const isAuth = async (req, res, next) => {
   const isAuthorized = await ValidateSignature(req)
   if (isAuthorized) {
@@ -68,13 +104,16 @@ const isAuthOptional = async (req, res, next) => {
   const isAuthorized = await ValidateSignatureOptional(req)
   if (isAuthorized) {
     return next()
-  }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+  }
   return res.status(403).json({ message: 'Not Authorized' })
 }
+
 export {
   calculateAge,
   colorsWithTransparency,
   ageToDateOfBirth,
   isAuth,
-  isAuthOptional
+  isAuthOptional,
+  englishToBangla,
+  heightToFeet
 }
