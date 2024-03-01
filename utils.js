@@ -63,6 +63,9 @@ const colorsWithTransparency = [
 ]
 
 function englishToBangla (number) {
+  if (!number) {
+    return
+  }
   const banglaNumbers = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯']
   const englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
@@ -83,7 +86,7 @@ function englishToBangla (number) {
 //{Math.floor(profile.height / 12)}&quot;{profile.height % 12}
 
 function heightToFeet (height, ln) {
-  if (ln == 'en-Us') {
+  if (ln == 'en-US') {
     return `${Math.floor(height / 12)}"${height % 12}'`
   } else {
     return `${englishToBangla(Math.floor(height / 12))}"${englishToBangla(

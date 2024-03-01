@@ -136,7 +136,7 @@ const dict = {
   'Education Type': 'শিক্ষার ধরণ',
   'College/Universtiy': 'কলেজ/বিশ্ববিদ্যালয়',
   Category: 'ধরন',
-  Education: 'শিক্ষা' ,
+  Education: 'শিক্ষা',
   'Body Type': 'শরীরের ধরন',
   Division: 'বিভাগ',
   All: 'সকল',
@@ -149,7 +149,9 @@ const dict = {
   From: 'সর্বনিম্ন',
   'I am Looking for': 'আমি খুজছি',
   'Search Profile By Id': "'আইডি দ্বারা প্রোফাইল অনুসন্ধান করুন'",
+
   // Divisioin
+  'Not Selected': 'নির্বাচিত না',
   Barishal: 'বরিশাল',
   Chattogram: 'চট্টগ্রাম',
   Dhaka: 'ঢাকা',

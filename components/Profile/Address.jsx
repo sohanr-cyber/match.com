@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import styles from '../../styles/Profile/Personal.module.css'
+import { getText } from '@/Translation/profile'
 
-const Address = ({ address }) => {
+const Address = ({ address, ln }) => {
   const [open, setOpen] = useState(false)
   return (
     <div className={styles.wrapper}>
       <div className={styles.heading}>
-        <div className={styles.title}>Permanent Address</div>
+        <div className={styles.title}>{getText('address', ln)}</div>
         <div className={styles.toggle} onClick={() => setOpen(prev => !prev)}>
           {open ? '-' : '+'}
         </div>
@@ -14,19 +15,19 @@ const Address = ({ address }) => {
       {open && (
         <div className={styles.details}>
           <div className={styles.flex}>
-            <div className={styles.key}>City : </div>
+            <div className={styles.key}>{getText('city', ln)} : </div>
             <div className={styles.value}>{address?.city || '--'} </div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.key}>District : </div>
+            <div className={styles.key}>{getText('district', ln)} : </div>
             <div className={styles.value}>{address?.district || '--'} </div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.key}>Upazilla : </div>
+            <div className={styles.key}>{getText('upazilla', ln)} : </div>
             <div className={styles.value}>{address?.upazilla || '--'} </div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.key}>Address : </div>
+            <div className={styles.key}>{getText('location', ln)} : </div>
             <div className={styles.value}> {address?.location || '--'} </div>
           </div>
         </div>

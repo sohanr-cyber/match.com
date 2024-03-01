@@ -19,8 +19,10 @@ import { finishLoading, startLoading } from '@/redux/stateSlice'
 import SearchSelector from '@/components/utils/SearchSelector'
 
 import Moment from 'react-moment'
+import { getText } from '@/Translation/profile'
+import Ln from '@/components/utils/Ln'
 
-const Basic = ({ profile, setProfile, locationData }) => {
+const Basic = ({ profile, setProfile, locationData, ln }) => {
   const router = useRouter()
   const userInfo = useSelector(state => state.user.userInfo)
   const [error, setError] = useState('')
@@ -108,7 +110,7 @@ const Basic = ({ profile, setProfile, locationData }) => {
         </div>
         <form className={styles.formContainer}>
           <div className={styles.field}>
-            <label>Name</label>
+            <label>{getText('name', ln)}</label>
             <input
               type='text'
               value={profile?.name}
@@ -127,7 +129,7 @@ const Basic = ({ profile, setProfile, locationData }) => {
             />
           </div>
           <div className={styles.field}>
-            <label>Height</label>
+            <label>{getText('height', ln)}</label>
             <div className={styles.flex}>
               <input
                 type='number'
@@ -148,7 +150,7 @@ const Basic = ({ profile, setProfile, locationData }) => {
             </div>
           </div>
           <div className={styles.field}>
-            <label>Education Type</label>
+            <label>{getText('educationType', ln)}</label>
 
             <div className={styles.options}>
               {' '}
@@ -164,14 +166,14 @@ const Basic = ({ profile, setProfile, locationData }) => {
                   }
                   key={index}
                 >
-                  {item}
+                  <Ln item={item} />
                 </span>
               ))}
             </div>
           </div>
 
           <div className={styles.field}>
-            <label>Profession</label>
+            <label>{getText('ocupation', ln)}</label>
             <div className={styles.options}>
               {professions.map((item, index) => (
                 <span
@@ -183,13 +185,13 @@ const Basic = ({ profile, setProfile, locationData }) => {
                   onClick={() => setProfile({ ...profile, profession: item })}
                   key={index}
                 >
-                  {item}
+                  <Ln item={item} />
                 </span>
               ))}
             </div>
           </div>
           <div className={styles.field}>
-            <label>Education</label>
+            <label>{getText('education', ln)}</label>
             <div className={styles.options}>
               {educationalStatus.map((item, index) => (
                 <span
@@ -201,13 +203,13 @@ const Basic = ({ profile, setProfile, locationData }) => {
                   onClick={() => setProfile({ ...profile, education: item })}
                   key={index}
                 >
-                  {item}
+                  <Ln item={item} />
                 </span>
               ))}
             </div>
           </div>
           <div className={styles.field}>
-            <label>Skin Color</label>
+            <label>{getText('color', ln)}</label>
             <div className={styles.options}>
               {skinColors.map((item, index) => (
                 <span
@@ -219,13 +221,13 @@ const Basic = ({ profile, setProfile, locationData }) => {
                   onClick={() => setProfile({ ...profile, skinColor: item })}
                   key={index}
                 >
-                  {item}
+                  <Ln item={item} />
                 </span>
               ))}
             </div>
           </div>
           <div className={styles.field}>
-            <label>Body Type</label>
+            <label>{getText('bodyType', ln)}</label>
             <div className={styles.options}>
               {[...bodyTypes].map((item, index) => (
                 <span
@@ -242,6 +244,7 @@ const Basic = ({ profile, setProfile, locationData }) => {
               ))}
             </div>
           </div>
+
           {/* <div className={styles.field}>
             <label>Gender</label>
             <div className={styles.options}>
@@ -261,7 +264,7 @@ const Basic = ({ profile, setProfile, locationData }) => {
             </div>
           </div> */}
           <div className={styles.field}>
-            <label>Marital Status</label>
+            <label>{getText('maritalStatus', ln)}</label>
             <div className={styles.options}>
               {[...maritalStatuses].map((item, index) => (
                 <span
@@ -275,13 +278,15 @@ const Basic = ({ profile, setProfile, locationData }) => {
                   }
                   key={index}
                 >
-                  {item}
+                  <Ln item={item} />{' '}
                 </span>
               ))}
             </div>
           </div>
           <div className={styles.field}>
-            <label>University (Optional)</label>
+            <label>
+              {getText('uni', ln)} ({getText('optional', ln)})
+            </label>
             <select
               onChange={e =>
                 setProfile({ ...profile, institute: e.target.value })
@@ -303,7 +308,9 @@ const Basic = ({ profile, setProfile, locationData }) => {
             <SearchSelector options={institutes} />
           </div> */}
           <div className={styles.field}>
-            <label>Session (Optional)</label>
+            <label>
+              {getText('session', ln)} ({getText('optional', ln)})
+            </label>{' '}
             <select
               onChange={e =>
                 setProfile({ ...profile, session: e.target.value })
@@ -321,7 +328,7 @@ const Basic = ({ profile, setProfile, locationData }) => {
             </select>
           </div>
           <div className={styles.field}>
-            <label>City/Division </label>
+            <label>{getText('city', ln)} </label>
             <select
               className={styles.value}
               onChange={e => setProfile({ ...profile, city: e.target.value })}
@@ -336,34 +343,34 @@ const Basic = ({ profile, setProfile, locationData }) => {
                   key={index}
                   selected={profile.city == item.division ? true : false}
                 >
-                  {item.division}
+                  <Ln item={item.division} />
                 </option>
               ))}
             </select>
           </div>
           <div className={styles.field}>
-            <label>District</label>
+            <label>{getText('district', ln)}</label>
             <select
               className={styles.value}
               onChange={e =>
                 setProfile({ ...profile, district: e.target.value })
               }
             >
-              {[{ district: 'Not Selectd' }, ...districts].map(
+              {[{ district: 'Not Selected' }, ...districts].map(
                 (item, index) => (
                   <option
                     key={index}
                     value={item.district}
                     selected={item.district == profile.district ? true : false}
                   >
-                    {item.district}
+                    <Ln item={item.district} />
                   </option>
                 )
               )}
             </select>
           </div>
           <div className={styles.field}>
-            <label>Upazilla </label>
+            <label>{getText('upazilla', ln)} </label>
             <select
               className={styles.value}
               onChange={e =>
@@ -373,7 +380,9 @@ const Basic = ({ profile, setProfile, locationData }) => {
                 })
               }
             >
-              <option>Not Selected</option>
+              <option>
+                <Ln item={'Not Selected'} />
+              </option>
               {districts
                 .find(i => i.district == profile.district)
                 ?.upazilla.map((item, index) => (
@@ -382,7 +391,7 @@ const Basic = ({ profile, setProfile, locationData }) => {
                     value={item}
                     selected={item == profile.upazilla ? true : false}
                   >
-                    {item}
+                    <Ln item={item} />
                   </option>
                 ))}
             </select>

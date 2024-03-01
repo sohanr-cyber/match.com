@@ -14,8 +14,11 @@ import { useRouter } from 'next/router'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
 import axios from 'axios'
 import Moment from 'react-moment/dist'
+import { getText } from '@/Translation/profile'
+import Ln from '@/components/utils/Ln'
+import { englishToBangla } from '@/utils'
 
-const Education = ({ education: data, profile }) => {
+const Education = ({ education: data, profile, ln }) => {
   const [education, setEducation] = useState({ ...data })
   const dispatch = useDispatch()
   const router = useRouter()
@@ -57,7 +60,7 @@ const Education = ({ education: data, profile }) => {
       <div className={styles.heading}>
         <div className={styles.left}>
           <span>3</span>
-          <div className={styles.title}>Education & Career</div>
+          <div className={styles.title}>{getText('ec', ln)}</div>
         </div>
         {education.updatedAt && (
           <div className={styles.right}>
@@ -67,7 +70,9 @@ const Education = ({ education: data, profile }) => {
       </div>
       <form className={styles.formContainer}>
         <div className={styles.field}>
-          <label>Education Type(Required)</label>
+          <label>
+            {getText('educationType', ln)}({getText('required', ln)})
+          </label>
           <div className={styles.options}>
             {educationTypes.map((item, index) => (
               <span
@@ -84,14 +89,16 @@ const Education = ({ education: data, profile }) => {
                 }
                 key={index}
               >
-                {item}
+                <Ln item={item} />{' '}
               </span>
             ))}
           </div>
         </div>
 
         <div className={styles.field}>
-          <label>Profession(Rquired)</label>
+          <label>
+            {getText('ocupation', ln)}({getText('required', ln)})
+          </label>
           <input
             type='text'
             value={education.profession}
@@ -101,7 +108,7 @@ const Education = ({ education: data, profile }) => {
           />
         </div>
         <div className={styles.field}>
-          <label>Skills</label>
+          <label>{getText('skills', ln)}</label>
           <textarea
             type='text'
             value={education.skills}
@@ -111,10 +118,10 @@ const Education = ({ education: data, profile }) => {
           ></textarea>
         </div>
         <div className={styles.field}>
-          <label>Monthly Income</label>
+          <label>{getText('income', ln)}</label>
           <input
             type='number'
-            value={education.income}
+            value={englishToBangla(education.income, ln)}
             onChange={e =>
               setEducation({ ...education, income: e.target.value })
             }
@@ -122,7 +129,7 @@ const Education = ({ education: data, profile }) => {
         </div>
 
         <div className={styles.field}>
-          <label>SSC(school-date-result)</label>
+          <label>{getText('sscUpdate', ln)}</label>
           <input
             type='text'
             value={education.ssc}
@@ -130,7 +137,7 @@ const Education = ({ education: data, profile }) => {
           />
         </div>
         <div className={styles.field}>
-          <label>HSC(college-date-result)</label>
+          <label>{getText('hscUpdate', ln)}</label>
           <input
             type='text'
             value={education.hsc}
@@ -138,7 +145,7 @@ const Education = ({ education: data, profile }) => {
           />
         </div>
         <div className={styles.field}>
-          <label>Hons(college/Uni-date-result)</label>
+          <label>{getText('honsUpdate', ln)}</label>
           <input
             type='text'
             value={education.hons}
@@ -146,7 +153,7 @@ const Education = ({ education: data, profile }) => {
           />
         </div>
         <div className={styles.field}>
-          <label>Master(college/Uni-date-result)</label>
+          <label>{getText('masterUpdate', ln)}</label>
           <input
             type='text'
             value={education.masters}
@@ -157,7 +164,7 @@ const Education = ({ education: data, profile }) => {
         </div>
 
         <div className={styles.field}>
-          <label>University</label>
+          <label>{getText('uni', ln)}</label>
           <select
             onChange={e =>
               setEducation({ ...education, institute: e.target.value })
@@ -175,7 +182,7 @@ const Education = ({ education: data, profile }) => {
           </select>
         </div>
         <div className={styles.field}>
-          <label>Session</label>
+          <label>{getText('session', ln)}</label>
           <select
             onChange={e =>
               setEducation({ ...education, session: e.target.value })
@@ -193,7 +200,7 @@ const Education = ({ education: data, profile }) => {
           </select>
         </div>
         <div className={styles.field}>
-          <label>Education</label>
+          <label>{getText('education', ln)}</label>
           <div className={styles.options}>
             {educationalStatus.map((item, index) => (
               <span
@@ -208,7 +215,7 @@ const Education = ({ education: data, profile }) => {
                 }
                 key={index}
               >
-                {item}
+                <Ln item={item} />{' '}
               </span>
             ))}
           </div>
@@ -218,7 +225,7 @@ const Education = ({ education: data, profile }) => {
           <>
             {' '}
             <div className={styles.field}>
-              <label>Do You Have Intention of Doing Job After Marriage ?</label>
+              <label>{getText('jobAfter', ln)}</label>
               <input
                 type='text'
                 value={education.jobAfter}
@@ -228,9 +235,7 @@ const Education = ({ education: data, profile }) => {
               />
             </div>
             <div className={styles.field}>
-              <label>
-                Do You Have Intention of Continuing Study After Marriage?
-              </label>
+              <label>{getText('studyAfter', ln)}</label>
               <input
                 type='text'
                 value={education.studyAfter}
@@ -245,7 +250,7 @@ const Education = ({ education: data, profile }) => {
       {error && <p style={{ color: 'red', fontSize: '90%' }}>{error}</p>}
 
       <div className={styles.save} onClick={() => update()}>
-        Save
+        {getText('save', ln)}
       </div>
     </div>
   )

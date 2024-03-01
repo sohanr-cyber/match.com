@@ -10,6 +10,8 @@ import axios from 'axios'
 import { red } from '@mui/material/colors'
 import * as EmailValidator from 'email-validator'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
+import { getText } from '@/Translation/account'
+import Ln from '@/components/utils/Ln'
 const Login = () => {
   const router = useRouter()
   const [name, setName] = useState('')
@@ -18,6 +20,7 @@ const Login = () => {
   const [gender, setGender] = useState('')
   const dispatch = useDispatch()
   const [error, setError] = useState('')
+  const ln = router.locale
 
   const register = async () => {
     if (!EmailValidator.validate(email) || !password || !name || !gender) {
@@ -60,37 +63,37 @@ const Login = () => {
         <div className={styles.form__container}>
           <div className={styles.flex}>
             <div className={styles.left} onClick={() => router.push('/login')}>
-              Login
+              {getText('login', ln)}{' '}
             </div>{' '}
             <div
               className={styles.right}
               style={{ borderBottom: '2px solid blue' }}
               onClick={() => router.push('/register')}
             >
-              Signup
+              {getText('signup', ln)}{' '}
             </div>
           </div>
           <form>
             <input
               type='text'
-              placeholder='Enter Your  Name'
+              placeholder={getText('name', ln)}
               value={name}
               onChange={e => setName(e.target.value)}
             />
             <input
               type='email'
-              placeholder='Enter Your Email'
+              placeholder={getText('email', ln)}
               value={email}
               onChange={e => setEmail(e.target.value)}
             />
             <input
               type='password'
-              placeholder='Enter Your Password'
+              placeholder={getText('password', ln)}
               value={password}
               onChange={e => setPassword(e.target.value)}
             />
 
-            <label style={{ color: 'grey' }}>Chose Your Gender</label>
+            <label style={{ color: 'grey' }}>{getText('choseG', ln)}</label>
             <div className={styles.options}>
               {['Male', 'Female'].map((item, index) => (
                 <span
@@ -100,7 +103,7 @@ const Login = () => {
                   onClick={() => setGender(item)}
                   key={index}
                 >
-                  {item}
+                  <Ln item={item} />
                 </span>
               ))}
             </div>
@@ -110,7 +113,7 @@ const Login = () => {
             )}
           </form>
           <div className={styles.btn} onClick={() => register()}>
-            Signup
+            {getText('signup', ln)}
           </div>
         </div>
       </div>

@@ -7,6 +7,10 @@ const dict = {
     en: 'Age',
     bn: 'বয়স'
   },
+  brithdate: {
+    en: 'Date Of Birth',
+    bn: 'জন্ম তারিখ'
+  },
   height: {
     en: 'Height',
     bn: 'উচ্চতা'
@@ -16,6 +20,10 @@ const dict = {
     bn: 'গায়ের  রঙ'
   },
   body: {
+    en: 'Body Type',
+    bn: 'শারীরিক ধরণ '
+  },
+  bodyType: {
     en: 'Body Type',
     bn: 'শারীরিক ধরণ '
   },
@@ -38,6 +46,14 @@ const dict = {
   piety: {
     en: 'Piety',
     bn: 'ধার্মিকতা'
+  },
+  maritalStatus: {
+    en: 'Marital Status',
+    bn: 'বৈবাহিক অবস্থা'
+  },
+  optional: {
+    en: 'Optional',
+    bn: 'ঐচ্ছিক'
   },
 
   // ...Physical Attribute
@@ -76,6 +92,23 @@ const dict = {
     en: 'Universtiy Session',
     bn: 'বিশ্ববিদ্যালয় সেশন'
   },
+  sscUpdate: {
+    en: 'SSC/Equivalent (School-Date-Result)',
+    bn: 'এসএসসি/সমমান (স্কুল-তারিখ-ফলাফল)'
+  },
+  hscUpdate: {
+    en: 'HSC/Equivalent (College-Date-Result)',
+    bn: 'এইচএসসি/সমমান (কলেজ-তারিখ-ফলাফল)'
+  },
+  honsUpdate: {
+    en: 'HONS/Equivalent (College/Uni-Date-Result)',
+    bn: 'হন্স/সমমান (কলেজ/বিশ্ববিদ্যালয়-তারিখ-ফলাফল)'
+  },
+  masterUpdate: {
+    en: 'Master/Equivalent (College/Uni-Date-Result)',
+    bn: 'মাস্টার/সমমান (কলেজ/বিশ্ববিদ্যালয়-তারিখ-ফলাফল)'
+  },
+
   ssc: {
     en: 'SSC/Equivalent',
     bn: 'এসএসসি/সমমান'
@@ -99,7 +132,7 @@ const dict = {
   // ... personal and religion
   pr: {
     en: 'Personal & Religion',
-    bn: ''
+    bn: 'ব্যক্তিগত এবং ধর্মীয়'
   },
   prayer: {
     en: 'Do You Pray 5 Times a day? How Long have you doing so?',
@@ -130,7 +163,7 @@ const dict = {
     bn: 'আপনার কি মাদকের অভ্যাস আছে (...ধূমপান)'
   },
   mahram: {
-    en: 'Do You Maintain Mahram , Non-Mahram?',
+    en: 'Do you maintain boundaries between Mahram and Non-Mahram individuals?',
     bn: 'আপনি কি মাহরাম, অ-মাহরাম পালন করেন?'
   },
   work: {
@@ -138,100 +171,161 @@ const dict = {
     bn: 'আপনার সম্পর্কে কিছু ভাল কিছু  লিখুন'
   },
   good: {
-    en: 'write something about your piety / good things about you?',
+    en: 'Describe your Piety or positive qualities',
     bn: 'আপনার তাকওয়া / আপনার সম্পর্কে ভাল জিনিস সম্পর্কে কিছু লিখুন?'
   },
   watch: {
-    en: 'Do You Watch Movie / Tv Serial ?',
-    bn: ''
+    en: 'Do you watch movies or TV serials?',
+    bn: 'আপনি মুভি বা টিভি সিরিয়াল দেখেন?'
   },
   deeds: {
-    en: 'Beside Fardh Deeds , Do you have any Nafle/Sunnah Deeds that you never miss at least for 6 months ?',
-    bn: ''
+    en: 'Beside Fardh Deeds , Do you have any Nafle/Sunnah Deeds that you have never missed at least for 6 months ?',
+    bn: '..'
   },
-  about: {
-    en: 'Tell About Your Interest , Hobby',
-    bn: ''
+
+  interest: {
+    en: 'Tell About Your Interests, Hobbies, Dreams, etc.',
+    bn: 'আপনার আগ্রহ, শখ, স্বপ্ন ইত্যাদি সম্পর্কে বলুন।'
   },
   // .. address
+  address: {
+    en: 'permanent address',
+    bn: 'স্থায়ী ঠিকানা'
+  },
 
+  city: {
+    en: 'City',
+    bn: 'শহর'
+  },
+  district: {
+    en: 'District',
+    bn: 'জেলা'
+  },
+  upazilla: {
+    en: 'Upazilla',
+    bn: 'উপজেলা'
+  },
+  location: {
+    en: 'Location',
+    bn: 'অবস্থান'
+  },
   // ..family
-  f: {
-    en: 'Family',
-    bn: ''
+  family: {
+    en: 'Family Information',
+    bn: 'পারিবারিক তথ্য'
   },
   father: {
     en: 'Father Information',
-    bn: ''
+    bn: 'পিতার তথ্য'
   },
   mother: {
     en: 'Mother Information',
-    bn: ''
+    bn: 'মায়ের তথ্য'
   },
   brother: {
-    en: 'Brother Informatio',
-    bn: ''
+    en: 'Brother Information',
+    bn: 'ভাইদের তথ্য'
   },
   sister: {
     en: 'Sister Information',
-    bn: ''
+    bn: 'বোনদের তথ্য'
   },
   eStatus: {
     en: 'Family Status',
-    bn: ''
+    bn: 'পরিবারের অবস্থা'
   },
-  rStatus: { en: 'How Much Do The Follow Religion', bn: '' },
+  rStatus: { en: 'How deeply does your family follow religion?', bn: '' },
 
   // ... expectation
+  expectation: {
+    en: 'Expectation From Your Partner',
+    bn: 'প্রত্যাশিত জীবনসঙ্গী'
+  },
   minAge: {
     en: 'Minimum Age',
-    bn: ''
+    bn: 'ন্যূনতম বয়স'
   },
   maxAge: {
     en: 'Maximum Age',
-    bn: ''
+    bn: 'সর্বোচ্চ বয়স'
   },
   minHeight: {
     en: 'Minimum Height',
-    bn: ''
+    bn: 'ন্যূনতম উচ্চতা'
   },
   maxHeight: {
     en: 'Maximum Height',
-    bn: ''
+    bn: 'সর্বোচ্চ উচ্চতা'
   },
   religion: {
     en: 'Religion',
-    bn: ''
+    bn: 'ধর্ম'
   },
 
   // .... others
+  others: { en: 'Others', bn: 'অন্যান্য' },
   student: {
     en: 'Interested In Marrying Student/Job Seeker?',
-    bn: ''
+    bn: 'শিক্ষার্থী/কাজের সন্ধানকারীর সাথে বিবাহে আগ্রহী?'
   },
   studentWithJob: {
     en: 'Interested In Marrying Student/Job Seeker Having Some Income?',
-    bn: ''
+    bn: 'অবসরের পেশাজীবী/শিক্ষার্থীর সাথে বিবাহে আগ্রহী যাদের আয় আছে?'
   },
   emigrant: {
     en: 'Are You Emigrant?',
-    bn: ''
+    bn: 'আপনি প্রবাসী?'
   },
-  interestedInEmigratin: {
-    en: 'Interested In Emigrant?',
-    bn: ''
+  interestedInEmigrant: {
+    en: 'Interested In Marrying Emigrant?',
+    bn: 'প্রবাসীর সাথে বিবাহে আগ্রহী?'
   },
   polynomy: {
     en: 'Interested In Polynomy?',
-    bn: ''
+    bn: 'বহুবিবাহে আগ্রহী?'
   },
-  interestedInDivorced: {
+  InterestedInDivorced: {
     en: 'Interested In Marrying Divorced Individuals?',
-    bn: ''
+    bn: 'তালাকপ্রাপ্ত ব্যক্তিদের সাথে বিবাহে আগ্রহী?'
   },
-  interestedInDivorcedChild: {
+  InterestedInDivorcedChild: {
     en: 'Interested In Marrying Divorced Individuals Having Having Children?',
-    bn: ''
+    bn: 'তালাকপ্রাপ্ত ব্যক্তিদের সাথে বিবাহে আগ্রহী যাদের সন্তান আছে?'
+  },
+
+  autism: {
+    en: 'Are You Autistic?',
+    bn: 'আপনি প্রতিবন্ধী?'
+  },
+  orphan: {
+    en: 'Are You an Orphan?',
+    bn: 'আপনি একজন অনাথ?'
+  },
+  newMuslim: {
+    en: 'Are You a New Muslim?',
+    bn: 'আপনি নতুন মুসলিম?'
+  },
+  nulliparous: {
+    en: 'Are you Nulliparous?',
+    bn: 'আপনি নুলিপ্যারাস?'
+  },
+
+  yes: {
+    en: 'Yes',
+    bn: 'হ্যাঁ'
+  },
+  no: {
+    en: 'NO',
+    bn: 'না'
+  },
+  // misc
+  save: {
+    en: 'Save',
+    bn: 'সংরক্ষণ করুন'
+  },
+  required: {
+    en: 'Required',
+    bn: 'প্রয়োজনীয়'
   }
 }
 

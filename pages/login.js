@@ -8,6 +8,7 @@ import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { login } from '@/redux/userSlice'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
+import { getText } from '@/Translation/account'
 
 const Login = () => {
   const router = useRouter()
@@ -15,6 +16,7 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const dispatch = useDispatch()
   const [error, setError] = useState('')
+  const ln = router.locale
 
   const Login = async () => {
     if (!email || !password) {
@@ -55,25 +57,25 @@ const Login = () => {
               className={styles.left}
               style={{ borderBottom: '2px solid blue' }}
             >
-              Login
+              {getText('login', ln)}
             </div>{' '}
             <div
               className={styles.right}
               onClick={() => router.push('/register')}
             >
-              Signup
+              {getText('signup', ln)}
             </div>
           </div>
           <form>
             <input
               type='email'
-              placeholder='Enter Your Email'
+              placeholder={getText('email', ln)}
               value={email}
               onChange={e => setEmail(e.target.value)}
             />
             <input
               type='password'
-              placeholder='Enter Your Password'
+              placeholder={getText('password', ln)}
               value={password}
               onChange={e => setPassword(e.target.value)}
             />
@@ -82,7 +84,7 @@ const Login = () => {
             )}
           </form>
           <div className={styles.btn} onClick={() => Login()}>
-            Login
+            {getText('login', ln)}
           </div>
         </div>
       </div>

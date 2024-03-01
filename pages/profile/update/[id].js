@@ -24,7 +24,8 @@ const Update = ({
   expectation,
   personal,
   family,
-  locationData
+  locationData,
+  locale
 }) => {
   const [profile, setProfile] = useState({
     ...user,
@@ -37,19 +38,20 @@ const Update = ({
         profile={profile}
         setProfile={setProfile}
         locationData={locationData}
+        ln={locale}
       />
       {/* <Personal
         personal={{
           ...personal
         }}
       /> */}
-      <Education education={{ ...education }} profile={profile} />
-      <Physical physical={{ ...physical }} />
-      <Religion religion={religion} />
-      <Address address={address} locationData={locationData} />
+      <Education education={{ ...education }} profile={profile} ln={locale} />
+      <Physical physical={{ ...physical }} ln={locale} />
+      <Religion religion={religion} ln={locale} />
+      <Address address={address} locationData={locationData} ln={locale} />
       <Family family={family} />
-      <Expectation expectation={expectation} />
-      <OthersUpdate profile={profile} setProfile={setProfile} />
+      <Expectation expectation={expectation} ln={locale} />
+      <OthersUpdate profile={profile} setProfile={setProfile} ln={locale} />
     </>
   )
 }
@@ -65,7 +67,7 @@ const fetchData = async () => {
 
 export async function getServerSideProps (context) {
   const { id } = context.query
-  const { req } = context
+  const { req, locale } = context
   const cookies = parse(req.headers.cookie || '')
   console.log({ cookies })
   const userInfo = cookies['userInfo']
@@ -99,7 +101,8 @@ export async function getServerSideProps (context) {
         expectation,
         personal,
         family,
-        locationData
+        locationData,
+        locale
       }
     }
   } catch (error) {

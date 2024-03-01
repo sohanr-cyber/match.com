@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import styles from '../../styles/Profile/Personal.module.css'
+import { getText } from '@/Translation/profile'
 
-const Expectation = ({ expectation }) => {
-  const [open, setOpen] = useState(false)
+const Expectation = ({ expectation, ln }) => {
+  const [open, setOpen] = useState(true)
   return (
     <div className={styles.wrapper}>
       <div className={styles.heading}>
-        <div className={styles.title}>Expectation From Your Partner </div>
+        <div className={styles.title}>{getText('expectation', ln)} </div>
         <div className={styles.toggle} onClick={() => setOpen(prev => !prev)}>
           {open ? '-' : '+'}
         </div>
@@ -14,15 +15,15 @@ const Expectation = ({ expectation }) => {
       {open && (
         <div className={styles.details}>
           <div className={styles.flex}>
-            <div className={styles.key}>Min Age : </div>
+            <div className={styles.key}>{getText('minAge', ln)} : </div>
             <div className={styles.value}>{expectation.minAge || '---'} </div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.key}>Max Age : </div>
+            <div className={styles.key}>{getText('maxAge', ln)} : </div>
             <div className={styles.value}>{expectation.maxAge || '---'}</div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.key}>Min Height : </div>
+            <div className={styles.key}>{getText('minHeight', ln)} : </div>
             <div className={styles.value}>
               {' '}
               {expectation?.minHeight ? (
@@ -37,9 +38,8 @@ const Expectation = ({ expectation }) => {
             </div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.key}>Max Height: </div>
+            <div className={styles.key}>{getText('maxHeight', ln)}: </div>
             <div className={styles.value}>
-              {' '}
               {expectation?.maxHeight ? (
                 <>
                   {' '}
@@ -52,11 +52,11 @@ const Expectation = ({ expectation }) => {
             </div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.key}>city: </div>
+            <div className={styles.key}>{getText('city', ln)}: </div>
             <div className={styles.value}> any </div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.key}>complexion: </div>
+            <div className={styles.key}>{getText('color', ln)}: </div>
             <div className={styles.value}>
               {' '}
               {['white', 'brown'].map((i, index) => (
@@ -67,7 +67,7 @@ const Expectation = ({ expectation }) => {
             </div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.key}> Education: </div>
+            <div className={styles.key}> {getText('education', ln)}: </div>
             <div className={styles.value}>
               {expectation.educations.map((item, index) => (
                 <span key={index}>{item}&nbsp;</span>
@@ -75,7 +75,7 @@ const Expectation = ({ expectation }) => {
             </div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.key}> profession: </div>
+            <div className={styles.key}> {getText('ocupation', ln)}: </div>
             <div className={styles.value}>
               {' '}
               {expectation.professions.map((item, index) => (
@@ -84,7 +84,7 @@ const Expectation = ({ expectation }) => {
             </div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.key}> Religion: </div>
+            <div className={styles.key}> {getText('pr', ln)}: </div>
             <div className={styles.value}>
               {expectation.description || '---'}
             </div>

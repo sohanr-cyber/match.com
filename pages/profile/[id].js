@@ -53,7 +53,7 @@ const ProfileDetails = ({
           <Education education={education} ln={locale} />
           <Piety religion={religion} ln={locale} />
           <Address address={address} ln={locale} />
-          <Family family={family} />
+          <Family family={family} ln = {locale} />
           <Expectation expectation={expectation} ln={locale} />
           <Others data={user} ln={locale} />
           {isClient && router.query.id != userInfo?.id && (
