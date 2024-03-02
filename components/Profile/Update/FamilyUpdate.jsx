@@ -15,8 +15,10 @@ import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import Moment from 'react-moment/dist'
+import { getText } from '@/Translation/profile'
+import Ln from '@/components/utils/Ln'
 
-const Religion = ({ family: data }) => {
+const Religion = ({ family: data, ln }) => {
   const [family, setFamily] = useState({
     ...data
   })
@@ -67,7 +69,7 @@ const Religion = ({ family: data }) => {
       <div className={styles.heading}>
         <div className={styles.left}>
           <span>7</span>
-          <div className={styles.title}>Family Information</div>
+          <div className={styles.title}>{getText('family', ln)}</div>
         </div>
         {family.updatedAt && (
           <div className={styles.right}>
@@ -77,42 +79,42 @@ const Religion = ({ family: data }) => {
       </div>
       <form className={styles.formContainer}>
         <div className={styles.field}>
-          <label>Father Information</label>
+          <label>{getText('father', ln)}</label>
           <textarea
             value={family.father}
             onChange={e => setFamily({ ...family, father: e.target.value })}
           ></textarea>
         </div>
         <div className={styles.field}>
-          <label>Mother Information</label>
+          <label>{getText('mother', ln)}</label>
           <textarea
             value={family.mother}
             onChange={e => setFamily({ ...family, mother: e.target.value })}
           ></textarea>
         </div>
         <div className={styles.field}>
-          <label>Brother Information</label>
+          <label>{getText('brother', ln)}</label>
           <textarea
             value={family.brother}
             onChange={e => setFamily({ ...family, brother: e.target.value })}
           ></textarea>
         </div>
         <div className={styles.field}>
-          <label>Sister Information</label>
+          <label>{getText('sister', ln)} </label>
           <textarea
             value={family.sister}
             onChange={e => setFamily({ ...family, sister: e.target.value })}
           ></textarea>
         </div>
         <div className={styles.field}>
-          <label>How much religion they practice ? </label>
+          <label>{getText('rStatus', ln)}</label>
           <textarea
             value={family.rStatus}
             onChange={e => setFamily({ ...family, rStatus: e.target.value })}
           ></textarea>
         </div>
         <div className={styles.field}>
-          <label>Family Status </label>
+          <label>{getText('eStatus', ln)} </label>
           <div className={styles.options}>
             {[
               'Lower Class',
@@ -129,13 +131,13 @@ const Religion = ({ family: data }) => {
                 onClick={() => setFamily({ ...family, eStatus: item })}
                 key={index}
               >
-                {item}
+                <Ln item={item} />{' '}
               </span>
             ))}
           </div>
         </div>
         <div className={styles.field}>
-          <label>Do They Agree To you Marriage ? </label>
+          <label>{getText('agreement', ln)} </label>
           <textarea
             value={family.agreement}
             onChange={e => setFamily({ ...family, agreement: e.target.value })}
@@ -144,7 +146,7 @@ const Religion = ({ family: data }) => {
       </form>{' '}
       {error && <p style={{ color: 'red', fontSize: '90%' }}>{error}</p>}
       <div className={styles.save} onClick={() => update()}>
-        Save
+        {getText('save', ln)}
       </div>
     </div>
   )

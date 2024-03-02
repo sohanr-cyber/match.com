@@ -22,7 +22,13 @@ const dict = {
   setting: {
     en: 'Setting',
     bn: 'সেটিং'
-  }
+  },
+  search: {
+    en: 'Search',
+    bn: ''
+  },
+  
+
 }
 const getText = (key, ln) => {
   if (ln == 'en-US') {

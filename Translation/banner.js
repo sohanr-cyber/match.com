@@ -6,6 +6,10 @@ const dict = {
   btn: {
     en: 'Register Here',
     bn: 'বায়োডাটা তৈরি করুন'
+  },
+  searchBy: {
+    en: 'Search By Profile Id',
+    bn: 'প্রোফাইল আইডি দ্বারা অনুসন্ধান করুন'
   }
 }
 const getText = (key, ln) => {

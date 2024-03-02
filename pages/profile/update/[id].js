@@ -49,7 +49,7 @@ const Update = ({
       <Physical physical={{ ...physical }} ln={locale} />
       <Religion religion={religion} ln={locale} />
       <Address address={address} locationData={locationData} ln={locale} />
-      <Family family={family} />
+      <Family family={family} ln={locale} />
       <Expectation expectation={expectation} ln={locale} />
       <OthersUpdate profile={profile} setProfile={setProfile} ln={locale} />
     </>

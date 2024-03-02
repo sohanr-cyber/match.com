@@ -27,7 +27,7 @@ const Steps = () => {
   ]
   return (
     <div className={styles.wrapper}>
-      <h1>How You can coneect with us</h1>
+      <h1>{getText('h1', ln)}</h1>
       <p>{getText('p', ln)}</p>
       <div className={styles.flex}>
         {steps.map((item, index) => (

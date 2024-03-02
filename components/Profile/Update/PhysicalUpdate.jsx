@@ -15,10 +15,11 @@ import { useRouter } from 'next/router'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
 import axios from 'axios'
 import Moment from 'react-moment/dist'
-import dict from '@/dictionary'
+import dict from '@/Translation/dictionary'
 import Ln from '../../utils/Ln'
+import { getText } from '@/Translation/profile'
 
-const Basic = ({ physical: data }) => {
+const Basic = ({ physical: data, ln }) => {
   const [physical, setPhysical] = useState({
     ...data,
     heightFeet: parseInt(data.height / 12),
@@ -80,7 +81,7 @@ const Basic = ({ physical: data }) => {
       <div className={styles.heading}>
         <div className={styles.left}>
           <span>4</span>
-          <div className={styles.title}>Physical Attribute</div>
+          <div className={styles.title}>{getText('pa', ln)}</div>
         </div>
         {physical.updatedAt && (
           <div className={styles.right}>
@@ -90,7 +91,7 @@ const Basic = ({ physical: data }) => {
       </div>
       <form className={styles.form__Container}>
         <div className={styles.field}>
-          <label>Height</label>
+          <label>{getText('height', ln)}</label>
           <div className={styles.flex}>
             <input
               type='number'
@@ -111,16 +112,16 @@ const Basic = ({ physical: data }) => {
           </div>
         </div>
         <div className={styles.field}>
-          <label>Weight(kg)</label>
+          <label>{getText('weight', ln)}</label>
           <input
             type='Number'
-            placeholder='50kg'
+            // placeholder='50kg'
             value={physical.mass}
             onChange={e => setPhysical({ ...physical, mass: e.target.value })}
           />
         </div>
         <div className={styles.field}>
-          <label>Skin Color</label>
+          <label>{getText('color', ln)}</label>
           <div className={styles.options}>
             {skinColors.map((item, index) => (
               <span
@@ -142,7 +143,7 @@ const Basic = ({ physical: data }) => {
         </div>
 
         <div className={styles.field}>
-          <label>Body Type</label>
+          <label>{getText('bodyType', ln)}</label>
           <div className={styles.options}>
             {bodyTypes.map((item, index) => (
               <span
@@ -163,7 +164,7 @@ const Basic = ({ physical: data }) => {
           </div>
         </div>
         <div className={styles.field}>
-          <label>Blood Group</label>
+          <label>{getText('blood', ln)}</label>
           <div className={styles.options}>
             {['O+', 'A+', 'B+', 'AB+', 'A-', 'B-', 'O-'].map((item, index) => (
               <span
@@ -184,7 +185,7 @@ const Basic = ({ physical: data }) => {
           </div>
         </div>
         <div className={styles.field}>
-          <label>Any Physical Issue ? </label>
+          <label>{getText('issue', ln)} </label>
           <input
             type='text'
             placeholder=''
@@ -195,7 +196,7 @@ const Basic = ({ physical: data }) => {
       </form>
       {error && <p style={{ color: 'red', fontSize: '90%' }}>{error}</p>}
       <div className={styles.save} onClick={() => update()}>
-        Save
+        {getText('save', ln)}
       </div>
     </div>
   )

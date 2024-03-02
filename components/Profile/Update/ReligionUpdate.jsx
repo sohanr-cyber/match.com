@@ -15,8 +15,9 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
 import Moment from 'react-moment/dist'
+import { getText } from '@/Translation/profile'
 
-const Religion = ({ religion: data }) => {
+const Religion = ({ religion: data, ln }) => {
   const [religion, setReligion] = useState({
     ...data
   })
@@ -52,7 +53,7 @@ const Religion = ({ religion: data }) => {
       <div className={styles.heading}>
         <div className={styles.left}>
           <span>5</span>
-          <div className={styles.title}>Personal & Religion</div>
+          <div className={styles.title}>{getText('pr', ln)}</div>
         </div>
         {religion.updatedAt && (
           <div className={styles.right}>
@@ -62,14 +63,14 @@ const Religion = ({ religion: data }) => {
       </div>
       <form className={styles.formContainer}>
         <div className={styles.field}>
-          <label>Whate are the Outfit outside your home ?</label>
+          <label>{getText('outfit', ln)}</label>
           <textarea
             value={religion.outfit}
             onChange={e => setReligion({ ...religion, outfit: e.target.value })}
           ></textarea>
         </div>
         <div className={styles.field}>
-          <label>How long have you been wearing this outfit ?</label>
+          <label>{getText('outfit', ln)}</label>
           <textarea
             value={religion.outfitDate}
             onChange={e =>
@@ -78,16 +79,14 @@ const Religion = ({ religion: data }) => {
           ></textarea>
         </div>
         <div className={styles.field}>
-          <label>
-            Do You pray 5 times a day ? How long have you been doing so ?
-          </label>
+          <label>{getText('prayer', ln)} </label>
           <textarea
             value={religion.prayer}
             onChange={e => setReligion({ ...religion, prayer: e.target.value })}
           ></textarea>
         </div>
         <div className={styles.field}>
-          <label>how many times you miss prayer a week normally ? </label>
+          <label>{getText('missing', ln)} </label>
           <textarea
             value={religion.missingPrayer}
             onChange={e =>
@@ -96,7 +95,7 @@ const Religion = ({ religion: data }) => {
           ></textarea>
         </div>
         <div className={styles.field}>
-          <label>How is your recitation of quran? </label>
+          <label>{getText('quran', ln)}</label>
           <textarea
             value={religion.quranRecitation}
             onChange={e =>
@@ -105,14 +104,14 @@ const Religion = ({ religion: data }) => {
           ></textarea>
         </div>
         <div className={styles.field}>
-          <label>Do You Maintain Mahram Non-Mahram? </label>
+          <label>{getText('mahram', ln)}</label>
           <textarea
             value={religion.mahram}
             onChange={e => setReligion({ ...religion, mahram: e.target.value })}
           ></textarea>
         </div>
         <div className={styles.field}>
-          <label>Do You Watch Movie / Tv Serial ? </label>
+          <label>{getText('watch', ln)} </label>
           <textarea
             value={religion.watch}
             onChange={e => setReligion({ ...religion, watch: e.target.value })}
@@ -120,7 +119,7 @@ const Religion = ({ religion: data }) => {
         </div>
 
         <div className={styles.field}>
-          <label>Do You have Bad Habit of Drug(i.e smoking) ? </label>
+          <label>{getText('habit', ln)} </label>
           <textarea
             value={religion.badHabit}
             onChange={e =>
@@ -129,10 +128,7 @@ const Religion = ({ religion: data }) => {
           ></textarea>
         </div>
         <div className={styles.field}>
-          <label>
-            Beside Fardh Deeds , Do you have any Nafle/Sunnah Deeds that you
-            never miss at least for 6 months.
-          </label>
+          <label>{getText('deeds', ln)}</label>
           <textarea
             value={religion.regularDeeds}
             onChange={e =>
@@ -141,14 +137,14 @@ const Religion = ({ religion: data }) => {
           ></textarea>
         </div>
         <div className={styles.field}>
-          <label>write some islamic book you have read ? </label>
+          <label>{getText('books', ln)}</label>
           <textarea
             value={religion.books}
             onChange={e => setReligion({ ...religion, books: e.target.value })}
           ></textarea>
         </div>
         <div className={styles.field}>
-          <label>write some of your favourite schoolar ? </label>
+          <label>{getText('scholars', ln)} </label>
           <textarea
             value={religion.scholars}
             onChange={e =>
@@ -157,16 +153,14 @@ const Religion = ({ religion: data }) => {
           ></textarea>
         </div>
         <div className={styles.field}>
-          <label>
-            write something about you piety / good things about you?{' '}
-          </label>
+          <label>{getText('good', ln)} </label>
           <textarea
             value={religion.piety}
             onChange={e => setReligion({ ...religion, piety: e.target.value })}
           ></textarea>
         </div>
         <div className={styles.field}>
-          <label>write something about your interest , hoby , dream? </label>
+          <label>{getText('interest', ln)} </label>
           <textarea
             value={religion.interest}
             onChange={e =>
@@ -176,7 +170,7 @@ const Religion = ({ religion: data }) => {
         </div>
       </form>
       <div className={styles.save} onClick={() => update()}>
-        Save
+        {getText('save', ln)}
       </div>
     </div>
   )

@@ -178,7 +178,7 @@ const Box = ({ data }) => {
           <input
             type='text'
             placeholder={
-              router.locale == 'fr'
+              router.locale == 'bn'
                 ? 'আইডি দ্বারা প্রোফাইল অনুসন্ধান করুন'
                 : 'Search Profile By Id'
             }

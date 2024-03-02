@@ -1,7 +1,7 @@
 const dict = {
   h1: {
     en: 'How You Can Coneect With Us',
-    bn: ''
+    bn: 'আপনি কিভাবে আমাদের সাথে সংযোগ করতে পারেন'
   },
   p: {
     en: 'Get Started In 3 Easy Steps',
@@ -40,7 +40,7 @@ const getText = (key, ln) => {
   if (ln == 'fr') {
     ln = 'bn'
   }
-  
+
   return dict[key][ln]
 }
 

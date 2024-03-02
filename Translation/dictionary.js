@@ -2,7 +2,11 @@ const dict = {
   // Gender
   Male: 'পুরুষ',
   Female: 'মহিলা',
-
+  // Family Status
+  'Lower Class': 'নিম্ন শ্রেণী',
+  'Lower Middle Class': 'নিম্ন মধ্যবর্তী শ্রেণী',
+  'Middle Class': 'মধ্যবর্তী শ্রেণী',
+  'Higher Class': 'উচ্চ শ্রেণী',
   // skin Colors
   'Very Fair': 'উজ্জ্বল ফর্সা',
   Fair: 'ফর্সা',

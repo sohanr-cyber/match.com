@@ -73,6 +73,10 @@ const dict = {
     en: 'Hair Color',
     bn: 'চুলের রঙ'
   },
+  issue: {
+    en: 'Do You Have Any Physical Issue?',
+    bn: 'আপনার কোন শারীরিক সমস্যা আছে?'
+  },
 
   // ... education & career
   ec: { en: 'Education & Career', bn: 'শিক্ষা ও কর্মজীবন' },
@@ -234,7 +238,14 @@ const dict = {
     en: 'Family Status',
     bn: 'পরিবারের অবস্থা'
   },
-  rStatus: { en: 'How deeply does your family follow religion?', bn: '' },
+  rStatus: {
+    en: 'How deeply does your family follow religion?',
+    bn: 'আপনার পরিবার কতটা গভীরভাবে ধর্ম অনুসরণ করে?'
+  },
+  agreement: {
+    en: 'Do They Agree To you Marriage?',
+    bn: 'তারা আপনার বিয়ের সাথে কি একমত?'
+  },
 
   // ... expectation
   expectation: {

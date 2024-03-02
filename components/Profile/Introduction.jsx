@@ -11,6 +11,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite'
 import axios from 'axios'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
 import { getText } from '@/Translation/profile'
+import Ln from '../utils/Ln'
 const Introduction = ({ data: profile, ln }) => {
   const router = useRouter()
   const userInfo = useSelector(state => state.user.userInfo)
@@ -125,13 +126,16 @@ const Introduction = ({ data: profile, ln }) => {
           <div className={styles.flex}>
             <div className={styles.key}>{getText('location', ln)}</div>
             <div className={styles.value}>
-              {profile?.city || '--'} || {profile?.district || '--'} ||{' '}
-              {profile?.upazilla || '--'}
+              <Ln item={profile?.city || '--'} /> ||
+              <Ln item={profile?.district || '--'} /> ||{' '}
+              <Ln item={profile?.upazilla || '--'} />
             </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('piety', ln)}</div>
-            <div className={styles.value}>{profile?.piety || '--'}</div>
+            <div className={styles.value}>
+              <Ln item={profile?.piety || '--'} />
+            </div>
           </div>
         </div>
       </div>

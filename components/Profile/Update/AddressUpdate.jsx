@@ -16,8 +16,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
 import { useRouter } from 'next/router'
 import Moment from 'react-moment/dist'
+import { getText } from '@/Translation/profile'
+import Ln from '@/components/utils/Ln'
 
-const Basic = ({ locationData, address: data }) => {
+const Basic = ({ locationData, address: data, ln }) => {
   const [districts, setDistricts] = useState([])
   const [address, setAddress] = useState({ ...data })
   const [error, setError] = useState('')
@@ -84,7 +86,7 @@ const Basic = ({ locationData, address: data }) => {
       <div className={styles.heading}>
         <div className={styles.left}>
           <span>6</span>
-          <div className={styles.title}>Address</div>
+          <div className={styles.title}>{getText('address', ln)}</div>
         </div>
         {address.updatedAt && (
           <div className={styles.right}>
@@ -94,7 +96,7 @@ const Basic = ({ locationData, address: data }) => {
       </div>
       <form className={styles.form__Container}>
         <div className={styles.field}>
-          <label>City/Division {address.city} </label>
+          <label>{getText('city', ln)}</label>
           <select
             className={styles.value}
             onChange={e => setAddress({ ...address, city: e.target.value })}
@@ -109,13 +111,13 @@ const Basic = ({ locationData, address: data }) => {
                 key={index}
                 selected={address?.city == item.division ? true : false}
               >
-                {item.division}
+                <Ln item={item.division} />{' '}
               </option>
             ))}
           </select>
         </div>
         <div className={styles.field}>
-          <label>District</label>
+          <label>{getText('district', ln)}</label>
           <select
             className={styles.value}
             onChange={e => setAddress({ ...address, district: e.target.value })}
@@ -126,13 +128,13 @@ const Basic = ({ locationData, address: data }) => {
                 value={item.district}
                 selected={item.district == address.district ? true : false}
               >
-                {item.district}
+                <Ln item={item.district} />{' '}
               </option>
             ))}
           </select>
         </div>
         <div className={styles.field}>
-          <label>Upazilla </label>
+          <label>{getText('upazilla', ln)} </label>
           <select
             className={styles.value}
             onChange={e =>
@@ -142,7 +144,7 @@ const Basic = ({ locationData, address: data }) => {
               })
             }
           >
-            <option>Not Selected</option>
+            <option>{<Ln item={'Not Selected'} />}</option>
             {districts
               .find(i => i.district == address.district)
               ?.upazilla.map((item, index) => (
@@ -151,13 +153,13 @@ const Basic = ({ locationData, address: data }) => {
                   value={item}
                   selected={item == address.upazilla ? true : false}
                 >
-                  {item}
+                  <Ln item={item} />{' '}
                 </option>
               ))}
           </select>
         </div>
         <div className={styles.field}>
-          <label>Location</label>
+          <label>{getText('location', ln)}</label>
           <input
             type='text'
             value={address.location}
@@ -167,7 +169,7 @@ const Basic = ({ locationData, address: data }) => {
       </form>{' '}
       {error && <p style={{ fontSize: '80%', color: 'red' }}>{error}</p>}
       <div className={styles.save} onClick={() => update()}>
-        Save
+        {getText('save', ln)}
       </div>
     </div>
   )

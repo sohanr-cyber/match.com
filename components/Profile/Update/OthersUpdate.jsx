@@ -16,8 +16,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import Moment from 'react-moment/dist'
+import { getText } from '@/Translation/profile'
 
-const OthersUpdate = ({ profile, setProfile }) => {
+const OthersUpdate = ({ profile, setProfile, ln }) => {
   const dispatch = useDispatch()
   const router = useRouter()
   const userInfo = useSelector(state => state.user.userInfo)
@@ -52,7 +53,7 @@ const OthersUpdate = ({ profile, setProfile }) => {
       <div className={styles.heading}>
         <div className={styles.left}>
           <span>7</span>
-          <div className={styles.title}>Others</div>
+          <div className={styles.title}>{getText('others', ln)}</div>
         </div>
         {profile.updatedAt && (
           <div className={styles.right}>
@@ -62,7 +63,7 @@ const OthersUpdate = ({ profile, setProfile }) => {
       </div>
       <form className={styles.formContainer}>
         <div className={styles.field}>
-          <label>Are You Interested in Marrying a Divorced?</label>
+          <label> {getText('InterestedInDivorced', ln)}</label>
           <div className={styles.options}>
             <span
               style={
@@ -79,7 +80,7 @@ const OthersUpdate = ({ profile, setProfile }) => {
                 })
               }
             >
-              Yes
+              {getText('yes', ln)}
             </span>
             <span
               style={
@@ -96,13 +97,13 @@ const OthersUpdate = ({ profile, setProfile }) => {
                 })
               }
             >
-              No
+              {getText('no', ln)}
             </span>
           </div>
         </div>
 
         <div className={styles.field}>
-          <label>Are You Interested in Marrying a Divorced Having Child?</label>
+          <label>{getText('InterestedInDivorcedChild', ln)}</label>
           <div className={styles.options}>
             <span
               style={
@@ -119,7 +120,7 @@ const OthersUpdate = ({ profile, setProfile }) => {
                 })
               }
             >
-              Yes
+              {getText('yes', ln)}
             </span>
             <span
               style={
@@ -140,13 +141,13 @@ const OthersUpdate = ({ profile, setProfile }) => {
                 })
               }
             >
-              No
+              {getText('no', ln)}
             </span>
           </div>
         </div>
 
         <div className={styles.field}>
-          <label>Are You Interested in Marrying a Student/Job Seeker?</label>
+          <label>{getText('student', ln)}</label>
           <div className={styles.options}>
             <span
               style={
@@ -164,7 +165,7 @@ const OthersUpdate = ({ profile, setProfile }) => {
                 })
               }
             >
-              Yes
+              {getText('yes', ln)}
             </span>
             <span
               style={
@@ -181,15 +182,12 @@ const OthersUpdate = ({ profile, setProfile }) => {
                 })
               }
             >
-              No
+              {getText('no', ln)}
             </span>
           </div>
         </div>
         <div className={styles.field}>
-          <label>
-            Are You Interested in Marrying a Student/Job Seeker Having Some
-            Job/Income?
-          </label>
+          <label>{getText('studentWithJob', ln)}</label>
           <div className={styles.options}>
             <span
               style={
@@ -206,7 +204,7 @@ const OthersUpdate = ({ profile, setProfile }) => {
                 })
               }
             >
-              Yes
+              {getText('yes', ln)}
             </span>
             <span
               style={
@@ -223,58 +221,13 @@ const OthersUpdate = ({ profile, setProfile }) => {
                 })
               }
             >
-              No
+              {getText('no', ln)}
             </span>
           </div>
         </div>
 
         <div className={styles.field}>
-          <label>
-            Are You Interested in Marrying a Student/Job Seeker Having Some
-            Job/Income?
-          </label>
-          <div className={styles.options}>
-            <span
-              style={
-                profile.categories.find(i => i == 'StudentWithJob')
-                  ? { background: 'blue', color: 'white' }
-                  : {}
-              }
-              onClick={() =>
-                setProfile({
-                  ...profile,
-                  categories: !profile.categories.find(
-                    i => i == 'StudentWithJob'
-                  ) && [...profile.categories, 'StudentWithJob']
-                })
-              }
-            >
-              Yes
-            </span>
-            <span
-              style={
-                !profile.categories.find(i => i == 'StudentWithJob')
-                  ? { background: 'blue', color: 'white' }
-                  : {}
-              }
-              onClick={() =>
-                setProfile({
-                  ...profile,
-                  categories:
-                    profile.categories.find(i => i == 'StudentWithJob') &&
-                    profile.categories.filter(i => i != 'StudentWithJob')
-                })
-              }
-            >
-              No
-            </span>
-          </div>
-        </div>
-
-        <div className={styles.field}>
-          <label>
-            Are You Interested in Polynomy ( being or taking second wife) ?{' '}
-          </label>
+          <label>{getText('polynomy', ln)}</label>
           <div className={styles.options}>
             <span
               style={
@@ -291,7 +244,7 @@ const OthersUpdate = ({ profile, setProfile }) => {
                 })
               }
             >
-              Yes
+              {getText('yes', ln)}
             </span>
             <span
               style={
@@ -308,13 +261,13 @@ const OthersUpdate = ({ profile, setProfile }) => {
                 })
               }
             >
-              No
+              {getText('no', ln)}
             </span>
           </div>
         </div>
 
         <div className={styles.field}>
-          <label>Are You An Emigrant ? </label>
+          <label>{getText('emigrant', ln)}</label>
           <div className={styles.options}>
             <span
               style={
@@ -331,7 +284,7 @@ const OthersUpdate = ({ profile, setProfile }) => {
                 })
               }
             >
-              Yes
+              {getText('yes', ln)}
             </span>
             <span
               style={
@@ -348,13 +301,13 @@ const OthersUpdate = ({ profile, setProfile }) => {
                 })
               }
             >
-              No
+              {getText('no', ln)}
             </span>
           </div>
         </div>
 
         <div className={styles.field}>
-          <label>Are You Interested In Marrying An Emigrant ? </label>
+          <label> {getText('interestedInEmigrant', ln)}</label>
           <div className={styles.options}>
             <span
               style={
@@ -371,7 +324,7 @@ const OthersUpdate = ({ profile, setProfile }) => {
                 })
               }
             >
-              Yes
+              {getText('yes', ln)}
             </span>
             <span
               style={
@@ -388,14 +341,14 @@ const OthersUpdate = ({ profile, setProfile }) => {
                 })
               }
             >
-              No
+              {getText('no', ln)}
             </span>
           </div>
         </div>
       </form>
       {error && <p style={{ fontSize: '80%', color: 'red' }}>{error}</p>}
       <div className={styles.save} onClick={() => update()}>
-        Save
+        {getText('save', ln)}
       </div>
     </div>
   )

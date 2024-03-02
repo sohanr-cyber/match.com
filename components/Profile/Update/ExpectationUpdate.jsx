@@ -14,8 +14,10 @@ import { useRouter } from 'next/router'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
 import axios from 'axios'
 import Moment from 'react-moment/dist'
+import { getText } from '@/Translation/profile'
+import Ln from '@/components/utils/Ln'
 
-const Basic = ({ expectation: data }) => {
+const Basic = ({ expectation: data, ln }) => {
   const [expectation, setExpectation] = useState({
     ...data,
     minHeightFeet: parseInt(data.minHeight / 12),
@@ -68,7 +70,7 @@ const Basic = ({ expectation: data }) => {
         <div className={styles.heading}>
           <div className={styles.left}>
             <span>6</span>
-            <div className={styles.title}>Expectation</div>
+            <div className={styles.title}>{getText('expectation', ln)}</div>
           </div>
           {expectation.updatedAt && (
             <div className={styles.right}>
@@ -78,7 +80,7 @@ const Basic = ({ expectation: data }) => {
         </div>
         <form className={styles.formContainer}>
           <div className={styles.field}>
-            <label>Minimum Age</label>
+            <label>{getText('minAge', ln)}</label>
             <input
               type='number'
               value={expectation.minAge}
@@ -88,7 +90,7 @@ const Basic = ({ expectation: data }) => {
             />
           </div>
           <div className={styles.field}>
-            <label>Maximum Age</label>
+            <label> {getText('maxAge', ln)}</label>
             <input
               type='number'
               value={expectation.maxAge}
@@ -98,7 +100,7 @@ const Basic = ({ expectation: data }) => {
             />
           </div>
           <div className={styles.field}>
-            <label>Minimum Height</label>
+            <label> {getText('minHeight', ln)}</label>
             <div className={styles.flex}>
               <input
                 type='number'
@@ -127,7 +129,7 @@ const Basic = ({ expectation: data }) => {
             </div>
           </div>
           <div className={styles.field}>
-            <label>Maximum Height</label>
+            <label> {getText('maxHeight', ln)}</label>
             <div className={styles.flex}>
               <input
                 type='number'
@@ -158,7 +160,7 @@ const Basic = ({ expectation: data }) => {
             </div>
           </div>
           <div className={styles.field}>
-            <label>Body Type</label>
+            <label>{getText('bodyType', ln)}</label>
             <div className={styles.options}>
               {bodyTypes.map((item, index) => (
                 <span
@@ -186,7 +188,7 @@ const Basic = ({ expectation: data }) => {
             </div>
           </div>
           <div className={styles.field}>
-            <label>Skin Colors</label>
+            <label>{getText('color', ln)}</label>
             <div className={styles.options}>
               {skinColors.map((item, index) => (
                 <span
@@ -208,13 +210,13 @@ const Basic = ({ expectation: data }) => {
                     })
                   }
                 >
-                  {item}
+                  <Ln item={item} />{' '}
                 </span>
               ))}
             </div>
           </div>
           <div className={styles.field}>
-            <label>Professions</label>
+            <label> {getText('ocupation', ln)}</label>
             <div className={styles.options}>
               {professions.map((item, index) => (
                 <span
@@ -236,13 +238,13 @@ const Basic = ({ expectation: data }) => {
                   }
                   key={index}
                 >
-                  {item}
+                  <Ln item={item} />{' '}
                 </span>
               ))}
             </div>
           </div>
           <div className={styles.field}>
-            <label>Education Type</label>
+            <label>{getText('educationType', ln)}</label>
             <div className={styles.options}>
               {educationTypes.map((item, index) => (
                 <span
@@ -266,13 +268,13 @@ const Basic = ({ expectation: data }) => {
                   }
                   key={index}
                 >
-                  {item}
+                  <Ln item={item} />{' '}
                 </span>
               ))}
             </div>
           </div>
           <div className={styles.field}>
-            <label>Education</label>
+            <label>{getText('education', ln)}</label>
             <div className={styles.options}>
               {educationalStatus.map((item, index) => (
                 <span
@@ -294,13 +296,13 @@ const Basic = ({ expectation: data }) => {
                   }
                   key={index}
                 >
-                  {item}
+                  <Ln item={item} />{' '}
                 </span>
               ))}
             </div>
           </div>
           <div className={styles.field}>
-            <label>Piety</label>
+            <label>{getText('piety', ln)}</label>
             <textarea
               value={expectation.description}
               onChange={e =>
@@ -311,7 +313,7 @@ const Basic = ({ expectation: data }) => {
         </form>
         {error && <p style={{ color: 'red', fontSize: '90%' }}>{error}</p>}
         <div className={styles.save} onClick={() => update()}>
-          Save
+          {getText('save', ln)}
         </div>
       </div>
     </>
