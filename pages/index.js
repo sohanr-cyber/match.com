@@ -12,13 +12,13 @@ import BASE_URL from '@/config'
 import Search from '@/components/Search'
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home ({ data }) {
+export default function Home ({ data, recent }) {
   return (
     <>
       <Header data={data} />
       <Steps />
       <RegisterBanner />
-      {/* <Recent recent={recent} /> */}
+      <Recent recent={recent} />
       {/* <Search /> */}
     </>
   )
@@ -45,11 +45,11 @@ const recentUsers = async () => {
 export async function getServerSideProps () {
   try {
     const data = await fetchData()
-    // const recent = await recentUsers()
+    const recent = await recentUsers()
     return {
       props: {
         data,
-        // recent
+        recent
       }
     }
   } catch (error) {
