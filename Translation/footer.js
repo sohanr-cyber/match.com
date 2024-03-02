@@ -42,7 +42,8 @@ const dict = {
   call: {
     en: 'Call Us',
     bn: 'আমাদের কল করুন'
-  }
+  },
+  profile: { en: 'Profile', bn: 'প্রোফাইল' }
 }
 const getText = (key, ln) => {
   if (ln == 'en-US') {

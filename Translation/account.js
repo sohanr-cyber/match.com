@@ -26,6 +26,10 @@ const dict = {
   choseG: {
     en: 'Choose Your Gender',
     bn: 'আপনার লিঙ্গ নির্বাচন করুন'
+  },
+  logout: {
+    en: 'Logout',
+    bn: 'লগআউট'
   }
 }
 const getText = (key, ln) => {

@@ -7,8 +7,12 @@ import axios from 'axios'
 import BASE_URL from '@/config'
 import Search from '@/components/Search'
 import Pagination from '@/components/Pagination'
+import { useRouter } from 'next/router'
+import { englishToBangla } from '@/utils'
 const Profile = ({ data, locationData }) => {
+  const router = useRouter()
   const [openfilter, setOpenFilter] = useState(true)
+  const ln = router.locale
   return (
     <>
       {openfilter && (
@@ -27,7 +31,9 @@ const Profile = ({ data, locationData }) => {
           >
             Filter
           </div>
-          <div className={styles.total}>Total Results : {data.totalUsers}</div>
+          <div className={styles.total}>
+            Total Results : {englishToBangla(data.totalUsers)}
+          </div>
         </div>
         <div className={styles.profile__cards}>
           {data.users.map((user, index) => (

@@ -109,6 +109,7 @@ const Basic = ({ locationData, address: data, ln }) => {
             ].map((item, index) => (
               <option
                 key={index}
+                value={item.division}
                 selected={address?.city == item.division ? true : false}
               >
                 <Ln item={item.division} />{' '}
@@ -122,7 +123,7 @@ const Basic = ({ locationData, address: data, ln }) => {
             className={styles.value}
             onChange={e => setAddress({ ...address, district: e.target.value })}
           >
-            {[{ district: 'Not Selectd' }, ...districts].map((item, index) => (
+            {[{ district: 'Not Selected' }, ...districts].map((item, index) => (
               <option
                 key={index}
                 value={item.district}

@@ -33,7 +33,7 @@ const Expectation = ({ expectation, ln }) => {
             <div className={styles.key}>{getText('minHeight', ln)} : </div>
             <div className={styles.value}>
               {expectation.minHeight
-                ? heightToFeet(expectation.minHeight)
+                ? heightToFeet(expectation.minHeight, ln)
                 : '---'}
             </div>
           </div>
@@ -41,7 +41,7 @@ const Expectation = ({ expectation, ln }) => {
             <div className={styles.key}>{getText('maxHeight', ln)}: </div>
             <div className={styles.value}>
               {expectation.maxHeight
-                ? heightToFeet(expectation.maxHeight)
+                ? heightToFeet(expectation.maxHeight, ln)
                 : '---'}
             </div>
           </div>

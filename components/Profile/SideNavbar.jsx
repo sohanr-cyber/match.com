@@ -43,7 +43,7 @@ const SideNavbar = ({ handleLogout }) => {
       <div className={styles.items}>
         <div
           className={styles.item}
-          onClick={() => router.push(`/profile/dashboard/${userInfo.id}`)}
+          onClick={() => router.push(`/profile/${userInfo.id}`)}
         >
           <div className={styles.icon}>
             <DashboardIcon />

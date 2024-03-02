@@ -1,6 +1,11 @@
 import React from 'react'
 import styles from '../../styles/Profile/Card.module.css'
-import { calculateAge, colorsWithTransparency } from '@/utils'
+import {
+  calculateAge,
+  colorsWithTransparency,
+  englishToBangla,
+  heightToFeet
+} from '@/utils'
 import faker from 'faker'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt'
@@ -8,11 +13,13 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye'
 import { useRouter } from 'next/router'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import { useSelector } from 'react-redux'
+import { getText } from '@/Translation/profile'
+import Ln from '../utils/Ln'
 
 const Card = ({ user, index, handleLike }) => {
   const router = useRouter()
   const userInfo = useSelector(state => state.user.userInfo)
-
+  const ln = router.locale
   return (
     <div
       className={styles.container}
@@ -50,35 +57,36 @@ const Card = ({ user, index, handleLike }) => {
         </div>
         <div className={styles.bottom}>
           <div className={styles.flex}>
-            <div className={styles.key}>Age:</div>
+            <div className={styles.key}>{getText('age', ln)}:</div>
             <div className={styles.value}>
-              {user?.bornAt ? calculateAge(user?.bornAt) : '--'}
+              {user?.bornAt ? calculateAge(user?.bornAt, ln) : '--'}
             </div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.key}>Height:</div>
+            <div className={styles.key}>{getText('height', ln)}:</div>
             <div className={styles.value}>
-              {user?.height ? (
-                <>
-                  {' '}
-                  {Math.floor(user?.height / 12)}&quot;{user?.height % 12}&apos;
-                </>
-              ) : (
-                '--'
-              )}{' '}
+              {user?.height ? <>{heightToFeet(user.height, ln)}</> : '--'}{' '}
             </div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.key}>Color:</div>
-            <div className={styles.value}>{user?.skinColor || '--'} </div>
+            <div className={styles.key}>{getText('color', ln)}:</div>
+            <div className={styles.value}>
+              <Ln item={user?.skinColor || '--'} />
+            </div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.key}>Body:</div>
-            <div className={styles.value}>{user?.bodyType || '--'}</div>
+            <div className={styles.key}>{getText('bodyType', ln)}:</div>
+            <div className={styles.value}>
+              {' '}
+              <Ln item={user?.bodyType || '--'} />
+            </div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.key}>Ocupation:</div>
-            <div className={styles.value}>{user?.profession || '--'}</div>
+            <div className={styles.key}>{getText('ocupation', ln)}:</div>
+            <div className={styles.value}>
+              {' '}
+              <Ln item={user?.profession || '--'} />
+            </div>
           </div>
         </div>
       </div>
@@ -100,13 +108,15 @@ const Card = ({ user, index, handleLike }) => {
           <div className={styles.icon}>
             <ThumbDownOffAltIcon style={{ fontSize: '140%' }} />
           </div>
-          <div className={styles.count}>23</div>
+          <div className={styles.count}>{englishToBangla(23)}</div>
         </div>
         <div className={styles.clicks}>
           <div className={styles.icon}>
             <RemoveRedEyeIcon style={{ fontSize: '140%' }} />
           </div>
-          <div className={styles.count}>{user?.click || 0}</div>
+          <div className={styles.count}>
+            {user?.click ? englishToBangla(user.click) : 0}
+          </div>
         </div>
       </div>
     </div>

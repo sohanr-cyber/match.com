@@ -53,14 +53,14 @@ const Ecucation = ({ education, ln }) => {
             <div className={styles.value}>{education?.hsc || '---'}</div>
           </div>
 
-          {education.hons && (
+          {education?.hons && (
             <div className={styles.flex}>
               <div className={styles.key}>{getText('hons', ln)}: </div>
               <div className={styles.value}>{education?.hons || '---'}</div>
             </div>
           )}
 
-          {education.masters && (
+          {education?.masters && (
             <div className={styles.flex}>
               <div className={styles.key}>{getText('master', ln)} </div>
               <div className={styles.value}>{education?.masters || '---'}</div>

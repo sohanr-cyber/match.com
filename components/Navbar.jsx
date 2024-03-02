@@ -84,36 +84,35 @@ const Navbar = () => {
           )}
         </div>
 
-        <div className={styles.item}>Contact Us</div>
-        {isClient && userInfo && (
-          <div
-            className={styles.item}
-            onClick={() => router.push(`/profile/${userInfo.id}`)}
-          >
-            Profile
-          </div>
-        )}
+        <div className={styles.item}>{getText('h2', ln)}</div>
       </div>
 
       <div className={styles.right}>
         {isClient && userInfo ? (
-          <div className={styles.icon}>
-            {open ? (
-              <CancelIcon
-                onClick={() => {
-                  setOpen(prev => !prev)
-                  setPhone(false)
-                }}
-                style={{ color: 'red' }}
-              />
-            ) : (
-              <AccountCircleIcon
-                onClick={() => {
-                  setOpen(prev => !prev)
-                  setPhone(false)
-                }}
-              />
-            )}
+          <div
+            className={styles.icon}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '5px',
+              border: '1px solid blue',
+              padding: '3px 5px',
+              borderRadius: '5px',
+              cursor: 'pointer'
+            }}
+            onClick={() => {
+              setOpen(prev => !prev)
+              setPhone(false)
+            }}
+          >
+            <>
+              <span>{getText('profile', ln)}</span>{' '}
+              {open ? (
+                <CancelIcon style={{ color: 'red' }} />
+              ) : (
+                <AccountCircleIcon />
+              )}
+            </>
           </div>
         ) : (
           <div className={styles.item} onClick={() => router.push('/login')}>
@@ -179,8 +178,22 @@ const Navbar = () => {
               )}
             </div>
           </div>
+
           <div className={styles.right}>
-            <div className={styles.item}> {trans('login', ln)}</div>
+            {userInfo ? (
+              <div
+                className={styles.item}
+                style={{
+                  background: 'red',
+                  color: 'white'
+                }}
+                onClick={() => dispatch(logout())}
+              >
+                {trans('logout', ln)}
+              </div>
+            ) : (
+              <div className={styles.item}> {trans('login', ln)}</div>
+            )}
           </div>
         </div>
       )}

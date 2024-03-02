@@ -62,9 +62,12 @@ const colorsWithTransparency = [
   `rgba(173, 216, 230, ${transparency})` // Light Blue with 10% opacity
 ]
 
-function englishToBangla (number) {
+function englishToBangla (number, ln) {
   if (!number) {
     return
+  }
+  if (ln == 'en-US') {
+    return number
   }
   const banglaNumbers = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯']
   const englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']

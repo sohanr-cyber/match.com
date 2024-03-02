@@ -345,6 +345,10 @@ const dict = {
   inches: {
     en: 'inches',
     bn: 'ইঞ্চি'
+  },
+  basic: {
+    en: 'Basic Information',
+    bn: 'মৌলিক তথ্য'
   }
 }
 

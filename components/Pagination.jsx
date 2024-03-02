@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import styles from '../styles/Pagination.module.css'
 import Pagination from '@mui/material/Pagination'
 import Stack from '@mui/material/Stack'
+import { englishToBangla } from '@/utils'
 
 const Pages = ({ totalPages, currentPage }) => {
   const router = useRouter()
@@ -14,6 +15,7 @@ const Pages = ({ totalPages, currentPage }) => {
       query: queryParams
     })
   }
+  const ln = router.locale
 
   const renderPageNumbers = () => {
     const pageNumbers = []

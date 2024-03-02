@@ -83,6 +83,7 @@ const Basic = ({ profile, setProfile, locationData, ln }) => {
       const { data } = await axios.get(
         `https://bdapis.com/api/v1.1/division/${city}`
       )
+      console.log(data)
       setDistricts(data.data)
     } catch (error) {
       console.log(error)
@@ -118,7 +119,7 @@ const Basic = ({ profile, setProfile, locationData, ln }) => {
             />
           </div>
           <div className={styles.field}>
-            <label>Date Of Birth</label>
+            <label>{getText('brithdate', ln)}</label>
             <input
               type='date'
               value={
@@ -341,6 +342,7 @@ const Basic = ({ profile, setProfile, locationData, ln }) => {
               ].map((item, index) => (
                 <option
                   key={index}
+                  value={item.division}
                   selected={profile.city == item.division ? true : false}
                 >
                   <Ln item={item.division} />
