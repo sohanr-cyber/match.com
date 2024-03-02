@@ -4,17 +4,21 @@ import Proposal from '../Activity/Proposal'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
+import { getText } from '@/Translation/profile'
+import Ln from '../utils/Ln'
 const Table = ({ proposals, acceptProposal, withdraw, decline, poke }) => {
   const userInfo = useSelector(state => state.user.userInfo)
   const router = useRouter()
+  const ln = router.locale
+  
   return (
     <div className={styles.wrapper}>
       <table>
         <tr>
-          <th>Id</th>
-          <th>Location</th>
+          <th>{getText('id', ln)}</th>
+          <th>{getText('location', ln)}</th>
           {/* <th>Birth Date</th> */}
-          <th>Profession</th>
+          <th>{getText('ocupation', ln)}</th>
           <th>Status</th>
         </tr>
         {proposals.map((item, index) => (
@@ -36,23 +40,31 @@ const Table = ({ proposals, acceptProposal, withdraw, decline, poke }) => {
                 : item.sender._id}
             </td>
             <td>
-              {router.query.id == item.sender._id
-                ? item.reciever.city
-                : item.sender.city}{' '}
-              ||{' '}
-              {router.query.id == item.sender.district
-                ? item.reciever.district
-                : item.sender.district}{' '}
-              ||{' '}
-              {router.query.id == item.sender.upazilla
-                ? item.reciever.upazilla
-                : item.sender.upazilla}
+              {router.query.id == item.sender._id ? (
+                <ln item={item.reciever.city} />
+              ) : (
+                <Ln item={item.sender.city} />
+              )}{' '}
+              -
+              {router.query.id == item.sender.district ? (
+                <Ln item={item.reciever.district} />
+              ) : (
+                <Ln item={item.sender.district} />
+              )}
+              -
+              {router.query.id == item.sender.upazilla ? (
+                <Ln item={item.reciever.upazilla} />
+              ) : (
+                <Ln item={item.sender.upazilla} />
+              )}
             </td>
             <td>
               {' '}
-              {router.query.id == item.sender._id
-                ? item.reciever.profession
-                : item.sender.profession}{' '}
+              {router.query.id == item.sender._id ? (
+                <Ln item={item.reciever.profession} />
+              ) : (
+                <Ln item={item.sender.profession} />
+              )}{' '}
             </td>
             <td>
               {' '}

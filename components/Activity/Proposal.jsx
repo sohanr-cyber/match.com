@@ -10,6 +10,8 @@ import ViewColumnIcon from '@mui/icons-material/ViewColumn'
 import TableRowsIcon from '@mui/icons-material/TableRows'
 import { TableRow } from '@mui/material'
 import Table from '../Profile/Table'
+import { getText } from '@/Translation/sideNavbar'
+import { englishToBangla } from '@/utils'
 
 const Proposal = () => {
   const [proposals, setProposals] = useState([])
@@ -17,6 +19,7 @@ const Proposal = () => {
   const userInfo = useSelector(state => state.user.userInfo)
   const router = useRouter()
   const dispatch = useDispatch()
+  const ln = router.locale
   const fethProposals = async () => {
     try {
       const { data } = await axios.get(
@@ -124,7 +127,7 @@ const Proposal = () => {
     <div className={styles.wrapper}>
       <div className={styles.heading}>
         <div className={styles.title}>
-          Proposals (0{proposals.length || '0'})
+          {getText('proposal', ln)} ({englishToBangla(proposals.length || 0)})
         </div>
         <div className={styles.toggle} onClick={() => setTable(prev => !prev)}>
           {table ? <ViewColumnIcon /> : <TableRowsIcon />}
@@ -326,6 +329,7 @@ const Proposal = () => {
           withdraw={withdraw}
           decline={decline}
           poke={poke}
+          ln={ln}
         />
       )}
     </div>

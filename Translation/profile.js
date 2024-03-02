@@ -349,6 +349,10 @@ const dict = {
   basic: {
     en: 'Basic Information',
     bn: 'মৌলিক তথ্য'
+  },
+  id: {
+    en: 'Id',
+    bn: 'আইডি'
   }
 }
 
