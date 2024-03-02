@@ -29,6 +29,9 @@ const dict = {
   }
 }
 const getText = (key, ln) => {
+  if (ln == 'en-US') {
+    ln = 'en'
+  }
   return dict[key][ln]
 }
 

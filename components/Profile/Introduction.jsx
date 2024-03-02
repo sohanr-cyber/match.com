@@ -109,19 +109,27 @@ const Introduction = ({ data: profile, ln }) => {
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('color', ln)}</div>
-            <div className={styles.value}>{profile?.skinColor || '--'} </div>
+            <div className={styles.value}>
+              <Ln item={profile?.skinColor || '--'} />{' '}
+            </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('body', ln)}</div>
-            <div className={styles.value}>{profile?.bodyType || '---'} </div>
+            <div className={styles.value}>
+              <Ln item={profile?.body || '--'} />{' '}
+            </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('educationType', ln)}</div>
-            <div className={styles.value}>{profile?.educationType || '--'}</div>
+            <div className={styles.value}>
+              <Ln item={profile?.educationType || '--'} />
+            </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('ocupation', ln)}</div>
-            <div className={styles.value}>{profile?.profession || '--'}</div>
+            <div className={styles.value}>
+              <Ln item={profile?.profession || '--'} />
+            </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('location', ln)}</div>

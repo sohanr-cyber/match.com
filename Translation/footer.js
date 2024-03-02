@@ -21,7 +21,7 @@ const dict = {
   },
   plans: {
     en: 'Plans',
-    bn: ''
+    bn: 'প্ল্যান'
   },
   software: {
     en: 'Our Software',

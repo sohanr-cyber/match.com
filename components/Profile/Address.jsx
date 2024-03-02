@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styles from '../../styles/Profile/Personal.module.css'
 import { getText } from '@/Translation/profile'
+import Ln from '../utils/Ln'
 
 const Address = ({ address, ln }) => {
   const [open, setOpen] = useState(false)
@@ -16,15 +17,23 @@ const Address = ({ address, ln }) => {
         <div className={styles.details}>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('city', ln)} : </div>
-            <div className={styles.value}>{address?.city || '--'} </div>
+            <div className={styles.value}>
+              <Ln item={address?.city || '--'} />{' '}
+            </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('district', ln)} : </div>
-            <div className={styles.value}>{address?.district || '--'} </div>
+            <div className={styles.value}>
+              {' '}
+              <Ln item={address?.district || '--'} />{' '}
+            </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('upazilla', ln)} : </div>
-            <div className={styles.value}>{address?.upazilla || '--'} </div>
+            <div className={styles.value}>
+              {' '}
+              <Ln item={address?.upazilla || '--'} />{' '}
+            </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('location', ln)} : </div>

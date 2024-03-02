@@ -113,7 +113,7 @@ const Basic = ({ expectation: data, ln }) => {
                   })
                 }
               />
-              <span> feet</span>
+              <span> {getText('feet', ln)}</span>
               <input
                 type='number'
                 placeholder='8'
@@ -125,7 +125,7 @@ const Basic = ({ expectation: data, ln }) => {
                   })
                 }
               />
-              <span>inches</span>
+              <span>{getText('inches', ln)}</span>
             </div>
           </div>
           <div className={styles.field}>
@@ -143,7 +143,7 @@ const Basic = ({ expectation: data, ln }) => {
                 }
                 // style={{ maxWidth: '45px', minWidth: '30px' }}
               />
-              <span> feet</span>
+              <span> {getText('feet', ln)}</span>
               <input
                 type='number'
                 placeholder='8'
@@ -156,7 +156,7 @@ const Basic = ({ expectation: data, ln }) => {
                   })
                 }
               />
-              <span>inches</span>
+              <span>{getText('inches', ln)}</span>
             </div>
           </div>
           <div className={styles.field}>

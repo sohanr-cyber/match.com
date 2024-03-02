@@ -337,6 +337,14 @@ const dict = {
   required: {
     en: 'Required',
     bn: 'প্রয়োজনীয়'
+  },
+  feet: {
+    en: 'feet',
+    bn: 'ফুট'
+  },
+  inches: {
+    en: 'inches',
+    bn: 'ইঞ্চি'
   }
 }
 

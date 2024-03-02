@@ -9,6 +9,9 @@ import { logout } from '@/redux/userSlice'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import SideNavbar from './Profile/SideNavbar'
 import CancelIcon from '@mui/icons-material/Cancel'
+import { getText } from '@/Translation/footer'
+import { getText as trans } from '@/Translation/account'
+
 const Navbar = () => {
   const router = useRouter()
   const [phone, setPhone] = useState()
@@ -17,7 +20,7 @@ const Navbar = () => {
   const dispatch = useDispatch()
   const [open, setOpen] = useState(false)
   const { pathname, locale, query, asPath } = router
-
+  const ln = locale
   useEffect(() => {
     setIsClient(true)
   }, [])
@@ -38,7 +41,7 @@ const Navbar = () => {
       </div>
       <div className={styles.items}>
         <div className={styles.item} onClick={() => router.push('/')}>
-          Home
+          {getText('home', ln)}
         </div>
         <div
           className={styles.item}
@@ -48,7 +51,7 @@ const Navbar = () => {
             )
           }
         >
-          Search
+          {getText('search', ln)}
         </div>
         <div
           className={styles.item}
@@ -114,7 +117,7 @@ const Navbar = () => {
           </div>
         ) : (
           <div className={styles.item} onClick={() => router.push('/login')}>
-            Sign In
+            {trans('login', ln)}
           </div>
         )}
       </div>
@@ -125,13 +128,59 @@ const Navbar = () => {
             <CloseIcon onClick={() => setPhone(false)} />
           </div>
           <div className={styles.items}>
-            <div className={styles.item}>Home</div>
-            <div className={styles.item}>Search</div>
-            <div className={styles.item}>Plans</div>
-            <div className={styles.item}>Contact Us</div>
+            <div className={styles.item} onClick={() => router.push('/')}>
+              {' '}
+              {getText('home', ln)}
+            </div>
+            <div
+              className={styles.item}
+              onClick={() =>
+                router.push(
+                  '/profile?gender=All&maritalStatuses=All&city=All&district=All&upazilla=All&feetFrom=4&inchesFrom=5&feetTo=6&inchesTo=5&page=1'
+                )
+              }
+            >
+              {' '}
+              {getText('search', ln)}
+            </div>
+            <div className={styles.item} onClick={() => router.push('/plans')}>
+              {' '}
+              {getText('plans', ln)}
+            </div>
+            <div className={styles.item}> {getText('h2', ln)}</div>
+            <div
+              className={styles.item}
+              onClick={() =>
+                router.push({ pathname, query }, asPath, {
+                  locale: router.locale == 'bn' ? 'en-US' : 'bn'
+                })
+              }
+            >
+              {locale == 'en-US' ? (
+                <span
+                  style={{
+                    color: 'red',
+                    backgroundColor: 'yellow',
+                    padding: '3px 5px'
+                  }}
+                >
+                  বাংলা
+                </span>
+              ) : (
+                <span
+                  style={{
+                    color: 'white',
+                    backgroundColor: 'red',
+                    padding: '3px 5px'
+                  }}
+                >
+                  English
+                </span>
+              )}
+            </div>
           </div>
           <div className={styles.right}>
-            <div className={styles.item}>Sign In</div>
+            <div className={styles.item}> {trans('login', ln)}</div>
           </div>
         </div>
       )}

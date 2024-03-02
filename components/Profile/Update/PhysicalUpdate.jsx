@@ -100,7 +100,7 @@ const Basic = ({ physical: data, ln }) => {
                 setPhysical({ ...physical, heightFeet: e.target.value })
               }
             />
-            <span> feet</span>
+            <span> {getText('feet', ln)}</span>
             <input
               type='number'
               value={physical.heightInches}
@@ -108,7 +108,7 @@ const Basic = ({ physical: data, ln }) => {
                 setPhysical({ ...physical, heightInches: e.target.value })
               }
             />
-            <span>inches</span>
+            <span>{getText('inches', ln)}</span>
           </div>
         </div>
         <div className={styles.field}>

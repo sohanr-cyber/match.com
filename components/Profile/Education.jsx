@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styles from '../../styles/Profile/Personal.module.css'
 import { getText } from '@/Translation/profile'
+import Ln from '../utils/Ln'
 
 const Ecucation = ({ education, ln }) => {
   const [open, setOpen] = useState(true)
@@ -16,12 +17,14 @@ const Ecucation = ({ education, ln }) => {
         <div className={styles.details}>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('education', ln)} : </div>
-            <div className={styles.value}>{education?.education || '---'} </div>
+            <div className={styles.value}>
+              <Ln item={education?.education || '--'} />
+            </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('ocupation', ln)} : </div>
             <div className={styles.value}>
-              {education?.profession || '---'}{' '}
+              <Ln item={education?.profession || '--'} />{' '}
             </div>
           </div>
           <div className={styles.flex}>

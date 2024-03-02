@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styles from '../../styles/Profile/Personal.module.css'
 import { getText } from '@/Translation/profile'
+import Ln from '../utils/Ln'
 
 const Family = ({ family, ln }) => {
   const [open, setOpen] = useState(true)
@@ -32,18 +33,20 @@ const Family = ({ family, ln }) => {
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('eStatus', ln)} : </div>
-            <div className={styles.value}>{family?.eStatus || '--'} </div>
+            <div className={styles.value}>
+              {' '}
+              <Ln item={family?.eStatus || '--'} />{' '}
+            </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>
               {' '}
               <div className={styles.flex}>
                 <div className={styles.key}>{getText('rStatus', ln)} : </div>
-                <div className={styles.value}>{family?.eStatus || '--'} </div>
+                <div className={styles.value}>{family?.rStatus || '--'} </div>
               </div>{' '}
-              :{' '}
             </div>
-            <div className={styles.value}>{family?.rStatus || '--'} </div>
+            {/* <div className={styles.value}>{family?.rStatus || '--'} </div> */}
           </div>
         </div>
       )}
