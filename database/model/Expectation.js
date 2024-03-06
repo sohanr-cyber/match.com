@@ -30,7 +30,8 @@ const expectationSchema = mongoose.Schema(
     minAge: { type: Number },
     maxAge: { type: Number },
     districts: [{ type: String }],
-    description: { type: String }
+    description: { type: String },
+    more: { type: String }
   },
   { timestamps: true }
 )

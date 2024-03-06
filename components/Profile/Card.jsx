@@ -59,33 +59,33 @@ const Card = ({ user, index, handleLike }) => {
           <div className={styles.flex}>
             <div className={styles.key}>{getText('age', ln)}:</div>
             <div className={styles.value}>
-              {user?.bornAt ? calculateAge(user?.bornAt, ln) : '--'}
+              {user?.bornAt ? calculateAge(user?.bornAt, ln) : '_____'}
             </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('height', ln)}:</div>
             <div className={styles.value}>
-              {user?.height ? <>{heightToFeet(user.height, ln)}</> : '--'}{' '}
+              {user?.height ? <>{heightToFeet(user.height, ln)}</> : '_____'}{' '}
             </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('color', ln)}:</div>
             <div className={styles.value}>
-              <Ln item={user?.skinColor || '--'} />
+              <Ln item={user?.skinColor || '_____'} />
             </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('bodyType', ln)}:</div>
             <div className={styles.value}>
               {' '}
-              <Ln item={user?.bodyType || '--'} />
+              <Ln item={user?.bodyType || '_____'} />
             </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('ocupation', ln)}:</div>
             <div className={styles.value}>
               {' '}
-              <Ln item={user?.profession || '--'} />
+              <Ln item={user?.profession || '_____'} />
             </div>
           </div>
         </div>

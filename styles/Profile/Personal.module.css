@@ -42,6 +42,19 @@
     cursor: pointer;
 }
 
+
+@media (max-width:720px) {
+    .wrapper .details .flex {
+        flex-direction: column;
+        gap: 3px;
+    }
+
+
+
+}
+
+
+
 @media (max-width:570px) {
 
     .wrapper .details,

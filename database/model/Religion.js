@@ -24,7 +24,10 @@ const religionScheama = mongoose.Schema(
     piety: { type: String },
     interest: { type: String },
     regularDeeds: { type: String },
-    badHabit: { Type: String }
+    badHabit: { Type: String },
+    mahr: { Type: String },
+    dowry: { Type: String },
+    sunnah: { Type: String }
   },
   { timestamps: true }
 )

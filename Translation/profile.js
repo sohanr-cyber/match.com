@@ -55,7 +55,10 @@ const dict = {
     en: 'Optional',
     bn: 'ঐচ্ছিক'
   },
-
+  createdAt: {
+    en: 'Biodate Created At',
+    bn: 'বায়োডাটা তৈরীর সময়'
+  },
   // ...Physical Attribute
   pa: {
     en: 'Physical Attributes',
@@ -74,8 +77,8 @@ const dict = {
     bn: 'চুলের রঙ'
   },
   issue: {
-    en: 'Do You Have Any Physical Issue?',
-    bn: 'আপনার কোন শারীরিক সমস্যা আছে?'
+    en: 'Do You Have Any Major Physical Issue?',
+    bn: 'শারিরিক বড় কোন রোগ আছে কি?	'
   },
 
   // ... education & career
@@ -133,6 +136,10 @@ const dict = {
     en: 'Do You Have Intention Of Continuing Study After Marriage ?',
     bn: 'আপনার বিবাহের পরে অধ্যয়ন চালিয়ে যাওয়ার উদ্দেশ্য আছে?'
   },
+  moreEC: {
+    en: 'Write if you have more to say about education and career',
+    bn: 'শিক্ষা এবং কর্মজীবন সম্পর্কে আরও কিছু বলার থাকলে লিখুন'
+  },
   // ... personal and religion
   pr: {
     en: 'Personal & Religion',
@@ -159,16 +166,16 @@ const dict = {
     bn: 'আপনার পড়া কিছু ইসলামিক বই লিখুন'
   },
   scholars: {
-    en: 'Write Some Of Your Islamic Schoolars',
-    bn: 'আপনার ইসলামিক পণ্ডিতদের কিছু লিখুন'
+    en: 'Write Some Of Your Favourite Islamic Schoolars',
+    bn: 'আপনার প্রিয় কিছু আলেম/শায়েখের নাম?'
   },
   habit: {
-    en: 'Do You Have Any Habit Of Drug(...Smoking)',
-    bn: 'আপনার কি মাদকের অভ্যাস আছে (...ধূমপান)'
+    en: 'Do You Have Any Habit Of Drug?',
+    bn: 'আপনি কি কোন নেশাদার দ্রব্য খান/পান করেন?'
   },
   mahram: {
     en: 'Do you maintain boundaries between Mahram and Non-Mahram individuals?',
-    bn: 'আপনি কি মাহরাম, অ-মাহরাম পালন করেন?'
+    bn: 'মাহরাম-নন মাহরাম মানা হয় কি?'
   },
   work: {
     en: 'Write Some Good Things About You',
@@ -176,7 +183,7 @@ const dict = {
   },
   good: {
     en: 'Describe your Piety or positive qualities',
-    bn: 'আপনার তাকওয়া / আপনার সম্পর্কে ভাল জিনিস সম্পর্কে কিছু লিখুন?'
+    bn: 'আপনার ধর্মীয় ও অন্যান্য ভালো দিকগুলো সম্পর্কে কিছু লিখুন?'
   },
   watch: {
     en: 'Do you watch movies or TV serials?',
@@ -184,17 +191,29 @@ const dict = {
   },
   deeds: {
     en: 'Beside Fardh Deeds , Do you have any Nafle/Sunnah Deeds that you have never missed at least for 6 months ?',
-    bn: '..'
+    bn: 'নিয়মিত কোনটি অধ্যয়ন করেন?	'
   },
 
   interest: {
     en: 'Tell About Your Interests, Hobbies, Dreams, etc.',
     bn: 'আপনার আগ্রহ, শখ, স্বপ্ন ইত্যাদি সম্পর্কে বলুন।'
   },
+  mahr: {
+    en: 'What is your opinion regarding mahr?',
+    bn: 'দেনমোহরের ব্যাপারে আপনার মন্তব্য কি?'
+  },
+  dowry: {
+    en: 'Do you want to get dowry/Kabin in some other worldly way?',
+    bn: 'আপনি কি বিবাহে যৌতুক/কাবিন অন্য কোনভাবে দুনিয়াবি লাভবান হতে চান?'
+  },
+  sunnah: {
+    en: 'Do you want to marry according to the rules of Islam?',
+    bn: 'বিয়ে কি সুন্নাতি নিয়মে করতে চান?'
+  },
   // .. address
   address: {
-    en: 'permanent address',
-    bn: 'স্থায়ী ঠিকানা'
+    en: 'address & contact information',
+    bn: 'ঠিকানা এবং যোগাযোগের তথ্য'
   },
 
   city: {
@@ -213,6 +232,17 @@ const dict = {
     en: 'Location',
     bn: 'অবস্থান'
   },
+
+  phone: {
+    en: 'phone number',
+    bn: 'ফোন নম্বর'
+  },
+  phone2: {
+    en: 'guardian phone number',
+    bn: 'অভিভাবকের ফোন নম্বর'
+  },
+  email: { en: 'contact email', bn: 'যোগাযোগের ই-মেইল' },
+
   // ..family
   family: {
     en: 'Family Information',
@@ -239,12 +269,16 @@ const dict = {
     bn: 'পরিবারের অবস্থা'
   },
   rStatus: {
-    en: 'How deeply does your family follow religion?',
-    bn: 'আপনার পরিবার কতটা গভীরভাবে ধর্ম অনুসরণ করে?'
+    en: 'How do other members of your family practice religion?',
+    bn: 'আপনার পরিবারে অন্যান্য সদস্যরা কেমন দ্বীন পালন করেন?'
   },
   agreement: {
     en: 'Do They Agree To you Marriage?',
     bn: 'তারা আপনার বিয়ের সাথে কি একমত?'
+  },
+  moreF: {
+    en: 'Write if you have more to say about the family',
+    bn: 'পরিবার সম্পর্কে আরও কিছু বলার থাকলে লিখুন'
   },
 
   // ... expectation
@@ -272,36 +306,41 @@ const dict = {
     en: 'Religion',
     bn: 'ধর্ম'
   },
+  moreE: {
+    en: 'Write if you have more to say about expected life partner',
+    bn: 'প্রত্যাশিত জীবনসঙ্গী সম্পর্কে আরও কিছু বলার থাকলে লিখুন'
+  },
 
   // .... others
   others: { en: 'Others', bn: 'অন্যান্য' },
   student: {
     en: 'Interested In Marrying Student/Job Seeker?',
-    bn: 'শিক্ষার্থী/কাজের সন্ধানকারীর সাথে বিবাহে আগ্রহী?'
+    bn: 'ছাত্র/চাকুরি সন্ধানে আছে এমন পাত্র বিবাহ করতে আগ্রহী কিনা?'
   },
   studentWithJob: {
     en: 'Interested In Marrying Student/Job Seeker Having Some Income?',
-    bn: 'অবসরের পেশাজীবী/শিক্ষার্থীর সাথে বিবাহে আগ্রহী যাদের আয় আছে?'
+    bn: 'ছাত্র/চাকুরি সন্ধানে + আয় আছে এমন পাত্র বিবাহ করতে আগ্রহী কিনা??'
   },
   emigrant: {
     en: 'Are You Emigrant?',
-    bn: 'আপনি প্রবাসী?'
+    bn: 'আপনি প্রবাসী/সিটিজেন?'
   },
   interestedInEmigrant: {
     en: 'Interested In Marrying Emigrant?',
-    bn: 'প্রবাসীর সাথে বিবাহে আগ্রহী?'
+    bn: 'প্রবাসী/সিটিজেন পাত্র বিয়ে করতে আগ্রহী আছেন কি?'
   },
   polynomy: {
     en: 'Interested In Polynomy?',
-    bn: 'বহুবিবাহে আগ্রহী?'
+    bn: 'দ্বিতীয় স্ত্রী (মাসনা)হতে/করতে আগ্রহী আছেন কিনা?'
   },
   InterestedInDivorced: {
     en: 'Interested In Marrying Divorced Individuals?',
-    bn: 'তালাকপ্রাপ্ত ব্যক্তিদের সাথে বিবাহে আগ্রহী?'
+    bn: 'ডিভোর্স/ বউ মারা গেছে এমন কাওকে বিয়ে করতে আগ্রহী আছেন?'
   },
+
   InterestedInDivorcedChild: {
-    en: 'Interested In Marrying Divorced Individuals Having Having Children?',
-    bn: 'তালাকপ্রাপ্ত ব্যক্তিদের সাথে বিবাহে আগ্রহী যাদের সন্তান আছে?'
+    en: 'Interested In Marrying Divorced Individuals Having Children?',
+    bn: 'ডিভোর্স/ বউ মারা গেছে + সন্তান আছে  এমন কাওকে বিয়ে করতে আগ্রহী আছেন?'
   },
 
   autism: {

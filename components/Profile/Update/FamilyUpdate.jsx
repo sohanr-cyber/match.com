@@ -143,6 +143,13 @@ const Religion = ({ family: data, ln }) => {
             onChange={e => setFamily({ ...family, agreement: e.target.value })}
           ></textarea>
         </div>
+        <div className={styles.field}>
+          <label>{getText('moreF', ln)} </label>
+          <textarea
+            value={family.more}
+            onChange={e => setFamily({ ...family, more: e.target.value })}
+          ></textarea>
+        </div>
       </form>{' '}
       {error && <p style={{ color: 'red', fontSize: '90%' }}>{error}</p>}
       <div className={styles.save} onClick={() => update()}>

@@ -21,7 +21,8 @@ const familySchema = mongoose.Schema(
     eStatus: {
       type: String
     },
-    agreement: { type: String }
+    agreement: { type: String },
+    more: { type: String }
   },
   { timestamps: true }
 )

@@ -18,28 +18,28 @@ const Physical = ({ physical, ln }) => {
           <div className={styles.flex}>
             <div className={styles.key}> {getText('height', ln)}: </div>
             <div className={styles.value}>
-              {physical?.height ? heightToFeet(physical.height, ln) : '--'}{' '}
+              {physical?.height ? heightToFeet(physical.height, ln) : '_____'}{' '}
             </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}> {getText('weight', ln)}: </div>
-            <div className={styles.value}>{physical?.weight || '--'} KG </div>
+            <div className={styles.value}>{physical?.weight || '_____'} KG </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}> {getText('hair', ln)}: </div>
-            <div className={styles.value}>{physical?.hair || '--'} </div>
+            <div className={styles.value}>{physical?.hair || '_____'} </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}> {getText('color', ln)}: </div>
-            <div className={styles.value}>{physical?.skinColor || '--'} </div>
+            <div className={styles.value}>{physical?.skinColor || '_____'} </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}> {getText('body', ln)}: </div>
-            <div className={styles.value}>{physical?.bodyType || '--'} </div>
+            <div className={styles.value}>{physical?.bodyType || '_____'} </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}> {getText('blood', ln)}: </div>
-            <div className={styles.value}>{physical?.blood || '--'} </div>
+            <div className={styles.value}>{physical?.blood || '_____'} </div>
           </div>
         </div>
       )}

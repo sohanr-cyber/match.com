@@ -16,60 +16,64 @@ const Piety = ({ religion, ln }) => {
       {open && (
         <div className={styles.details}>
           <div className={styles.flex}>
-            <div className={styles.key}> {getText('prayer', ln)}: </div>
-            <div className={styles.value}>{religion?.prayer || '--'}</div>
+            <div className={styles.key}> {getText('prayer', ln)} </div>
+            <div className={styles.value}>{religion?.prayer || '_____'}</div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.key}>{getText('missing', ln)} : </div>
+            <div className={styles.key}>{getText('missing', ln)} </div>
             <div className={styles.value}>
-              {religion?.missingPrayer || '--'}{' '}
+              {religion?.missingPrayer || '_____'}{' '}
             </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('outfit', ln)}:</div>
-            <div className={styles.value}>{religion?.outfit || '--'}</div>
+            <div className={styles.value}>{religion?.outfit || '_____'}</div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.key}>{getText('quran', ln)}: </div>
+            <div className={styles.key}>{getText('quran', ln)} </div>
             <div className={styles.value}>
-              {religion?.quranRecitation || '--'}{' '}
+              {religion?.quranRecitation || '_____'}{' '}
             </div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.key}>{getText('books', ln)} : </div>
-            <div className={styles.value}>{religion?.books || '---'} </div>
+            <div className={styles.key}>{getText('books', ln)} </div>
+            <div className={styles.value}>{religion?.books || '_____'} </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('scholars', ln)}: </div>
-            <div className={styles.value}>{religion?.scholars || '---'} </div>
+            <div className={styles.value}>{religion?.scholars || '_____'} </div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.key}>{getText('habit', ln)}: </div>
-            <div className={styles.value}>{religion?.scholars || '---'} </div>
+            <div className={styles.key}>{getText('habit', ln)} </div>
+            <div className={styles.value}>{religion?.scholars || '_____'} </div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.key}>{getText('mahram', ln)}: </div>
-            <div className={styles.value}>{religion?.mahram || '---'} </div>
+            <div className={styles.key}>{getText('mahram', ln)} </div>
+            <div className={styles.value}>{religion?.mahram || '_____'} </div>
           </div>
-
           <div className={styles.flex}>
-            <div className={styles.key}>
-              Are You Connected to any Job Related Your Religion?:{' '}
-            </div>
-            <div className={styles.value}>{religion?.scholars || '---'} </div>
+            <div className={styles.key}>{getText('mahr', ln)}</div>
+            <div className={styles.value}>{religion?.mahr || '_____'} </div>
           </div>
-
           <div className={styles.flex}>
-            <div className={styles.key}> {getText('good', ln)}: </div>
-            <div className={styles.value}>{religion?.piety || '---'} </div>
+            <div className={styles.key}>{getText('dowry', ln)}</div>
+            <div className={styles.value}>{religion?.dowry || '_____'} </div>
+          </div>
+          <div className={styles.flex}>
+            <div className={styles.key}>{getText('sunnah', ln)}</div>
+            <div className={styles.value}>{religion?.sunnah || '_____'} </div>
+          </div>
+          <div className={styles.flex}>
+            <div className={styles.key}> {getText('good', ln)} </div>
+            <div className={styles.value}>{religion?.piety || '_____'} </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('deeds', ln)}: </div>
-            <div className={styles.value}>{religion?.deeds || '---'} </div>
+            <div className={styles.value}>{religion?.deeds || '_____'} </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('interest', ln)}</div>
-            <div className={styles.value}>{religion?.interest || '---'} </div>
+            <div className={styles.value}>{religion?.interest || '_____'} </div>
           </div>
         </div>
       )}

@@ -58,7 +58,7 @@ const Introduction = ({ data: profile, ln }) => {
       <div className={styles.flex}>
         <div className={styles.left}>
           <Image
-            src='https://images.pexels.com/photos/6208084/pexels-photo-6208084.jpeg?auto=compress&cs=tinysrgb&w=600'
+            src='https://images.pexels.com/photos/6208084/pexelsphoto6208084.jpeg?auto=compress&cs=tinysrgb&w=600'
             height='250'
             width='200'
             alt=''
@@ -93,58 +93,58 @@ const Introduction = ({ data: profile, ln }) => {
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('name', ln)}</div>
-            <div className={styles.value}>{profile?.name || '--'}</div>
+            <div className={styles.value}>{profile?.name || '_____'}</div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('age', ln)}</div>
             <div className={styles.value}>
-              {profile?.bornAt ? calculateAge(profile?.bornAt, ln) : '--'}
+              {profile?.bornAt ? calculateAge(profile?.bornAt, ln) : '_____'}
             </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('height', ln)}</div>
             <div className={styles.value}>
-              {profile?.height ? heightToFeet(profile.height, ln) : '--'}{' '}
+              {profile?.height ? heightToFeet(profile.height, ln) : '_____'}{' '}
             </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('color', ln)}</div>
             <div className={styles.value}>
-              <Ln item={profile?.skinColor || '--'} />{' '}
+              <Ln item={profile?.skinColor || '_____'} />{' '}
             </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('body', ln)}</div>
             <div className={styles.value}>
-              <Ln item={profile?.body || '--'} />{' '}
+              <Ln item={profile?.body || '_____'} />{' '}
             </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('educationType', ln)}</div>
             <div className={styles.value}>
-              <Ln item={profile?.educationType || '--'} />
+              <Ln item={profile?.educationType || '_____'} />
             </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('ocupation', ln)}</div>
             <div className={styles.value}>
-              <Ln item={profile?.profession || '--'} />
+              <Ln item={profile?.profession || '_____'} />
             </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('location', ln)}</div>
             <div className={styles.value}>
-              <Ln item={profile?.city || '--'} /> ||
-              <Ln item={profile?.district || '--'} /> ||{' '}
-              <Ln item={profile?.upazilla || '--'} />
+              <Ln item={profile?.city || '_____'} /> ||
+              <Ln item={profile?.district || '_____'} /> ||{' '}
+              <Ln item={profile?.upazilla || '_____'} />
             </div>
           </div>
-          <div className={styles.flex}>
+          {/* <div className={styles.flex}>
             <div className={styles.key}>{getText('piety', ln)}</div>
             <div className={styles.value}>
-              <Ln item={profile?.piety || '--'} />
+              <Ln item={profile?.piety || '_____'} />
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

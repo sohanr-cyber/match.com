@@ -1,0 +1,13 @@
+.wrapper {
+    min-Height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrapper .btn {
+    border-radius: 5px;
+    background: var(--btn);
+    color: white;
+    padding: 3px 7px;
+}

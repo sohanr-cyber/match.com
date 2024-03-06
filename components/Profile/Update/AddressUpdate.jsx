@@ -46,7 +46,10 @@ const Basic = ({ locationData, address: data, ln }) => {
       !address.city ||
       !address.district ||
       !address.upazilla ||
-      !address.location
+      !address.location ||
+      !address.phone ||
+      !address.phone2 ||
+      !address.email
     ) {
       setError('Fill All The Required Field !')
       return
@@ -165,6 +168,30 @@ const Basic = ({ locationData, address: data, ln }) => {
             type='text'
             value={address.location}
             onChange={e => setAddress({ ...address, location: e.target.value })}
+          />
+        </div>
+        <div className={styles.field}>
+          <label>{getText('email', ln)}</label>
+          <input
+            type='text'
+            value={address.email}
+            onChange={e => setAddress({ ...address, email: e.target.value })}
+          />
+        </div>
+        <div className={styles.field}>
+          <label>{getText('phone', ln)}</label>
+          <input
+            type='text'
+            value={address.phone}
+            onChange={e => setAddress({ ...address, phone: e.target.value })}
+          />
+        </div>
+        <div className={styles.field}>
+          <label>{getText('phone2', ln)}</label>
+          <input
+            type='text'
+            value={address.phone2}
+            onChange={e => setAddress({ ...address, phone2: e.target.value })}
           />
         </div>
       </form>{' '}

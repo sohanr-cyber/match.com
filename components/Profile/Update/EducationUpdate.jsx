@@ -244,6 +244,16 @@ const Education = ({ education: data, profile, ln }) => {
                 }
               />
             </div>
+            <div className={styles.field}>
+              <label>{getText('moreEC', ln)}</label>
+              <textarea
+                type='text'
+                value={education.more}
+                onChange={e =>
+                  setEducation({ ...education, more: e.target.value })
+                }
+              ></textarea>
+            </div>
           </>
         )}
       </form>

@@ -14,7 +14,10 @@ const addressScheam = mongoose.Schema(
     location: {
       type: String
     },
-    GeolocationCoordinates: { type: String }
+    GeolocationCoordinates: { type: String },
+    phone: { type: String },
+    email: { type: String },
+    phone2: { type: String },
   },
   { timestamps: true }
 )

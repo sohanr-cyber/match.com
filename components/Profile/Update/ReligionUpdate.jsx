@@ -153,6 +153,27 @@ const Religion = ({ religion: data, ln }) => {
           ></textarea>
         </div>
         <div className={styles.field}>
+          <label>{getText('mahr', ln)} </label>
+          <textarea
+            value={religion.mahr}
+            onChange={e => setReligion({ ...religion, mahr: e.target.value })}
+          ></textarea>
+        </div>
+        <div className={styles.field}>
+          <label>{getText('dowry', ln)} </label>
+          <textarea
+            value={religion.dowry}
+            onChange={e => setReligion({ ...religion, dowry: e.target.value })}
+          ></textarea>
+        </div>
+        <div className={styles.field}>
+          <label>{getText('sunnah', ln)} </label>
+          <textarea
+            value={religion.sunnah}
+            onChange={e => setReligion({ ...religion, sunnah: e.target.value })}
+          ></textarea>
+        </div>
+        <div className={styles.field}>
           <label>{getText('good', ln)} </label>
           <textarea
             value={religion.piety}

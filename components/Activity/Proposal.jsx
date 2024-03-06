@@ -127,7 +127,7 @@ const Proposal = () => {
     <div className={styles.wrapper}>
       <div className={styles.heading}>
         <div className={styles.title}>
-          {getText('proposal', ln)} ({englishToBangla(proposals.length || 0)})
+          {getText('proposal', ln)} ({englishToBangla(proposals.length || "0")})
         </div>
         <div className={styles.toggle} onClick={() => setTable(prev => !prev)}>
           {table ? <ViewColumnIcon /> : <TableRowsIcon />}

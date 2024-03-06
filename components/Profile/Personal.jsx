@@ -3,7 +3,7 @@ import styles from '../../styles/Profile/Personal.module.css'
 import { getText } from '@/Translation/profile'
 
 const Personal = ({ personal, ln }) => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(true)
   return (
     <div className={styles.wrapper}>
       <div className={styles.heading}>

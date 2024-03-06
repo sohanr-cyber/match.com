@@ -310,6 +310,15 @@ const Basic = ({ expectation: data, ln }) => {
               }
             ></textarea>
           </div>
+          <div className={styles.field}>
+            <label>{getText('moreE', ln)}</label>
+            <textarea
+              value={expectation.more}
+              onChange={e =>
+                setExpectation({ ...expectation, more: e.target.value })
+              }
+            ></textarea>
+          </div>
         </form>
         {error && <p style={{ color: 'red', fontSize: '90%' }}>{error}</p>}
         <div className={styles.save} onClick={() => update()}>
