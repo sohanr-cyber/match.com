@@ -11,6 +11,7 @@ import SideNavbar from './Profile/SideNavbar'
 import CancelIcon from '@mui/icons-material/Cancel'
 import { getText } from '@/Translation/footer'
 import { getText as trans } from '@/Translation/account'
+import Logo2 from './utils/Logo2'
 
 const Navbar = () => {
   const router = useRouter()
@@ -38,6 +39,7 @@ const Navbar = () => {
       {open && <SideNavbar handleLogout={handleLogout} />}
       <div className={styles.logo}>
         <Logo />
+        {/* <Logo2 /> */}
       </div>
       <div className={styles.items}>
         <div className={styles.item} onClick={() => router.push('/')}>

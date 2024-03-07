@@ -7,6 +7,12 @@ const backgrounds = [
   'https://images.pexels.com/photos/8891957/pexels-photo-8891957.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
 ]
 
+const mobileBackgrounds = [
+  'https://images.pexels.com/photos/306066/pexels-photo-306066.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+  'https://images.pexels.com/photos/6765928/pexels-photo-6765928.jpeg?auto=compress&cs=tinysrgb&w=600',
+  'https://images.pexels.com/photos/7784603/pexels-photo-7784603.jpeg?auto=compress&cs=tinysrgb&w=600'
+]
+
 import Box from './utils/Box'
 import { useRouter } from 'next/router'
 

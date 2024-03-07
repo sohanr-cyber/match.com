@@ -1,10 +1,21 @@
 .wrapper {
-    font-size: 150%;
     font-weight: bold;
-    color: rgb(0, 183, 255);
-    cursor: pointer
+    ;
 }
 
-.wrapper span {
-    color: green;
+.wrapper .top {
+    font-size: 160%;
+    background: -webkit-linear-gradient(45deg, green 50%, rgb(0, 183, 255) 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.wrapper .bottom {
+    font-size: 85%;
+    margin-top: -5px;
+    margin-left: 10px;
+}
+
+.wrapper .bottom span:nth-child(1) {
+    color: goldenrod
 }

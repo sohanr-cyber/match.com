@@ -6,7 +6,11 @@ const Logo = () => {
   const router = useRouter()
   return (
     <div className={styles.wrapper} onClick={() => router.push('/')}>
-      <span>M</span>uslim<span>M</span>atch<span>M</span>aker
+      <div className={styles.top}>Muslim</div>
+      <div className={styles.bottom}>
+        <span>Match </span>
+        <span>Maker</span>
+      </div>
     </div>
   )
 }

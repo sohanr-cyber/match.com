@@ -63,7 +63,6 @@ const Box = ({ data }) => {
   }, [city])
   return (
     <div className={styles.box}>
-      {city} - {currentDistrict} - {currentUpazilla}
       <form>
         <div className={styles.field}>
           {' '}

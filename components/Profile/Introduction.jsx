@@ -56,13 +56,23 @@ const Introduction = ({ data: profile, ln }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.flex}>
-        <div className={styles.left}>
-          <Image
-            src='https://images.pexels.com/photos/6208084/pexelsphoto6208084.jpeg?auto=compress&cs=tinysrgb&w=600'
-            height='250'
-            width='200'
-            alt=''
-          />
+        <div
+          className={styles.left}
+          style={
+            profile.gender == 'Male'
+              ? {
+                  backgroundImage:
+                    'linear-gradient(to right, #43e97b 0%, #38f9d7 100%)',
+                  color: 'white'
+                }
+              : {
+                  backgroundImage:
+                    'linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%)',
+                  color: 'black'
+                }
+          }
+        >
+          {profile.gender == 'Male' ? 'M' : 'F'}
         </div>
         <div className={styles.right}>
           <div className={styles.top}>
@@ -94,6 +104,10 @@ const Introduction = ({ data: profile, ln }) => {
           <div className={styles.flex}>
             <div className={styles.key}>{getText('name', ln)}</div>
             <div className={styles.value}>{profile?.name || '_____'}</div>
+          </div>
+          <div className={styles.flex}>
+            <div className={styles.key}>{getText('gender', ln)}</div>
+            <div className={styles.value}>{profile?.gender || '_____'}</div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('age', ln)}</div>

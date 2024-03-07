@@ -7,6 +7,10 @@ const dict = {
     en: 'Age',
     bn: 'বয়স'
   },
+  gender: {
+    en: 'Gender',
+    bn: 'লিঙ্গ'
+  },
   brithdate: {
     en: 'Date Of Birth',
     bn: 'জন্ম তারিখ'
