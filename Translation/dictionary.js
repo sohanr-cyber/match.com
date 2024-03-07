@@ -37,7 +37,9 @@ const dict = {
   'New Muslim': 'নওমুসলিম',
   Emigrant: 'প্রবাসী',
   'Interested In Emigrant': 'প্রবাসী বিয়ে করতে আগ্রহী',
-
+  // others
+  feet: 'ফুট',
+  inches: 'ইঞ্চি',
   // Education Types
 
   General: 'জেনারেল',

@@ -403,7 +403,7 @@ const getText = (key, ln) => {
     ln = 'bn'
   }
 
-  return dict[key][ln]
+  return dict[key] ? dict[key][ln] : key
 }
 
 export { getText }

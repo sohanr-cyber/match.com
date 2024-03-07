@@ -79,8 +79,24 @@ const Footer = () => {
         </div>
       </div>
       <div className={styles.rights}>
-        <CopyrightIcon />
-        2022 All Rights Reserved
+        <p className={styles.c}>
+          <CopyrightIcon />
+          2022 All Rights Reserved
+        </p>
+        <p style={{ color: '' }}>
+          Design, Developed and Technical Supported by{' '}
+          <span
+            style={{
+              color: 'purple',
+              fontSize: '110%',
+              fontWeight: 'bold',
+              borderBottom: '1px solid blue',
+              paddingBottom: '3px'
+            }}
+          >
+            Quince.Tech
+          </span>
+        </p>
       </div>
     </>
   )

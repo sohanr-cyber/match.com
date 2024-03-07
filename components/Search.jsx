@@ -17,6 +17,7 @@ import { useRouter } from 'next/router'
 import { ImportExport } from '@mui/icons-material'
 import axios from 'axios'
 import Ln from './utils/Ln'
+import { getText } from '@/Translation/search'
 const Search = ({ setOpenFilter, locationData }) => {
   const router = useRouter()
   const [filters, setFilters] = useState([
@@ -106,20 +107,18 @@ const Search = ({ setOpenFilter, locationData }) => {
       query: queryParams
     })
   }
-
+  const ln = router.locale
   return (
     <div className={styles.wrapper}>
       <div className={styles.top}>
-        <dic>Filter Serach</dic>
+        <div>{getText('filter', ln)}</div>
         <div className={styles.close} onClick={() => setOpenFilter(false)}>
           X
         </div>
       </div>
       {/* Allow Chose Location */}
       <div className={styles.heading}>
-        <div className={styles.title}>
-          <Ln item={'Location'} />
-        </div>
+        <div className={styles.title}>{getText('location', ln)}</div>
         <div
           className={styles.togle}
           onClick={() =>
@@ -135,7 +134,6 @@ const Search = ({ setOpenFilter, locationData }) => {
         <div className={`${styles.options} ${styles.location}`}>
           <div className={styles.flex}>
             <div className={styles.icon}>
-              {' '}
               <Ln item={'City'} />
             </div>
             <select
@@ -146,7 +144,7 @@ const Search = ({ setOpenFilter, locationData }) => {
                 (item, index) => (
                   <option
                     key={index}
-                    value={item.division}
+                    value={item}
                     selected={item == router.query.city ? true : false}
                   >
                     <Ln item={item} />
@@ -157,7 +155,6 @@ const Search = ({ setOpenFilter, locationData }) => {
           </div>
           <div className={styles.flex}>
             <div className={styles.icon}>
-              {' '}
               <Ln item={'District'} />
             </div>
             <select
@@ -179,7 +176,6 @@ const Search = ({ setOpenFilter, locationData }) => {
           </div>
           <div className={styles.flex}>
             <div className={styles.icon}>
-              {' '}
               <Ln item={'Upazilla'} />
             </div>
             <select
@@ -214,7 +210,6 @@ const Search = ({ setOpenFilter, locationData }) => {
           </div>
         </div>
       )}
-
       {/* Allow Chose Gender */}
       <div className={styles.heading}>
         <div className={styles.title}>
@@ -288,7 +283,6 @@ const Search = ({ setOpenFilter, locationData }) => {
           </div>
         </div>
       )}
-
       {/* Allow Chose Age */}
       <div className={styles.heading}>
         <div className={styles.title}>
@@ -359,7 +353,6 @@ const Search = ({ setOpenFilter, locationData }) => {
           </div>
         </div>
       )}
-
       {/* Allow chose Height */}
       <div className={styles.heading}>
         <div className={styles.title}>
@@ -439,7 +432,6 @@ const Search = ({ setOpenFilter, locationData }) => {
           </div>
         </div>
       )}
-
       {/* Allow chose Merital Status */}
       <div className={styles.heading}>
         <div className={styles.title}>
@@ -496,7 +488,6 @@ const Search = ({ setOpenFilter, locationData }) => {
           ))}
         </div>
       )}
-
       {/* Allow Chose Professional Status */}
       <div className={styles.heading}>
         <div className={styles.title}>
@@ -556,7 +547,6 @@ const Search = ({ setOpenFilter, locationData }) => {
           ))}
         </div>
       )}
-
       {/* Allow Chose Educational Type */}
       <div className={styles.heading}>
         <div className={styles.title}>
@@ -616,7 +606,6 @@ const Search = ({ setOpenFilter, locationData }) => {
           ))}
         </div>
       )}
-
       {/* Allow Chose Educational Status */}
       <div className={styles.heading}>
         <div className={styles.title}>
@@ -677,7 +666,6 @@ const Search = ({ setOpenFilter, locationData }) => {
           ))}
         </div>
       )}
-
       {/* Allow Chose University Status */}
       <div className={styles.heading}>
         <div className={styles.title}>
@@ -736,7 +724,6 @@ const Search = ({ setOpenFilter, locationData }) => {
           ))}
         </div>
       )}
-
       {/* Allow Chose Category */}
       <div className={styles.heading}>
         <div className={styles.title}>

@@ -38,7 +38,9 @@ const Ecucation = ({ education, ln }) => {
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('uni', ln)} : </div>
-            <div className={styles.value}>{education?.institute || '_____'} </div>
+            <div className={styles.value}>
+              {education?.institute || '_____'}{' '}
+            </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('session', ln)} : </div>
@@ -63,7 +65,9 @@ const Ecucation = ({ education, ln }) => {
           {education?.masters && (
             <div className={styles.flex}>
               <div className={styles.key}>{getText('master', ln)} </div>
-              <div className={styles.value}>{education?.masters || '_____'}</div>
+              <div className={styles.value}>
+                {education?.masters || '_____'}
+              </div>
             </div>
           )}
 
@@ -74,8 +78,18 @@ const Ecucation = ({ education, ln }) => {
 
           <div className={styles.flex}>
             <div className={styles.key}>{getText('studyAfter', ln)} </div>
-            <div className={styles.value}>{education?.studyAfter || '_____'}</div>
+            <div className={styles.value}>
+              {education?.studyAfter || '_____'}
+            </div>
           </div>
+
+          <div className={styles.flex}>
+            <div className={styles.key}>{getText('moreEC', ln)} </div>
+            <div className={styles.value}>
+              {education?.more || '_____'}
+            </div>
+          </div>
+          
         </div>
       )}
     </div>

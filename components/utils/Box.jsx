@@ -45,6 +45,7 @@ const Box = ({ data }) => {
   const searchById = () => {
     router.push(`/profile/${profileId}`)
   }
+
   const search = () => {
     try {
       router.push(
@@ -62,7 +63,7 @@ const Box = ({ data }) => {
   }, [city])
   return (
     <div className={styles.box}>
-      {/* {city} - {currentDistrict} - {currentUpazilla} */}
+      {city} - {currentDistrict} - {currentUpazilla}
       <form>
         <div className={styles.field}>
           {' '}
@@ -152,17 +153,14 @@ const Box = ({ data }) => {
 
         <div className={styles.field}>
           <label>
-            {' '}
             <Ln item={'Upazilla'} />
           </label>
-          <select
-            default='Dhaka'
-            onChange={e => setCurrentUpazilla(e.target.value)}
-          >
+          <select onChange={e => setCurrentUpazilla(e.target.value)}>
             {['All', ...upazillas].map((item, index) => (
               <option
                 key={index}
                 selected={item == currentUpazilla ? true : false}
+                value={item}
               >
                 <Ln item={item} />
               </option>

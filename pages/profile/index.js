@@ -9,6 +9,7 @@ import Search from '@/components/Search'
 import Pagination from '@/components/Pagination'
 import { useRouter } from 'next/router'
 import { englishToBangla } from '@/utils'
+import { getText } from '@/Translation/search'
 const Profile = ({ data, locationData }) => {
   const router = useRouter()
   const [openfilter, setOpenFilter] = useState(true)
@@ -29,10 +30,10 @@ const Profile = ({ data, locationData }) => {
               setOpenFilter(true)
             }}
           >
-            Filter
+            {getText('filter', ln)}
           </div>
           <div className={styles.total}>
-            Total Results : {englishToBangla(data.totalUsers)}
+            {getText('result', ln)} : {englishToBangla(data.totalUsers)}
           </div>
         </div>
         <div className={styles.profile__cards}>
