@@ -4,6 +4,7 @@ import nextConnect from 'next-connect'
 
 const handler = nextConnect()
 
+handler.use(isAuth)
 handler.post(async (req, res) => {
   try {
     const service = new UserService()
@@ -17,7 +18,6 @@ handler.post(async (req, res) => {
   }
 })
 
-handler.use(isAuth)
 handler.put(async (req, res) => {
   try {
     const { savedId } = req.body

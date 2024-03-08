@@ -4,9 +4,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
+import { getText } from '@/Translation/profile'
 
 const SendProposal = ({ setOpenForm }) => {
   const router = useRouter()
+  const ln = router.locale
   const userInfo = useSelector(state => state.user.userInfo)
   const dispatch = useDispatch()
   const [userInput, setUserInput] = useState({
@@ -43,11 +45,11 @@ const SendProposal = ({ setOpenForm }) => {
   return (
     <div className={styles.wrapper}>
       <form className={styles.form}>
-        <label>Sender</label>
+        <label>{getText('sender', ln)}</label>
         <input type='text' value={userInput.sender} />
-        <label>Reciever</label>
+        <label>{getText('reciever', ln)}</label>
         <input type='text' value={userInput.reciever} />
-        <label>Personalized Message</label>
+        <label>{getText('message', ln)}</label>
         <textarea
           type='text'
           value={userInfo?.message}
@@ -55,10 +57,10 @@ const SendProposal = ({ setOpenForm }) => {
         ></textarea>
         <div className={styles.flex}>
           <div className={styles.send} onClick={() => send()}>
-            Send
+            {getText('send', ln)}
           </div>
           <div className={styles.cancel} onClick={() => setOpenForm(false)}>
-            Cancel
+            {getText('cancel', ln)}
           </div>
         </div>
       </form>

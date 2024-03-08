@@ -102,13 +102,15 @@ const Card = ({ user, index, handleLike }) => {
               <FavoriteBorderIcon style={{ fontSize: '140%' }} />
             )}
           </div>
-          <div className={styles.count}>12</div>
+          <div className={styles.count}>
+            {user?.saverIds ? englishToBangla(user.saverIds.length) : 0}
+          </div>
         </div>
         <div className={styles.dislikes}>
           <div className={styles.icon}>
             <ThumbDownOffAltIcon style={{ fontSize: '140%' }} />
           </div>
-          <div className={styles.count}>{englishToBangla(23)}</div>
+          <div className={styles.count}>{englishToBangla('0')}</div>
         </div>
         <div className={styles.clicks}>
           <div className={styles.icon}>

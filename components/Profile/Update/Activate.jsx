@@ -6,6 +6,7 @@ import { finishLoading, startLoading } from '@/redux/stateSlice'
 import axios from 'axios'
 import { Router, useRouter } from 'next/router'
 import { login } from '@/redux/userSlice'
+import { getText } from '@/Translation/profile'
 const Activate = ({ profile }) => {
   const [worthActivating, setActivating] = useState(
     profile.user.gender &&
@@ -23,7 +24,7 @@ const Activate = ({ profile }) => {
 
   const router = useRouter()
   const userInfo = useSelector(state => state.user.userInfo)
-
+  const ln = router.locale
   const [error, setError] = useState('')
   const dispatch = useDispatch()
 
@@ -66,8 +67,7 @@ const Activate = ({ profile }) => {
             marginBottom: '10px'
           }}
         >
-          Your Profile is Not Completed To Activate. Complete Your Profile
-          Firstly .
+          {getText('ActivateError', ln)}
         </div>
       ) : profile.user.active ? (
         <div
@@ -76,7 +76,7 @@ const Activate = ({ profile }) => {
             marginBottom: '10px'
           }}
         >
-          You Can Also Deactivate Your Profile
+          {getText('deactivateText', ln)}
         </div>
       ) : (
         <div
@@ -85,7 +85,7 @@ const Activate = ({ profile }) => {
             marginBottom: '10px'
           }}
         >
-          Your Profile Is Ready To Activate.
+          {getText('activateText', ln)}
         </div>
       )}
 
@@ -98,7 +98,11 @@ const Activate = ({ profile }) => {
               : 'https://cdn-icons-png.flaticon.com/128/4943/4943215.png'
           }
           handleClick={update}
-          title={profile.user.active ? 'Deactivate' : 'Activate'}
+          title={
+            profile.user.active
+              ? getText('deactivate', ln)
+              : getText('activate', ln)
+          }
         />
       )}
     </div>

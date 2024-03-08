@@ -20,7 +20,8 @@ const Icon = ({ allowed, image, handleClick, title }) => {
         cursor: `${allowed ? 'pointer' : 'not-allowed'}`,
         fontWeight: 'bold',
         gap: '10px',
-        aspectRatio: '1/1'
+        aspectRatio: '1/1',
+        textAlign: 'center'
       }}
     >
       <Image src={image} width={'50'} height={'50'} alt='Icon' />

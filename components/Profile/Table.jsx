@@ -10,7 +10,7 @@ const Table = ({ proposals, acceptProposal, withdraw, decline, poke }) => {
   const userInfo = useSelector(state => state.user.userInfo)
   const router = useRouter()
   const ln = router.locale
-  
+
   return (
     <div className={styles.wrapper}>
       <table>
@@ -19,7 +19,7 @@ const Table = ({ proposals, acceptProposal, withdraw, decline, poke }) => {
           <th>{getText('location', ln)}</th>
           {/* <th>Birth Date</th> */}
           <th>{getText('ocupation', ln)}</th>
-          <th>Status</th>
+          <th>{getText('status', ln)}</th>
         </tr>
         {proposals.map((item, index) => (
           <tr key={index}>

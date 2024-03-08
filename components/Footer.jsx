@@ -93,6 +93,7 @@ const Footer = () => {
               borderBottom: '1px solid blue',
               paddingBottom: '3px'
             }}
+            onClick={() => router.push('https://quince-tech.vercel.app/')}
           >
             Quince.Tech
           </span>

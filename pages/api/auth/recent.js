@@ -26,7 +26,13 @@ const handler = nextConnect()
 handler.get(async (req, res) => {
   try {
     await db.connect()
-    const users = await User.find({}).sort({ _id: -1 }).limit(5).lean()
+    const users = await User.find(
+      { active: true },
+      { name: 0, password: 0, email: 0 }
+    )
+      .sort({ _id: -1 })
+      .limit(5)
+      .lean()
     res.status(200).json(users)
     await db.disconnect()
   } catch (error) {

@@ -16,7 +16,6 @@ handler.get(async (req, res) => {
 })
 
 handler.use(isAuth)
-
 handler.put(async (req, res) => {
   try {
     const service = new PhysicalService()

@@ -3,9 +3,14 @@ import styles from '../../styles/Profile/Action.module.css'
 import SendProposal from './SendProposal'
 import { useSelector } from 'react-redux'
 import Icon from '../utils/Icon'
+import { useRouter } from 'next/router'
+import { getText } from '@/Translation/profile'
 const Action = ({ user }) => {
   const [openForm, setOpenForm] = useState(false)
   const userInfo = useSelector(state => state.user.userInfo)
+  const router = useRouter()
+  const ln = router.locale
+
   console.log(user)
   return (
     <div className={styles.wrapper}>
@@ -25,8 +30,8 @@ const Action = ({ user }) => {
             image={'https://cdn-icons-png.flaticon.com/128/8500/8500126.png'}
             title={
               user?.proposalRecieved.find(i => i == userInfo?.id)
-                ? 'Proposal Sent'
-                : 'Send Proposal'
+                ? getText('proposalSent', ln)
+                : getText('sendProposal', ln)
             }
             handleClick={() => {
               setOpenForm(true)

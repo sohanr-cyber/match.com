@@ -51,7 +51,9 @@ handler.get(async (req, res) => {
       categories
     } = req.query
 
-    const filters = {}
+    const filters = {
+      active: true
+    }
     if (name && name !== 'All') filters.name = { $regex: new RegExp(name, 'i') }
     if (gender && gender !== 'All') filters.gender = gender
     if (maritalStatus && maritalStatus !== 'All')
@@ -107,7 +109,15 @@ handler.get(async (req, res) => {
 
     const users = await User.find(
       // Object.keys(filters).length > 0 ? filters : {}
-      filters
+      filters,
+      {
+        password: 0,
+        email: 0,
+        categories: 0,
+        proposalAccepted: 0,
+        proposalRecieved: 0,
+        name: 0
+      }
     )
       .skip(skip)
       .limit(parseInt(limit))

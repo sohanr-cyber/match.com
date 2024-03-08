@@ -319,11 +319,11 @@ const dict = {
   others: { en: 'Others', bn: 'অন্যান্য' },
   student: {
     en: 'Interested In Marrying Student/Job Seeker?',
-    bn: 'ছাত্র/চাকুরি সন্ধানে আছে এমন পাত্র বিবাহ করতে আগ্রহী কিনা?'
+    bn: 'শিক্ষার্থী/চাকুরি সন্ধানে আছে এমন পাত্র বিবাহ করতে আগ্রহী কিনা?'
   },
   studentWithJob: {
     en: 'Interested In Marrying Student/Job Seeker Having Some Income?',
-    bn: 'ছাত্র/চাকুরি সন্ধানে + আয় আছে এমন পাত্র বিবাহ করতে আগ্রহী কিনা??'
+    bn: 'শিক্ষার্থী/চাকুরি সন্ধানে + আয় আছে এমন পাত্র বিবাহ করতে আগ্রহী কিনা??'
   },
   emigrant: {
     en: 'Are You Emigrant?',
@@ -331,7 +331,7 @@ const dict = {
   },
   interestedInEmigrant: {
     en: 'Interested In Marrying Emigrant?',
-    bn: 'প্রবাসী/সিটিজেন পাত্র বিয়ে করতে আগ্রহী আছেন কি?'
+    bn: 'প্রবাসী/সিটিজেন পাত্র/পাত্রী বিয়ে করতে আগ্রহী আছেন কি?'
   },
   polynomy: {
     en: 'Interested In Polynomy?',
@@ -339,12 +339,12 @@ const dict = {
   },
   InterestedInDivorced: {
     en: 'Interested In Marrying Divorced Individuals?',
-    bn: 'ডিভোর্স/ বউ মারা গেছে এমন কাওকে বিয়ে করতে আগ্রহী আছেন?'
+    bn: 'ডিভোর্স/বউ/স্বামী মারা গেছে এমন কাওকে বিয়ে করতে আগ্রহী আছেন?'
   },
 
   InterestedInDivorcedChild: {
     en: 'Interested In Marrying Divorced Individuals Having Children?',
-    bn: 'ডিভোর্স/ বউ মারা গেছে + সন্তান আছে  এমন কাওকে বিয়ে করতে আগ্রহী আছেন?'
+    bn: 'ডিভোর্স/বউ/স্বামী  মারা গেছে + সন্তান আছে  এমন কাওকে বিয়ে করতে আগ্রহী আছেন?'
   },
 
   autism: {
@@ -396,6 +396,98 @@ const dict = {
   id: {
     en: 'Id',
     bn: 'আইডি'
+  },
+  // accept: {
+  //   en: 'Accept',
+  //   bn: 'প্রস্তাব গ্রহণ করুন'
+  // },
+  // accepted: {
+  //   en: 'Accepted',
+  //   bn: 'প্রস্তাব গৃহীত'
+  // },
+  // decline: {
+  //   en: 'Decline',
+  //   bn: 'প্রত্যাখ্যান করুন '
+  // },
+  // declined: {
+  //   en: 'Declined',
+  //   bn: 'প্রত্যাখ্যাত'
+  // },
+  // resend: {
+  //   en: 'Resend',
+  //   bn: 'পুনরায় পাঠান'
+  // },
+  // resent: {
+  //   en: 'Resent',
+  //   bn: 'পুনরায় পাঠান'
+  // },
+  // withdraw: {
+  //   en: 'Withdraw',
+  //   bn: 'প্রত্যাহার'
+  // },
+  // withdrawn: {
+  //   en: 'Withdrawn',
+  //   bn: 'অপসারিত'
+  // }
+  status: {
+    en: 'Status',
+    bn: 'স্ট্যাটাস'
+  },
+  proposal: {
+    en: 'Proposal',
+    bn: 'প্রস্তাব'
+  },
+  sendProposal: {
+    en: 'Send Proposal',
+    bn: 'প্রস্তাব পাঠান'
+  },
+  proposalSent: {
+    en: 'Proposal Sent Already',
+    bn: 'প্রস্তাব পাঠানো হয়েছে'
+  },
+  proposalRecieved: {
+    en: 'Proposal Recieved Already',
+    bn: 'প্রস্তাব ইতিমধ্যে গৃহীত'
+  },
+  sender: {
+    en: 'Sender',
+    bn: 'প্রেরক'
+  },
+  reciever: {
+    en: 'Reciever',
+    bn: 'প্রাপক'
+  },
+  message: {
+    en: 'Personalized Message (optional)',
+    bn: 'বার্তা (ঐচ্ছিক)'
+  },
+  send: {
+    en: 'Send',
+    bn: 'পাঠান'
+  },
+  cancel: {
+    en: 'Cancel',
+    bn: 'বাতিল'
+  },
+  activate: {
+    en: 'Activate',
+    bn: 'একটিভ করুন '
+  },
+  deactivate: {
+    en: 'Deactivate',
+    bn: 'ডিএক্টিভ করুন '
+  },
+  activateText: {
+    en: 'Your Profile Is Ready To Activate ',
+    bn: 'আপনার প্রোফাইল একটিভ করার জন্য প্রস্তুত  '
+  },
+  deactivateText: {
+    bn: 'আপনি চাইলে আপনার প্রোফাইল ডিএক্টিভ করতে পারেন',
+    en: 'You Can Also Deactivate Your Profile'
+  },
+  ActivateError: {
+    en: 'Your Profile is Not Completed To Activate. Complete Your Profile Firstly',
+    bn: 'আপনার প্রোফাইল একটিভ করার জন্য প্রস্তুত হয়নি. প্রথমে আপনার প্রোফাইল সম্পূর্ণ করুন'
   }
 }
 

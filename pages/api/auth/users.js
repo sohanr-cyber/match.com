@@ -35,7 +35,7 @@ handler.post(async (req, res) => {
   try {
     await db.connect()
 
-    for (let i = 0; i < 500; i++) {
+    for (let i = 0; i < 1500; i++) {
       const dummyUser = {
         name: faker.random.arrayElement(names),
         email: faker.internet.email(),

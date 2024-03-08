@@ -10,7 +10,7 @@ import ViewColumnIcon from '@mui/icons-material/ViewColumn'
 import TableRowsIcon from '@mui/icons-material/TableRows'
 import { TableRow } from '@mui/material'
 import Table from '../Profile/Table'
-import { getText } from '@/Translation/sideNavbar'
+import { getText } from '@/Translation/profile'
 import { englishToBangla } from '@/utils'
 
 const Proposal = () => {
@@ -127,7 +127,7 @@ const Proposal = () => {
     <div className={styles.wrapper}>
       <div className={styles.heading}>
         <div className={styles.title}>
-          {getText('proposal', ln)} ({englishToBangla(proposals.length || "0")})
+          {getText('proposal', ln)} ({englishToBangla(proposals.length || '0')})
         </div>
         <div className={styles.toggle} onClick={() => setTable(prev => !prev)}>
           {table ? <ViewColumnIcon /> : <TableRowsIcon />}
@@ -152,9 +152,14 @@ const Proposal = () => {
                     <div className={styles.action}>
                       <div className={styles.left}>
                         {item.status == 'Declined' ? (
-                          <div className={styles.btn}>Declined</div>
+                          <div className={styles.btn}>
+                            {getText('declined', ln)}
+                          </div>
                         ) : item.status == 'Accepted' ? (
-                          <div className={styles.btn}>Accepted</div>
+                          <div className={styles.btn}>
+                            {' '}
+                            {getText('accepted', ln)}
+                          </div>
                         ) : item.status == 'Withdrawn' ? (
                           <div
                             className={styles.btn}
@@ -163,7 +168,7 @@ const Proposal = () => {
                               cursor: 'not-allowed'
                             }}
                           >
-                            Poke
+                            {getText('resend', ln)}
                           </div>
                         ) : item.pokeCount < 3 ? (
                           <div
@@ -177,10 +182,10 @@ const Proposal = () => {
                             }
                           >
                             {item.pokeCount < 0 ? (
-                              <>poke</>
+                              <> {getText('resend', ln)}</>
                             ) : (
                               <>
-                                poked({item.pokeCount}/{3})
+                                {getText('resent', ln)}({item.pokeCount}/{3})
                               </>
                             )}
                           </div>
