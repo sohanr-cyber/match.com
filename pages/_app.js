@@ -11,7 +11,7 @@ const title =
   'Find Your Perfect Match on Muslim Match Maker - Islamic Matrimony Site'
 const description =
   "Welcome to Muslim Match Maker, your trusted platform for Islamic matrimony. Finding a life partner who shares your faith, values, and cultural background is now easier than ever. Our platform is designed to connect Muslim singles worldwide, facilitating meaningful connections that lead to lifelong companionship and happiness. Whether you're looking for love, companionship, or marriage, Muslim Match Maker is here to help you find your perfect match."
-const imageUrl = '/images/match3.png'
+const imageUrl = '/images/match2.png'
 export default function App ({ Component, pageProps }) {
   return (
     <>
