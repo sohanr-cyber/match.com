@@ -12,6 +12,7 @@ import CancelIcon from '@mui/icons-material/Cancel'
 import { getText } from '@/Translation/footer'
 import { getText as trans } from '@/Translation/account'
 import Logo2 from './utils/Logo2'
+import Image from 'next/image'
 
 const Navbar = () => {
   const router = useRouter()
@@ -55,6 +56,8 @@ const Navbar = () => {
         >
           {getText('search', ln)}
         </div>
+        <div className={styles.item}>{getText('h2', ln)}</div>
+
         <div
           className={styles.item}
           onClick={() =>
@@ -64,29 +67,21 @@ const Navbar = () => {
           }
         >
           {locale == 'en-US' ? (
-            <span
-              style={{
-                color: 'red',
-                backgroundColor: 'yellow',
-                padding: '3px 5px'
-              }}
-            >
-              বাংলা
-            </span>
+            <Image
+              src='https://cdn-icons-png.flaticon.com/128/3371/3371885.png'
+              width={35}
+              height={35}
+              alt=''
+            />
           ) : (
-            <span
-              style={{
-                color: 'white',
-                backgroundColor: 'red',
-                padding: '3px 5px'
-              }}
-            >
-              English
-            </span>
+            <Image
+              src='https://cdn-icons-png.flaticon.com/128/555/555417.png'
+              width={30}
+              height={30}
+              alt=''
+            />
           )}
         </div>
-
-        <div className={styles.item}>{getText('h2', ln)}</div>
       </div>
 
       <div className={styles.right}>
@@ -158,25 +153,19 @@ const Navbar = () => {
               }
             >
               {locale == 'en-US' ? (
-                <span
-                  style={{
-                    color: 'red',
-                    backgroundColor: 'yellow',
-                    padding: '3px 5px'
-                  }}
-                >
-                  বাংলা
-                </span>
+                <Image
+                  src='https://cdn-icons-png.flaticon.com/128/3371/3371885.png'
+                  width={35}
+                  height={35}
+                  alt=''
+                />
               ) : (
-                <span
-                  style={{
-                    color: 'white',
-                    backgroundColor: 'red',
-                    padding: '3px 5px'
-                  }}
-                >
-                  English
-                </span>
+                <Image
+                  src='https://cdn-icons-png.flaticon.com/128/555/555417.png'
+                  width={30}
+                  height={30}
+                  alt=''
+                />
               )}
             </div>
           </div>
