@@ -31,7 +31,7 @@ class UserRepository {
       })
 
       const userResult = await user.save()
-      
+
       const family = await this.family.CreateFamily({
         user: userResult._id
       })
@@ -54,7 +54,7 @@ class UserRepository {
         user: userResult._id,
         gender: userResult.gender
       })
-
+      await db.disconnect()
       return userResult
     } catch (error) {
       console.log(error)
@@ -65,6 +65,7 @@ class UserRepository {
     try {
       await db.connect()
       const existingCustomer = await User.findOne({ email: email })
+      await db.disconnect()
       return existingCustomer
     } catch (error) {
       console.log(error)

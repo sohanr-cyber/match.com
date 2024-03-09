@@ -9,7 +9,6 @@ if (process.env.NODE_ENV !== 'production') {
 } else {
   BASE_URL = 'https://main.dsxlpz487o1xu.amplifyapp.com'
   MONGODB_URI = process.env.MONGODB_URI_PRODUCTION
-
   GMAIL = process.env.GMAIL_USER
   PASSWORD = process.env.GMAIL_PASS
 }
