@@ -10,7 +10,7 @@ import { login } from '@/redux/userSlice'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
 import { getText } from '@/Translation/account'
 import { NextSeo } from 'next-seo'
-
+import { getText as seoText } from '@/Translation/seo'
 const Login = () => {
   const router = useRouter()
   const [email, setEmail] = useState('')
@@ -50,8 +50,8 @@ const Login = () => {
   return (
     <>
       <NextSeo
-        title='Login - Muslim Match Maker'
-        description='Log in to your Muslim Match Maker account to connect with like-minded individuals and find your perfect match.'
+        title={seoText('loginTitle', ln)}
+        description={seoText('loginDesc', ln)}
       />
       <div className={styles.wrapper}>
         <div className={styles.logo}>
