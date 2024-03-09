@@ -1,11 +1,12 @@
 import ProposalRepository from '@/database/repository/proposal-repository'
 import { FormateData } from '@/utility'
 import UserService from './user-service'
-
+import NotificationService from './notification-service'
 class ProposalService {
   constructor () {
     this.repository = new ProposalRepository()
     this.userService = new UserService()
+    this.NotificationService = new NotificationService()
   }
 
   async FindProposalsByUserId (UserId) {
@@ -76,7 +77,14 @@ class ProposalService {
         sender: newProposal.sender,
         reciever: newProposal.reciever
       })
-      console.log(updatedUser)
+      console.log({ updatedUser })
+
+      // send proposal notification
+      await this.NotificationService.sendProposalNotification({
+        senderName: updatedUser.senderUpdated.name,
+        senderId: updatedUser.senderUpdated._id,
+        recieverEmail: 'sohanur25800@gmail.com'
+      })
       return FormateData(newProposal)
     } catch (error) {
       console.log(error)

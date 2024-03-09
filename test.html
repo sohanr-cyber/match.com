@@ -5,48 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Proposal Notification</title>
   </head>
-  <body style="background-color: aliceblue; font-family: 'Ubuntu', sans-serif">
-    <div style="font-size: 150%; color: green">MuslimMatchMaker</div>
-    <div style="padding: 5px">
+  <body
+    style="
+      background: linear-gradient(
+        45deg,
+        rgba(0, 126, 236, 0.3),
+        rgb(255, 255, 255, 0.3),
+        rgba(0, 126, 236, 0.3)
+      );
+      font-family: 'Ubuntu', sans-serif;
+      min-height: 100vh;
+      margin: 0;
+    "
+  >
+    <div
+      style="
+        font-weight: bold;
+        padding: 10px;
+        background: rgba(4, 183, 243, 0.25);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+      "
+    >
+      <div style="font-size: 150%; color: green">Muslim</div>
+      <div style="font-size: 80%; margin-left: 15px">
+        <span style="color: goldenrod">Match </span><span>Maker</span>
+      </div>
+    </div>
+    <div
+      style="
+        padding: 10px;
+        background-color: rgb(0, 125, 0, 0.1);
+        min-height: 90vh;
+      "
+    >
       <!-- <h2 style="color: #333333;">Proposal Notification: [Sender's Name] is Interested in You</h2> -->
       <p>Assalamu Alaikum Warahmatullahi Wabarakatuhu,</p>
-      <p>I hope this message finds you in the best of health and iman.</p>
       <p>
-        I am writing to inform you that [Sender's Name] has expressed interest
-        in connecting with you through our Islamic matrimonial platform. They
-        have sent you a proposal with the intention of exploring the possibility
-        of marriage in accordance with Islamic principles.
+        ${senderName} is interested in connecting with you on Muslim Match
+        Maker. They've sent a proposal for marriage according to Islamic
+        principles.
       </p>
       <p>
-        Here is a brief introduction from [Sender's Name] along with their
-        profile details:
+        <a
+          href="
+        ${BASE_URL}/profile/${senderId}
+        "
+          >Review ${senderName}'s profile</a
+        >
+        and respond via our platform if interested.
       </p>
-      <p>
-        [Include a brief introduction provided by the sender and any relevant
-        profile details]
-      </p>
-      <p>
-        We believe that marriage is a sacred bond established on the foundations
-        of faith, mutual respect, and compatibility. Therefore, we encourage you
-        to take the time to review [Sender's Name]'s profile and consider their
-        proposal thoughtfully.
-      </p>
-      <p>
-        If you are interested in learning more about [Sender's Name] or pursuing
-        this proposal further, you can log in to your account on our platform to
-        view their complete profile and respond accordingly.
-      </p>
-      <p>
-        Please remember that communication and mutual understanding are key in
-        the process of finding a compatible life partner. Feel free to reach out
-        to us if you have any questions or require assistance at any stage of
-        this journey.
-      </p>
-      <p>
-        May Allah (SWT) guide you in making the best decision for your future
-        and grant you success in finding a righteous spouse who will be a source
-        of blessing in this life and the Hereafter.
-      </p>
+      <p>May Allah guide you in your decision.</p>
       <p>JazakAllahu Khairan.</p>
       <p>Warm regards,</p>
       <p>

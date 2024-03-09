@@ -41,15 +41,14 @@ const ValidateSignature = async req => {
 const ValidateSignatureOptional = async req => {
   try {
     const { authorization: signature } = req.headers
-    console.log({ signature })
     if (signature) {
       const payload = await jwt.verify(signature.split(' ')[1], APP_SECRET)
       req.user = payload
-      console.log("from if statement")
+      console.log('from if statement')
       return true
     } else {
       req.user = {}
-      console.log("form else statement")
+      console.log('form else statement')
       return true
     }
 

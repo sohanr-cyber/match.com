@@ -5,7 +5,7 @@ import nextConnect from 'next-connect'
 const handler = nextConnect()
 
 // create proposals
-handler.use(isAuth)
+// handler.use(isAuth)
 handler.post(async (req, res) => {
   try {
     const service = new ProposalService()

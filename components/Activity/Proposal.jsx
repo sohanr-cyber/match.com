@@ -23,7 +23,12 @@ const Proposal = () => {
   const fethProposals = async () => {
     try {
       const { data } = await axios.get(
-        `${BASE_URL}/api/proposal?userId=${userInfo.id}`
+        `${BASE_URL}/api/proposal?userId=${userInfo.id}`,
+        {
+          headers: {
+            Authorization: 'Bearer ' + userInfo.token
+          }
+        }
       )
       console.log(data)
       setProposals(data)

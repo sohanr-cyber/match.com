@@ -27,7 +27,7 @@ const SendProposal = ({ setOpenForm }) => {
         },
         {
           headers: {
-            Authorizations: 'Bearer ' + userInfo.token
+            Authorization: 'Bearer ' + userInfo.token
           }
         }
       )
