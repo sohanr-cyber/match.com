@@ -26,6 +26,7 @@ handler.put(async (req, res) => {
       ...req.body,
       _id: req.user._id
     })
+    console.log(user)
     res.status(200).json(user)
   } catch (error) {
     console.log(error)

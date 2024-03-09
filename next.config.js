@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
   reactStrictMode: true,
 
@@ -33,6 +34,18 @@ const nextConfig = {
   i18n: {
     locales: ['en-US', 'fr', 'bn', 'nl-NL'],
     defaultLocale: 'en-US'
+  },
+  async rewrites () {
+    return [
+      {
+        source: '/robots.txt',
+        destination: '/api/text/robots'
+      },
+      {
+        source: '/sitemap.xml',
+        destination: '/api/text/sitemap'
+      }
+    ]
   }
 }
 

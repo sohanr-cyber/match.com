@@ -109,9 +109,13 @@ class UserService {
   }
 
   async UpdateUser (userInputs) {
-    const { email, password, ...DataToUpdate } = userInputs
-    const existingUser = await this.repository.UpdateUser(DataToUpdate)
-    return FormateData(existingUser)
+    try {
+      const { email, password, ...DataToUpdate } = userInputs
+      const existingUser = await this.repository.UpdateUser(DataToUpdate)
+      return FormateData(existingUser)
+    } catch (error) {
+      console.log(error)
+    }
   }
   async UpdateUserProposal ({ sender, reciever }) {
     const existingUser = await this.repository.UpdateUserProposal({

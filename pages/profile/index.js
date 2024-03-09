@@ -33,7 +33,7 @@ const Profile = ({ data, locationData }) => {
             {getText('filter', ln)}
           </div>
           <div className={styles.total}>
-            {getText('result', ln)} : {englishToBangla(data.totalUsers)}
+            {getText('result', ln)} : {englishToBangla(data.totalUsers, ln)}
           </div>
         </div>
         <div className={styles.profile__cards}>

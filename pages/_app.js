@@ -5,14 +5,19 @@ import '@/styles/globals.css'
 import { DefaultSeo } from 'next-seo'
 import NextNProgress from 'nextjs-progressbar'
 import { Provider } from 'react-redux'
+import Script from 'next/script'
+import { getText } from '@/Translation/seo'
+import { useRouter } from 'next/router'
 
 const site = BASE_URL
-const title =
-  'Find Your Perfect Match on Muslim Match Maker - Islamic Matrimony Site'
-const description =
-  "Welcome to Muslim Match Maker, your trusted platform for Islamic matrimony. Finding a life partner who shares your faith, values, and cultural background is now easier than ever. Our platform is designed to connect Muslim singles worldwide, facilitating meaningful connections that lead to lifelong companionship and happiness. Whether you're looking for love, companionship, or marriage, Muslim Match Maker is here to help you find your perfect match."
-const imageUrl = '/images/match2.png'
+
 export default function App ({ Component, pageProps }) {
+  const router = useRouter()
+  const ln = router.locale
+  const title = getText('title', ln)
+  const description = getText('desc', ln)
+  const imageUrl = '/images/match2.png'
+
   return (
     <>
       <link
@@ -36,6 +41,20 @@ export default function App ({ Component, pageProps }) {
       <link rel='mask-icon' href='/safari-pinned-tab.svg' color='#5bbad5' />
       <meta name='msapplication-TileColor' content='#da532c' />
       <meta name='theme-color' content='#ffffff'></meta>
+      <Script
+        async
+        src='https://www.googletagmanager.com/gtag/js?id=G-WXSGJYN6W5'
+      ></Script>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-WXSGJYN6W5');
+              `
+        }}
+      />
       <DefaultSeo
         title={title}
         description={description}

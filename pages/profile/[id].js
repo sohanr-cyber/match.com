@@ -22,6 +22,7 @@ import { parse } from 'cookie'
 import Activate from '@/components/Profile/Update/Activate'
 import SideNavbar from '@/components/Profile/SideNavbar'
 import Others from '@/components/Profile/Others'
+import { NextSeo } from 'next-seo'
 
 const ProfileDetails = ({
   user,
@@ -45,15 +46,17 @@ const ProfileDetails = ({
 
   return (
     <>
+      <NextSeo title={`Profile ${user._id} - Muslim Match Maker`} />
+
       <div className={styles.wrapper} style={{ minHeight: '100vh' }}>
         <div className={styles.left}>
           <Introduction data={user} ln={locale} />
           {/* <Personal personal={personal} /> */}
           <Physical physical={physical} ln={locale} />
-          <Education education={education} ln={locale} />
+          <Education education={education} ln={locale} profile={user} />
           <Piety religion={religion} ln={locale} />
           <Address address={address} ln={locale} />
-          <Family family={family} ln = {locale} />
+          <Family family={family} ln={locale} />
           <Expectation expectation={expectation} ln={locale} />
           <Others data={user} ln={locale} />
           {isClient && router.query.id != userInfo?.id && (

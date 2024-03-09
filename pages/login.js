@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux'
 import { login } from '@/redux/userSlice'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
 import { getText } from '@/Translation/account'
+import { NextSeo } from 'next-seo'
 
 const Login = () => {
   const router = useRouter()
@@ -45,8 +46,13 @@ const Login = () => {
       console.log(error)
     }
   }
+
   return (
     <>
+      <NextSeo
+        title='Login - Muslim Match Maker'
+        description='Log in to your Muslim Match Maker account to connect with like-minded individuals and find your perfect match.'
+      />
       <div className={styles.wrapper}>
         <div className={styles.logo}>
           <Logo />

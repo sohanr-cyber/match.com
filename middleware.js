@@ -10,9 +10,9 @@ export default function middleware (req) {
     return NextResponse.redirect(`${BASE_URL}/login`)
   }
 
-  if ((verify && uri.includes('/login')) || uri.includes('/register')) {
-    return NextResponse.redirect(
-      `${BASE_URL}/profile/${JSON.parse(verify.value).id}`
-    )
-  }
+  // if ((verify && uri.includes('/login')) || uri.includes('/register')) {
+  //   return NextResponse.redirect(
+  //     `${BASE_URL}/profile/${JSON.parse(verify.value).id}`
+  //   )
+  // }
 }

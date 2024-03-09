@@ -12,6 +12,7 @@ import * as EmailValidator from 'email-validator'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
 import { getText } from '@/Translation/account'
 import Ln from '@/components/utils/Ln'
+import { NextSeo } from 'next-seo'
 const Login = () => {
   const router = useRouter()
   const [name, setName] = useState('')
@@ -56,6 +57,11 @@ const Login = () => {
 
   return (
     <>
+      {' '}
+      <NextSeo
+        title='Register - Muslim Match Maker'
+        description='Join thousands of Muslims worldwide who trust Muslim Match Maker to find their life partner. Create your account today and start your journey towards finding love and companionship.'
+      />
       <div className={styles.wrapper}>
         <div className={styles.logo}>
           <Logo />

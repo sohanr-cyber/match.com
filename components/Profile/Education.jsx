@@ -3,7 +3,7 @@ import styles from '../../styles/Profile/Personal.module.css'
 import { getText } from '@/Translation/profile'
 import Ln from '../utils/Ln'
 
-const Ecucation = ({ education, ln }) => {
+const Ecucation = ({ education, ln, profile }) => {
   const [open, setOpen] = useState(false)
   return (
     <div className={styles.wrapper}>

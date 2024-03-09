@@ -67,14 +67,14 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
           <div className={styles.options}>
             <span
               style={
-                profile.categories.find(i => i == 'InterestedInDivorced')
+                profile.categories?.find(i => i == 'InterestedInDivorced')
                   ? { background: 'blue', color: 'white' }
                   : {}
               }
               onClick={() =>
                 setProfile({
                   ...profile,
-                  categories: !profile.categories.find(
+                  categories: !profile.categories?.find(
                     i => i == 'InterestedInDivorced'
                   ) && [...profile.categories, 'InterestedInDivorced']
                 })
@@ -84,7 +84,7 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
             </span>
             <span
               style={
-                !profile.categories.find(i => i == 'InterestedInDivorced')
+                !profile.categories?.find(i => i == 'InterestedInDivorced')
                   ? { background: 'blue', color: 'white' }
                   : {}
               }
@@ -92,8 +92,8 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
                 setProfile({
                   ...profile,
                   categories:
-                    profile.categories.find(i => i == 'InterestedInDivorced') &&
-                    profile.categories.filter(i => i != 'InterestedInDivorced')
+                    profile.categories?.find(i => i == 'InterestedInDivorced') &&
+                    profile.categories?.filter(i => i != 'InterestedInDivorced')
                 })
               }
             >
@@ -107,14 +107,14 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
           <div className={styles.options}>
             <span
               style={
-                profile.categories.find(i => i == 'InterestedInDivorcedChild')
+                profile.categories?.find(i => i == 'InterestedInDivorcedChild')
                   ? { background: 'blue', color: 'white' }
                   : {}
               }
               onClick={() =>
                 setProfile({
                   ...profile,
-                  categories: !profile.categories.find(
+                  categories: !profile.categories?.find(
                     i => i == 'InterestedInDivorcedChild'
                   ) && [...profile.categories, 'InterestedInDivorcedChild']
                 })
@@ -124,7 +124,7 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
             </span>
             <span
               style={
-                !profile.categories.find(i => i == 'InterestedInDivorcedChild')
+                !profile.categories?.find(i => i == 'InterestedInDivorcedChild')
                   ? { background: 'blue', color: 'white' }
                   : {}
               }
@@ -132,10 +132,10 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
                 setProfile({
                   ...profile,
                   categories:
-                    profile.categories.find(
+                    profile.categories?.find(
                       i => i == 'InterestedInDivorcedChild'
                     ) &&
-                    profile.categories.filter(
+                    profile.categories?.filter(
                       i => i != 'InterestedInDivorcedChild'
                     )
                 })
@@ -151,14 +151,14 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
           <div className={styles.options}>
             <span
               style={
-                profile.categories.find(i => i == 'Student')
+                profile.categories?.find(i => i == 'Student')
                   ? { background: 'blue', color: 'white' }
                   : {}
               }
               onClick={() =>
                 setProfile({
                   ...profile,
-                  categories: !profile.categories.find(i => i == 'Student') && [
+                  categories: !profile.categories?.find(i => i == 'Student') && [
                     ...profile.categories,
                     'Student'
                   ]
@@ -169,7 +169,7 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
             </span>
             <span
               style={
-                !profile.categories.find(i => i == 'Student')
+                !profile.categories?.find(i => i == 'Student')
                   ? { background: 'blue', color: 'white' }
                   : {}
               }
@@ -177,8 +177,8 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
                 setProfile({
                   ...profile,
                   categories:
-                    profile.categories.find(i => i == 'Student') &&
-                    profile.categories.filter(i => i != 'Student')
+                    profile.categories?.find(i => i == 'Student') &&
+                    profile.categories?.filter(i => i != 'Student')
                 })
               }
             >
@@ -191,14 +191,14 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
           <div className={styles.options}>
             <span
               style={
-                profile.categories.find(i => i == 'StudentWithJob')
+                profile.categories?.find(i => i == 'StudentWithJob')
                   ? { background: 'blue', color: 'white' }
                   : {}
               }
               onClick={() =>
                 setProfile({
                   ...profile,
-                  categories: !profile.categories.find(
+                  categories: !profile.categories?.find(
                     i => i == 'StudentWithJob'
                   ) && [...profile.categories, 'StudentWithJob']
                 })
@@ -208,7 +208,7 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
             </span>
             <span
               style={
-                !profile.categories.find(i => i == 'StudentWithJob')
+                !profile.categories?.find(i => i == 'StudentWithJob')
                   ? { background: 'blue', color: 'white' }
                   : {}
               }
@@ -216,8 +216,8 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
                 setProfile({
                   ...profile,
                   categories:
-                    profile.categories.find(i => i == 'StudentWithJob') &&
-                    profile.categories.filter(i => i != 'StudentWithJob')
+                    profile.categories?.find(i => i == 'StudentWithJob') &&
+                    profile.categories?.filter(i => i != 'StudentWithJob')
                 })
               }
             >
@@ -231,14 +231,14 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
           <div className={styles.options}>
             <span
               style={
-                profile.categories.find(i => i == 'SecondWife')
+                profile?.categories?.find(i => i == 'SecondWife')
                   ? { background: 'blue', color: 'white' }
                   : {}
               }
               onClick={() =>
                 setProfile({
                   ...profile,
-                  categories: !profile.categories.find(
+                  categories: !profile.categories?.find(
                     i => i == 'SecondWife'
                   ) && [...profile.categories, 'SecondWife']
                 })
@@ -248,7 +248,7 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
             </span>
             <span
               style={
-                !profile.categories.find(i => i == 'SecondWife')
+                !profile.categories?.find(i => i == 'SecondWife')
                   ? { background: 'blue', color: 'white' }
                   : {}
               }
@@ -256,8 +256,8 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
                 setProfile({
                   ...profile,
                   categories:
-                    profile.categories.find(i => i == 'SecondWife') &&
-                    profile.categories.filter(i => i != 'SecondWife')
+                    profile.categories?.find(i => i == 'SecondWife') &&
+                    profile.categories?.filter(i => i != 'SecondWife')
                 })
               }
             >
@@ -271,14 +271,14 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
           <div className={styles.options}>
             <span
               style={
-                profile.categories.find(i => i == 'Emigrant')
+                profile.categories?.find(i => i == 'Emigrant')
                   ? { background: 'blue', color: 'white' }
                   : {}
               }
               onClick={() =>
                 setProfile({
                   ...profile,
-                  categories: !profile.categories.find(
+                  categories: !profile.categories?.find(
                     i => i == 'Emigrant'
                   ) && [...profile.categories, 'Emigrant']
                 })
@@ -288,7 +288,7 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
             </span>
             <span
               style={
-                !profile.categories.find(i => i == 'Emigrant')
+                !profile.categories?.find(i => i == 'Emigrant')
                   ? { background: 'blue', color: 'white' }
                   : {}
               }
@@ -296,8 +296,8 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
                 setProfile({
                   ...profile,
                   categories:
-                    profile.categories.find(i => i == 'Emigrant') &&
-                    profile.categories.filter(i => i != 'Emigrant')
+                    profile.categories?.find(i => i == 'Emigrant') &&
+                    profile.categories?.filter(i => i != 'Emigrant')
                 })
               }
             >
@@ -311,14 +311,14 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
           <div className={styles.options}>
             <span
               style={
-                profile.categories.find(i => i == 'InterestedInEmigrant')
+                profile.categories?.find(i => i == 'InterestedInEmigrant')
                   ? { background: 'blue', color: 'white' }
                   : {}
               }
               onClick={() =>
                 setProfile({
                   ...profile,
-                  categories: !profile.categories.find(
+                  categories: !profile.categories?.find(
                     i => i == 'InterestedInEmigrant'
                   ) && [...profile.categories, 'InterestedInEmigrant']
                 })
@@ -328,7 +328,7 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
             </span>
             <span
               style={
-                !profile.categories.find(i => i == 'InterestedInEmigrant')
+                !profile.categories?.find(i => i == 'InterestedInEmigrant')
                   ? { background: 'blue', color: 'white' }
                   : {}
               }
@@ -336,8 +336,8 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
                 setProfile({
                   ...profile,
                   categories:
-                    profile.categories.find(i => i == 'InterestedInEmigrant') &&
-                    profile.categories.filter(i => i != 'InterestedInEmigrant')
+                    profile.categories?.find(i => i == 'InterestedInEmigrant') &&
+                    profile.categories?.filter(i => i != 'InterestedInEmigrant')
                 })
               }
             >

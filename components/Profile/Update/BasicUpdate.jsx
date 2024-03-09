@@ -65,7 +65,7 @@ const Basic = ({ profile, setProfile, locationData, ln }) => {
           }
         }
       )
-      console.log(data)
+      console.log({ data })
       setProfile({
         ...data,
         heightFeet: parseInt(data.height / 12),
