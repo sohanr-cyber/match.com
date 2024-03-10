@@ -67,28 +67,24 @@ const userSchema = mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        unique: true
       }
     ],
     proposalSent: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        unique: true
       }
     ],
     proposalAccepted: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        unique: true
       }
     ],
     savedIds: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        unique: true
       }
     ],
 
@@ -96,7 +92,6 @@ const userSchema = mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        unique: true
       }
     ],
     categories: [{ type: String }],

@@ -4,7 +4,6 @@ let BASE_URL, MONGODB_URI, GMAIL, PASSWORD
 if (process.env.NODE_ENV !== 'production') {
   BASE_URL = 'http://localhost:3000'
   MONGODB_URI = process.env.MONGODB_URI
-  // MONGODB_URI = process.env.MONGODB_URI_PRODUCTION
   GMAIL = process.env.GMAIL_USER_DEV
   PASSWORD = process.env.GMAIL_PASS_DEV
 } else {
