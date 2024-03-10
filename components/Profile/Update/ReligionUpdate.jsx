@@ -69,15 +69,15 @@ const Religion = ({ religion: data, ln }) => {
             onChange={e => setReligion({ ...religion, outfit: e.target.value })}
           ></textarea>
         </div>
-        <div className={styles.field}>
-          <label>{getText('outfit', ln)}</label>
+        {/* <div className={styles.field}>
+          <label>{getText('outfitDate', ln)}</label>
           <textarea
             value={religion.outfitDate}
             onChange={e =>
               setReligion({ ...religion, outfitDate: e.target.value })
             }
           ></textarea>
-        </div>
+        </div> */}
         <div className={styles.field}>
           <label>{getText('prayer', ln)} </label>
           <textarea
