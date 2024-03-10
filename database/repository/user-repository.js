@@ -21,7 +21,6 @@ class UserRepository {
   async CreateUser ({ email, password, name, salt, gender }) {
     try {
       await db.connect()
-
       const user = new User({
         email,
         password,
@@ -54,6 +53,7 @@ class UserRepository {
         user: userResult._id,
         gender: userResult.gender
       })
+
       await db.disconnect()
       return userResult
     } catch (error) {
@@ -65,7 +65,6 @@ class UserRepository {
     try {
       await db.connect()
       const existingCustomer = await User.findOne({ email: email })
-      await db.disconnect()
       return existingCustomer
     } catch (error) {
       console.log(error)
