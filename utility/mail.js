@@ -22,7 +22,151 @@ const footer = ` <p>JazakAllahu Khairan.</p>
   [Your Name]<br />[Your Position/Title]<br />[Your Contact
   Information]<br />[Islamic Matrimony Site Name]
 </p>`
-const sendProposalHtml = ({ senderName, senderId }) => {
+
+const proposalAccepted = ({
+  senderName,
+  senderId,
+  recieverName,
+  recieverId,
+  proposalId
+}) => {
+  return {
+    subject: 'Muslim Match Maker এ আপনার প্রস্তাবের আবস্থা পরিবর্তন হয়েছে',
+    body: `আমরা আমাকে জানাতে চাইযে, আপনার <a href="${BASE_URL}/profile/proposal/${senderId}?proposalId=${proposalId}">প্রস্তাবটি</a> গ্রহন করা হয়েছে`
+  }
+}
+
+const proposalRejected = ({
+  senderName,
+  senderId,
+  recieverName,
+  recieverId,
+  proposalId
+}) => {
+  return {
+    subject: 'Muslim Match Maker এ আপনার প্রস্তাবের আবস্থা পরিবর্তন হয়েছে',
+    body: `আমরা আমাকে জানাতে চাইযে, আপনার <a href="${BASE_URL}/profile/proposal/${senderId}?proposalId=${proposalId}">প্রস্তাবটি</a> প্রত্যাহার করা হয়েছে`
+  }
+}
+
+const proposalInitialized = ({
+  senderName,
+  senderId,
+  recieverName,
+  recieverId,
+  proposalId,
+  message
+}) => {
+  return {
+    subject: 'Muslim Match Maker এ আপনি একটি প্রস্তাব পেয়েছেন',
+    body: `<p>আমরা আমাকে জানাতে চাইযে, ${senderName} প্রাথমিকভাবে আপনাকে একটি <a href="${BASE_URL}/profile/proposal/${recieverId}?proposalId=${proposalId}">প্রস্তাব</a> পাঠিয়েছে</p>
+    <p>তার প্রফাইল URL ${BASE_URL}/profile/${senderId}
+    </p>
+    ${
+      message && (
+        <p>
+          <b>সাথে তিনি একটি বার্তা দিয়েছেন যে:</b>
+          <p>${message}</p>
+        </p>
+      )
+    }
+    `
+  }
+}
+
+const proposalWithdrawn = ({
+  senderName,
+  senderId,
+  recieverName,
+  recieverId,
+  proposalId
+}) => {
+  return {
+    subject: 'Muslim Match Maker এ আপনার প্রস্তাবের আবস্থা পরিবর্তন হয়েছে',
+    body: `আমরা আমাকে জানাতে চাইযে, আপনার পাঠানো <a href="${BASE_URL}/profile/proposal/${senderId}?proposalId=${proposalId}">প্রস্তাবটি</a> তুলে নেওয়া হয়েছে।
+    `
+  }
+}
+
+const prpoposalResend = ({
+  senderName,
+  senderId,
+  recieverName,
+  recieverId,
+  proposalId
+}) => {
+  return {
+    subject: 'Muslim Match Maker এ আপনাকেও আবারও প্রস্তাবটি পাঠানো হলো',
+    body: `আমরা আমাকে জানাতে চাইযে, পুর্বে যে <a href="${BASE_URL}/profile/proposal/${recieverId}?proposalId=${proposalId}">প্রস্তাবটি</a> পাঠানো হয়েছে সেটার ব্যাপারে আপনি কোন সারা দেননি।।
+    `
+  }
+}
+const body = ({
+  senderName,
+  senderId,
+  recieverName,
+  recieverId,
+  proposalId,
+  status,
+  message
+}) => {
+  let content = ''
+
+  if (status === 'accepted') {
+    content = proposalAccepted({
+      senderName,
+      senderId,
+      recieverName,
+      recieverId,
+      proposalId
+    }).body
+  } else if (status === 'declined') {
+    content = proposalRejected({
+      senderName,
+      senderId,
+      recieverName,
+      recieverId,
+      proposalId
+    }).body
+  } else if (status === 'withdrawn') {
+    content = proposalWithdrawn({
+      senderName,
+      senderId,
+      recieverName,
+      recieverId,
+      proposalId
+    }).body
+  } else if (status === 'resend') {
+    content = prpoposalResend({
+      senderName,
+      senderId,
+      recieverName,
+      recieverId,
+      proposalId
+    }).body
+  } else {
+    content = proposalInitialized({
+      senderName,
+      senderId,
+      recieverName,
+      recieverId,
+      proposalId,
+      message
+    }).body
+  }
+
+  return `<p>${content}</p>`
+}
+
+const sendProposalHtml = ({
+  senderName,
+  senderId,
+  recieverName,
+  recieverId,
+  proposalId,
+  status,
+  message
+}) => {
   return ` <body
   style="
   background: linear-gradient(
@@ -39,22 +183,16 @@ const sendProposalHtml = ({ senderName, senderId }) => {
   ${nav}
   <div style="padding: 10px; background-color: rgb(0, 125, 0, 0.1);
   min-height: 85vh;">
-  <p>Assalamu Alaikum Warahmatullahi Wabarakatuhu,</p>
-  <p>
-    ${senderName} is interested in connecting with you on Muslim Match
-    Maker. he have sent a proposal for marriage according to Islamic
-    principles.
-  </p>
-  <p>
-  <a
-  href="
-${BASE_URL}/profile/${senderId}
-"
-  >Review ${senderName}'s profile </a
->and respond via our platform if
-    interested.
-  </p>
-  <P>May Allah guide you in your decision.</P>
+  <p>Dear ${recieverName},</p>
+  ${body({
+    senderName,
+    senderId,
+    recieverName,
+    recieverId,
+    proposalId,
+    status,
+    message
+  })}
     ${footer}
   </div>
 </body>`

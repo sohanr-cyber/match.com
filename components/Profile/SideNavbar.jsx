@@ -12,7 +12,7 @@ import { useRouter } from 'next/router'
 import Logo from '../utils/Logo'
 import { getText } from '@/Translation/sideNavbar'
 
-const SideNavbar = ({ handleLogout }) => {
+const SideNavbar = ({ handleLogout, setOpen }) => {
   const userInfo = useSelector(state => state.user.userInfo)
   const router = useRouter()
   const locale = router.locale
@@ -20,6 +20,14 @@ const SideNavbar = ({ handleLogout }) => {
 
   return (
     <div className={styles.wrapper}>
+      <div
+        className={styles.back}
+        onClick={() => {
+          setOpen(false)
+        }}
+      >
+        X
+      </div>
       <div className={styles.profile}>
         <Logo />
         <div className={styles.image}>

@@ -5,11 +5,11 @@ class ProposalRepository {
   async CreateProposal (DataToCreate) {
     try {
       await db.connect()
-
       const instance = new Proposal({
         ...DataToCreate
       })
       const instanceResult = await instance.save()
+
       await db.disconnect()
 
       // Send Mail to reciever
@@ -50,8 +50,18 @@ class ProposalRepository {
   async FindProposalById (Id) {
     try {
       await db.connect()
-      const existingProposal = await Proposal.findOne({ _id: Id })
-      await db.disconnect()
+      const existingProposal = await Proposal.findOne({
+        _id: Id
+      })
+        .populate(
+          'sender',
+          '_id , name  , email , gender , profession ,  height ,skinColor , city , district , upazilla '
+        ) // Replace 'username' with the fields you want to populate for sender
+        .populate(
+          'reciever',
+          '_id , name  , email , gender , profession ,  height ,skinColor , city , district , upazilla '
+        ) // Replace 'username' with the fields you want to populate for receiver
+        .exec()
       return existingProposal
     } catch (error) {
       console.log({ error })
@@ -65,20 +75,22 @@ class ProposalRepository {
     try {
       await db.connect()
 
-      const UpdateProposal = await Proposal.findOneAndUpdate(
-        { _id: Id },
-        { status, resolvedAt: new Date() },
-        {
-          new: true
-        }
-      )
-      await db.disconnect()
+      const existing = await Proposal.findOne({ _id: Id })
+        .populate(
+          'sender',
+          '_id , name  , email , gender , profession ,  height ,skinColor '
+        ) // Replace 'username' with the fields you want to populate for sender
+        .populate(
+          'reciever',
+          '_id , name  , email , gender , profession ,  height ,skinColor '
+        ) // Replace 'username' with the fields you want to populate for receiver
+        .exec()
 
-      if (UpdateProposal) {
-        return UpdateProposal
-      } else {
-        return { msg: 'Not Found!' }
-      }
+      existing.status = status
+      await existing.save()
+      console.log({ existing })
+      await db.disconnect()
+      return existing
     } catch (error) {
       console.log(error)
     }
@@ -97,7 +109,7 @@ class ProposalRepository {
           '_id , name  , email , gender , profession ,  height ,skinColor '
         ) // Replace 'username' with the fields you want to populate for receiver
         .exec()
-      if (existing.pokeCount > 3) {
+      if (existing.pokeCount > 33) {
         return {
           error: 'You have reached maximum pock '
         }
@@ -108,6 +120,7 @@ class ProposalRepository {
         return existing
       }
     } catch (error) {
+      console.log(error)
       return { error: 'error occured' }
     }
   }

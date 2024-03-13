@@ -12,7 +12,7 @@ import { englishToBangla } from '@/utils'
 import { getText } from '@/Translation/search'
 const Profile = ({ data, locationData }) => {
   const router = useRouter()
-  const [openfilter, setOpenFilter] = useState(true)
+  const [openfilter, setOpenFilter] = useState(false)
   const ln = router.locale
   return (
     <>

@@ -37,7 +37,7 @@ const Navbar = () => {
       <div className={styles.menu}>
         <MenuIcon onClick={() => setPhone(true)} />
       </div>
-      {open && <SideNavbar handleLogout={handleLogout} />}
+      {open && <SideNavbar handleLogout={handleLogout} setOpen={setOpen} />}
       <div className={styles.logo}>
         <Logo />
         {/* <Logo2 /> */}

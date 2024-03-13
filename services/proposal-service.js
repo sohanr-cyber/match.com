@@ -2,6 +2,7 @@ import ProposalRepository from '@/database/repository/proposal-repository'
 import { FormateData } from '@/utility'
 import UserService from './user-service'
 import NotificationService from './notification-service'
+
 class ProposalService {
   constructor () {
     this.repository = new ProposalRepository()
@@ -21,10 +22,19 @@ class ProposalService {
     }
   }
 
+  async FindProposalById (UserId) {
+    try {
+      const existingProposal = await this.repository.FindProposalById(UserId)
+      return FormateData(existingProposal)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   // Accept Proposal
   async UpdateProposal ({ Id, status, acceptor, sender }) {
     try {
-      const existingProposal = await this.repository.UpdateProposal({
+      const existing = await this.repository.UpdateProposal({
         Id,
         status
       })
@@ -34,8 +44,20 @@ class ProposalService {
         sender
       })
 
-      console.log(existingProposal)
-      return FormateData(existingProposal)
+      // send proposal notification
+      await this.NotificationService.sendProposalNotificationToSender({
+        senderName: existing.sender.name,
+        senderId: existing.sender._id,
+        recieverEmail: existing.reciever.email,
+        recieverId: existing.reciever._id,
+        recieverName: existing.reciever.name,
+        status: existing.status.toLowerCase(),
+        message: existing.message,
+        senderEmail: existing.sender.email
+      })
+
+      console.log(existing)
+      return FormateData(existing)
     } catch (error) {
       console.log(error)
     }
@@ -44,12 +66,24 @@ class ProposalService {
   // Decline Proposal
   async DeclineProposal ({ Id, status }) {
     try {
-      const existingProposal = await this.repository.UpdateProposal({
+      const existing = await this.repository.UpdateProposal({
         Id,
         status
       })
-      console.log(existingProposal)
-      return FormateData(existingProposal)
+
+      // send proposal notification
+      await this.NotificationService.sendProposalNotificationToSender({
+        senderName: existing.sender.name,
+        senderId: existing.sender._id,
+        recieverEmail: existing.reciever.email,
+        recieverId: existing.reciever._id,
+        recieverName: existing.reciever.name,
+        status: existing.status.toLowerCase(),
+        message: existing.message,
+        senderEmail: existing.sender.email
+      })
+
+      return FormateData(existing)
     } catch (error) {
       console.log(error)
     }
@@ -57,7 +91,7 @@ class ProposalService {
 
   async WithdrawUserProposal ({ Id, sender, reciever, status }) {
     try {
-      const existingProposal = await this.repository.UpdateProposal({
+      const existing = await this.repository.UpdateProposal({
         Id,
         status
       })
@@ -66,6 +100,17 @@ class ProposalService {
         sender,
         reciever
       })
+
+      // send proposal notification
+      await this.NotificationService.sendProposalNotificationUpdateToReciever({
+        senderName: existing.sender.name,
+        senderId: existing.sender._id,
+        recieverEmail: existing.reciever.email,
+        recieverId: existing.reciever._id,
+        recieverName: existing.reciever.name,
+        status: existing.status.toLowerCase()
+      })
+
       return
     } catch (error) {}
   }
@@ -77,14 +122,19 @@ class ProposalService {
         sender: newProposal.sender,
         reciever: newProposal.reciever
       })
-      console.log({ updatedUser })
 
+      const existing = await this.FindProposalById(newProposal._id)
       // send proposal notification
-      await this.NotificationService.sendProposalNotification({
-        senderName: updatedUser.senderUpdated.name,
-        senderId: updatedUser.senderUpdated._id,
-        recieverEmail: 'sohanur25800@gmail.com'
+      await this.NotificationService.sendProposalNotificationToReciever({
+        senderName: existing.sender.name,
+        senderId: existing.sender._id,
+        recieverEmail: existing.reciever.email,
+        recieverId: existing.reciever._id,
+        recieverName: existing.reciever.name,
+        status: 'pending',
+        message: existing.message
       })
+      console.log(existing.message)
       return FormateData(newProposal)
     } catch (error) {
       console.log(error)
@@ -94,10 +144,25 @@ class ProposalService {
   async Pock ({ Id }) {
     try {
       const existing = await this.repository.UpdatePoke(Id)
+      console.log({ existing })
       if (!existing.error) {
-        // send  mail to user
+        // send proposal notification
+        await this.NotificationService.sendProposalResendNotificationToReciever(
+          {
+            senderName: existing.sender.name,
+            senderId: existing.sender._id,
+            recieverEmail: existing.reciever.email,
+            recieverId: existing.reciever._id,
+            recieverName: existing.reciever.name,
+            status: 'resend',
+            message: existing.message
+          }
+        )
+
+        // await this.NotificationService.sendMessage()
         return { msg: `pocked(${existing.pokeCount}) sucesfull !` }
       } else {
+        consoel.log(error)
         return { error: existing.error }
       }
     } catch (error) {

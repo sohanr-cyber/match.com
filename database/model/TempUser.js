@@ -95,8 +95,7 @@ const userSchema = mongoose.Schema(
       }
     ],
     categories: [{ type: String }],
-    active: { type: Boolean, default: false },
-    phone: { type: String }
+    active: { type: Boolean, default: false }
   },
   { timestamps: true }
 )
