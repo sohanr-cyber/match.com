@@ -74,13 +74,13 @@ const Card = ({ user, index, handleLike }) => {
               <Ln item={user?.skinColor || '_____'} />
             </div>
           </div>
-          <div className={styles.flex}>
+          {/* <div className={styles.flex}>
             <div className={styles.key}>{getText('bodyType', ln)}:</div>
             <div className={styles.value}>
               {' '}
               <Ln item={user?.bodyType || '_____'} />
             </div>
-          </div>
+          </div> */}
           <div className={styles.flex}>
             <div className={styles.key}>{getText('ocupation', ln)}:</div>
             <div className={styles.value}>

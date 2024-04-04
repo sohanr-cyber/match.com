@@ -35,7 +35,7 @@ const Basic = ({ physical: data, ln }) => {
       !physical.heightInches ||
       !physical.issue ||
       !physical.skinColor ||
-      !physical.bodyType ||
+      // !physical.bodyType ||
       !physical.blood ||
       !physical.mass
     ) {
@@ -142,7 +142,7 @@ const Basic = ({ physical: data, ln }) => {
           </div>
         </div>
 
-        <div className={styles.field}>
+        {/* <div className={styles.field}>
           <label>{getText('bodyType', ln)}</label>
           <div className={styles.options}>
             {bodyTypes.map((item, index) => (
@@ -162,7 +162,7 @@ const Basic = ({ physical: data, ln }) => {
               </span>
             ))}
           </div>
-        </div>
+        </div> */}
         <div className={styles.field}>
           <label>{getText('blood', ln)}</label>
           <div className={styles.options}>

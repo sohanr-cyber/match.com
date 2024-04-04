@@ -33,10 +33,10 @@ const Physical = ({ physical, ln }) => {
             <div className={styles.key}> {getText('color', ln)}: </div>
             <div className={styles.value}>{physical?.skinColor || '_____'} </div>
           </div>
-          <div className={styles.flex}>
+          {/* <div className={styles.flex}>
             <div className={styles.key}> {getText('body', ln)}: </div>
             <div className={styles.value}>{physical?.bodyType || '_____'} </div>
-          </div>
+          </div> */}
           <div className={styles.flex}>
             <div className={styles.key}> {getText('blood', ln)}: </div>
             <div className={styles.value}>{physical?.blood || '_____'} </div>

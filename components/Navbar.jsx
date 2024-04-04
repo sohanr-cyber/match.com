@@ -13,6 +13,7 @@ import { getText } from '@/Translation/footer'
 import { getText as trans } from '@/Translation/account'
 import Logo2 from './utils/Logo2'
 import Image from 'next/image'
+import { mail } from '@/const'
 
 const Navbar = () => {
   const router = useRouter()
@@ -56,7 +57,12 @@ const Navbar = () => {
         >
           {getText('search', ln)}
         </div>
-        <div className={styles.item}>{getText('h2', ln)}</div>
+        <div
+          className={styles.item}
+          onClick={() => router.push(`mailto:${mail}`)}
+        >
+          {getText('h2', ln)}
+        </div>
 
         <div
           className={styles.item}

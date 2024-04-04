@@ -37,7 +37,7 @@ const Basic = ({ profile, setProfile, locationData, ln }) => {
       !profile.education ||
       !profile.educationType ||
       !profile.skinColor ||
-      !profile.bodyType ||
+      // !profile.bodyType ||
       !profile.city ||
       !profile.district ||
       !profile.upazilla ||
@@ -227,7 +227,7 @@ const Basic = ({ profile, setProfile, locationData, ln }) => {
               ))}
             </div>
           </div>
-          <div className={styles.field}>
+          {/* <div className={styles.field}>
             <label>{getText('bodyType', ln)}</label>
             <div className={styles.options}>
               {[...bodyTypes].map((item, index) => (
@@ -244,7 +244,7 @@ const Basic = ({ profile, setProfile, locationData, ln }) => {
                 </span>
               ))}
             </div>
-          </div>
+          </div> */}
 
           {/* <div className={styles.field}>
             <label>Gender</label>

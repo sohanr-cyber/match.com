@@ -9,7 +9,8 @@ import {
   educationTypes,
   educationalStatus,
   categoryFront,
-  categoriesBackFront
+  categoriesBackFront,
+  skinColors
 } from '@/pages/api/auth/data'
 import { ageToDateOfBirth } from '@/utils'
 
@@ -430,6 +431,62 @@ const Search = ({ setOpenFilter, locationData }) => {
           <div className={styles.apply} onClick={() => updateRoute(height)}>
             <Ln item={'Apply'} />{' '}
           </div>
+        </div>
+      )}
+      {/* Allow chose SK=kin Color */}
+      <div className={styles.heading}>
+        <div className={styles.title}>
+          <Ln item={'Skin Color'} />{' '}
+        </div>
+        <div
+          className={styles.togle}
+          onClick={() =>
+            filters.find(i => i == 'skinColor')
+              ? setFilters(filters.filter(i => i != 'skinColor'))
+              : setFilters([...filters, 'skinColor'])
+          }
+        >
+          {filters.find(i => i == 'skinColor') ? '-' : '+'}
+        </div>{' '}
+      </div>
+      {filters.find(i => i == 'skinColor') && (
+        <div className={styles.options}>
+          {skinColors?.map((item, index) => (
+            <div className={styles.flex} key={index}>
+              <div className={styles.icon}>
+                {router.query.skinColors
+                  ?.split(',')
+                  .find(each => each == item) ? (
+                  <CheckBoxIcon
+                    onClick={() =>
+                      updateRoute({
+                        skinColors: router.query.skinColors
+                          ?.split(',')
+                          .filter(i => i != item)
+                          .join(',')
+                      })
+                    }
+                  />
+                ) : (
+                  <CheckBoxOutlineBlankIcon
+                    onClick={() =>
+                      updateRoute({
+                        skinColors: router.query.skinColors
+                          ? [
+                              ...router.query.skinColors.split(','),
+                              item
+                            ].join(',')
+                          : [item].join(',')
+                      })
+                    }
+                  />
+                )}{' '}
+              </div>
+              <div className={styles.value}>
+                <Ln item={item} />
+              </div>
+            </div>
+          ))}
         </div>
       )}
       {/* Allow chose Merital Status */}

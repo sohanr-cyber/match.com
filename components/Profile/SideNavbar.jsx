@@ -106,16 +106,7 @@ const SideNavbar = ({ handleLogout, setOpen }) => {
           <div className={styles.icon}>
             <SettingsIcon />
           </div>
-          <div
-            className={styles.title}
-            onClick={() =>
-              router.push({ pathname, query }, asPath, {
-                locale: router.locale == 'fr' ? 'en-US' : 'fr'
-              })
-            }
-          >
-            {getText('setting', locale)}
-          </div>
+          <div className={styles.title}>{getText('setting', locale)}</div>
         </div>
       </div>
     </div>

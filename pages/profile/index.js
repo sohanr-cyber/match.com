@@ -68,7 +68,8 @@ export async function getServerSideProps (context) {
     bornAtTo,
     bornAtFrom,
     page,
-    categories
+    categories,
+    skinColors
   } = context.query
 
   const url = `${BASE_URL}/api/auth/user-filter?gender=${
@@ -83,7 +84,9 @@ export async function getServerSideProps (context) {
     educationalStatuses || 'All'
   }&bornAtFrom=${bornAtFrom || 'All'}&bornAtTo=${
     bornAtTo || 'All'
-  }&categories=${categories || 'All'}&page=${page || 1}`
+  }&categories=${categories || 'All'}&page=${page || 1}&skinColors=${
+    skinColors || 'All'
+  }`
 
   const fetchData = async () => {
     try {
@@ -93,10 +96,10 @@ export async function getServerSideProps (context) {
       console.log(error)
     }
   }
+  const locationData = await fetchData()
 
   try {
     const { data } = await axios.get(url)
-    const locationData = await fetchData()
     return {
       props: {
         data: data,
@@ -107,7 +110,8 @@ export async function getServerSideProps (context) {
     console.log(error)
     return {
       props: {
-        data: null // Pass null or handle error scenario
+        data: null,
+        locationData // Pass null or handle error scenario
       }
     }
   }

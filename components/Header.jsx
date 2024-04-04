@@ -52,10 +52,10 @@ const Header = ({ data }) => {
           <h1 className={styles.heading1}>
             আপনার পছন্দের একজন <span>ধার্মিক জীবনসঙ্গী </span>খুঁজুন
           </h1>
-          <p>
+          {/* <p>
             we made it easy for you to get your <span>life partner</span> in{' '}
             <span>your location </span>
-          </p>
+          </p> */}
         </>
       )}
       <Box data={data} />

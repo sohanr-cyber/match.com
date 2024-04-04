@@ -127,12 +127,12 @@ const Introduction = ({ data: profile, ln }) => {
               <Ln item={profile?.skinColor || '_____'} />{' '}
             </div>
           </div>
-          <div className={styles.flex}>
+          {/* <div className={styles.flex}>
             <div className={styles.key}>{getText('body', ln)}</div>
             <div className={styles.value}>
               <Ln item={profile?.body || '_____'} />{' '}
             </div>
-          </div>
+          </div> */}
           <div className={styles.flex}>
             <div className={styles.key}>{getText('educationType', ln)}</div>
             <div className={styles.value}>

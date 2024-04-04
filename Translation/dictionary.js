@@ -8,6 +8,7 @@ const dict = {
   'Middle Class': 'মধ্যবর্তী শ্রেণী',
   'Higher Class': 'উচ্চ শ্রেণী',
   // skin Colors
+  'Skin Color': 'গায়ের রঙ',
   'Very Fair': 'উজ্জ্বল ফর্সা',
   Fair: 'ফর্সা',
   // Medium: '',

@@ -48,7 +48,8 @@ handler.get(async (req, res) => {
       educationTypes,
       universityNames,
       educationalStatuses,
-      categories
+      categories,
+      skinColors
     } = req.query
 
     const filters = {
@@ -65,7 +66,7 @@ handler.get(async (req, res) => {
       filters.educationType = educationType
     if (education && education !== 'All') filters.education = education
     // if (profession && profession !== "All") filters.profession = profession;
-    if (skinColor && skinColor !== 'All') filters.skinColor = skinColor
+    if (skinColors && skinColors !== 'All') filters.skinColor = skinColor
 
     if (bodyType && bodyType !== 'All') filters.bodyType = bodyType
     if (bornAtFrom && bornAtTo && bornAtFrom !== 'All' && bornAtTo !== 'All') {
@@ -87,6 +88,9 @@ handler.get(async (req, res) => {
 
     if (maritalStatuses && maritalStatuses !== 'All')
       filters.maritalStatus = { $in: maritalStatuses.split(',') }
+
+    if (skinColors && skinColors !== 'All')
+      filters.skinColor = { $in: skinColors.split(',') }
 
     if (educationTypes && educationTypes !== 'All')
       filters.educationType = { $in: educationTypes.split(',') }

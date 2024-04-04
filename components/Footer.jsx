@@ -5,6 +5,7 @@ import Image from 'next/image'
 import CopyrightIcon from '@mui/icons-material/Copyright'
 import { useRouter } from 'next/router'
 import { getText } from '@/Translation/footer'
+import { mail, phone } from '@/const'
 const Footer = () => {
   const router = useRouter()
   const ln = router.locale
@@ -22,7 +23,16 @@ const Footer = () => {
             <div className={styles.link} onClick={() => router.push('/')}>
               {getText('home', ln)}
             </div>
-            <div className={styles.link}>{getText('search', ln)}</div>
+            <div
+              className={styles.link}
+              onClick={() =>
+                router.push(
+                  '/profile?gender=All&maritalStatuses=All&city=All&district=All&upazilla=All&feetFrom=4&inchesFrom=5&feetTo=6&inchesTo=5&page=1'
+                )
+              }
+            >
+              {getText('search', ln)}
+            </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.link}>{getText('plans', ln)}</div>
@@ -50,11 +60,14 @@ const Footer = () => {
         </div>
         <div className={styles.right}>
           <h2 className={styles.heading}>{getText('h2', ln)}</h2>
-          <div className={styles.mail}>
-            {getText('mail', ln)}: <span>mail@gmail.com</span>
+          <div
+            className={styles.mail}
+            onClick={() => router.push(`mailto:${mail}`)}
+          >
+            {getText('mail', ln)}: <span>{mail}</span>
           </div>
           <div className={styles.call}>
-            {getText('call', ln)}: <span>mail@gmail.com</span>
+            {getText('call', ln)}: <span>{phone}</span>
           </div>
           <div className={styles.social__media__links}>
             <Image
