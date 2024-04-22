@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '../../styles/Profile/SendProposal.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
 import { getText } from '@/Translation/profile'
+import { showSnackBar } from '@/redux/notistackSlice'
 
 const SendProposal = ({ setOpenForm }) => {
   const router = useRouter()
@@ -15,6 +16,21 @@ const SendProposal = ({ setOpenForm }) => {
     sender: userInfo?.id,
     reciever: router.query.id,
     message: ''
+  })
+
+  useEffect(() => {
+    if (!userInfo) {
+      dispatch(
+        showSnackBar({
+          message: 'You Need To Login First To Send Proposal',
+          option: {
+            variant: 'info'
+          }
+        })
+      )
+      setOpenForm(false)
+      router.push('/login')
+    }
   })
 
   const send = async () => {
@@ -34,6 +50,11 @@ const SendProposal = ({ setOpenForm }) => {
       if (data) {
         setOpenForm(false)
         console.log({ data })
+        dispatch(
+          showSnackBar({
+            message: 'Proposal Sent'
+          })
+        )
         router.reload()
       }
       dispatch(finishLoading())

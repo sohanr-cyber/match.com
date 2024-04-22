@@ -7,6 +7,7 @@ import axios from 'axios'
 import { Router, useRouter } from 'next/router'
 import { login } from '@/redux/userSlice'
 import { getText } from '@/Translation/profile'
+import { showSnackBar } from '@/redux/notistackSlice'
 const Activate = ({ profile }) => {
   const [worthActivating, setActivating] = useState(
     profile.user.gender &&
@@ -31,7 +32,6 @@ const Activate = ({ profile }) => {
 
   const update = async () => {
     try {
-      setError('')
       dispatch(startLoading())
       const { data } = await axios.put(
         '/api/auth/register',
@@ -45,6 +45,12 @@ const Activate = ({ profile }) => {
           }
         }
       )
+
+      dispatch(
+        showSnackBar({
+          message: `Now Your Prfile Is ${data.active ? 'Active' : 'De-Active'}`
+        })
+      )
       dispatch(
         login({
           ...userInfo,
@@ -57,6 +63,14 @@ const Activate = ({ profile }) => {
     } catch (error) {
       dispatch(finishLoading())
       console.log(error)
+      dispatch(
+        showSnackBar({
+          message: 'Something Went Wrong !',
+          option: {
+            variant: 'error'
+          }
+        })
+      )
     }
   }
   return (

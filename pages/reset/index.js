@@ -13,6 +13,7 @@ import { getText } from '@/Translation/account'
 import Ln from '@/components/utils/Ln'
 import { NextSeo } from 'next-seo'
 import { getText as seoText } from '@/Translation/seo'
+import { showSnackBar } from '@/redux/notistackSlice'
 
 const Verify = () => {
   const router = useRouter()
@@ -36,11 +37,23 @@ const Verify = () => {
       })
 
       if (data.error) {
-        setError(data.error)
+        dispatch(
+          showSnackBar({
+            message: data.error,
+            option: {
+              variant: 'error'
+            }
+          })
+        )
       }
 
       if (data && !data.error) {
         console.log(data)
+        dispatch(
+          showSnackBar({
+            message: 'A Code has been Sent To Your Mail'
+          })
+        )
         router.push('/reset/verify')
       }
       dispatch(finishLoading())
@@ -87,7 +100,7 @@ const Verify = () => {
             )}
           </form>
           <div className={styles.btn} onClick={() => verifyCode()}>
-            {getText('verify', ln)}
+            {getText('submit', ln)}
           </div>
         </div>
       </div>

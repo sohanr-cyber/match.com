@@ -17,6 +17,7 @@ function hideSensitiveInformation (userObject, reqUserId) {
   console.log({ reqUserId })
   if (
     newUserObject.existingUser.proposalSent?.find(i => reqUserId) ||
+    newUserObject.existingUser.proposalRecieved?.find(i => reqUserId) ||
     newUserObject.existingUser.proposalAccepted?.find(i => reqUserId) ||
     newUserObject.existingUser._id == reqUserId
   ) {
@@ -32,8 +33,15 @@ function hideSensitiveInformation (userObject, reqUserId) {
   delete newUserObject.personal.firstName
   delete newUserObject.personal.lastName
 
+  delete newUserObject.address.phone
+  delete newUserObject.address.email
+  delete newUserObject.address.location
+  delete newUserObject.address.phone2
+
   return newUserObject
+
 }
+
 
 class UserService {
   constructor () {

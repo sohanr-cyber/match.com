@@ -32,16 +32,36 @@ const dict = {
     bn: 'লগআউট'
   },
   code: {
-    en: 'Type The Verification Code Sent To your Mail'
+    en: 'Type The Verification Code Sent To your Mail',
+    bn: 'আপনার মেইলে পাঠানো কোডটা লিখুন'
   },
   verify: {
-    en: 'Verify'
+    en: 'Verify',
+    bn: 'ভেরিফাই'
   },
   rEmail: {
-    en: 'Type Your Email'
+    en: 'Type Your Email',
+    bn: 'আপনার ইমেইলটি লিখুন'
   },
   newPassword: {
-    en: 'Enter Your New Password'
+    en: 'Enter Your New Password',
+    bn: 'নতুন পাসওয়ার্ড সেট করুন'
+  },
+  forgetP: {
+    en: 'Forget Your Password ?',
+    bn: 'পাসওয়ার্ড ভুলে গেছেন?'
+  },
+  resetP: {
+    en: 'Reset Password',
+    bn: 'নতুন পাসওয়ার্ড সেট করুন'
+  },
+  submit: {
+    en: 'Submit',
+    bn: 'সাবমিট'
+  },
+  reset: {
+    en: 'Reset',
+    bn: 'নতুন পাসওয়ার্ড '
   }
 }
 const getText = (key, ln) => {

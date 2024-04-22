@@ -14,6 +14,7 @@ import Ln from '@/components/utils/Ln'
 import { NextSeo } from 'next-seo'
 import { getText as seoText } from '@/Translation/seo'
 import { showSnackBar } from '@/redux/notistackSlice'
+import Link from 'next/link'
 
 const Verify = () => {
   const router = useRouter()

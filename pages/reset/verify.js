@@ -13,6 +13,7 @@ import { getText } from '@/Translation/account'
 import Ln from '@/components/utils/Ln'
 import { NextSeo } from 'next-seo'
 import { getText as seoText } from '@/Translation/seo'
+import { showSnackBar } from '@/redux/notistackSlice'
 
 const Verify = () => {
   const router = useRouter()
@@ -25,39 +26,64 @@ const Verify = () => {
 
   const verifyCode = async () => {
     if (!code || !newPassword) {
-      setError('Please Type The Code and New Password!')
+      dispatch(
+        showSnackBar({
+          message: 'Please Type The Code and New Password!',
+          option: {
+            variant: 'error'
+          }
+        })
+      )
       return
     }
     if (code.length != 6) {
-      setError('Code must be of 6 Characters')
+      dispatch(
+        showSnackBar({
+          message: 'Code must be of 6 Characters',
+          option: {
+            variant: 'error'
+          }
+        })
+      )
       return
     }
 
     dispatch(startLoading())
     try {
-      setError('')
       const { data } = await axios.post('/api/auth/reset', {
         code,
         newPassword
       })
 
       if (data.error) {
-        setError(data.error)
+        dispatch(
+          showSnackBar({
+            message: data.error,
+            option: {
+              variant: 'error'
+            }
+          })
+        )
       }
 
       if (data && !data.error) {
         console.log(data)
+        dispatch(
+          showSnackBar({
+            message: 'Password Reset !',
+            option: {
+              variant: 'success'
+            }
+          })
+        )
         router.push('/login')
       }
       dispatch(finishLoading())
     } catch (error) {
       dispatch(finishLoading())
-      setError('Something Went Wrong !')
       console.log(error)
     }
   }
-
-  
 
   return (
     <>
@@ -77,7 +103,7 @@ const Verify = () => {
             <div
               className={styles.right}
               style={{ borderBottom: '2px solid blue' }}
-              onClick={() => router.push('/register')}
+              onClick={() => router.push('/reset')}
             >
               {getText('reset', ln)}{' '}
             </div>

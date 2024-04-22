@@ -12,6 +12,7 @@ import { getText } from '@/Translation/account'
 import { NextSeo } from 'next-seo'
 import { getText as seoText } from '@/Translation/seo'
 import { showSnackBar } from '@/redux/notistackSlice'
+import Link from 'next/link'
 const Login = () => {
   const router = useRouter()
   const [email, setEmail] = useState('')
@@ -115,9 +116,13 @@ const Login = () => {
               value={password}
               onChange={e => setPassword(e.target.value)}
             />
-            {error && (
-              <div style={{ color: 'red', fontSize: '90%' }}>{error}</div>
-            )}
+
+            <p>
+              <span> {getText('forgetP', ln)}</span>&nbsp;
+              <span style={{ color: 'blue', cursor: 'pointer' }}>
+                <Link href='/reset'> {getText('resetP', ln)} </Link>
+              </span>
+            </p>
           </form>
           <div className={styles.btn} onClick={() => Login()}>
             {getText('login', ln)}
