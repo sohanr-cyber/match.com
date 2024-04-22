@@ -4,6 +4,7 @@ import Footer from './Footer'
 import Loading from './utils/Loading'
 import { useSelector } from 'react-redux'
 import { useSnackbar } from 'notistack'
+import Chat from './Chat'
 
 const Layout = ({ children }) => {
   const loading = useSelector(state => state.state.loading)
@@ -19,6 +20,7 @@ const Layout = ({ children }) => {
       <Navbar />
       {children}
       <Footer />
+      <Chat />
       {loading && <Loading />}
     </div>
   )
