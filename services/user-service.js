@@ -1,4 +1,5 @@
 import UserRepository from '@/database/repository/user-repository'
+import { generateVerificationCode } from '@/utility/helper'
 
 import {
   GenerateSalt,
@@ -8,6 +9,7 @@ import {
   ValidateSignature,
   FormateData
 } from '@/utility/index'
+import Notification from './notification-service'
 
 function hideSensitiveInformation (userObject, reqUserId) {
   // Clone the existing user object to avoid modifying the original
@@ -36,6 +38,7 @@ function hideSensitiveInformation (userObject, reqUserId) {
 class UserService {
   constructor () {
     this.repository = new UserRepository()
+    this.notification = new Notification()
   }
 
   async SignUp (userInputs) {
@@ -46,24 +49,38 @@ class UserService {
     }
     let salt = await GenerateSalt()
     let userPassword = await GeneratePassword(password, salt)
+    const verificationCode = generateVerificationCode(6)
+    const expirationTime = new Date()
+    expirationTime.setMinutes(expirationTime.getMinutes() + 5)
+
     const existUser = await this.repository.CreateUser({
       email,
       password: userPassword,
       name,
       salt,
-      gender
+      gender,
+      verificationCode,
+      expirationTime
     })
     console.log({ existUser })
-
+    existUser &&
+      (await this.notification.sendCodeToMail({
+        recieverEmail: existUser.email,
+        recieverName: existUser.name,
+        recieverId: existUser._id,
+        verificationCode: existUser.verificationCode
+      }))
     const token = await GenerateSignature({
       email: email,
-      _id: existUser._id
+      _id: existUser._id,
+      isVerified: existUser.isVerified
     })
     return FormateData({
       id: existUser._id,
       token,
       name: existUser.name,
-      active: existUser.active
+      active: existUser.active,
+      isVerified: existUser.isVerified
     })
   }
 
@@ -84,13 +101,15 @@ class UserService {
         if (validPassword) {
           const token = await GenerateSignature({
             email: existingUser.email,
-            _id: existingUser._id
+            _id: existingUser._id,
+            isVerified: existingUser.isVerified
           })
           return FormateData({
             id: existingUser._id,
             token,
             name: existingUser.name,
-            active: existingUser.active
+            active: existingUser.active,
+            isVerified: existingUser.isVerified
           })
         } else {
           return FormateData({ error: "Password Didn't Match !" })

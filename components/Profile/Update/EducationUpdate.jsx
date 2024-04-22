@@ -17,6 +17,7 @@ import Moment from 'react-moment/dist'
 import { getText } from '@/Translation/profile'
 import Ln from '@/components/utils/Ln'
 import { englishToBangla } from '@/utils'
+import { showSnackBar } from '@/redux/notistackSlice'
 
 const Education = ({ education: data, profile, ln }) => {
   const [education, setEducation] = useState({ ...data })
@@ -30,11 +31,17 @@ const Education = ({ education: data, profile, ln }) => {
       !education.profession ||
       !education.education
     ) {
-      setError('Fill All The Required Field ')
+      dispatch(
+        showSnackBar({
+          message: 'Fill All The Required Field!',
+          option: {
+            variant: 'error'
+          }
+        })
+      )
       return
     }
     try {
-      setError('')
       dispatch(startLoading())
       const { data } = await axios.put(
         `/api/education/${router.query.id}`,
@@ -49,9 +56,26 @@ const Education = ({ education: data, profile, ln }) => {
       )
       console.log(data)
       setEducation(data)
+
       dispatch(finishLoading())
+      dispatch(
+        showSnackBar({
+          message: 'Updated Succesfully ',
+          option: {
+            variant: 'success'
+          }
+        })
+      )
     } catch (error) {
       dispatch(finishLoading())
+      dispatch(
+        showSnackBar({
+          message: 'Something Went Wrong !',
+          option: {
+            variant: 'error'
+          }
+        })
+      )
       console.log(error)
     }
   }

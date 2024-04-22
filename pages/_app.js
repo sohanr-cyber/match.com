@@ -8,6 +8,7 @@ import { Provider } from 'react-redux'
 import Script from 'next/script'
 import { getText } from '@/Translation/seo'
 import { useRouter } from 'next/router'
+import { SnackbarProvider } from 'notistack'
 
 const site = BASE_URL
 
@@ -82,12 +83,15 @@ export default function App ({ Component, pageProps }) {
         }}
       />
       <Provider store={store}>
-        <Layout>
-          <>
-            <NextNProgress />
-            <Component {...pageProps} />
-          </>
-        </Layout>
+        <SnackbarProvider>
+          {' '}
+          <Layout>
+            <>
+              <NextNProgress />
+              <Component {...pageProps} />
+            </>
+          </Layout>
+        </SnackbarProvider>
       </Provider>
     </>
   )

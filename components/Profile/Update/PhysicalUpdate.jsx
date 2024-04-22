@@ -18,6 +18,7 @@ import Moment from 'react-moment/dist'
 import dict from '@/Translation/dictionary'
 import Ln from '../../utils/Ln'
 import { getText } from '@/Translation/profile'
+import { showSnackBar } from '@/redux/notistackSlice'
 
 const Basic = ({ physical: data, ln }) => {
   const [physical, setPhysical] = useState({
@@ -39,7 +40,14 @@ const Basic = ({ physical: data, ln }) => {
       !physical.blood ||
       !physical.mass
     ) {
-      setError('Fill All The Field ')
+      dispatch(
+        showSnackBar({
+          message: 'Fill All The  Field !',
+          option: {
+            variant: 'error'
+          }
+        })
+      )
       return
     }
     try {
@@ -66,9 +74,24 @@ const Basic = ({ physical: data, ln }) => {
         heightInches: data.height % 12
       })
       dispatch(finishLoading())
+      dispatch(
+        showSnackBar({
+          message: 'Updated Succesfully ',
+          option: {
+            variant: 'success'
+          }
+        })
+      )
     } catch (error) {
       dispatch(finishLoading())
-      setError('Something Went Wrong !')
+      dispatch(
+        showSnackBar({
+          message: 'Something Went Wrong !',
+          option: {
+            variant: 'error'
+          }
+        })
+      )
       console.log(error)
     }
   }

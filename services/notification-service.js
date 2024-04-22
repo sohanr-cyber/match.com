@@ -168,6 +168,36 @@ class Notification {
   }
 
   async UpdatePropsalNotification () {}
+
+  // got proposal/ proposal status update
+  async sendCodeToMail ({
+    recieverEmail,
+    recieverId,
+    recieverName,
+    verificationCode,
+    reset
+  }) {
+    console.log({ recieverEmail, recieverId, recieverName, verificationCode })
+    try {
+      const info = await this.transporter.sendMail({
+        from: this.from,
+        to: recieverEmail,
+        subject: `Muslim Match Maker - ${
+          reset ? 'Password Reset' : 'Verification'
+        } Code`, // Subject line
+        html: sendProposalHtml({
+          recieverEmail,
+          recieverId,
+          recieverName,
+          status: 'codeSent',
+          code: verificationCode,
+          reset
+        }) // html body
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }
 
 export default Notification

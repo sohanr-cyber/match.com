@@ -16,6 +16,7 @@ import axios from 'axios'
 import Moment from 'react-moment/dist'
 import { getText } from '@/Translation/profile'
 import Ln from '@/components/utils/Ln'
+import { showSnackBar } from '@/redux/notistackSlice'
 
 const Basic = ({ expectation: data, ln }) => {
   const [expectation, setExpectation] = useState({
@@ -57,8 +58,24 @@ const Basic = ({ expectation: data, ln }) => {
         minHeightFeet: parseInt(data.minHeight / 12),
         minHeightInches: data.minHeight % 12
       })
+      dispatch(
+        showSnackBar({
+          message: 'Updated Succesfully ',
+          option: {
+            variant: 'success'
+          }
+        })
+      )
       dispatch(finishLoading())
     } catch (error) {
+      dispatch(
+        showSnackBar({
+          message: 'Something Went Wrong !',
+          option: {
+            variant: 'error'
+          }
+        })
+      )
       dispatch(finishLoading())
       console.log(error)
     }

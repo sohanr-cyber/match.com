@@ -96,7 +96,10 @@ const userSchema = mongoose.Schema(
     ],
     categories: [{ type: String }],
     active: { type: Boolean, default: false },
-    phone: { type: String }
+    phone: { type: String },
+    isVerified: { type: Boolean, default: false },
+    verificationCode: { type: String },
+    expirationTime: { type: Date }
   },
   { timestamps: true }
 )

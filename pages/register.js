@@ -14,6 +14,7 @@ import { getText } from '@/Translation/account'
 import Ln from '@/components/utils/Ln'
 import { NextSeo } from 'next-seo'
 import { getText as seoText } from '@/Translation/seo'
+import { showSnackBar } from '@/redux/notistackSlice'
 
 const Login = () => {
   const router = useRouter()
@@ -27,12 +28,18 @@ const Login = () => {
 
   const register = async () => {
     if (!EmailValidator.validate(email) || !password || !name || !gender) {
-      setError('Fill All The Field Correctly !')
+      dispatch(
+        showSnackBar({
+          message: 'Fill All The  Field !',
+          option: {
+            variant: 'error'
+          }
+        })
+      )
       return
     }
     dispatch(startLoading())
     try {
-      setError('')
       const { data } = await axios.post('/api/auth/register', {
         name,
         email,
@@ -41,18 +48,37 @@ const Login = () => {
       })
 
       if (data.error) {
-        setError(data.error)
+        dispatch(
+          showSnackBar({
+            message: data.error,
+            option: {
+              variant: 'error'
+            }
+          })
+        )
       }
 
       if (!data.error) {
         console.log(data)
-        router.push(`/profile/${data.id}`)
+        dispatch(
+          showSnackBar({
+            message: 'Registered ! Verification Code Sent To Your Mail'
+          })
+        )
         dispatch(login(data))
+        router.push('/verify')
       }
       dispatch(finishLoading())
     } catch (error) {
       dispatch(finishLoading())
-      setError('Something Went Wrong !')
+      dispatch(
+        showSnackBar({
+          message: 'Something Went Wrong !',
+          option: {
+            variant: 'error'
+          }
+        })
+      )
       console.log(error)
     }
   }

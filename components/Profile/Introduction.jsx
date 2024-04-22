@@ -12,6 +12,8 @@ import axios from 'axios'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
 import { getText } from '@/Translation/profile'
 import Ln from '../utils/Ln'
+import Link from 'next/link'
+import { showSnackBar } from '@/redux/notistackSlice'
 const Introduction = ({ data: profile, ln }) => {
   const router = useRouter()
   const userInfo = useSelector(state => state.user.userInfo)
@@ -53,8 +55,56 @@ const Introduction = ({ data: profile, ln }) => {
     }
   }
 
+  const verify = async () => {
+    try {
+      dispatch(startLoading())
+      const { data } = await axios.put(
+        '/api/auth/verify',
+        {
+          email: profile.email
+        },
+        {
+          headers: {
+            Authorization: 'Bearer ' + userInfo.token
+          }
+        }
+      )
+      dispatch(
+        showSnackBar({
+          message: 'Verification Code Sent To Your Mail '
+        })
+      )
+
+      if (data && !data.error) {
+        router.push('/verify')
+      }
+      dispatch(finishLoading())
+    } catch (error) {
+      dispatch(
+        showSnackBar({
+          message: 'Something Went Wrong !',
+          option: {
+            variant: 'error'
+          }
+        })
+      )
+      dispatch(finishLoading())
+    }
+  }
   return (
     <div className={styles.wrapper}>
+      {isClient && profile._id == userInfo?.id && !profile.isVerified && (
+        <p className={styles.error} style={{ color: 'red' }}>
+          You are not verified yet . To verify{' '}
+          <span
+            style={{ color: 'blue', cursor: 'pointer' }}
+            onClick={() => verify()}
+          >
+            Click Here{' '}
+          </span>
+        </p>
+      )}
+
       <div className={styles.flex}>
         <div
           className={styles.left}

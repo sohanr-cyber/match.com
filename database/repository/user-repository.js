@@ -18,7 +18,15 @@ class UserRepository {
     this.education = new EducationRepository()
     this.expectation = new ExpectationRepository()
   }
-  async CreateUser ({ email, password, name, salt, gender }) {
+  async CreateUser ({
+    email,
+    password,
+    name,
+    salt,
+    gender,
+    verificationCode,
+    expirationTime
+  }) {
     try {
       await db.connect()
       const user = new User({
@@ -26,7 +34,9 @@ class UserRepository {
         password,
         salt,
         name,
-        gender
+        gender,
+        verificationCode,
+        expirationTime
       })
 
       const userResult = await user.save()

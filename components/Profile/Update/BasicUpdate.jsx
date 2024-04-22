@@ -21,6 +21,7 @@ import SearchSelector from '@/components/utils/SearchSelector'
 import Moment from 'react-moment'
 import { getText } from '@/Translation/profile'
 import Ln from '@/components/utils/Ln'
+import { showSnackBar } from '@/redux/notistackSlice'
 
 const Basic = ({ profile, setProfile, locationData, ln }) => {
   const router = useRouter()
@@ -45,11 +46,17 @@ const Basic = ({ profile, setProfile, locationData, ln }) => {
       !profile.heightFeet ||
       !profile.heightInches
     ) {
-      setError('Fill All The Required Field !')
+      dispatch(
+        showSnackBar({
+          message: 'Fill All The Required Field !',
+          option: {
+            variant: 'error'
+          }
+        })
+      )
       return
     }
     try {
-      setError('')
       dispatch(startLoading())
       const { data } = await axios.put(
         '/api/auth/register',
@@ -65,14 +72,28 @@ const Basic = ({ profile, setProfile, locationData, ln }) => {
           }
         }
       )
-      console.log({ data })
+
       setProfile({
         ...data,
         heightFeet: parseInt(data.height / 12),
         heightInches: data.height % 12
       })
+      dispatch(
+        showSnackBar({
+          message: 'Updated Successfully '
+        })
+      )
+
       dispatch(finishLoading())
     } catch (error) {
+      dispatch(
+        showSnackBar({
+          message: 'Something Went Wrong !',
+          option: {
+            variant: 'error'
+          }
+        })
+      )
       dispatch(finishLoading())
       console.log(error)
     }

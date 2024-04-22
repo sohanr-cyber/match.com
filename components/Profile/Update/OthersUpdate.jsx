@@ -17,6 +17,7 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import Moment from 'react-moment/dist'
 import { getText } from '@/Translation/profile'
+import { showSnackBar } from '@/redux/notistackSlice'
 
 const OthersUpdate = ({ profile, setProfile, ln }) => {
   const dispatch = useDispatch()
@@ -37,9 +38,25 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
           }
         }
       )
+      dispatch(
+        showSnackBar({
+          message: 'Updated Succesfully ',
+          option: {
+            variant: 'success'
+          }
+        })
+      )
       setProfile(data)
       dispatch(finishLoading())
     } catch (error) {
+      dispatch(
+        showSnackBar({
+          message: 'Something Went Wrong !',
+          option: {
+            variant: 'error'
+          }
+        })
+      )
       dispatch(finishLoading())
       console.log(error)
     }
@@ -92,7 +109,9 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
                 setProfile({
                   ...profile,
                   categories:
-                    profile.categories?.find(i => i == 'InterestedInDivorced') &&
+                    profile.categories?.find(
+                      i => i == 'InterestedInDivorced'
+                    ) &&
                     profile.categories?.filter(i => i != 'InterestedInDivorced')
                 })
               }
@@ -158,10 +177,9 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
               onClick={() =>
                 setProfile({
                   ...profile,
-                  categories: !profile.categories?.find(i => i == 'Student') && [
-                    ...profile.categories,
-                    'Student'
-                  ]
+                  categories: !profile.categories?.find(
+                    i => i == 'Student'
+                  ) && [...profile.categories, 'Student']
                 })
               }
             >
@@ -336,7 +354,9 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
                 setProfile({
                   ...profile,
                   categories:
-                    profile.categories?.find(i => i == 'InterestedInEmigrant') &&
+                    profile.categories?.find(
+                      i => i == 'InterestedInEmigrant'
+                    ) &&
                     profile.categories?.filter(i => i != 'InterestedInEmigrant')
                 })
               }

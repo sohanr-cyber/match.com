@@ -101,6 +101,17 @@ const prpoposalResend = ({
     `
   }
 }
+
+const codeSent = ({ recieverName, recieverId, code, reset }) => {
+  return {
+    subject: 'Muslim Match Maker - Verification Code',
+    body: `Your ${
+      reset ? 'Password Reset' : 'Verification'
+    } Code For Muslim Match Maker Account is <b>${code}</b>.<p>
+    This Code will expire in 5 minutes.</p>`
+  }
+}
+
 const body = ({
   senderName,
   senderId,
@@ -108,10 +119,12 @@ const body = ({
   recieverId,
   proposalId,
   status,
-  message
+  message,
+  code,
+  reset
 }) => {
   let content = ''
-
+  console.log({ code })
   if (status === 'accepted') {
     content = proposalAccepted({
       senderName,
@@ -144,6 +157,13 @@ const body = ({
       recieverId,
       proposalId
     }).body
+  } else if (status === 'codeSent') {
+    content = codeSent({
+      recieverName,
+      recieverId,
+      code,
+      reset
+    }).body
   } else {
     content = proposalInitialized({
       senderName,
@@ -165,8 +185,11 @@ const sendProposalHtml = ({
   recieverId,
   proposalId,
   status,
-  message
+  message,
+  code,
+  reset
 }) => {
+  console.log({ code })
   return ` <body
   style="
   background: linear-gradient(
@@ -191,7 +214,9 @@ const sendProposalHtml = ({
     recieverId,
     proposalId,
     status,
-    message
+    message,
+    code,
+    reset
   })}
     ${footer}
   </div>

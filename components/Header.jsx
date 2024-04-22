@@ -38,7 +38,6 @@ const Header = ({ data }) => {
       <div className={styles.surface}></div>
       {router.locale == 'en-US' ? (
         <>
-          {' '}
           <h1 className={styles.heading1}>
             find a <span>religious partner</span> of your choice
           </h1>

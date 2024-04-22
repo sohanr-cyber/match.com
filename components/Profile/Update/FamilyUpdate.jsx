@@ -17,6 +17,7 @@ import axios from 'axios'
 import Moment from 'react-moment/dist'
 import { getText } from '@/Translation/profile'
 import Ln from '@/components/utils/Ln'
+import { showSnackBar } from '@/redux/notistackSlice'
 
 const Religion = ({ family: data, ln }) => {
   const [family, setFamily] = useState({
@@ -37,7 +38,14 @@ const Religion = ({ family: data, ln }) => {
       !family.eStatus ||
       !family.agreement
     ) {
-      setError('Fill All The Field')
+      dispatch(
+        showSnackBar({
+          message: 'Fill All The Required Field !',
+          option: {
+            variant: 'error'
+          }
+        })
+      )
       return
     }
     try {
@@ -54,11 +62,25 @@ const Religion = ({ family: data, ln }) => {
           }
         }
       )
-
+      dispatch(
+        showSnackBar({
+          message: 'Updated Succesfully ',
+          option: {
+            variant: 'success'
+          }
+        })
+      )
       setFamily(data)
       dispatch(finishLoading())
     } catch (error) {
-      setError('Something Went Wrong !')
+      dispatch(
+        showSnackBar({
+          message: 'Something Went Wrong !',
+          option: {
+            variant: 'error'
+          }
+        })
+      )
       dispatch(finishLoading())
       console.log(error)
     }
@@ -120,6 +142,7 @@ const Religion = ({ family: data, ln }) => {
               'Lower Class',
               'Lower Middle Class',
               'Middle Class',
+              'Higher Middle Class',
               'Higher Class'
             ].map((item, index) => (
               <span
@@ -144,7 +167,9 @@ const Religion = ({ family: data, ln }) => {
           ></textarea>
         </div>
         <div className={styles.field}>
-          <label>{getText('moreF', ln)} </label>
+          <label>
+            {getText('moreF', ln)} ({getText('optional', ln)}){' '}
+          </label>
           <textarea
             value={family.more}
             onChange={e => setFamily({ ...family, more: e.target.value })}

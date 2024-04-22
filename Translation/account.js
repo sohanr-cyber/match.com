@@ -30,13 +30,25 @@ const dict = {
   logout: {
     en: 'Logout',
     bn: 'লগআউট'
+  },
+  code: {
+    en: 'Type The Verification Code Sent To your Mail'
+  },
+  verify: {
+    en: 'Verify'
+  },
+  rEmail: {
+    en: 'Type Your Email'
+  },
+  newPassword: {
+    en: 'Enter Your New Password'
   }
 }
 const getText = (key, ln) => {
   if (ln == 'en-US') {
     ln = 'en'
   }
-  return dict[key][ln]
+  return dict[key] ? dict[key][ln] : key
 }
 
 export { getText }

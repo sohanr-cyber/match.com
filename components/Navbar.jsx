@@ -29,7 +29,7 @@ const Navbar = () => {
   }, [])
 
   const handleLogout = () => {
-    dispatch(logout)
+    dispatch(logout())
     setOpen(false)
     router.push('/login')
   }

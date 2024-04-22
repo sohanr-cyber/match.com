@@ -10,6 +10,7 @@ import { getText } from '@/Translation/profile'
 const Activate = ({ profile }) => {
   const [worthActivating, setActivating] = useState(
     profile.user.gender &&
+      profile.user.isVerified &&
       profile.user.maritalStatus &&
       profile.user.city &&
       profile.religion.prayer &&

@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import Moment from 'react-moment/dist'
+import { showSnackBar } from '@/redux/notistackSlice'
 
 const Basic = ({ personal: data }) => {
   const [personal, setPersonal] = useState({ ...data })
@@ -30,7 +31,14 @@ const Basic = ({ personal: data }) => {
       !personal.lastName ||
       !personal.maritalStatus
     ) {
-      setError('Fill All The Field !')
+      dispatch(
+        showSnackBar({
+          message: 'Fill All The Required Field !',
+          option: {
+            variant: 'error'
+          }
+        })
+      )
       return
     }
     try {

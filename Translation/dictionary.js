@@ -7,6 +7,7 @@ const dict = {
   'Lower Middle Class': 'নিম্ন মধ্যবর্তী শ্রেণী',
   'Middle Class': 'মধ্যবর্তী শ্রেণী',
   'Higher Class': 'উচ্চ শ্রেণী',
+  'Higher Middle Class': 'উচ্চ মধ্যবর্তী শ্রেণী',
   // skin Colors
   'Skin Color': 'গায়ের রঙ',
   'Very Fair': 'উজ্জ্বল ফর্সা',

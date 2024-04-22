@@ -18,6 +18,7 @@ import { useRouter } from 'next/router'
 import Moment from 'react-moment/dist'
 import { getText } from '@/Translation/profile'
 import Ln from '@/components/utils/Ln'
+import { showSnackBar } from '@/redux/notistackSlice'
 
 const Basic = ({ locationData, address: data, ln }) => {
   const [districts, setDistricts] = useState([])
@@ -51,7 +52,14 @@ const Basic = ({ locationData, address: data, ln }) => {
       !address.phone2 ||
       !address.email
     ) {
-      setError('Fill All The Required Field !')
+      dispatch(
+        showSnackBar({
+          message: 'Fill All The  Field !',
+          option: {
+            variant: 'error'
+          }
+        })
+      )
       return
     }
     try {
@@ -70,12 +78,27 @@ const Basic = ({ locationData, address: data, ln }) => {
       )
 
       if (data) {
+        dispatch(
+          showSnackBar({
+            message: 'Updated Succesfully ',
+            option: {
+              variant: 'success'
+            }
+          })
+        )
         setAddress({ ...data })
         dispatch(finishLoading())
       }
     } catch (error) {
+      dispatch(
+        showSnackBar({
+          message: 'Something Went Wrong !',
+          option: {
+            variant: 'error'
+          }
+        })
+      )
       dispatch(finishLoading())
-      setError('Something Went Wrong !')
       console.log(error)
     }
   }

@@ -16,6 +16,7 @@ import axios from 'axios'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
 import Moment from 'react-moment/dist'
 import { getText } from '@/Translation/profile'
+import { showSnackBar } from '@/redux/notistackSlice'
 
 const Religion = ({ religion: data, ln }) => {
   const [religion, setReligion] = useState({
@@ -40,9 +41,25 @@ const Religion = ({ religion: data, ln }) => {
         }
       )
 
+      dispatch(
+        showSnackBar({
+          message: 'Updated Succesfully ',
+          option: {
+            variant: 'success'
+          }
+        })
+      )
       setReligion(data)
       dispatch(finishLoading())
     } catch (error) {
+      dispatch(
+        showSnackBar({
+          message: 'Something Went Wrong !',
+          option: {
+            variant: 'error'
+          }
+        })
+      )
       dispatch(finishLoading())
       console.log(error)
     }
