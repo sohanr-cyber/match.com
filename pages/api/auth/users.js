@@ -87,7 +87,11 @@ handler.post(async (req, res) => {
 handler.get(async (req, res) => {
   try {
     await db.connect()
-    const users = await User.find({}).lean()
+    const users = await User.find({})
+      .limit(parseInt(50))
+      .sort({ createdAt: -1 })
+      .exec()
+
     res.status(200).json(users)
   } catch (error) {
     res.status(400)
