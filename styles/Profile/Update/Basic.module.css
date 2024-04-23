@@ -18,6 +18,10 @@
 }
 
 
+.wrapper .title {
+    text-transform: capitalize;
+}
+
 .wrapper .heading .left {
     display: flex;
     gap: 10px;

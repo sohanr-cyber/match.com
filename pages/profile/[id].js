@@ -131,7 +131,17 @@ export async function getServerSideProps (context) {
   } catch (error) {
     console.log(error)
     return {
-      props: {} // Return an empty props object or handle errors accordingly
+      props: {
+        user: {},
+        address: {},
+        religion: {},
+        physical: {},
+        education: {},
+        expectation: {},
+        personal: {},
+        family: {},
+        locale
+      } // Return an empty props object or handle errors accordingly
     }
   }
 }

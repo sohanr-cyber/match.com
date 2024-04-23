@@ -145,7 +145,7 @@ const Education = ({ education: data, profile, ln }) => {
           <label>{getText('income', ln)}</label>
           <input
             type='number'
-            value={englishToBangla(education.income, ln)}
+            value={education.income}
             onChange={e =>
               setEducation({ ...education, income: e.target.value })
             }
