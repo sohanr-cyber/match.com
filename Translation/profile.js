@@ -319,11 +319,11 @@ const dict = {
   others: { en: 'Others', bn: 'অন্যান্য' },
   student: {
     en: 'Interested In Marrying Student/Job Seeker?',
-    bn: 'শিক্ষার্থী/চাকুরি সন্ধানে আছে এমন পাত্র বিবাহ করতে আগ্রহী কিনা?'
+    bn: 'শিক্ষার্থী/চাকুরি সন্ধানে আছে এমন পাত্র/পাত্রী বিবাহ করতে আগ্রহী কিনা?'
   },
   studentWithJob: {
     en: 'Interested In Marrying Student/Job Seeker Having Some Income?',
-    bn: 'শিক্ষার্থী/চাকুরি সন্ধানে + আয় আছে এমন পাত্র বিবাহ করতে আগ্রহী কিনা??'
+    bn: 'শিক্ষার্থী/চাকুরি সন্ধানে + আয় আছে এমন পাত্র/পাত্রী বিবাহ করতে আগ্রহী কিনা??'
   },
   emigrant: {
     en: 'Are You Emigrant?',

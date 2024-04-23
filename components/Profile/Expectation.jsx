@@ -20,13 +20,17 @@ const Expectation = ({ expectation, ln }) => {
           <div className={styles.flex}>
             <div className={styles.key}>{getText('minAge', ln)} : </div>
             <div className={styles.value}>
-              {expectation.minAge ? englishToBangla(expectation.minAge) : '_____'}{' '}
+              {expectation.minAge
+                ? englishToBangla(expectation.minAge)
+                : '_____'}{' '}
             </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('maxAge', ln)} : </div>
             <div className={styles.value}>
-              {expectation.maxAge ? englishToBangla(expectation.maxAge) : '_____'}{' '}
+              {expectation.maxAge
+                ? englishToBangla(expectation.maxAge)
+                : '_____'}{' '}
             </div>{' '}
           </div>
           <div className={styles.flex}>
@@ -75,7 +79,7 @@ const Expectation = ({ expectation, ln }) => {
             <div className={styles.value}>
               {' '}
               {expectation.professions.map((item, index) => (
-                <span key={index}>{item}</span>
+                <span key={index}>{item} &nbsp;</span>
               ))}{' '}
             </div>
           </div>

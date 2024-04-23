@@ -32,6 +32,21 @@
     text-transform: capitalize;
 }
 
+.wrapper .flex .value {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    max-height: 100px;
+    overflow-y: scroll;
+
+}
+
+.wrapper .flex .value span {
+    border-radius: 5px;
+    padding: 1px 2px;
+    border: 1px solid black
+}
+
 .wrapper .toggle {
     /* border: 1px solid lightblue; */
     padding: 1px 5px;
