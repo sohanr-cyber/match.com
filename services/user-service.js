@@ -24,24 +24,22 @@ function hideSensitiveInformation (userObject, reqUserId) {
     return newUserObject
   }
   // Hide sensitive information in 'existingUser'
-  delete newUserObject.existingUser.name
-  delete newUserObject.existingUser.email
-  // delete newUserObject.existingUser.savedIds
-  // delete newUserObject.existingUser.saverIds
+  newUserObject.existingUser.name = '*****'
+  newUserObject.existingUser.email = '*****'
+  // newUserObject.existingUser.savedIds = "*****";
+  // newUserObject.existingUser.saverIds = "*****";
 
   // Hide sensitive information in 'personal'
-  delete newUserObject.personal.firstName
-  delete newUserObject.personal.lastName
+  newUserObject.personal.firstName = '*****'
+  newUserObject.personal.lastName = '*****'
 
-  delete newUserObject.address.phone
-  delete newUserObject.address.email
-  delete newUserObject.address.location
-  delete newUserObject.address.phone2
+  newUserObject.address.phone = '*****'
+  newUserObject.address.email = '*****'
+  newUserObject.address.location = '*****'
+  newUserObject.address.phone2 = '*****'
 
   return newUserObject
-
 }
-
 
 class UserService {
   constructor () {

@@ -5,7 +5,7 @@ import { englishToBangla, heightToFeet } from '@/utils'
 import Ln from '../utils/Ln'
 
 const Expectation = ({ expectation, ln }) => {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
   return (
     <div className={styles.wrapper}>
       <div className={styles.heading}>

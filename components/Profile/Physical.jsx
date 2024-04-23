@@ -1,13 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '../../styles/Profile/Personal.module.css'
 import { getText } from '@/Translation/profile'
 import { heightToFeet } from '@/utils'
+import { isPhysicalValid } from '@/utility/validator'
 
 const Physical = ({ physical, ln }) => {
   const [open, setOpen] = useState(true)
+  const [red, setRed] = useState(false)
+
+  useEffect(() => {
+    if (!isPhysicalValid(physical)) {
+      setRed(true)
+    }
+  }, [physical])
+
+  
   return (
     <div className={styles.wrapper}>
-      <div className={styles.heading}>
+      <div className={styles.heading} style={red ? { background: 'red' } : {}}>
         <div className={styles.title}>{getText('pa', ln)}</div>
         <div className={styles.toggle} onClick={() => setOpen(prev => !prev)}>
           {open ? '-' : '+'}

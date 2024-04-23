@@ -17,6 +17,7 @@ import { finishLoading, startLoading } from '@/redux/stateSlice'
 import Moment from 'react-moment/dist'
 import { getText } from '@/Translation/profile'
 import { showSnackBar } from '@/redux/notistackSlice'
+import { isPersonalValid } from '@/utility/validator'
 
 const Religion = ({ religion: data, ln }) => {
   const [religion, setReligion] = useState({
@@ -27,6 +28,17 @@ const Religion = ({ religion: data, ln }) => {
   const userInfo = useSelector(state => state.user.userInfo)
 
   const update = async () => {
+    if (!isPersonalValid(religion)) {
+      dispatch(
+        showSnackBar({
+          message: 'Fill All The Field',
+          option: {
+            variant: 'error'
+          }
+        })
+      )
+      return
+    }
     try {
       dispatch(startLoading())
       const { data } = await axios.put(

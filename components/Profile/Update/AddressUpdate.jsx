@@ -19,6 +19,7 @@ import Moment from 'react-moment/dist'
 import { getText } from '@/Translation/profile'
 import Ln from '@/components/utils/Ln'
 import { showSnackBar } from '@/redux/notistackSlice'
+import { isAddressValid } from '@/utility/validator'
 
 const Basic = ({ locationData, address: data, ln }) => {
   const [districts, setDistricts] = useState([])
@@ -43,15 +44,7 @@ const Basic = ({ locationData, address: data, ln }) => {
   }, [address.city])
 
   const update = async () => {
-    if (
-      !address.city ||
-      !address.district ||
-      !address.upazilla ||
-      !address.location ||
-      !address.phone ||
-      !address.phone2 ||
-      !address.email
-    ) {
+    if (!isAddressValid(address)) {
       dispatch(
         showSnackBar({
           message: 'Fill All The  Field !',

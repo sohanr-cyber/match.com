@@ -2,12 +2,16 @@ import React, { useState } from 'react'
 import styles from '../../styles/Profile/Personal.module.css'
 import { getText } from '@/Translation/profile'
 import Ln from '../utils/Ln'
+import { isEducationValid } from '@/utility/validator'
 
 const Ecucation = ({ education, ln, profile }) => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(true)
   return (
     <div className={styles.wrapper}>
-      <div className={styles.heading}>
+      <div
+        className={styles.heading}
+        style={!isEducationValid(education) ? { background: 'red' } : {}}
+      >
         <div className={styles.title}>{getText('ec', ln)}</div>
         <div className={styles.toggle} onClick={() => setOpen(prev => !prev)}>
           {open ? '-' : '+'}

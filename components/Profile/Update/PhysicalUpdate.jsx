@@ -19,6 +19,7 @@ import dict from '@/Translation/dictionary'
 import Ln from '../../utils/Ln'
 import { getText } from '@/Translation/profile'
 import { showSnackBar } from '@/redux/notistackSlice'
+import { isPhysicalValid } from '@/utility/validator'
 
 const Basic = ({ physical: data, ln }) => {
   const [physical, setPhysical] = useState({
@@ -34,11 +35,7 @@ const Basic = ({ physical: data, ln }) => {
     if (
       !physical.heightFeet ||
       !physical.heightInches ||
-      !physical.issue ||
-      !physical.skinColor ||
-      // !physical.bodyType ||
-      !physical.blood ||
-      !physical.mass
+      !isPhysicalValid(physical)
     ) {
       dispatch(
         showSnackBar({

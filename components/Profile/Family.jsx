@@ -2,12 +2,16 @@ import React, { useState } from 'react'
 import styles from '../../styles/Profile/Personal.module.css'
 import { getText } from '@/Translation/profile'
 import Ln from '../utils/Ln'
+import { isFamilyValid } from '@/utility/validator'
 
 const Family = ({ family, ln }) => {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
   return (
     <div className={styles.wrapper}>
-      <div className={styles.heading}>
+      <div
+        className={styles.heading}
+        style={!isFamilyValid(family) ? { background: 'red' } : {}}
+      >
         <div className={styles.title}>{getText('family', ln)}</div>
         <div className={styles.toggle} onClick={() => setOpen(prev => !prev)}>
           {open ? '-' : '+'}
@@ -43,7 +47,9 @@ const Family = ({ family, ln }) => {
               {' '}
               <div className={styles.flex}>
                 <div className={styles.key}>{getText('rStatus', ln)} : </div>
-                <div className={styles.value}>{family?.rStatus || '_____'} </div>
+                <div className={styles.value}>
+                  {family?.rStatus || '_____'}{' '}
+                </div>
               </div>{' '}
             </div>
             {/* <div className={styles.value}>{family?.rStatus || '_____'} </div> */}

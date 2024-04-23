@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
 import styles from '../../styles/Profile/Personal.module.css'
 import { getText } from '@/Translation/profile'
+import { isPersonalValid } from '@/utility/validator'
 
 const Piety = ({ religion, ln }) => {
   const [open, setOpen] = useState(true)
   return (
     <div className={styles.wrapper}>
-      <div className={styles.heading}>
+      <div
+        className={styles.heading}
+        style={!isPersonalValid(religion) ? { background: 'red' } : {}}
+      >
         <div className={styles.title}>{getText('pr', ln)}</div>
         <div className={styles.toggle} onClick={() => setOpen(prev => !prev)}>
           {open ? '-' : '+'}

@@ -103,6 +103,9 @@ const Navbar = () => {
               borderRadius: '5px',
               cursor: 'pointer'
             }}
+            onDoubleClick={() => {
+              router.push(`/profile/${userInfo.id}`)
+            }}
             onClick={() => {
               setOpen(prev => !prev)
               setPhone(false)

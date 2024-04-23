@@ -18,6 +18,7 @@ import { getText } from '@/Translation/profile'
 import Ln from '@/components/utils/Ln'
 import { englishToBangla } from '@/utils'
 import { showSnackBar } from '@/redux/notistackSlice'
+import { isEducationValid } from '@/utility/validator'
 
 const Education = ({ education: data, profile, ln }) => {
   const [education, setEducation] = useState({ ...data })
@@ -26,11 +27,7 @@ const Education = ({ education: data, profile, ln }) => {
   const userInfo = useSelector(state => state.user.userInfo)
   const [error, setError] = useState('')
   const update = async () => {
-    if (
-      !education.educationType ||
-      !education.profession ||
-      !education.education
-    ) {
+    if (!isEducationValid(education)) {
       dispatch(
         showSnackBar({
           message: 'Fill All The Required Field!',
@@ -224,7 +221,9 @@ const Education = ({ education: data, profile, ln }) => {
           </select>
         </div>
         <div className={styles.field}>
-          <label>{getText('education', ln)}</label>
+          <label>
+            {getText('education', ln)} ({getText('required', ln)})
+          </label>
           <div className={styles.options}>
             {educationalStatus.map((item, index) => (
               <span
@@ -268,18 +267,16 @@ const Education = ({ education: data, profile, ln }) => {
                 }
               />
             </div>
-            <div className={styles.field}>
-              <label>{getText('moreEC', ln)}</label>
-              <textarea
-                type='text'
-                value={education.more}
-                onChange={e =>
-                  setEducation({ ...education, more: e.target.value })
-                }
-              ></textarea>
-            </div>
           </>
         )}
+        <div className={styles.field}>
+          <label>{getText('moreEC', ln)}</label>
+          <textarea
+            type='text'
+            value={education.more}
+            onChange={e => setEducation({ ...education, more: e.target.value })}
+          ></textarea>
+        </div>
       </form>
       {error && <p style={{ color: 'red', fontSize: '90%' }}>{error}</p>}
 

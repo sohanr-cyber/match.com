@@ -18,6 +18,7 @@ import Moment from 'react-moment/dist'
 import { getText } from '@/Translation/profile'
 import Ln from '@/components/utils/Ln'
 import { showSnackBar } from '@/redux/notistackSlice'
+import { isFamilyValid } from '@/utility/validator'
 
 const Religion = ({ family: data, ln }) => {
   const [family, setFamily] = useState({
@@ -29,15 +30,7 @@ const Religion = ({ family: data, ln }) => {
   const [error, setError] = useState('')
 
   const update = async () => {
-    if (
-      !family.father ||
-      !family.mother ||
-      !family.brother ||
-      !family.sister ||
-      !family.rStatus ||
-      !family.eStatus ||
-      !family.agreement
-    ) {
+    if (!isFamilyValid(family)) {
       dispatch(
         showSnackBar({
           message: 'Fill All The Required Field !',
