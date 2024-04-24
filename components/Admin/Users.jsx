@@ -25,24 +25,11 @@ const Users = ({ title, dashboard, users }) => {
     })
   }
 
-  const remove = async id => {
-    try {
-      dispatch(startLoading())
-      const { data } = await axios.delete(`/api/product/${id}`)
-      setFilteredOrders(filteredOrders.filter(i => i._id != id))
-      dispatch(finishLoading())
-    } catch (error) {
-      dispatch(finishLoading())
-      console.log(error)
-    }
-  }
-
   return (
     <>
       {!dashboard && <h2>{title}</h2>}
 
       <div className={styles.wrapper}>
-        {' '}
         {dashboard && <h2>{title}</h2>}
         {!dashboard && (
           <div className={styles.flex}>
