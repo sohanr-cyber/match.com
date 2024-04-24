@@ -1,7 +1,10 @@
 .wrapper {
-    padding: 25px;
     background-color: rgba(0, 191, 255, 0.1);
+    /* background-color: red; */
 }
+
+
+
 
 .wrapper .heading {
     display: flex;
@@ -11,9 +14,11 @@
     font-size: 120%;
     background: var(--btn);
     color: white;
-    padding: 10px 5px;
-    border-radius: 5px;
     justify-content: space-between;
+    background: linear-gradient(45deg, forestgreen 50%, rgb(0, 183, 255) 50%);
+    padding: 12px 25px;
+    margin: 0;
+
 
 }
 
@@ -53,6 +58,7 @@
     grid-template-columns: repeat(2, 1fr);
     grid-column-gap: 20px;
     grid-row-gap: 10px;
+    padding: 25px;
 }
 
 .wrapper form span {
@@ -119,16 +125,18 @@
 
 
 .save {
-    background: green;
-    max-width: 120px;
-    text-align: center;
-    color: white;
-    padding: 5px 10px;
+    background: linear-gradient(45deg, forestgreen 50%, rgb(0, 183, 255) 50%);
+    padding: 5px;
+    margin: 10px;
+    max-width: 200px;
     border-radius: 5px;
     cursor: pointer;
-
-
-
+    margin-top: -15px;
+    margin-left: 25px;
+    margin-bottom: 25px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
 }
 
 
@@ -189,5 +197,13 @@
 
     .wrapper .heading .right {
         display: none
+    }
+
+    .heading {
+        padding: 12px 15px;
+    }
+
+    .save {
+        margin-left: 15px;
     }
 }

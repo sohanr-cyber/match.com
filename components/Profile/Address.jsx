@@ -53,7 +53,7 @@ const Address = ({ address, ln }) => {
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('phone2', ln)} : </div>
-            <div className={styles.phone1}> {address?.phone1 || '____'} </div>
+            <div className={styles.phone1}> {address?.phone2 || '____'} </div>
           </div>
         </div>
       )}

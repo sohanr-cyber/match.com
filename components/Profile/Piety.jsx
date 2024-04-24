@@ -30,7 +30,7 @@ const Piety = ({ religion, ln, user }) => {
             </div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.key}>{getText('outfit', ln)}:</div>
+            <div className={styles.key}>{getText('outfit', ln)}</div>
             <div className={styles.value}>{religion?.outfit || '_____'}</div>
           </div>
           {user.gender == 'Male' && (

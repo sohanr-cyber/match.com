@@ -15,7 +15,7 @@ const Activate = ({ profile }) => {
       profile.user.maritalStatus &&
       profile.user.city &&
       profile.religion.prayer &&
-      profile.expectation.minAge &&
+      // profile.expectation.minAge &&
       profile.education.educationType &&
       profile.physical.skinColor &&
       profile.personal.gender &&

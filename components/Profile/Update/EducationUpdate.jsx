@@ -279,7 +279,6 @@ const Education = ({ education: data, profile, ln }) => {
         </div>
       </form>
       {error && <p style={{ color: 'red', fontSize: '90%' }}>{error}</p>}
-
       <div className={styles.save} onClick={() => update()}>
         {getText('save', ln)}
       </div>

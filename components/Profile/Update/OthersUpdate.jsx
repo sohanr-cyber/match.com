@@ -63,10 +63,7 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
   }
 
   return (
-    <div
-      className={styles.wrapper}
-      style={{ backgroundColor: 'aliceblue', paddingTop: '25px' }}
-    >
+    <div className={styles.wrapper} style={{ backgroundColor: 'aliceblue' }}>
       <div className={styles.heading}>
         <div className={styles.left}>
           <span>7</span>
