@@ -3,7 +3,7 @@ import styles from '../../styles/Profile/Personal.module.css'
 import { getText } from '@/Translation/profile'
 import { isPersonalValid } from '@/utility/validator'
 
-const Piety = ({ religion, ln }) => {
+const Piety = ({ religion, ln, user }) => {
   const [open, setOpen] = useState(true)
   return (
     <div className={styles.wrapper}>
@@ -33,6 +33,13 @@ const Piety = ({ religion, ln }) => {
             <div className={styles.key}>{getText('outfit', ln)}:</div>
             <div className={styles.value}>{religion?.outfit || '_____'}</div>
           </div>
+          {user.gender == 'Male' && (
+            <div className={styles.flex}>
+              <div className={styles.key}>{getText('beard', ln)}</div>
+              <div className={styles.value}>{religion?.beard || '_____'}</div>
+            </div>
+          )}
+
           <div className={styles.flex}>
             <div className={styles.key}>{getText('quran', ln)} </div>
             <div className={styles.value}>

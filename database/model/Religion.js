@@ -27,7 +27,8 @@ const religionScheama = mongoose.Schema(
     badHabit: { Type: String },
     mahr: { Type: String },
     dowry: { Type: String },
-    sunnah: { Type: String }
+    sunnah: { Type: String },
+    beard: { Type: String }
   },
   { timestamps: true }
 )

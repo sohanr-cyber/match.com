@@ -43,6 +43,7 @@ const dict = {
     en: 'Ocupation',
     bn: 'পেশা'
   },
+
   location: {
     en: 'Location',
     bn: 'অবস্থান'
@@ -81,8 +82,8 @@ const dict = {
     bn: 'চুলের রঙ'
   },
   issue: {
-    en: 'Do You Have Any Major Physical Issue?',
-    bn: 'শারিরিক বড় কোন রোগ আছে কি?	'
+    en: 'Do you have any mental or physical illness?',
+    bn: 'আপনার মানসিক বা শারীরিক কোন রোগ আছে কিনা?'
   },
 
   // ... education & career
@@ -90,6 +91,10 @@ const dict = {
   income: {
     en: 'Monthly Income',
     bn: 'মাসিক আয়'
+  },
+  Drofession: {
+    en: 'Profession Details',
+    bn: 'পেশার বিস্তারিত বিবরণ'
   },
   skills: {
     en: 'Skills',
@@ -194,8 +199,8 @@ const dict = {
     bn: 'আপনি মুভি বা টিভি সিরিয়াল দেখেন?'
   },
   deeds: {
-    en: 'Beside Fardh Deeds , Do you have any Nafle/Sunnah Deeds that you have never missed at least for 6 months ?',
-    bn: 'নিয়মিত কোনটি অধ্যয়ন করেন?	'
+    en: 'Besides obligatory acts, are there any Sunnah or voluntary practices that you regularly observe?',
+    bn: 'ফরজ আমল ছাড়াও এমন কোন সুন্নত /নফল আছে যা নিয়মিত করেন?'
   },
 
   interest: {
@@ -214,6 +219,11 @@ const dict = {
     en: 'Do you want to marry according to the rules of Islam?',
     bn: 'বিয়ে কি সুন্নাতি নিয়মে করতে চান?'
   },
+  beard: {
+    en: 'Do You have Sunnah beard? Since when?',
+    bn: 'সুন্নতি দাড়ি আছে কি না? কবে থেকে রেখেছে?'
+  },
+
   // .. address
   address: {
     en: 'address & contact information',

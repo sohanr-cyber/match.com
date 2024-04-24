@@ -54,7 +54,7 @@ const ProfileDetails = ({
           {/* <Personal personal={personal} /> */}
           <Physical physical={physical} ln={locale} />
           <Education education={education} ln={locale} profile={user} />
-          <Piety religion={religion} ln={locale} />
+          <Piety religion={religion} ln={locale} user={user} />
           <Address address={address} ln={locale} />
           <Family family={family} ln={locale} />
           <Expectation expectation={expectation} ln={locale} />

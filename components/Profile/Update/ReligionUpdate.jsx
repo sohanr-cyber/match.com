@@ -19,7 +19,7 @@ import { getText } from '@/Translation/profile'
 import { showSnackBar } from '@/redux/notistackSlice'
 import { isPersonalValid } from '@/utility/validator'
 
-const Religion = ({ religion: data, ln }) => {
+const Religion = ({ religion: data, ln, user }) => {
   const [religion, setReligion] = useState({
     ...data
   })
@@ -39,6 +39,20 @@ const Religion = ({ religion: data, ln }) => {
       )
       return
     }
+
+    if (user.gender == 'Male' && !religion.beard) {
+      dispatch(
+        showSnackBar({
+          message: 'Fill All The Field',
+          option: {
+            variant: 'error'
+          }
+        })
+      )
+      return
+    }
+
+
     try {
       dispatch(startLoading())
       const { data } = await axios.put(
@@ -123,6 +137,18 @@ const Religion = ({ religion: data, ln }) => {
             }
           ></textarea>
         </div>
+        {user.gender == 'Male' && (
+          <div className={styles.field}>
+            <label>{getText('beard', ln)}</label>
+            <textarea
+              value={religion.beard}
+              onChange={e =>
+                setReligion({ ...religion, beard: e.target.value })
+              }
+            ></textarea>
+          </div>
+        )}
+
         <div className={styles.field}>
           <label>{getText('quran', ln)}</label>
           <textarea

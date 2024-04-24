@@ -47,7 +47,7 @@ const Update = ({
       /> */}
       <Education education={{ ...education }} profile={profile} ln={locale} />
       <Physical physical={{ ...physical }} ln={locale} />
-      <Religion religion={religion} ln={locale} />
+      <Religion religion={religion} ln={locale} user ={user} />
       <Address address={address} locationData={locationData} ln={locale} />
       <Family family={family} ln={locale} />
       <Expectation expectation={expectation} ln={locale} />
