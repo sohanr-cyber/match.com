@@ -94,10 +94,7 @@ const Basic = ({ physical: data, ln }) => {
   }
 
   return (
-    <div
-      className={styles.wrapper}
-      style={{ backgroundColor: 'aliceblue', }}
-    >
+    <div className={styles.wrapper} style={{ backgroundColor: 'aliceblue' }}>
       <div className={styles.heading}>
         <div className={styles.left}>
           <span>4</span>

@@ -1,6 +1,7 @@
 .wrapper {
     background-color: rgba(0, 191, 255, 0.1);
     /* background-color: red; */
+    border: 0.1px solid transparent
 }
 
 
@@ -126,12 +127,13 @@
 
 .save {
     background: linear-gradient(45deg, forestgreen 50%, rgb(0, 183, 255) 50%);
+    background: var(--btn);
     padding: 5px;
     margin: 10px;
     max-width: 200px;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: -15px;
+    margin-top: -10px;
     margin-left: 25px;
     margin-bottom: 25px;
     text-align: center;
@@ -163,6 +165,8 @@
         gap: 10px;
     }
 
+
+
     .wrapper form input,
     .wrapper form textarea,
     .wrapper form select {
@@ -183,9 +187,6 @@
 }
 
 @media (max-width:570px) {
-    .wrapper {
-        padding: 15px;
-    }
 
     .wrapper form {
         margin: 10px 0;
@@ -193,13 +194,14 @@
         grid-template-columns: repeat(1, 1fr);
         grid-column-gap: 20px;
         grid-row-gap: 10px;
+        padding: 15px
     }
 
     .wrapper .heading .right {
         display: none
     }
 
-    .heading {
+    .wrapper .heading {
         padding: 12px 15px;
     }
 
