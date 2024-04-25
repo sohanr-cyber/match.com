@@ -59,6 +59,8 @@ class UserService {
     const expirationTime = new Date()
     expirationTime.setMinutes(expirationTime.getMinutes() + 5)
 
+    const profileId = await this.repository.generateId()
+
     const existUser = await this.repository.CreateUser({
       email,
       password: userPassword,
@@ -66,7 +68,8 @@ class UserService {
       salt,
       gender,
       verificationCode,
-      expirationTime
+      expirationTime,
+      profileId
     })
     console.log({ existUser })
     existUser &&

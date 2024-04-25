@@ -25,7 +25,8 @@ class UserRepository {
     salt,
     gender,
     verificationCode,
-    expirationTime
+    expirationTime,
+    profileId
   }) {
     try {
       await db.connect()
@@ -36,7 +37,8 @@ class UserRepository {
         name,
         gender,
         verificationCode,
-        expirationTime
+        expirationTime,
+        profileId
       })
 
       const userResult = await user.save()
@@ -81,16 +83,30 @@ class UserRepository {
     }
   }
 
+  async generateId () {
+    try {
+      await db.connect()
+      let id
+      do {
+        id = Math.floor(100000 + Math.random() * 900000)
+      } while (await User.findOne({ profileId: id })) // Check if the number is already in use
+
+      // Add the new ID to the existing list
+      console.log({ id })
+      return id
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   async FindUserProfileById (userId) {
     try {
       await db.connect()
       const existingUser = await User.findOne(
-        { _id: userId },
-        {
-          password: 0,
-          salt: 0
-        }
+        { profileId: userId }, // Wrap conditions in an array
+        { password: 0, salt: 0 }
       )
+      userId = existingUser._id
       const family = await this.family.FindFamilyByUserId(userId)
       const address = await this.address.FindAddressByUserId(userId)
       const religion = await this.religion.FindReligionByUserId(userId)

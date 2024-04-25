@@ -3,6 +3,12 @@ import mongoose from 'mongoose'
 const userSchema = mongoose.Schema(
   {
     name: { type: String, required: true },
+    profileId: {
+      type: String,
+      required: true,
+      unique: true,
+      default: Math.floor(100000 + Math.random() * 900000)
+    },
     email: { type: String, required: true, unique: true },
     password: { type: String },
     gender: {

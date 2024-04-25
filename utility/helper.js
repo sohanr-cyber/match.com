@@ -11,4 +11,18 @@ function generateVerificationCode (length) {
 function verifyCode (enteredCode, generatedCode) {
   return enteredCode === generatedCode
 }
-export { generateVerificationCode, verifyCode }
+
+function generateUniqueID (existingIDs) {
+  let number
+  do {
+    // Generate a random 6-digit number
+    number = Math.floor(100000 + Math.random() * 900000)
+  } while (existingIDs.includes(number)) // Check if the number is already in use
+
+  // Add the new ID to the existing list
+  existingIDs.push(number)
+
+  return number
+}
+
+export { generateVerificationCode, verifyCode, generateUniqueID }

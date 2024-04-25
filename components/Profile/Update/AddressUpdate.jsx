@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import styles from '@/styles/Profile/Update/Basic.module.css'
+import styles from '../../../styles/Profile/Update/Basic.module.css'
 import {
   professions,
   skinColors,
@@ -10,7 +10,7 @@ import {
   sessions,
   maritalStatuses
 } from '@/pages/api/auth/data'
-
+import InfoIcon from '@mui/icons-material/Info'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
@@ -112,6 +112,11 @@ const Basic = ({ locationData, address: data, ln }) => {
             Updated <Moment fromNow>{address.updatedAt}</Moment>
           </div>
         )}
+      </div>
+      <div className={styles.container}>
+        <p>
+          <InfoIcon /> <span>{getText('hiddentContact', ln)}</span>
+        </p>{' '}
       </div>
       <form className={styles.form__Container}>
         <div className={styles.field}>

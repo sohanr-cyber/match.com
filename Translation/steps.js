@@ -1,7 +1,7 @@
 const dict = {
   h1: {
     en: 'How You Can Coneect With Us',
-    bn: 'আপনি কিভাবে আমাদের সাথে সংযোগ করতে পারেন'
+    bn: 'কিভাবে আমাদের সাথে সংযুক্ত হবেন'
   },
   p: {
     en: 'Get Started In 3 Easy Steps',

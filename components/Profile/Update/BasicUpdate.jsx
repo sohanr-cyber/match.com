@@ -11,7 +11,7 @@ import {
   maritalStatuses,
   categoriesBackFront
 } from '@/pages/api/auth/data'
-
+import InfoIcon from '@mui/icons-material/Info'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
@@ -119,6 +119,7 @@ const Basic = ({ profile, setProfile, locationData, ln }) => {
     <>
       <div className={styles.wrapper} style={{ paddingTop: '70px' }}>
         {/* <h2 style={{ marginBottom: '10px' }}>Update Your Profile</h2> */}
+
         <div className={styles.heading}>
           <div className={styles.left}>
             <span>1</span>
@@ -129,6 +130,12 @@ const Basic = ({ profile, setProfile, locationData, ln }) => {
               Updated <Moment fromNow>{profile.updatedAt}</Moment>
             </div>
           )}
+        </div>
+
+        <div className={styles.container}>
+          <p>
+            <InfoIcon /> <span>{getText('hidden', ln)}</span>
+          </p>{' '}
         </div>
         <form className={styles.formContainer}>
           <div className={styles.field}>
@@ -422,7 +429,7 @@ const Basic = ({ profile, setProfile, locationData, ln }) => {
         </form>
         {error && <p style={{ color: 'red', fontSize: '90%' }}>{error}</p>}
         <div className={styles.save} onClick={() => update()}>
-          Save
+          {getText('save', ln)}
         </div>
       </div>
     </>

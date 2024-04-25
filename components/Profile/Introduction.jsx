@@ -13,6 +13,7 @@ import { finishLoading, startLoading } from '@/redux/stateSlice'
 import { getText } from '@/Translation/profile'
 import Ln from '../utils/Ln'
 import Link from 'next/link'
+import EditNoteIcon from '@mui/icons-material/EditNote'
 import { showSnackBar } from '@/redux/notistackSlice'
 const Introduction = ({ data: profile, ln }) => {
   const router = useRouter()
@@ -140,7 +141,7 @@ const Introduction = ({ data: profile, ln }) => {
                 )}
                 {userInfo?.id == router.query.id && (
                   <div className={styles.icon}>
-                    <CreateIcon
+                    <EditNoteIcon
                       style={{ color: 'green' }}
                       onClick={() =>
                         router.push(`/profile/update/${profile._id}`)
@@ -157,7 +158,10 @@ const Introduction = ({ data: profile, ln }) => {
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('gender', ln)}</div>
-            <div className={styles.value}>{profile?.gender || '_____'}</div>
+            <div className={styles.value}>
+              {' '}
+              <Ln item={profile?.gender || '_____'} />{' '}
+            </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('age', ln)}</div>

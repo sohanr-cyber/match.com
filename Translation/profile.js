@@ -117,8 +117,8 @@ const dict = {
     bn: 'এইচএসসি/সমমান (কলেজ-তারিখ-ফলাফল)'
   },
   honsUpdate: {
-    en: 'HONS/Equivalent (College/Uni-Date-Result)',
-    bn: 'হন্স/সমমান (কলেজ/বিশ্ববিদ্যালয়-তারিখ-ফলাফল)'
+    en: 'Honors/Equivalent (College/Uni-Date-Result)',
+    bn: 'অনার্স/সমমান (কলেজ/বিশ্ববিদ্যালয়-তারিখ-ফলাফল)'
   },
   masterUpdate: {
     en: 'Master/Equivalent (College/Uni-Date-Result)',
@@ -385,11 +385,11 @@ const dict = {
   // misc
   save: {
     en: 'Save',
-    bn: 'সংরক্ষণ করুন'
+    bn: 'সেভ করুন'
   },
   required: {
     en: 'Required',
-    bn: 'প্রয়োজনীয়'
+    bn: 'আবশ্যক'
   },
   feet: {
     en: 'feet',
@@ -498,6 +498,14 @@ const dict = {
   ActivateError: {
     en: 'Your Profile is Not Completed To Activate. Complete Your Profile Firstly',
     bn: 'আপনার প্রোফাইল একটিভ করার জন্য প্রস্তুত হয়নি. প্রথমে আপনার প্রোফাইল সম্পূর্ণ করুন'
+  },
+  hidden: {
+    en: 'You Name will be hidden',
+    bn: 'আপনার নাম গোপন থাকবে'
+  },
+  hiddentContact: {
+    en: 'Your Location , Phone Number , Email and Your Gurdian Phone Number will be hidden',
+    bn: 'আপনার ফোন নাম্বার, ইমেইল, ও অভিভাবক এর নাম্বার এবং অবস্থান গোপন থাকবে।'
   }
 }
 
