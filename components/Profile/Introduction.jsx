@@ -127,7 +127,7 @@ const Introduction = ({ data: profile, ln }) => {
         </div>
         <div className={styles.right}>
           <div className={styles.top}>
-            <div className={styles.id}>{profile?._id}</div>
+            <div className={styles.id}>{profile?.profileId}</div>
             {isClient && (
               <div className={styles.action}>
                 {router.query.id != userInfo?.id && (

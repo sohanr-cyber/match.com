@@ -14,7 +14,7 @@ import Notification from './notification-service'
 function hideSensitiveInformation (userObject, reqUserId) {
   // Clone the existing user object to avoid modifying the original
   const newUserObject = JSON.parse(JSON.stringify(userObject))
-  console.log({ reqUserId })
+
   if (
     newUserObject.existingUser.proposalSent?.find(i => reqUserId) ||
     newUserObject.existingUser.proposalRecieved?.find(i => reqUserId) ||
@@ -132,6 +132,7 @@ class UserService {
   }
 
   async FindUserProfileById (userId, reqUserId) {
+    console.log({ userId, reqUserId })
     const existingUser = await this.repository.FindUserProfileById(userId)
     return hideSensitiveInformation(existingUser, reqUserId)
   }

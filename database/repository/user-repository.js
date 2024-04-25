@@ -104,6 +104,7 @@ class UserRepository {
     try {
       await db.connect()
       let existingUser
+      
       if (isValidObjectId(userId)) {
         existingUser = await User.findOne(
           { _id: userId }, // Wrap conditions in an array
@@ -128,7 +129,6 @@ class UserRepository {
       await existingUser.save()
       await db.disconnect()
 
-      console.log({ existingUser })
       return {
         existingUser,
         family,

@@ -27,8 +27,8 @@ function generateUniqueID (existingIDs) {
   return number
 }
 
-function isValidObjectId (id) {
-  return mongoose.Types.ObjectId.isValid(id)
+function isValidObjectId (userId) {
+  return mongoose.Types.ObjectId.isValid(userId)
 }
 
 export {
