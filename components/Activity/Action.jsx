@@ -29,11 +29,11 @@ const Action = ({ user }) => {
           <Icon
             image={'https://cdn-icons-png.flaticon.com/128/8500/8500126.png'}
             title={
-              user?.proposalAccepted.find(i => i == userInfo?.id)
+              user?.proposalAccepted?.find(i => i == userInfo?.id)
                 ? getText('Proposal Accepted', ln)
-                : user?.proposalRecieved.find(i => i == userInfo?.id)
+                : user?.proposalRecieved?.find(i => i == userInfo?.id)
                 ? getText('proposalSent', ln)
-                : user?.proposalSent.find(i => i == userInfo?.id)
+                : user?.proposalSent?.find(i => i == userInfo?.id)
                 ? getText('proposalRecieved', ln)
                 : getText('sendProposal', ln)
             }
@@ -41,8 +41,8 @@ const Action = ({ user }) => {
               setOpenForm(true)
             }}
             allowed={
-              user?.proposalRecieved.find(i => i == userInfo?.id) ||
-              user?.proposalSent.find(i => i == userInfo?.id)
+              user?.proposalRecieved?.find(i => i == userInfo?.id) ||
+              user?.proposalSent?.find(i => i == userInfo?.id)
                 ? false
                 : true
             }

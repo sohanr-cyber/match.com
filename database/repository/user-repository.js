@@ -1,3 +1,4 @@
+import { isValidObjectId } from '@/utility/helper'
 import db from '../connection'
 import User from '../model/User'
 import AddressRepository from './address-repository'
@@ -102,10 +103,19 @@ class UserRepository {
   async FindUserProfileById (userId) {
     try {
       await db.connect()
-      const existingUser = await User.findOne(
-        { profileId: userId }, // Wrap conditions in an array
-        { password: 0, salt: 0 }
-      )
+      let existingUser
+      if (isValidObjectId(userId)) {
+        existingUser = await User.findOne(
+          { _id: userId }, // Wrap conditions in an array
+          { password: 0, salt: 0 }
+        )
+      } else {
+        existingUser = await User.findOne(
+          { profileId: userId }, // Wrap conditions in an array
+          { password: 0, salt: 0 }
+        )
+      }
+
       userId = existingUser._id
       const family = await this.family.FindFamilyByUserId(userId)
       const address = await this.address.FindAddressByUserId(userId)
@@ -118,6 +128,7 @@ class UserRepository {
       await existingUser.save()
       await db.disconnect()
 
+      console.log({ existingUser })
       return {
         existingUser,
         family,

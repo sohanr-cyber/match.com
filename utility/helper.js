@@ -1,3 +1,5 @@
+import mongoose from "mongoose"
+
 function generateVerificationCode (length) {
   const characters =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
@@ -25,4 +27,13 @@ function generateUniqueID (existingIDs) {
   return number
 }
 
-export { generateVerificationCode, verifyCode, generateUniqueID }
+function isValidObjectId (id) {
+  return mongoose.Types.ObjectId.isValid(id)
+}
+
+export {
+  generateVerificationCode,
+  verifyCode,
+  generateUniqueID,
+  isValidObjectId
+}

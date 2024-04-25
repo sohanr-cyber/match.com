@@ -37,7 +37,7 @@ handler.get(async (req, res) => {
     await db.connect()
     const users = await User.find({})
     const updated = await Promise.all(
-      users.slice(0, 10).map(async i => {
+      users.map(async i => {
         const profileId = await repo.generateId()
         const newUser = User.findOneAndUpdate(
           { _id: i._id },
