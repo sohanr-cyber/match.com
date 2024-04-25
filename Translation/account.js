@@ -5,11 +5,11 @@ const dict = {
   },
   register: {
     en: 'Signup',
-    bn: 'নিবন্ধন'
+    bn: 'রেজিস্ট্রেশন'
   },
   signup: {
     en: 'Signup',
-    bn: 'নিবন্ধন'
+    bn: 'রেজিস্ট্রেশন'
   },
   email: {
     en: 'Enter Your Email',

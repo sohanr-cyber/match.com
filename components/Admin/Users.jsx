@@ -116,7 +116,7 @@ const Users = ({ title, dashboard, users }) => {
                   </td>
                   <td className={styles.action}>
                     <span onClick={() => remove(user._id)}>Delete</span>
-                    <span onClick={() => router.push(`/user/${user._id}`)}>
+                    <span onClick={() => router.push(`/profile/${user._id}`)}>
                       {' '}
                       View
                     </span>
