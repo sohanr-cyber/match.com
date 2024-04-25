@@ -59,24 +59,28 @@ const ProfileDetails = ({
           <Family family={family} ln={locale} />
           <Expectation expectation={expectation} ln={locale} />
           <Others data={user} ln={locale} />
-          {isClient && router.query.id != userInfo?.id && (
-            <Action user={user} ln={locale} />
-          )}
-          {isClient && router.query.id == userInfo?.id && (
-            <Activate
-              profile={{
-                user,
-                address,
-                religion,
-                physical,
-                education,
-                expectation,
-                personal,
-                family
-              }}
-              ln={locale}
-            />
-          )}
+          {isClient &&
+            (router.query.id != userInfo?.id ||
+              router.query.id != userInfo?.profileId) && (
+              <Action user={user} ln={locale} />
+            )}
+          {isClient &&
+            (router.query.id == userInfo?.id ||
+              router.query.id == userInfo?.profileId) && (
+              <Activate
+                profile={{
+                  user,
+                  address,
+                  religion,
+                  physical,
+                  education,
+                  expectation,
+                  personal,
+                  family
+                }}
+                ln={locale}
+              />
+            )}
         </div>
         <div className={styles.right}>
           {/* <Similar similar={similar} /> */}

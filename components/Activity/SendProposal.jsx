@@ -7,14 +7,14 @@ import { finishLoading, startLoading } from '@/redux/stateSlice'
 import { getText } from '@/Translation/profile'
 import { showSnackBar } from '@/redux/notistackSlice'
 
-const SendProposal = ({ setOpenForm }) => {
+const SendProposal = ({ setOpenForm, user }) => {
   const router = useRouter()
   const ln = router.locale
   const userInfo = useSelector(state => state.user.userInfo)
   const dispatch = useDispatch()
   const [userInput, setUserInput] = useState({
     sender: userInfo?.id,
-    reciever: router.query.id,
+    reciever: user._id,
     message: ''
   })
 
@@ -67,9 +67,9 @@ const SendProposal = ({ setOpenForm }) => {
     <div className={styles.wrapper}>
       <form className={styles.form}>
         <label>{getText('sender', ln)}</label>
-        <input type='text' value={userInput.sender} />
+        <input type='text' value={userInfo?.profileId || userInfo?.id} />
         <label>{getText('reciever', ln)}</label>
-        <input type='text' value={userInput.reciever} />
+        <input type='text' value={user.profileId || user._id} />
         <label>{getText('message', ln)}</label>
         <textarea
           type='text'

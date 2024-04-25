@@ -71,7 +71,7 @@ const Action = ({ user }) => {
           />{' '}
         </div> */}
       </div>
-      {openForm && <SendProposal setOpenForm={setOpenForm} />}
+      {openForm && <SendProposal setOpenForm={setOpenForm} user={user} />}
     </div>
   )
 }

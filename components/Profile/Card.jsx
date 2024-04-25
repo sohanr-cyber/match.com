@@ -103,14 +103,14 @@ const Card = ({ user, index, handleLike }) => {
             )}
           </div>
           <div className={styles.count}>
-            {user?.saverIds ? englishToBangla(user.saverIds.length,ln) : 0}
+            {user?.saverIds ? englishToBangla(user.saverIds.length, ln) : 0}
           </div>
         </div>
         <div className={styles.dislikes}>
           <div className={styles.icon}>
             <ThumbDownOffAltIcon style={{ fontSize: '140%' }} />
           </div>
-          <div className={styles.count}>{englishToBangla('0',ln)}</div>
+          <div className={styles.count}>{englishToBangla('0', ln)}</div>
         </div>
         <div className={styles.clicks}>
           <div className={styles.icon}>

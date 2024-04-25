@@ -89,7 +89,8 @@ class UserService {
       token,
       name: existUser.name,
       active: existUser.active,
-      isVerified: existUser.isVerified
+      isVerified: existUser.isVerified,
+      profileId: existUser.profileId
     })
   }
 
@@ -118,7 +119,8 @@ class UserService {
             token,
             name: existingUser.name,
             active: existingUser.active,
-            isVerified: existingUser.isVerified
+            isVerified: existingUser.isVerified,
+            profileId: existingUser.profileId
           })
         } else {
           return FormateData({ error: "Password Didn't Match !" })

@@ -130,7 +130,10 @@ const Introduction = ({ data: profile, ln }) => {
             <div className={styles.id}>{profile?.profileId}</div>
             {isClient && (
               <div className={styles.action}>
-                {router.query.id != userInfo?.id && (
+                {!(
+                  router.query.id == userInfo?.profileId ||
+                  router.query.id == userInfo?.id
+                ) && (
                   <div className={styles.icon} onClick={() => saveProfile()}>
                     {saverIds?.find(i => i == userInfo?.id) ? (
                       <FavoriteIcon style={{ color: 'red' }} />
@@ -139,12 +142,13 @@ const Introduction = ({ data: profile, ln }) => {
                     )}
                   </div>
                 )}
-                {userInfo?.id == router.query.id && (
+                {(userInfo?.profileId == router.query.id ||
+                  userInfo?.id == router.query.id) && (
                   <div className={styles.icon}>
                     <EditNoteIcon
                       style={{ color: 'green' }}
                       onClick={() =>
-                        router.push(`/profile/update/${profile._id}`)
+                        router.push(`/profile/update/${profile.profileId}`)
                       }
                     />
                   </div>

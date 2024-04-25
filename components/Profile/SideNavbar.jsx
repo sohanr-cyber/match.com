@@ -51,7 +51,7 @@ const SideNavbar = ({ handleLogout, setOpen }) => {
       <div className={styles.items}>
         <div
           className={styles.item}
-          onClick={() => router.push(`/profile/${userInfo.id}`)}
+          onClick={() => router.push(`/profile/${userInfo.profileId}`)}
         >
           <div className={styles.icon}>
             <DashboardIcon />
@@ -60,7 +60,7 @@ const SideNavbar = ({ handleLogout, setOpen }) => {
         </div>
         <div
           className={styles.item}
-          onClick={() => router.push(`/profile/update/${userInfo.id}`)}
+          onClick={() => router.push(`/profile/update/${userInfo.profileId}`)}
         >
           <div className={styles.icon}>
             <EditNoteIcon />

@@ -60,7 +60,7 @@ const Login = () => {
             }
           })
         )
-        router.push(`/profile/${data.id}`)
+        router.push(`/profile/${data.profileId}`)
         dispatch(login(data))
       }
       dispatch(finishLoading())
