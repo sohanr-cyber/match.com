@@ -14,6 +14,7 @@ const Action = ({ user }) => {
   console.log(user)
   return (
     <div className={styles.wrapper}>
+      {' '}
       <div className={styles.flex}>
         <div className={styles.item}>
           {/* {user?.saverIds.find(i => i == userInfo?.id) ? (

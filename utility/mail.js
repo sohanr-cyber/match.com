@@ -19,8 +19,9 @@ style="
 const footer = ` <p>JazakAllahu Khairan.</p>
 <p>Warm regards,</p>
 <p>
-  [Your Name]<br />[Your Position/Title]<br />[Your Contact
-  Information]<br />[Islamic Matrimony Site Name]
+  Admin<br />
+  Muslim Match Maker
+  <br />
 </p>`
 
 const proposalAccepted = ({

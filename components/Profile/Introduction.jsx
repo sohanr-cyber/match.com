@@ -123,11 +123,22 @@ const Introduction = ({ data: profile, ln }) => {
                 }
           }
         >
-          {profile.gender == 'Male' ? 'M' : 'F'}
+          <Image
+            src={
+              profile.gender == 'Male'
+                ? '/images/man.png'
+                : '/images/female3.png'
+            }
+            alt=''
+            width={300}
+            height={300}
+          />
         </div>
         <div className={styles.right}>
           <div className={styles.top}>
-            <div className={styles.id}>{profile?.profileId}</div>
+            <div className={styles.id}>
+              {profile?.profileId || profile?._id}
+            </div>
             {isClient && (
               <div className={styles.action}>
                 {!(

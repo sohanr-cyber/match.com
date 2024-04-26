@@ -15,6 +15,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite'
 import { useSelector } from 'react-redux'
 import { getText } from '@/Translation/profile'
 import Ln from '../utils/Ln'
+import Image from 'next/image'
 
 const Card = ({ user, index, handleLike }) => {
   const router = useRouter()
@@ -40,18 +41,61 @@ const Card = ({ user, index, handleLike }) => {
               user?.gender == 'Male'
                 ? {
                     backgroundColor: `${colorsWithTransparency[index]}`,
-                    boxShadow: `0 6px 22px 0 ${colorsWithTransparency[index]})`
+                    boxShadow: `0 6px 22px 0 ${colorsWithTransparency[index]})`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
                   }
                 : {
                     backgroundColor: `${colorsWithTransparency[index]}`,
-                    boxShadow: `0 6px 22px 0 ${colorsWithTransparency[index]})`
+                    boxShadow: `0 6px 22px 0 ${colorsWithTransparency[index]})`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
                   }
             }
           >
             {user?.gender == 'Male' ? (
-              <div style={{ color: 'green', zIndex: '1' }}>M</div>
+              <div
+                style={{
+                  color: 'green',
+                  zIndex: '1',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <Image
+                  src='/images/man.png'
+                  width='180'
+                  height='180'
+                  alt='Man'
+                />
+              </div>
             ) : (
-              <div style={{ color: 'rgb(0, 183, 255)', zIndex: '1' }}>F</div>
+              <div
+                style={{
+                  color: 'rgb(0, 183, 255)',
+                  zIndex: '1',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <Image
+                  src='/images/female3.png'
+                  width='180'
+                  height='180'
+                  alt='Female'
+                  style={{
+                    width: '80%',
+                    height: '80%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                />
+              </div>
             )}
           </div>
         </div>

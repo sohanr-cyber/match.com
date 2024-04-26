@@ -75,51 +75,53 @@ const Activate = ({ profile }) => {
   }
   return (
     <div className={styles.wrapper}>
-      {!worthActivating ? (
-        <div
-          style={{
-            color: 'red',
-            marginBottom: '10px'
-          }}
-        >
-          {getText('ActivateError', ln)}
-        </div>
-      ) : profile.user.active ? (
-        <div
-          style={{
-            color: 'green',
-            marginBottom: '10px'
-          }}
-        >
-          {getText('deactivateText', ln)}
-        </div>
-      ) : (
-        <div
-          style={{
-            color: 'green',
-            marginBottom: '10px'
-          }}
-        >
-          {getText('activateText', ln)}
-        </div>
-      )}
-
-      {profile.user && (
-        <Icon
-          allowed={worthActivating}
-          image={
-            profile.user.active == true
-              ? 'https://cdn-icons-png.flaticon.com/128/10134/10134253.png'
-              : 'https://cdn-icons-png.flaticon.com/128/4943/4943215.png'
-          }
-          handleClick={update}
-          title={
-            profile.user.active
-              ? getText('deactivate', ln)
-              : getText('activate', ln)
-          }
-        />
-      )}
+      <div className={styles.container} style={{ marginBottom: '10px' }}>
+        {' '}
+        {!worthActivating ? (
+          <div
+            style={{
+              color: 'red',
+              marginBottom: '10px'
+            }}
+          >
+            {getText('ActivateError', ln)}
+          </div>
+        ) : profile.user.active ? (
+          <div
+            style={{
+              color: 'green',
+              marginBottom: '10px'
+            }}
+          >
+            {getText('deactivateText', ln)}
+          </div>
+        ) : (
+          <div
+            style={{
+              color: 'green',
+              marginBottom: '10px'
+            }}
+          >
+            {getText('activateText', ln)}
+          </div>
+        )}
+        {profile.user && (
+          <Icon
+            allowed={worthActivating}
+            image={
+              profile.user.active == true
+                ? 'https://cdn-icons-png.flaticon.com/128/10134/10134253.png'
+                : 'https://cdn-icons-png.flaticon.com/128/4943/4943215.png'
+            }
+            handleClick={update}
+            title={
+              profile.user.active
+                ? getText('deactivate', ln)
+                : getText('activate', ln)
+            }
+          />
+        )}
+      </div>
     </div>
   )
 }
