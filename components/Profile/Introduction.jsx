@@ -159,7 +159,9 @@ const Introduction = ({ data: profile, ln }) => {
                     <EditNoteIcon
                       style={{ color: 'green' }}
                       onClick={() =>
-                        router.push(`/profile/update/${profile.profileId}`)
+                        router.push(
+                          `/profile/update/${profile.profileId}?basic=true`
+                        )
                       }
                     />
                   </div>

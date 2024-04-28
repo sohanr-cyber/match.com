@@ -15,6 +15,7 @@ import { parse } from 'cookie'
 import Activate from '@/components/Profile/Update/Activate'
 import OthersUpdate from '@/components/Profile/Update/OthersUpdate'
 import { useRouter } from 'next/router'
+import Routes from '@/components/Profile/Update/Routes'
 
 const Update = ({
   user,
@@ -38,6 +39,7 @@ const Update = ({
 
   return (
     <>
+      <Routes />
       {router.query.basic == 'true' ? (
         <Basic
           profile={profile}
