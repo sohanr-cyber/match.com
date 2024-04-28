@@ -23,7 +23,7 @@ const Ecucation = ({ education, ln, profile, myProfile }) => {
               className={styles.updateIcon}
               onClick={() =>
                 router.push(
-                  `/profile/update/${router.query.id}?update=physical`
+                  `/profile/update/${router.query.id}?update=education`
                 )
               }
             >

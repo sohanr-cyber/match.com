@@ -7,7 +7,7 @@ import EditNoteIcon from '@mui/icons-material/EditNote'
 import { useRouter } from 'next/router'
 
 const Physical = ({ physical, ln, myProfile }) => {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
   const [red, setRed] = useState(false)
   const router = useRouter()
 

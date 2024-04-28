@@ -6,7 +6,7 @@ import EditNoteIcon from '@mui/icons-material/EditNote'
 import { useRouter } from 'next/router'
 
 const Piety = ({ religion, ln, user, myProfile }) => {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
   const router = useRouter()
 
   return (
