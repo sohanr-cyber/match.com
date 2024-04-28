@@ -3,10 +3,13 @@ import styles from '../../styles/Profile/Personal.module.css'
 import { getText } from '@/Translation/profile'
 import { heightToFeet } from '@/utils'
 import { isPhysicalValid } from '@/utility/validator'
+import EditNoteIcon from '@mui/icons-material/EditNote'
+import { useRouter } from 'next/router'
 
-const Physical = ({ physical, ln }) => {
+const Physical = ({ physical, ln, myProfile }) => {
   const [open, setOpen] = useState(true)
   const [red, setRed] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
     if (!isPhysicalValid(physical)) {
@@ -14,13 +17,25 @@ const Physical = ({ physical, ln }) => {
     }
   }, [physical])
 
-  
   return (
     <div className={styles.wrapper}>
       <div className={styles.heading} style={red ? { background: 'red' } : {}}>
         <div className={styles.title}>{getText('pa', ln)}</div>
-        <div className={styles.toggle} onClick={() => setOpen(prev => !prev)}>
-          {open ? '-' : '+'}
+        <div className={styles.flex}>
+          {myProfile && (
+            <div
+              className={styles.updateIcon}
+              onClick={() =>
+                router.push(`/profile/update/${router.query.id}?physical=true`)
+              }
+            >
+              <EditNoteIcon />
+            </div>
+          )}
+
+          <div className={styles.toggle} onClick={() => setOpen(prev => !prev)}>
+            {open ? '-' : '+'}
+          </div>
         </div>
       </div>
       {open && (

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import styles from './../styles/Navbar.module.css'
 import Logo from './utils/Logo'
 import MenuIcon from '@mui/icons-material/Menu'
@@ -24,6 +24,7 @@ const Navbar = () => {
   const [open, setOpen] = useState(false)
   const { pathname, locale, query, asPath } = router
   const ln = locale
+  const componentRef = useRef(null)
   useEffect(() => {
     setIsClient(true)
   }, [])
@@ -33,8 +34,10 @@ const Navbar = () => {
     setOpen(false)
     router.push('/login')
   }
+
+
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} ref={componentRef}>
       <div className={styles.menu}>
         <MenuIcon onClick={() => setPhone(true)} />
       </div>

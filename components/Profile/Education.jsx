@@ -3,9 +3,13 @@ import styles from '../../styles/Profile/Personal.module.css'
 import { getText } from '@/Translation/profile'
 import Ln from '../utils/Ln'
 import { isEducationValid } from '@/utility/validator'
+import EditNoteIcon from '@mui/icons-material/EditNote'
+import { useRouter } from 'next/router'
 
-const Ecucation = ({ education, ln, profile }) => {
-  const [open, setOpen] = useState(true)
+const Ecucation = ({ education, ln, profile, myProfile }) => {
+  const [open, setOpen] = useState(false)
+  const router = useRouter()
+
   return (
     <div className={styles.wrapper}>
       <div
@@ -13,8 +17,20 @@ const Ecucation = ({ education, ln, profile }) => {
         style={!isEducationValid(education) ? { background: 'red' } : {}}
       >
         <div className={styles.title}>{getText('ec', ln)}</div>
-        <div className={styles.toggle} onClick={() => setOpen(prev => !prev)}>
-          {open ? '-' : '+'}
+        <div className={styles.flex}>
+          {myProfile && (
+            <div
+              className={styles.updateIcon}
+              onClick={() =>
+                router.push(`/profile/update/${router.query.id}?physical=true`)
+              }
+            >
+              <EditNoteIcon />
+            </div>
+          )}
+          <div className={styles.toggle} onClick={() => setOpen(prev => !prev)}>
+            {open ? '-' : '+'}
+          </div>
         </div>
       </div>
       {open && (

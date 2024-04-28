@@ -14,6 +14,18 @@
     font-weight: bold;
 }
 
+
+
+.heading .updateIcon {
+    color: black;
+    ;
+    background: linear-gradient(45deg, rgb(244, 248, 149) 50%, rgb(252, 157, 210) 50%);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .wrapper .title {
     text-transform: capitalize;
 }
@@ -53,14 +65,21 @@
 
 .wrapper .toggle {
     /* border: 1px solid lightblue; */
-    padding: 1px 5px;
+    padding: 1px 8px;
     border-radius: 5px;
     min-width: 20px;
     text-align: center;
     background: var(--btn);
     cursor: pointer;
+    font-size: 120%;
+    background: linear-gradient(45deg, rgb(244, 248, 149) 50%, rgb(252, 157, 210) 50%);
+    color: black;
 }
 
+.heading .flex {
+    align-items: center;
+    /* gap:10px; */
+}
 
 @media (max-width:720px) {
     .wrapper .details .flex {

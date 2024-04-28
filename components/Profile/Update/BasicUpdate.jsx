@@ -117,7 +117,7 @@ const Basic = ({ profile, setProfile, locationData, ln }) => {
 
   return (
     <>
-      <div className={styles.wrapper} style={{ paddingTop: '70px' }}>
+      <div className={styles.wrapper}>
         {/* <h2 style={{ marginBottom: '10px' }}>Update Your Profile</h2> */}
 
         <div className={styles.heading}>

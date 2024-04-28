@@ -9,6 +9,7 @@ import Script from 'next/script'
 import { getText } from '@/Translation/seo'
 import { useRouter } from 'next/router'
 import { SnackbarProvider } from 'notistack'
+import { useEffect } from 'react'
 
 const site = BASE_URL
 
@@ -18,6 +19,8 @@ export default function App ({ Component, pageProps }) {
   const title = getText('title', ln)
   const description = getText('desc', ln)
   const imageUrl = '/images/match2.png'
+
+  
 
   return (
     <>

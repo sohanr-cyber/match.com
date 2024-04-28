@@ -2,9 +2,13 @@ import React, { useState } from 'react'
 import styles from '../../styles/Profile/Personal.module.css'
 import { getText } from '@/Translation/profile'
 import { isPersonalValid } from '@/utility/validator'
+import EditNoteIcon from '@mui/icons-material/EditNote'
+import { useRouter } from 'next/router'
 
-const Piety = ({ religion, ln, user }) => {
+const Piety = ({ religion, ln, user, myProfile }) => {
   const [open, setOpen] = useState(true)
+  const router = useRouter()
+
   return (
     <div className={styles.wrapper}>
       <div
@@ -12,8 +16,25 @@ const Piety = ({ religion, ln, user }) => {
         style={!isPersonalValid(religion) ? { background: 'red' } : {}}
       >
         <div className={styles.title}>{getText('pr', ln)}</div>
-        <div className={styles.toggle} onClick={() => setOpen(prev => !prev)}>
-          {open ? '-' : '+'}
+        <div className={styles.flex}>
+          {myProfile && (
+            <div
+              className={styles.updateIcon}
+              onClick={() =>
+                router.push(
+                  `/profile/update/${router.query.id}?religion=true`,
+                  undefined,
+                  { scroll: true }
+                )
+              }
+            >
+              <EditNoteIcon />
+            </div>
+          )}
+
+          <div className={styles.toggle} onClick={() => setOpen(prev => !prev)}>
+            {open ? '-' : '+'}
+          </div>
         </div>
       </div>
 

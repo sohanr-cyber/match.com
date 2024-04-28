@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import Personal from '@/components/Profile/Update/PersonalUpdate'
@@ -14,6 +14,7 @@ import BASE_URL from '@/config'
 import { parse } from 'cookie'
 import Activate from '@/components/Profile/Update/Activate'
 import OthersUpdate from '@/components/Profile/Update/OthersUpdate'
+import { useRouter } from 'next/router'
 
 const Update = ({
   user,
@@ -32,26 +33,40 @@ const Update = ({
     heightFeet: parseInt(user.height / 12),
     heightInches: user.height % 12
   })
+  const router = useRouter()
+  console.log({ router })
+
   return (
     <>
-      <Basic
-        profile={profile}
-        setProfile={setProfile}
-        locationData={locationData}
-        ln={locale}
-      />
-      {/* <Personal
-        personal={{
-          ...personal
-        }}
-      /> */}
-      <Education education={{ ...education }} profile={profile} ln={locale} />
-      <Physical physical={{ ...physical }} ln={locale} />
-      <Religion religion={religion} ln={locale} user ={user} />
-      <Address address={address} locationData={locationData} ln={locale} />
-      <Family family={family} ln={locale} />
-      <Expectation expectation={expectation} ln={locale} />
-      <OthersUpdate profile={profile} setProfile={setProfile} ln={locale} />
+      {router.query.basic == 'true' ? (
+        <Basic
+          profile={profile}
+          setProfile={setProfile}
+          locationData={locationData}
+          ln={locale}
+        />
+      ) : router.query.education == 'true' ? (
+        <Education education={{ ...education }} profile={profile} ln={locale} />
+      ) : router.query.religion == 'true' ? (
+        <Religion religion={religion} ln={locale} user={user} />
+      ) : router.query.physical == 'true' ? (
+        <Physical physical={{ ...physical }} ln={locale} />
+      ) : router.query.expectation == 'true' ? (
+        <Expectation expectation={expectation} ln={locale} />
+      ) : router.query.address == 'true' ? (
+        <Address address={address} locationData={locationData} ln={locale} />
+      ) : router.query.family == 'true' ? (
+        <Family family={family} ln={locale} />
+      ) : router.query.others == 'true' ? (
+        <OthersUpdate profile={profile} setProfile={setProfile} ln={locale} />
+      ) : (
+        <Basic
+          profile={profile}
+          setProfile={setProfile}
+          locationData={locationData}
+          ln={locale}
+        />
+      )}
     </>
   )
 }

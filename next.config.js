@@ -46,7 +46,9 @@ const nextConfig = {
         destination: '/api/text/sitemap'
       }
     ]
-  }
+  },
+  trailingSlash: true
+  
 }
 
 module.exports = nextConfig

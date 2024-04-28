@@ -3,15 +3,35 @@ import styles from '../../styles/Profile/Personal.module.css'
 import { getText } from '@/Translation/profile'
 import { englishToBangla, heightToFeet } from '@/utils'
 import Ln from '../utils/Ln'
+import EditNoteIcon from '@mui/icons-material/EditNote'
+import { useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
 
-const Expectation = ({ expectation, ln }) => {
+const Expectation = ({ expectation, ln, myProfile }) => {
   const [open, setOpen] = useState(false)
+  const router = useRouter()
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.heading}>
         <div className={styles.title}>{getText('expectation', ln)} </div>
-        <div className={styles.toggle} onClick={() => setOpen(prev => !prev)}>
-          {open ? '-' : '+'}
+        <div className={styles.flex}>
+          {myProfile && (
+            <div
+              className={styles.updateIcon}
+              onClick={() =>
+                router.push(
+                  `/profile/update/${router.query.id}?expectation=true`
+                )
+              }
+            >
+              <EditNoteIcon />
+            </div>
+          )}
+
+          <div className={styles.toggle} onClick={() => setOpen(prev => !prev)}>
+            {open ? '-' : '+'}
+          </div>
         </div>
       </div>
 

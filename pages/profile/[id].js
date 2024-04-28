@@ -44,6 +44,10 @@ const ProfileDetails = ({
     setIsClient(true)
   }, [])
 
+  const myProfile =
+    (isClient && userInfo?.id == router.query.id) ||
+    userInfo?.profileId == router.query.id
+
   return (
     <>
       <NextSeo title={`Profile ${user?._id} - Muslim Match Maker`} />
@@ -52,35 +56,44 @@ const ProfileDetails = ({
         <div className={styles.left}>
           <Introduction data={user} ln={locale} />
           {/* <Personal personal={personal} /> */}
-          <Physical physical={physical} ln={locale} />
-          <Education education={education} ln={locale} profile={user} />
-          <Piety religion={religion} ln={locale} user={user} />
-          <Address address={address} ln={locale} />
-          <Family family={family} ln={locale} />
-          <Expectation expectation={expectation} ln={locale} />
-          <Others data={user} ln={locale} />
-          {isClient &&
-            (router.query.id != userInfo?.id ||
-              router.query.id != userInfo?.profileId) && (
-              <Action user={user} ln={locale} />
-            )}
-          {isClient &&
-            (router.query.id == userInfo?.id ||
-              router.query.id == userInfo?.profileId) && (
-              <Activate
-                profile={{
-                  user,
-                  address,
-                  religion,
-                  physical,
-                  education,
-                  expectation,
-                  personal,
-                  family
-                }}
-                ln={locale}
-              />
-            )}
+          <Physical physical={physical} ln={locale} myProfile={myProfile} />
+          <Education
+            education={education}
+            ln={locale}
+            profile={user}
+            myProfile={myProfile}
+          />
+          <Piety
+            religion={religion}
+            ln={locale}
+            user={user}
+            myProfile={myProfile}
+          />
+          <Address address={address} ln={locale} myProfile={myProfile} />
+          <Family family={family} ln={locale} myProfile={myProfile} />
+          <Expectation
+            expectation={expectation}
+            ln={locale}
+            myProfile={myProfile}
+          />
+          <Others data={user} ln={locale} myProfile={myProfile} />
+          {!myProfile && <Action user={user} ln={locale} />}
+          {myProfile && (
+            <Activate
+              profile={{
+                user,
+                address,
+                religion,
+                physical,
+                education,
+                expectation,
+                personal,
+                family
+              }}
+              ln={locale}
+              myProfile={myProfile}
+            />
+          )}
         </div>
         <div className={styles.right}>
           {/* <Similar similar={similar} /> */}

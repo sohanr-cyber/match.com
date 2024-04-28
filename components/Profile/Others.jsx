@@ -1,15 +1,32 @@
 import React, { useState } from 'react'
 import styles from '../../styles/Profile/Personal.module.css'
 import { getText } from '@/Translation/profile'
+import EditNoteIcon from '@mui/icons-material/EditNote'
+import { useRouter } from 'next/router'
 
-const Others = ({ data, ln }) => {
+const Others = ({ data, ln, myProfile }) => {
   const [open, setOpen] = useState(false)
+  const router = useRouter()
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.heading}>
         <div className={styles.title}>{getText('others', ln)}</div>
-        <div className={styles.toggle} onClick={() => setOpen(prev => !prev)}>
-          {open ? '-' : '+'}
+        <div className={styles.flex}>
+          {myProfile && (
+            <div
+              className={styles.updateIcon}
+              onClick={() =>
+                router.push(`/profile/update/${router.query.id}?others=true`)
+              }
+            >
+              <EditNoteIcon />
+            </div>
+          )}
+
+          <div className={styles.toggle} onClick={() => setOpen(prev => !prev)}>
+            {open ? '-' : '+'}
+          </div>
         </div>
       </div>
       {open && (
