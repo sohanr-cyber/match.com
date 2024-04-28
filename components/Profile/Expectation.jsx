@@ -21,7 +21,7 @@ const Expectation = ({ expectation, ln, myProfile }) => {
               className={styles.updateIcon}
               onClick={() =>
                 router.push(
-                  `/profile/update/${router.query.id}?expectation=true`
+                  `/profile/update/${router.query.id}?update=expectation`
                 )
               }
             >

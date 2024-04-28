@@ -22,7 +22,7 @@ const Address = ({ address, ln, myProfile }) => {
             <div
               className={styles.updateIcon}
               onClick={() =>
-                router.push(`/profile/update/${router.query.id}?address=true`)
+                router.push(`/profile/update/${router.query.id}?update=address`)
               }
             >
               <EditNoteIcon />

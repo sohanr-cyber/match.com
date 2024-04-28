@@ -22,6 +22,7 @@ import Moment from 'react-moment'
 import { getText } from '@/Translation/profile'
 import Ln from '@/components/utils/Ln'
 import { showSnackBar } from '@/redux/notistackSlice'
+import { routes } from '@/utility/data'
 
 const Basic = ({ profile, setProfile, locationData, ln }) => {
   const router = useRouter()
@@ -85,6 +86,14 @@ const Basic = ({ profile, setProfile, locationData, ln }) => {
       )
 
       dispatch(finishLoading())
+      const index = routes.findIndex(i => i.query == router.query.update)
+      index + 1 >= routes.length
+        ? router.push(`/profile//${router.query.id}`)
+        : router.push(
+            `/profile/update/${router.query.id}?update=${
+              routes[index + 1]?.query
+            }`
+          )
     } catch (error) {
       dispatch(
         showSnackBar({

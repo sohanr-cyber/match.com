@@ -1,32 +1,7 @@
 import React from 'react'
 import styles from '@/styles/Profile/Update/Basic.module.css'
 import { useRouter } from 'next/router'
-
-const routes = [
-  { name: 'Basic', query: 'basic' },
-  {
-    name: 'Education & Career',
-    query: 'education'
-  },
-  {
-    name: 'Physical',
-    query: 'physical'
-  },
-  {
-    name: 'Personal & Religion',
-    query: 'religion'
-  },
-  { name: 'Address & Contact', query: 'address' },
-  {
-    name: 'Family ',
-    query: 'family'
-  },
-  { name: 'Expectation ', query: 'expectation' },
-  {
-    name: 'Others',
-    query: 'others'
-  }
-]
+import { routes } from '@/utility/data'
 
 const Routes = () => {
   const router = useRouter()
@@ -37,12 +12,14 @@ const Routes = () => {
           <span
             key={index}
             style={
-              router.query[i.query] == 'true'
+              router.query.update == i.query
                 ? { background: 'black', color: 'white' }
                 : {}
             }
             onClick={() =>
-              router.push(`/profile/update/${router.query.id}?${i.query}=true`)
+              router.push(
+                `/profile/update/${router.query.id}?update=${i.query}`
+              )
             }
           >
             {i.name}

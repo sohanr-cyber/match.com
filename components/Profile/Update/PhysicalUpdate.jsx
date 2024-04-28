@@ -20,6 +20,7 @@ import Ln from '../../utils/Ln'
 import { getText } from '@/Translation/profile'
 import { showSnackBar } from '@/redux/notistackSlice'
 import { isPhysicalValid } from '@/utility/validator'
+import { routes } from '@/utility/data'
 
 const Basic = ({ physical: data, ln }) => {
   const [physical, setPhysical] = useState({
@@ -79,6 +80,14 @@ const Basic = ({ physical: data, ln }) => {
           }
         })
       )
+      const index = routes.findIndex(i => i.query == router.query.update)
+      index + 1 >= routes.length
+        ? router.push(`/profile//${router.query.id}`)
+        : router.push(
+            `/profile/update/${router.query.id}?update=${
+              routes[index + 1]?.query
+            }`
+          )
     } catch (error) {
       dispatch(finishLoading())
       dispatch(

@@ -22,7 +22,7 @@ const Family = ({ family, ln, myProfile }) => {
             <div
               className={styles.updateIcon}
               onClick={() =>
-                router.push(`/profile/update/${router.query.id}?family=true`)
+                router.push(`/profile/update/${router.query.id}?update=family`)
               }
             >
               <EditNoteIcon />

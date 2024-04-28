@@ -18,6 +18,7 @@ import Moment from 'react-moment/dist'
 import { getText } from '@/Translation/profile'
 import { showSnackBar } from '@/redux/notistackSlice'
 import { isPersonalValid } from '@/utility/validator'
+import { routes } from '@/utility/data'
 
 const Religion = ({ religion: data, ln, user }) => {
   const [religion, setReligion] = useState({
@@ -77,6 +78,14 @@ const Religion = ({ religion: data, ln, user }) => {
       )
       setReligion(data)
       dispatch(finishLoading())
+      const index = routes.findIndex(i => i.query == router.query.update)
+      index + 1 >= routes.length
+        ? router.push(`/profile//${router.query.id}`)
+        : router.push(
+            `/profile/update/${router.query.id}?update=${
+              routes[index + 1]?.query
+            }`
+          )
     } catch (error) {
       dispatch(
         showSnackBar({

@@ -160,7 +160,7 @@ const Introduction = ({ data: profile, ln }) => {
                       style={{ color: 'green' }}
                       onClick={() =>
                         router.push(
-                          `/profile/update/${profile.profileId}?basic=true`
+                          `/profile/update/${profile.profileId}?update=basic`
                         )
                       }
                     />

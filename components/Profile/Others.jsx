@@ -17,7 +17,7 @@ const Others = ({ data, ln, myProfile }) => {
             <div
               className={styles.updateIcon}
               onClick={() =>
-                router.push(`/profile/update/${router.query.id}?others=true`)
+                router.push(`/profile/update/${router.query.id}?update=others`)
               }
             >
               <EditNoteIcon />

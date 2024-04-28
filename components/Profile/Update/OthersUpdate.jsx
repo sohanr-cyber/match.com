@@ -18,6 +18,7 @@ import axios from 'axios'
 import Moment from 'react-moment/dist'
 import { getText } from '@/Translation/profile'
 import { showSnackBar } from '@/redux/notistackSlice'
+import { routes } from '@/utility/data'
 
 const OthersUpdate = ({ profile, setProfile, ln }) => {
   const dispatch = useDispatch()
@@ -48,6 +49,14 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
       )
       setProfile(data)
       dispatch(finishLoading())
+      const index = routes.findIndex(i => i.query == router.query.update)
+      index + 1 >= routes.length
+        ? router.push(`/profile//${router.query.id}`)
+        : router.push(
+            `/profile/update/${router.query.id}?update=${
+              routes[index + 1]?.query
+            }`
+          )
     } catch (error) {
       dispatch(
         showSnackBar({

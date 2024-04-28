@@ -22,7 +22,7 @@ const Piety = ({ religion, ln, user, myProfile }) => {
               className={styles.updateIcon}
               onClick={() =>
                 router.push(
-                  `/profile/update/${router.query.id}?religion=true`,
+                  `/profile/update/${router.query.id}?update=religion`,
                   undefined,
                   { scroll: true }
                 )

@@ -19,6 +19,7 @@ import { getText } from '@/Translation/profile'
 import Ln from '@/components/utils/Ln'
 import { showSnackBar } from '@/redux/notistackSlice'
 import { isFamilyValid } from '@/utility/validator'
+import { routes } from '@/utility/data'
 
 const Religion = ({ family: data, ln }) => {
   const [family, setFamily] = useState({
@@ -65,6 +66,14 @@ const Religion = ({ family: data, ln }) => {
       )
       setFamily(data)
       dispatch(finishLoading())
+      const index = routes.findIndex(i => i.query == router.query.update)
+      index + 1 >= routes.length
+        ? router.push(`/profile//${router.query.id}`)
+        : router.push(
+            `/profile/update/${router.query.id}?update=${
+              routes[index + 1]?.query
+            }`
+          )
     } catch (error) {
       dispatch(
         showSnackBar({

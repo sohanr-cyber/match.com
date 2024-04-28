@@ -19,6 +19,7 @@ import Ln from '@/components/utils/Ln'
 import { englishToBangla } from '@/utils'
 import { showSnackBar } from '@/redux/notistackSlice'
 import { isEducationValid } from '@/utility/validator'
+import { routes } from '@/utility/data'
 
 const Education = ({ education: data, profile, ln }) => {
   const [education, setEducation] = useState({ ...data })
@@ -55,6 +56,7 @@ const Education = ({ education: data, profile, ln }) => {
       setEducation(data)
 
       dispatch(finishLoading())
+
       dispatch(
         showSnackBar({
           message: 'Updated Succesfully ',
@@ -63,6 +65,15 @@ const Education = ({ education: data, profile, ln }) => {
           }
         })
       )
+
+      const index = routes.findIndex(i => i.query == router.query.update)
+      index + 1 >= routes.length
+        ? router.push(`/profile//${router.query.id}`)
+        : router.push(
+            `/profile/update/${router.query.id}?update=${
+              routes[index + 1]?.query
+            }`
+          )
     } catch (error) {
       dispatch(finishLoading())
       dispatch(

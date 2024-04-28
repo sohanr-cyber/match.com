@@ -26,7 +26,9 @@ const Physical = ({ physical, ln, myProfile }) => {
             <div
               className={styles.updateIcon}
               onClick={() =>
-                router.push(`/profile/update/${router.query.id}?physical=true`)
+                router.push(
+                  `/profile/update/${router.query.id}?update=physical`
+                )
               }
             >
               <EditNoteIcon />

@@ -47,19 +47,19 @@ const Update = ({
           locationData={locationData}
           ln={locale}
         />
-      ) : router.query.education == 'true' ? (
+      ) : router.query.update == 'education' ? (
         <Education education={{ ...education }} profile={profile} ln={locale} />
-      ) : router.query.religion == 'true' ? (
+      ) : router.query.update == 'religion' ? (
         <Religion religion={religion} ln={locale} user={user} />
-      ) : router.query.physical == 'true' ? (
+      ) : router.query.update == 'physical' ? (
         <Physical physical={{ ...physical }} ln={locale} />
-      ) : router.query.expectation == 'true' ? (
+      ) : router.query.update == 'expectation' ? (
         <Expectation expectation={expectation} ln={locale} />
-      ) : router.query.address == 'true' ? (
+      ) : router.query.update == 'address' ? (
         <Address address={address} locationData={locationData} ln={locale} />
-      ) : router.query.family == 'true' ? (
+      ) : router.query.update == 'family' ? (
         <Family family={family} ln={locale} />
-      ) : router.query.others == 'true' ? (
+      ) : router.query.update == 'others' ? (
         <OthersUpdate profile={profile} setProfile={setProfile} ln={locale} />
       ) : (
         <Basic
