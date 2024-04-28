@@ -31,7 +31,6 @@ const ProfileDetails = ({
   physical,
   education,
   expectation,
-  personal,
   family,
   locale
 }) => {
@@ -55,7 +54,6 @@ const ProfileDetails = ({
       <div className={styles.wrapper} style={{ minHeight: '100vh' }}>
         <div className={styles.left}>
           <Introduction data={user} ln={locale} />
-          {/* <Personal personal={personal} /> */}
           <Physical physical={physical} ln={locale} myProfile={myProfile} />
           <Education
             education={education}
@@ -87,7 +85,6 @@ const ProfileDetails = ({
                 physical,
                 education,
                 expectation,
-                personal,
                 family
               }}
               ln={locale}
@@ -128,7 +125,6 @@ export async function getServerSideProps (context) {
       physical,
       education,
       expectation,
-      personal,
       family
     } = data
 
@@ -140,7 +136,6 @@ export async function getServerSideProps (context) {
         physical,
         education,
         expectation,
-        personal,
         family,
         locale
       }
@@ -155,7 +150,6 @@ export async function getServerSideProps (context) {
         physical: {},
         education: {},
         expectation: {},
-        personal: {},
         family: {},
         locale
       } // Return an empty props object or handle errors accordingly

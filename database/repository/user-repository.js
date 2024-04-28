@@ -100,11 +100,13 @@ class UserRepository {
     }
   }
 
-  async FindUserProfileById (userId) {
+  async FindUserProfileById (userId, update) {
     try {
       await db.connect()
       let existingUser
-      
+
+      console.log({ userId, update })
+
       if (isValidObjectId(userId)) {
         existingUser = await User.findOne(
           { _id: userId }, // Wrap conditions in an array
@@ -118,13 +120,48 @@ class UserRepository {
       }
 
       userId = existingUser._id
-      const family = await this.family.FindFamilyByUserId(userId)
-      const address = await this.address.FindAddressByUserId(userId)
-      const religion = await this.religion.FindReligionByUserId(userId)
-      const physical = await this.physical.FindPhysicalByUserId(userId)
-      const education = await this.education.FindEducationByUserId(userId)
-      const expectation = await this.expectation.FindExpectationByUserId(userId)
-      const personal = await this.personal.FindPersonalByUserId(userId)
+
+      let family = {}
+      let address = {}
+      let religion = {}
+
+      let physical = {}
+      let education = {}
+      let expectation = {}
+      // let personal = {}
+
+      switch (update) {
+        case 'basic':
+          break
+        case 'family':
+          family = await this.family.FindFamilyByUserId(userId)
+          break
+        case 'address':
+          address = await this.address.FindAddressByUserId(userId)
+          break
+        case 'religion':
+          religion = await this.religion.FindReligionByUserId(userId)
+          break
+
+        case 'physical':
+          physical = await this.physical.FindPhysicalByUserId(userId)
+          break
+
+        case 'education':
+          education = await this.education.FindEducationByUserId(userId)
+          break
+        case 'expectation':
+          expectation = await this.expectation.FindExpectationByUserId(userId)
+          break
+        default:
+          family = await this.family.FindFamilyByUserId(userId)
+          address = await this.address.FindAddressByUserId(userId)
+          religion = await this.religion.FindReligionByUserId(userId)
+          physical = await this.physical.FindPhysicalByUserId(userId)
+          education = await this.education.FindEducationByUserId(userId)
+          expectation = await this.expectation.FindExpectationByUserId(userId)
+      }
+
       existingUser.click += 1
       await existingUser.save()
       await db.disconnect()
@@ -136,8 +173,8 @@ class UserRepository {
         religion,
         physical,
         education,
-        expectation,
-        personal
+        expectation
+        // personal
       }
     } catch (error) {
       console.log(error)

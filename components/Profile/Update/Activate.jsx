@@ -18,7 +18,7 @@ const Activate = ({ profile }) => {
       // profile.expectation.minAge &&
       profile.education.educationType &&
       profile.physical.skinColor &&
-      profile.personal.gender &&
+      profile.user.gender &&
       profile.family.father
       ? true
       : false

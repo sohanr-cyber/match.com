@@ -24,7 +24,6 @@ const Update = ({
   physical,
   education,
   expectation,
-  personal,
   family,
   locationData,
   locale
@@ -83,18 +82,21 @@ const fetchData = async () => {
 }
 
 export async function getServerSideProps (context) {
-  const { id } = context.query
+  const { id, update } = context.query
   const { req, locale } = context
   const cookies = parse(req.headers.cookie || '')
   console.log({ cookies })
   const userInfo = cookies['userInfo']
 
   try {
-    const { data } = await axios.get(`${BASE_URL}/api/auth/${id}`, {
-      headers: {
-        Authorization: 'Bearer ' + JSON.parse(userInfo).token
+    const { data } = await axios.get(
+      `${BASE_URL}/api/auth/${id}?update=${update || ''}`,
+      {
+        headers: {
+          Authorization: 'Bearer ' + JSON.parse(userInfo).token
+        }
       }
-    })
+    )
     const {
       existingUser,
       address,
@@ -102,11 +104,11 @@ export async function getServerSideProps (context) {
       physical,
       education,
       expectation,
-      personal,
       family
     } = data
 
-    const locationData = await fetchData()
+    const locationData =
+      update == 'basic' || update == 'address' ? await fetchData() : {}
 
     return {
       props: {
@@ -116,7 +118,6 @@ export async function getServerSideProps (context) {
         physical,
         education,
         expectation,
-        personal,
         family,
         locationData,
         locale
