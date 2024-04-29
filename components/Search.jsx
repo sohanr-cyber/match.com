@@ -19,6 +19,7 @@ import { ImportExport } from '@mui/icons-material'
 import axios from 'axios'
 import Ln from './utils/Ln'
 import { getText } from '@/Translation/search'
+import BASE_URL from '@/config'
 const Search = ({ setOpenFilter, locationData }) => {
   const router = useRouter()
   const [filters, setFilters] = useState([
@@ -57,7 +58,7 @@ const Search = ({ setOpenFilter, locationData }) => {
     }
     try {
       const { data } = await axios.get(
-        `https://bdapis.com/api/v1.1/division/${city}`
+        `${BASE_URL}/api/location/division/${city.toLowerCase()}`
       )
       setLocations({
         ...locations,
@@ -472,10 +473,9 @@ const Search = ({ setOpenFilter, locationData }) => {
                     onClick={() =>
                       updateRoute({
                         skinColors: router.query.skinColors
-                          ? [
-                              ...router.query.skinColors.split(','),
-                              item
-                            ].join(',')
+                          ? [...router.query.skinColors.split(','), item].join(
+                              ','
+                            )
                           : [item].join(',')
                       })
                     }

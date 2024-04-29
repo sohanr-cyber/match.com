@@ -11,6 +11,7 @@ import {
 } from '@/pages/api/auth/data'
 import SearchIcon from '@mui/icons-material/Search'
 import Ln from './Ln'
+import BASE_URL from '@/config'
 
 const Box = ({ data }) => {
   const [city, setCity] = useState('All')
@@ -33,7 +34,7 @@ const Box = ({ data }) => {
         return
       }
       const { data } = await axios.get(
-        `https://bdapis.com/api/v1.1/division/${city}`
+        `${BASE_URL}/api/location/division/${city.toLowerCase()}`
       )
       setDistricts(data.data)
       // setCurrentDistrict(data.data[0].district);

@@ -26,7 +26,7 @@ export default function Home ({ data, recent }) {
 
 const fetchData = async () => {
   try {
-    const { data } = await axios.get('https://bdapis.com/api/v1.1/divisions')
+    const { data } = await axios.get(`${BASE_URL}/api/location/divisions`)
     return data
   } catch (error) {
     console.log(error)
