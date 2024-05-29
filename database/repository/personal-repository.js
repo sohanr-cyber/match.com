@@ -54,7 +54,7 @@ class PersonalRepository {
   async DeletePersonalById (id) {
     try {
       await db.connect()
-      const deletedPersonal = await Personal.findByIdAndRemove({ _id: id })
+      const deletedPersonal = await Personal.deleteOne({ _id: id })
       return deletedPersonal
     } catch (error) {
       console.log(error)

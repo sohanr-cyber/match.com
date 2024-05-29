@@ -25,6 +25,18 @@ const Users = ({ title, dashboard, users }) => {
     })
   }
 
+  const remove = async userId => {
+    try {
+      dispatch(startLoading())
+      const { data } = await axios.delete(`/api/user/${userId}`)
+      setFilteredUsers(filteredUsers.filter(item => item._id != userId))
+      dispatch(finishLoading())
+    } catch (error) {
+      dispatch(finishLoading())
+      console.log(error)
+    }
+  }
+
   return (
     <>
       {!dashboard && <h2>{title}</h2>}
@@ -52,17 +64,12 @@ const Users = ({ title, dashboard, users }) => {
                 {[
                   // 'Select Order Status',
                   'All',
-                  'Pending',
-                  'Confirmed',
-                  'Delivered'
+                  'Female',
+                  'Male'
                 ].map((item, index) => (
                   <option key={index}>{item}</option>
                 ))}
               </select>
-              <button onClick={() => router.push('/admin/product/create')}>
-                <span className={styles.plus__btn}>Add Product</span>
-                <span className={styles.plus__icon}>+</span>
-              </button>
             </div>
           </div>
         )}
@@ -115,7 +122,7 @@ const Users = ({ title, dashboard, users }) => {
                     {user.gender}
                   </td>
                   <td className={styles.action}>
-                    <span onClick={() => remove(user._id)}>Delete</span>
+                    <span onDoubleClick={() => remove(user._id)}>Delete</span>
                     <span onClick={() => router.push(`/profile/${user._id}`)}>
                       {' '}
                       View

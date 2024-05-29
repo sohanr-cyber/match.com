@@ -4,6 +4,7 @@ import Address from '../model/Address'
 class AddressRepository {
   async CreateAddress (DataToCreate) {
     try {
+      await db.connect()
       const instance = new Address({
         ...DataToCreate
       })
@@ -18,7 +19,7 @@ class AddressRepository {
     try {
       await db.connect()
       const existingAddress = await Address.findOne({ user: userId })
-      console.log(existingAddress)
+      await db.disconnect()
       return existingAddress
     } catch (error) {
       console.log(error)
@@ -38,6 +39,8 @@ class AddressRepository {
           new: true
         }
       )
+      await db.disconnect()
+
       if (UpdateAddress) {
         return UpdateAddress
       } else {
@@ -51,13 +54,13 @@ class AddressRepository {
   async DeleteAddressById (id) {
     try {
       await db.connect()
-      const deletedAddress = await Address.findByIdAndRemove({ _id: id })
+      const deletedAddress = await Address.deleteOne({ _id: id })
+      await db.disconnect()
       return deletedAddress
     } catch (error) {
       console.log(error)
     }
   }
-  
 }
 
 export default AddressRepository

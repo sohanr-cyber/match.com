@@ -49,7 +49,7 @@ class EducationRepository {
   async DeleteEducationById (id) {
     try {
       await db.connect()
-      const deletedEducation = await Education.findByIdAndRemove({ _id: id })
+      const deletedEducation = await Education.deleteOne({ _id: id })
       return deletedEducation
     } catch (error) {
       console.log(error)

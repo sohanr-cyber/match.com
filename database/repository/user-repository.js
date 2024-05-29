@@ -105,7 +105,7 @@ class UserRepository {
       await db.connect()
       let existingUser
 
-      console.log({ userId, update })
+      // console.log({ userId, update })
 
       if (isValidObjectId(userId)) {
         existingUser = await User.findOne(
@@ -349,7 +349,16 @@ class UserRepository {
   async DeleteUserById (id) {
     try {
       await db.connect()
-      const deletedUser = await User.findByIdAndRemove({ _id: id })
+      const deletedUser = await User.deleteOne({ _id: id })
+      const deletedFamily = await this.family.DeleteFamilyById(id)
+      const deletedEducation = await this.education.DeleteEducationById(id)
+      const deletedAddress = await this.address.DeleteAddressById(id)
+      const deletedReligion = await this.religion.DeleteReligionById(id)
+      const deletedPhysical = await this.physical.DeletePhysicalById(id)
+      const deletedExpectation = await this.expectation.DeleteExpectationById(
+        id
+      )
+
       await db.disconnect()
 
       return deletedUser

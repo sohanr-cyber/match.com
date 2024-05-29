@@ -8,7 +8,8 @@ if (process.env.NODE_ENV !== 'production') {
   PASSWORD = process.env.GMAIL_PASS_DEV
 } else {
   // BASE_URL = 'https://main.dsxlpz487o1xu.amplifyapp.com'
-  BASE_URL = 'https://www.muslimmatchmaker.xyz'
+  // BASE_URL = 'https://www.muslimmatchmaker.xyz'
+  BASE_URL = 'https://www.muslimmatchmaker.life'
   MONGODB_URI = process.env.MONGODB_URI_PRODUCTION
   // MONGODB_URI = process.env.MONGODB_URI
 

@@ -9,7 +9,7 @@ import { mail, phone } from '@/const'
 const Footer = () => {
   const router = useRouter()
   const ln = router.locale
-  console.log(router)
+  // console.log(router)
   return (
     <>
       <div className={styles.wrapper}>

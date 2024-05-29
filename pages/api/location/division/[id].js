@@ -1,7 +1,6 @@
 import { districts } from '@/utility/districts'
 import fs from 'fs'
 import nextConnect from 'next-connect'
-import { Router } from 'next/router'
 
 const handler = nextConnect()
 
@@ -15,5 +14,6 @@ handler.get(async (req, res) => {
     console.log(error)
   }
 })
+
 
 export default handler

@@ -11,7 +11,7 @@ const Action = ({ user }) => {
   const router = useRouter()
   const ln = router.locale
 
-  console.log(user)
+  // console.log(user)
   return (
     <div className={styles.wrapper}>
       {' '}

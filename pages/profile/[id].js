@@ -32,13 +32,15 @@ const ProfileDetails = ({
   education,
   expectation,
   family,
-  locale
+  locale,
+  startTime,
+  endTime
 }) => {
-  console.log({ address })
   const userInfo = useSelector(state => state.user.userInfo)
   const router = useRouter()
   const [isClient, setIsClient] = useState(false)
 
+  console.log(`page loading time ${new Date() - startTime}ms`)
   useEffect(() => {
     setIsClient(true)
   }, [])
@@ -101,23 +103,26 @@ const ProfileDetails = ({
 }
 
 export default ProfileDetails
-
 export async function getServerSideProps (context) {
   const { id } = context.query
-  const { locale } = context
-  const { req } = context
+  const { locale, req } = context
   const cookies = parse(req.headers.cookie || '')
-  console.log({ cookies })
   const userInfo = cookies['userInfo']
 
   try {
-    const { data } = userInfo
-      ? await axios.get(`${BASE_URL}/api/auth/${id}`, {
-          headers: {
-            Authorization: `Bearer ${JSON.parse(userInfo)?.token}`
-          }
-        })
-      : await axios.get(`${BASE_URL}/api/auth/${id}`)
+    const startTime = Date.now()
+    console.log({ startTime })
+    const { data } = await axios.get(`${BASE_URL}/api/auth/${id}`, {
+      headers: userInfo
+        ? { Authorization: `Bearer ${JSON.parse(userInfo)?.token}` }
+        : undefined
+    })
+
+    const endTime = Date.now()
+    console.log(
+      `Data fetching time in getServerSideProps: ${endTime - startTime}ms`
+    )
+
     const {
       existingUser,
       address,
@@ -137,7 +142,9 @@ export async function getServerSideProps (context) {
         education,
         expectation,
         family,
-        locale
+        locale,
+        startTime,
+        endTime
       }
     }
   } catch (error) {
@@ -152,7 +159,7 @@ export async function getServerSideProps (context) {
         expectation: {},
         family: {},
         locale
-      } // Return an empty props object or handle errors accordingly
+      }
     }
   }
 }

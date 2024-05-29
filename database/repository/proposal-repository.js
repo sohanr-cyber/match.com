@@ -128,7 +128,7 @@ class ProposalRepository {
   async DeleteProposalById (id) {
     try {
       await db.connect()
-      const deletedProposal = await Proposal.findOneAndDelete({ _id: id })
+      const deletedProposal = await Proposal.deleteOne({ _id: id })
       await db.disconnect()
 
       return deletedProposal

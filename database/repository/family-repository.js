@@ -54,7 +54,7 @@ class FamilyRepository {
   async DeleteFamilyById (id) {
     try {
       await db.connect()
-      const deletedFamily = await Family.findByIdAndRemove({ _id: id })
+      const deletedFamily = await Family.deleteOne({ _id: id })
       return deletedFamily
     } catch (error) {
       console.log(error)

@@ -97,7 +97,7 @@ handler.get(async (req, res) => {
 
     if (universityNames && universityNames !== 'All')
       filters.institute = { $in: universityNames.split(',') }
-    console.log({ filters })
+    console.log({ filters, time: new Date() })
 
     if (educationalStatuses && educationalStatuses !== 'All')
       filters.education = { $in: educationalStatuses.split(',') }

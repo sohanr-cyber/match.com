@@ -30,7 +30,6 @@ function hideSensitiveInformation (userObject, reqUserId) {
   // newUserObject.existingUser.saverIds = "*****";
 
   // Hide sensitive information in 'personal'
- 
 
   newUserObject.address.phone = '*****'
   newUserObject.address.email = '*****'
@@ -133,7 +132,7 @@ class UserService {
   }
 
   async FindUserProfileById (userId, reqUserId, update) {
-    console.log({ userId, reqUserId })
+    // console.log({ userId, reqUserId })
     const existingUser = await this.repository.FindUserProfileById(
       userId,
       update
@@ -188,6 +187,10 @@ class UserService {
 
   async RetrieveSavedUsers (UserId) {
     const result = await this.repository.RetrieveSavedUsers(UserId)
+    return result
+  }
+  async DeleteUserById (userId) {
+    const result = await this.repository.DeleteUserById(userId)
     return result
   }
 }

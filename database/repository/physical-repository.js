@@ -50,7 +50,7 @@ class PhysicalRepository {
   async DeletePhysicalById (id) {
     try {
       await db.connect()
-      const deletedPhysical = await Physical.findByIdAndRemove({ _id: id })
+      const deletedPhysical = await Physical.deleteOne({ _id: id })
       return deletedPhysical
     } catch (error) {
       console.log(error)

@@ -105,7 +105,12 @@ const userSchema = mongoose.Schema(
     phone: { type: String },
     isVerified: { type: Boolean, default: false },
     verificationCode: { type: String },
-    expirationTime: { type: Date }
+    expirationTime: { type: Date },
+    role: {
+      type: String,
+      default: 'user',
+      enum: ['user', 'admin', 'moderator', 'premium_user']
+    }
   },
   { timestamps: true }
 )

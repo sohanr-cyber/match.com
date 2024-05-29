@@ -49,7 +49,7 @@ class ExpectationRepository {
   async DeleteExpectationById (id) {
     try {
       await db.connect()
-      const deletedExpectation = await Expectation.findByIdAndRemove({
+      const deletedExpectation = await Expectation.deleteOne({
         _id: id
       })
       return deletedExpectation

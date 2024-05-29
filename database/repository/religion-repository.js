@@ -19,7 +19,6 @@ class ReligionRepository {
     try {
       await db.connect()
       const existingReligion = await Religion.findOne({ user: userId })
-      console.log({ existingReligion })
       return existingReligion
     } catch (error) {
       console.log({ error })
@@ -55,7 +54,7 @@ class ReligionRepository {
   async DeleteReligionById (id) {
     try {
       await db.connect()
-      const deletedReligion = await Religion.findByIdAndRemove({ _id: id })
+      const deletedReligion = await Religion.deleteOne({ _id: id })
       return deletedReligion
     } catch (error) {
       console.log(error)
