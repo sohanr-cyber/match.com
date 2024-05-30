@@ -18,7 +18,7 @@ export default function App ({ Component, pageProps }) {
   const ln = router.locale
   const title = getText('title', ln)
   const description = getText('desc', ln)
-  const imageUrl = '/images/match.png'
+  const imageUrl = '/images/M.png'
 
   
 
