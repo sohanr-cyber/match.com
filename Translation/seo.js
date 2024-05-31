@@ -1,7 +1,7 @@
 const dict = {
   title: {
-    en: 'Find Your Perfect Match on Muslim Match Maker - Islamic Matrimony Site',
-    bn: 'Muslim Match Maker - ইসলামিক ম্যাট্রিমনি সাইটে আপনার নিখুঁত মিল খুঁজুন'
+    en: 'Muslim Match Maker  | Find Your Ideal Islamic  Partner',
+    bn: 'Muslim Match Maker | আপনার আদর্শ ইসলামিক বিবাহ সঙ্গী খুঁজুন'
   },
   desc: {
     en: "Welcome to Muslim Match Maker, your trusted platform for Islamic matrimony. Finding a life partner who shares your faith, values, and cultural background is now easier than ever. Our platform is designed to connect Muslim singles worldwide, facilitating meaningful connections that lead to lifelong companionship and happiness. Whether you're looking for love, companionship, or marriage, Muslim Match Maker is here to help you find your perfect match.",

@@ -42,23 +42,23 @@ const recentUsers = async () => {
   }
 }
 
-export async function getServerSideProps () {
+export async function getStaticProps() {
   try {
-    const data = await fetchData()
-    const recent = await recentUsers()
+    const data = await fetchData();
+    const recent = await recentUsers();
     return {
       props: {
         data,
         recent
       }
-    }
+    };
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return {
       props: {
         data: [],
         recent: []
       }
-    }
+    };
   }
 }

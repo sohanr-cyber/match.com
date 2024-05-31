@@ -1,10 +1,10 @@
 const dict = {
   h1: {
-    en: 'How You Can Coneect With Us',
+    en: 'How Muslim Match Maker Works',
     bn: 'কিভাবে আমাদের সাথে সংযুক্ত হবেন'
   },
   p: {
-    en: 'Get Started In 3 Easy Steps',
+    en: 'Simple Steps to Start Connecting',
     bn: '3 টি সহজ ধাপে শুরু করুন৷'
   },
   c1h: {
