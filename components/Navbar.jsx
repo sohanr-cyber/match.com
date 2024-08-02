@@ -35,7 +35,6 @@ const Navbar = () => {
     router.push('/login')
   }
 
-
   return (
     <div className={styles.wrapper} ref={componentRef}>
       <div className={styles.menu}>
@@ -93,19 +92,37 @@ const Navbar = () => {
         </div>
       </div>
 
-      <div className={styles.right}>
+      <div
+        className={styles.right}
+        style={{ display: 'flex', gap: '10px', alignItems: 'center' }}
+      >
+        <div
+          className={styles.ln}
+          onClick={() =>
+            router.push({ pathname, query }, asPath, {
+              locale: router.locale == 'bn' ? 'en-US' : 'bn'
+            })
+          }
+        >
+          {locale == 'en-US' ? (
+            <Image
+              src='https://cdn-icons-png.flaticon.com/128/3371/3371885.png'
+              width={30}
+              height={30}
+              alt=''
+            />
+          ) : (
+            <Image
+              src='https://cdn-icons-png.flaticon.com/128/555/555417.png'
+              width={25}
+              height={25}
+              alt=''
+            />
+          )}
+        </div>
         {isClient && userInfo ? (
           <div
             className={styles.icon}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '5px',
-              border: '1px solid blue',
-              padding: '3px 5px',
-              borderRadius: '5px',
-              cursor: 'pointer'
-            }}
             onDoubleClick={() => {
               router.push(`/profile/${userInfo.id}`)
             }}
