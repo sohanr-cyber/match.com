@@ -17,7 +17,7 @@ handler.get(async (req, res) => {
 handler.put(async (req, res) => {
   try {
     const service = new AddressService()
-    const id = req.query.id
+    const id = req.user._id
 
     const data = await service.UpdateAddress(id, req.body)
     res.status(200).json(data)

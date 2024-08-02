@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '../../styles/Signin.module.css'
 import Logo from '@/components/utils/Logo'
 import { useRouter } from 'next/router'
@@ -125,7 +125,9 @@ const Verify = () => {
             {error && (
               <div style={{ color: 'red', fontSize: '90%' }}>{error}</div>
             )}
+           
           </form>
+
           <div className={styles.btn} onClick={() => verifyCode()}>
             {getText('verify', ln)}
           </div>

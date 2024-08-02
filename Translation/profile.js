@@ -77,6 +77,11 @@ const dict = {
     en: 'Blood Group',
     bn: 'রক্তের গ্রুপ'
   },
+  kg:{
+    en:"KG",
+    bn:"কেজি"
+  },
+
   hair: {
     en: 'Hair Color',
     bn: 'চুলের রঙ'

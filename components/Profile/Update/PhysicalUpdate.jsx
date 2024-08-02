@@ -125,6 +125,7 @@ const Basic = ({ physical: data, ln }) => {
               onChange={e =>
                 setPhysical({ ...physical, heightFeet: e.target.value })
               }
+              min='0'
             />
             <span> {getText('feet', ln)}</span>
             <input
@@ -133,17 +134,22 @@ const Basic = ({ physical: data, ln }) => {
               onChange={e =>
                 setPhysical({ ...physical, heightInches: e.target.value })
               }
+              min='0'
+              max="11"
             />
             <span>{getText('inches', ln)}</span>
           </div>
         </div>
         <div className={styles.field}>
-          <label>{getText('weight', ln)}</label>
+          <label>
+            {getText('weight', ln)}&nbsp;({getText('kg', ln)})
+          </label>
           <input
             type='Number'
             // placeholder='50kg'
             value={physical.mass}
             onChange={e => setPhysical({ ...physical, mass: e.target.value })}
+            min='0'
           />
         </div>
         <div className={styles.field}>
