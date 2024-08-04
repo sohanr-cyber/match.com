@@ -66,15 +66,16 @@ const Footer = () => {
           >
             {getText('mail', ln)}: <span>{mail}</span>
           </div>
-          <div className={styles.call}>
+          {/* <div className={styles.call}>
             {getText('call', ln)}: <span>{phone}</span>
-          </div>
+          </div> */}
           <div className={styles.social__media__links}>
             <Image
               src={'https://cdn-icons-png.flaticon.com/128/5968/5968764.png'}
               width='35'
               height='35'
               alt=''
+              onClick={() => router.push("https://www.facebook.com/profile.php?id=61563578257362")}
             />
             <Image
               src={'https://cdn-icons-png.flaticon.com/128/3955/3955024.png'}

@@ -78,6 +78,7 @@ const Users = ({ title, dashboard, users }) => {
             <thead>
               <tr>
                 <th>User Id</th>
+                <th>Joined</th>
                 <th style={{ minWidth: '100px' }}> Name</th>
                 <th>City</th>
                 <th>Email</th>
@@ -100,7 +101,15 @@ const Users = ({ title, dashboard, users }) => {
                   >
                     {user._id.split('').slice(0, 9)}...
                   </td>
+                  <td>
+                    {new Date(user.createdAt).toLocaleDateString(undefined, {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })}
+                  </td>
                   <td>{user.name}</td>
+
                   <td>{user.city}</td>
                   <td
                     style={
@@ -126,6 +135,9 @@ const Users = ({ title, dashboard, users }) => {
                     <span onClick={() => router.push(`/profile/${user._id}`)}>
                       {' '}
                       View
+                    </span>
+                    <span onClick={() => router.push(`/profile/${user._id}`)}>
+                       Mail
                     </span>
                   </td>
                   {/* Add more table cells as needed */}
