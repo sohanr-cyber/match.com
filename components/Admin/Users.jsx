@@ -5,12 +5,14 @@ import { useRouter } from 'next/router'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
+import MailBox from '../utils/MailBox'
 
 const Users = ({ title, dashboard, users }) => {
   const [filteredUsers, setFilteredUsers] = useState(users)
   const router = useRouter()
   const [searchQuery, setSearchQuery] = useState(router.query.query)
   const dispatch = useDispatch()
+  const [sendMail, setSendMail] = useState(null)
 
   useEffect(() => {
     setFilteredUsers(users)
@@ -40,6 +42,7 @@ const Users = ({ title, dashboard, users }) => {
   return (
     <>
       {!dashboard && <h2>{title}</h2>}
+      {sendMail && <MailBox recipents={sendMail} close={setSendMail} />}
 
       <div className={styles.wrapper}>
         {dashboard && <h2>{title}</h2>}
@@ -99,7 +102,7 @@ const Users = ({ title, dashboard, users }) => {
                         : { color: 'red' }
                     }
                   >
-                    {user._id.split('').slice(0, 9)}...
+                    {user.profileId}
                   </td>
                   <td>
                     {new Date(user.createdAt).toLocaleDateString(undefined, {
@@ -136,9 +139,7 @@ const Users = ({ title, dashboard, users }) => {
                       {' '}
                       View
                     </span>
-                    <span onClick={() => router.push(`/profile/${user._id}`)}>
-                       Mail
-                    </span>
+                    <span onClick={() => setSendMail([user])}>Mail</span>
                   </td>
                   {/* Add more table cells as needed */}
                 </tr>

@@ -1,4 +1,5 @@
 import { GMAIL, PASSWORD } from '@/config'
+import { sendProposalHtml } from '@/utility/mail'
 import nodemailer from 'nodemailer'
 
 const accountSid = process.env.TWILIO_ACCOUNT_SID
@@ -20,14 +21,20 @@ class Notification {
     })
     this.from = 'MuslimMatchMaker@gmail.com'
   }
-  async sendMail (to) {
+  async sendMail ({ subject, email, message, name,status }) {
     // send mail with defined transport object
     try {
       const info = await this.transporter.sendMail({
         from: this.from,
-        to: to,
-        subject: '', // Subject line
-        html: html() // html body
+        to: email,
+        subject, // Subject line
+        html: sendProposalHtml({
+          recieverEmail: email,
+          subject,
+          status,
+          message,
+          recieverName: name
+        }) // html body
       })
     } catch (error) {
       console.log(error)
@@ -63,7 +70,7 @@ class Notification {
         from: this.from,
         to: recieverEmail,
         subject: 'Muslim Match Maker এ আপনি একটি প্রস্তাব পেয়েছেন', // Subject line
-        html: sendProposalHtml({
+        html: sendProposalHtmll({
           senderName,
           senderId,
           recieverEmail,

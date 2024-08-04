@@ -150,6 +150,8 @@ const body = ({
       recieverId,
       proposalId
     }).body
+  } else if (status === 'message') {
+    content = message
   } else if (status === 'resend') {
     content = prpoposalResend({
       senderName,
