@@ -52,7 +52,8 @@ handler.post(async (req, res) => {
     const token = await GenerateSignature({
       email: user.email,
       _id: user._id,
-      isVerified: user.isVerified
+      isVerified: user.isVerified,
+      
     })
     // Return success response
     return res.status(200).json({
@@ -60,7 +61,8 @@ handler.post(async (req, res) => {
       token,
       name: user.name,
       active: user.active,
-      isVerified: user.isVerified
+      isVerified: user.isVerified,
+      profileId: user.profileId
     })
   } catch (error) {
     console.log(error)

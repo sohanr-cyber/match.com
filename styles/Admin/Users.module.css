@@ -96,6 +96,10 @@
 
 }
 
+.wrapper table tr:nth-child(even) {
+    background-color: skyblue;
+}
+
 .wrapper table th,
 .wrapper table td {
     padding: 5px;
@@ -120,7 +124,7 @@
     border-radius: 5px;
     padding: 3px;
     background: green;
-    color:white;
+    color: white;
     margin: 0 10px;
     margin-left: 0;
     cursor: pointer;
