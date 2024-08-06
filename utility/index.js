@@ -44,11 +44,11 @@ const ValidateSignatureOptional = async req => {
     if (signature) {
       const payload = await jwt.verify(signature.split(' ')[1], APP_SECRET)
       req.user = payload
-      console.log('from if statement')
+      console.log('from authorized user')
       return true
     } else {
       req.user = {}
-      console.log('form else statement')
+      console.log('from un-authorized user')
       return true
     }
 
