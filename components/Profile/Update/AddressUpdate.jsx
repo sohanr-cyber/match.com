@@ -57,7 +57,6 @@ const Basic = ({ locationData, address: data, ln }) => {
       return
     }
     try {
-      setError('')
       dispatch(startLoading())
       const { data } = await axios.put(
         `/api/address/${router.query.id}`,

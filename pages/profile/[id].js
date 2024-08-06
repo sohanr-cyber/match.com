@@ -51,7 +51,7 @@ const ProfileDetails = ({
 
   return (
     <>
-      <NextSeo title={`Profile ${user?._id} - Muslim Match Maker`} />
+      <NextSeo title={`Profile ${user?.profileId} - Muslim Match Maker`} />
 
       <div className={styles.wrapper} style={{ minHeight: '100vh' }}>
         <div className={styles.left}>

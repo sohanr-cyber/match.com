@@ -1,8 +1,10 @@
 import AddressService from '@/services/address-service'
+import { isAuth } from '@/utils'
 import nextConnect from 'next-connect'
 
 const handler = nextConnect()
 
+handler.use(isAuth)
 handler.get(async (req, res) => {
   try {
     const service = new AddressService()

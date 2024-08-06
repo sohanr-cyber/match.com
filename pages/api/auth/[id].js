@@ -26,7 +26,6 @@ handler.get(async (req, res) => {
     await db.connect()
     const service = new UserService()
     const update = req.query.update
-    console.log(req.user._id, 'api')
     const user = await service.FindUserProfileById(
       req.query.id,
       req.user?._id,

@@ -56,6 +56,7 @@ const Religion = ({ family: data, ln }) => {
           }
         }
       )
+      
       dispatch(
         showSnackBar({
           message: 'Updated Succesfully ',

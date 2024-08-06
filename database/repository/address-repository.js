@@ -28,6 +28,7 @@ class AddressRepository {
 
   async UpdateAddress (Id, DataToUpdate) {
     try {
+      console.log('running')
       await db.connect()
 
       const UpdateAddress = await Address.findOneAndUpdate(
