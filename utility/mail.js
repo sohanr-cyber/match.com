@@ -151,7 +151,10 @@ const body = ({
       proposalId
     }).body
   } else if (status === 'message') {
-    content = message
+    content = `${message
+      .split('#')
+      .map(i => `<p>${i}</p>`)
+      .join('')}`
   } else if (status === 'resend') {
     content = prpoposalResend({
       senderName,
