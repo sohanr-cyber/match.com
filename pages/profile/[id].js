@@ -51,7 +51,26 @@ const ProfileDetails = ({
 
   return (
     <>
-      <NextSeo title={`Profile ${user?.profileId} - Muslim Match Maker`} />
+      <NextSeo
+        title={`Profile ${user?.profileId} - Muslim Match Maker`}
+        openGraph={{
+          type: 'website',
+          url: BASE_URL,
+          title: `Profile ${user?.profileId} - Muslim Match Maker`,
+          description: `Profile ${user?.profileId} - Muslim Match Maker`,
+          images: [
+            {
+              url:
+                user.gender == 'Male'
+                  ? './images/muslimboy.png'
+                  : './images/muslimgirl.png',
+              width: 1200,
+              height: 630,
+              alt: 'MuslimMatchMaker'
+            }
+          ]
+        }}
+      />
 
       <div className={styles.wrapper} style={{ minHeight: '100vh' }}>
         <div className={styles.left}>

@@ -88,8 +88,8 @@ handler.get(async (req, res) => {
   try {
     await db.connect()
     const users = await User.find({})
-      .limit(parseInt(50))
-      .sort({ createdAt: -1 })
+      // .limit(parseInt(50))
+      // .sort({ createdAt: -1 })
       .exec()
 
     res.status(200).json(users)
