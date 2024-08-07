@@ -45,6 +45,9 @@ const ProfileDetails = ({
     setIsClient(true)
   }, [])
 
+  const imageUrl =
+    user.gender == 'Male' ? '/images/muslimboy.png' : '/images/muslimgirl.png'
+
   const myProfile =
     (isClient && userInfo?.id == router.query.id) ||
     userInfo?.profileId == router.query.id
@@ -60,10 +63,8 @@ const ProfileDetails = ({
           description: `Profile ${user?.profileId} - Muslim Match Maker`,
           images: [
             {
-              url:
-                user.gender == 'Male'
-                  ? './images/muslimboy.png'
-                  : './images/muslimgirl.png',
+              url: imageUrl,
+
               width: 1200,
               height: 630,
               alt: 'MuslimMatchMaker'
