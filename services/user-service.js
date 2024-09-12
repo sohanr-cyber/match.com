@@ -47,18 +47,25 @@ class UserService {
 
   async SignUp (userInputs) {
     const { email, password, name, gender } = userInputs
+
+    // Check if user already exists
     const existingUser = await this.repository.FindUser({ email })
     if (existingUser) {
-      return FormateData({ error: 'Email Already Exist !' })
+      return FormateData({ error: 'Email Already Exist!' })
     }
-    let salt = await GenerateSalt()
-    let userPassword = await GeneratePassword(password, salt)
+
+    // Run independent operations concurrently
+    const [salt, profileId] = await Promise.all([
+      GenerateSalt(),
+      this.repository.generateId()
+    ])
+    const userPassword = await GeneratePassword(password, salt)
     const verificationCode = generateVerificationCode(6)
+
     const expirationTime = new Date()
     expirationTime.setMinutes(expirationTime.getMinutes() + 5)
 
-    const profileId = await this.repository.generateId()
-
+    // Create user
     const existUser = await this.repository.CreateUser({
       email,
       password: userPassword,
@@ -69,19 +76,24 @@ class UserService {
       expirationTime,
       profileId
     })
-    console.log({ existUser })
-    existUser &&
-      (await this.notification.sendCodeToMail({
+
+    if (existUser) {
+      // Sending email doesn't need to block the next steps
+      this.notification.sendCodeToMail({
         recieverEmail: existUser.email,
         recieverName: existUser.name,
         recieverId: existUser._id,
         verificationCode: existUser.verificationCode
-      }))
+      })
+    }
+
+    // Generate token
     const token = await GenerateSignature({
       email: email,
       _id: existUser._id,
       isVerified: existUser.isVerified
     })
+
     return FormateData({
       id: existUser._id,
       token,

@@ -208,6 +208,7 @@ const datesOfBirth = [
 ]
 
 const sessions = [
+  '2022-23',
   '20021-22',
   '20020-21',
   '20019-20',

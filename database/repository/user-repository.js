@@ -44,15 +44,7 @@ class UserRepository {
 
       const userResult = await user.save()
 
-      const [
-        family,
-        address,
-        religion,
-        physical,
-        education,
-        expectation,
-        personal
-      ] = await Promise.all([
+      Promise.all([
         this.family.CreateFamily({ user: userResult._id }),
         this.address.CreateAddress({ user: userResult._id }),
         this.religion.CreateReligion({ user: userResult._id }),
@@ -67,9 +59,6 @@ class UserRepository {
 
       return userResult
     } catch (error) {
-      await session.abortTransaction()
-      session.endSession()
-
       console.error('Error creating user:', error)
       throw new Error('User creation failed.')
     } finally {
@@ -146,7 +135,7 @@ class UserRepository {
           expectation = await this.expectation.FindExpectationByUserId(userId)
           break
         default:
-          [family, address, religion, physical, education, expectation] =
+          ;[family, address, religion, physical, education, expectation] =
             await Promise.all([
               this.family.FindFamilyByUserId(userId),
               this.address.FindAddressByUserId(userId),
