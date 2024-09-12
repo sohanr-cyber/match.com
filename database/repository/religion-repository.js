@@ -4,7 +4,6 @@ import Religion from '../model/Religion'
 class ReligionRepository {
   async CreateReligion (DataToCreate) {
     try {
-      await db.connect()
       const instance = new Religion({
         ...DataToCreate
       })

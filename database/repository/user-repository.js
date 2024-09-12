@@ -61,8 +61,6 @@ class UserRepository {
     } catch (error) {
       console.error('Error creating user:', error)
       throw new Error('User creation failed.')
-    } finally {
-      await db.disconnect()
     }
   }
 

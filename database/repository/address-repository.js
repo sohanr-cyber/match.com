@@ -4,7 +4,6 @@ import Address from '../model/Address'
 class AddressRepository {
   async CreateAddress (DataToCreate) {
     try {
-      await db.connect()
       const instance = new Address({
         ...DataToCreate
       })
