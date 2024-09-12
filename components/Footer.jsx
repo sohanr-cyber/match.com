@@ -75,7 +75,11 @@ const Footer = () => {
               width='35'
               height='35'
               alt=''
-              onClick={() => router.push("https://www.facebook.com/profile.php?id=61563578257362")}
+              onClick={() =>
+                router.push(
+                  'https://www.facebook.com/profile.php?id=61563578257362'
+                )
+              }
             />
             <Image
               src={'https://cdn-icons-png.flaticon.com/128/3955/3955024.png'}
@@ -92,7 +96,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className={styles.rights}>
+      <div className={styles.rights} style={{ display: 'none' }}>
         <p className={styles.c}>
           <CopyrightIcon />
           2022 All Rights Reserved
@@ -107,7 +111,7 @@ const Footer = () => {
               borderBottom: '1px solid blue',
               paddingBottom: '3px'
             }}
-            onClick={() => router.push('https://quince-tech.vercel.app/')}
+            onClick={() => router.push('https://quince-software.vercel.app')}
           >
             Quince.Tech
           </span>
