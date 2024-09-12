@@ -8,7 +8,6 @@ import FamilyRepository from './family-repository'
 import PersonalRepository from './personal-repository'
 import PhysicalRepository from './physical-repository'
 import ReligionRepository from './religion-repository'
-
 class UserRepository {
   constructor () {
     this.personal = new PersonalRepository()
@@ -29,8 +28,9 @@ class UserRepository {
     expirationTime,
     profileId
   }) {
+    await db.connect()
+
     try {
-      await db.connect()
       const user = new User({
         email,
         password,
@@ -44,33 +44,36 @@ class UserRepository {
 
       const userResult = await user.save()
 
-      const family = await this.family.CreateFamily({
-        user: userResult._id
-      })
-      const address = await this.address.CreateAddress({
-        user: userResult._id
-      })
-      const religion = await this.religion.CreateReligion({
-        user: userResult._id
-      })
-      const physical = await this.physical.CreatePhysical({
-        user: userResult._id
-      })
-      const education = await this.education.CreateEducation({
-        user: userResult._id
-      })
-      const expectation = await this.expectation.CreateExpectation({
-        user: userResult._id
-      })
-      const personal = await this.personal.CreatePersonal({
-        user: userResult._id,
-        gender: userResult.gender
-      })
+      const [
+        family,
+        address,
+        religion,
+        physical,
+        education,
+        expectation,
+        personal
+      ] = await Promise.all([
+        this.family.CreateFamily({ user: userResult._id }),
+        this.address.CreateAddress({ user: userResult._id }),
+        this.religion.CreateReligion({ user: userResult._id }),
+        this.physical.CreatePhysical({ user: userResult._id }),
+        this.education.CreateEducation({ user: userResult._id }),
+        this.expectation.CreateExpectation({ user: userResult._id }),
+        this.personal.CreatePersonal({
+          user: userResult._id,
+          gender: userResult.gender
+        })
+      ])
 
-      await db.disconnect()
       return userResult
     } catch (error) {
-      console.log(error)
+      await session.abortTransaction()
+      session.endSession()
+
+      console.error('Error creating user:', error)
+      throw new Error('User creation failed.')
+    } finally {
+      await db.disconnect()
     }
   }
 
@@ -103,36 +106,27 @@ class UserRepository {
   async FindUserProfileById (userId, update) {
     try {
       await db.connect()
-      let existingUser
 
-      // console.log({ userId, update })
+      // Find user by ID or profileId, excluding password and salt fields
+      const existingUser = await User.findOne(
+        isValidObjectId(userId) ? { _id: userId } : { profileId: userId },
+        { password: 0, salt: 0 }
+      )
 
-      if (isValidObjectId(userId)) {
-        existingUser = await User.findOne(
-          { _id: userId }, // Wrap conditions in an array
-          { password: 0, salt: 0 }
-        )
-      } else {
-        existingUser = await User.findOne(
-          { profileId: userId }, // Wrap conditions in an array
-          { password: 0, salt: 0 }
-        )
+      if (!existingUser) {
+        throw new Error('User not found')
       }
 
       userId = existingUser._id
 
-      let family = {}
-      let address = {}
-      let religion = {}
-
-      let physical = {}
-      let education = {}
-      let expectation = {}
-      // let personal = {}
+      let family = {},
+        address = {},
+        religion = {}
+      let physical = {},
+        education = {},
+        expectation = {}
 
       switch (update) {
-        case 'basic':
-          break
         case 'family':
           family = await this.family.FindFamilyByUserId(userId)
           break
@@ -142,11 +136,9 @@ class UserRepository {
         case 'religion':
           religion = await this.religion.FindReligionByUserId(userId)
           break
-
         case 'physical':
           physical = await this.physical.FindPhysicalByUserId(userId)
           break
-
         case 'education':
           education = await this.education.FindEducationByUserId(userId)
           break
@@ -154,17 +146,21 @@ class UserRepository {
           expectation = await this.expectation.FindExpectationByUserId(userId)
           break
         default:
-          family = await this.family.FindFamilyByUserId(userId)
-          address = await this.address.FindAddressByUserId(userId)
-          religion = await this.religion.FindReligionByUserId(userId)
-          physical = await this.physical.FindPhysicalByUserId(userId)
-          education = await this.education.FindEducationByUserId(userId)
-          expectation = await this.expectation.FindExpectationByUserId(userId)
+          [family, address, religion, physical, education, expectation] =
+            await Promise.all([
+              this.family.FindFamilyByUserId(userId),
+              this.address.FindAddressByUserId(userId),
+              this.religion.FindReligionByUserId(userId),
+              this.physical.FindPhysicalByUserId(userId),
+              this.education.FindEducationByUserId(userId),
+              this.expectation.FindExpectationByUserId(userId)
+            ])
+          break
       }
 
+      // Update click count and save the user
       existingUser.click += 1
       await existingUser.save()
-      await db.disconnect()
 
       return {
         existingUser,
@@ -174,10 +170,12 @@ class UserRepository {
         physical,
         education,
         expectation
-        // personal
       }
     } catch (error) {
-      console.log(error)
+      console.error('Error fetching user profile:', error)
+      throw new Error('Failed to retrieve user profile')
+    } finally {
+      await db.disconnect()
     }
   }
 

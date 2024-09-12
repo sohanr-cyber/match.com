@@ -153,7 +153,7 @@ const Introduction = ({ data: profile, ln }) => {
                     )}
                   </div>
                 )}
-                {(userInfo?.profileId == router.query.id ||
+                {((isClient && userInfo?.profileId == router.query.id) ||
                   userInfo?.id == router.query.id) && (
                   <div className={styles.icon}>
                     <EditNoteIcon
