@@ -1,8 +1,5 @@
-import Personal from '@/components/Profile/Personal'
 import React, { useEffect, useState } from 'react'
 import styles from './../../styles/Profile/Details.module.css'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
 import Introduction from '@/components/Profile/Introduction'
 import Physical from '@/components/Profile/Physical'
 import Education from '@/components/Profile/Education'
@@ -10,17 +7,14 @@ import Family from '@/components/Profile/Family'
 import Address from '@/components/Profile/Address'
 import Expectation from '@/components/Profile/Expectation'
 import Piety from '@/components/Profile/Piety'
-import Similar from '@/components/Profile/Similar'
-import axios from 'axios'
 import BASE_URL from '@/config'
-import Proposal from '@/components/Activity/Proposal'
 import Action from '@/components/Activity/Action'
-import Saved from '@/components/Activity/Saved'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import { parse } from 'cookie'
-import Activate from '@/components/Profile/Update/Activate'
-import SideNavbar from '@/components/Profile/SideNavbar'
+import jwt from 'jsonwebtoken'
+import { APP_SECRET } from '@/config'
+import { readProfile } from '@/services/profile-read-service'
 import Others from '@/components/Profile/Others'
 import { NextSeo } from 'next-seo'
 
@@ -32,15 +26,12 @@ const ProfileDetails = ({
   education,
   expectation,
   family,
-  locale,
-  startTime,
-  endTime
+  locale
 }) => {
   const userInfo = useSelector(state => state.user.userInfo)
   const router = useRouter()
   const [isClient, setIsClient] = useState(false)
 
-  console.log(`page loading time ${new Date() - startTime}ms`)
   useEffect(() => {
     setIsClient(true)
   }, [])
@@ -48,9 +39,12 @@ const ProfileDetails = ({
   const imageUrl =
     user.gender == 'Male' ? '/images/muslimboy.png' : '/images/muslimgirl.png'
 
-  const myProfile =
-    (isClient && userInfo?.id == router.query.id) ||
-    userInfo?.profileId == router.query.id
+  const myProfile = isClient && Boolean(
+    userInfo && (
+      String(userInfo.id) === String(user?._id) ||
+      String(userInfo.profileId) === String(user?.profileId)
+    )
+  )
 
   return (
     <>
@@ -73,8 +67,8 @@ const ProfileDetails = ({
         }}
       />
 
-      <div className={styles.wrapper} style={{ minHeight: '100vh' }}>
-        <div className={styles.left}>
+      <div className={`${styles.wrapper} ${styles.profileDetails}`}>
+        <div className={styles.detailsContent}>
           <Introduction data={user} ln={locale} />
           <Physical physical={physical} ln={locale} myProfile={myProfile} />
           <Education
@@ -97,25 +91,7 @@ const ProfileDetails = ({
             myProfile={myProfile}
           />
           <Others data={user} ln={locale} myProfile={myProfile} />
-          {!myProfile && <Action user={user} ln={locale} />}
-          {myProfile && (
-            <Activate
-              profile={{
-                user,
-                address,
-                religion,
-                physical,
-                education,
-                expectation,
-                family
-              }}
-              ln={locale}
-              myProfile={myProfile}
-            />
-          )}
-        </div>
-        <div className={styles.right}>
-          {/* <Similar similar={similar} /> */}
+          {isClient && !myProfile && <Action user={user} ln={locale} />}
         </div>
       </div>
     </>
@@ -126,60 +102,17 @@ export default ProfileDetails
 export async function getServerSideProps (context) {
   const { id } = context.query
   const { locale, req } = context
-  const cookies = parse(req.headers.cookie || '')
-  const userInfo = cookies['userInfo']
-
+  let viewerId
   try {
-    const startTime = Date.now()
-    console.log({ startTime })
-    const { data } = await axios.get(`${BASE_URL}/api/auth/${id}`, {
-      headers: userInfo
-        ? { Authorization: `Bearer ${JSON.parse(userInfo)?.token}` }
-        : undefined
-    })
-
-    const endTime = Date.now()
-    console.log(
-      `Data fetching time in getServerSideProps: ${endTime - startTime}ms`
-    )
-
-    const {
-      existingUser,
-      address,
-      religion,
-      physical,
-      education,
-      expectation,
-      family
-    } = data
-
-    return {
-      props: {
-        user: existingUser,
-        address,
-        religion,
-        physical,
-        education,
-        expectation,
-        family,
-        locale,
-        startTime,
-        endTime
-      }
-    }
-  } catch (error) {
-    console.log(error)
-    return {
-      props: {
-        user: {},
-        address: {},
-        religion: {},
-        physical: {},
-        education: {},
-        expectation: {},
-        family: {},
-        locale
-      }
-    }
+    const cookie = parse(req.headers.cookie || '').userInfo
+    const token = JSON.parse(cookie || '{}').token
+    viewerId = jwt.verify(token, APP_SECRET)._id
+  } catch {
+    viewerId = null
   }
+
+  const data = await readProfile({ id, viewerId })
+  if (!data) return { notFound: true }
+  const { existingUser, ...sections } = data
+  return { props: JSON.parse(JSON.stringify({ user: existingUser, ...sections, locale })) }
 }

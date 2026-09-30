@@ -1,4 +1,3 @@
-import Profile from './pages/profile/index.js'
 import {
   ValidateSignature,
   ValidateSignatureOptional

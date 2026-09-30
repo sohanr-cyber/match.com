@@ -35,7 +35,7 @@ const Footer = () => {
             </div>
           </div>
           <div className={styles.flex}>
-            <div className={styles.link}>{getText('plans', ln)}</div>
+            <div className={styles.link} onClick={() => router.push('/plans')}>{getText('plans', ln)}</div>
             <div
               className={styles.link}
               onClick={() => router.push('https://quince-tech.vercel.app')}

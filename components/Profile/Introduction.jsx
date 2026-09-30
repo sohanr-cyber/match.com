@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react'
 import styles from '../../styles/Profile/Introuduction.module.css'
 import Image from 'next/image'
 import { calculateAge, heightToFeet } from '@/utils'
-import { educationTypes } from '@/pages/api/auth/data'
-import CreateIcon from '@mui/icons-material/Create'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
@@ -12,8 +10,8 @@ import axios from 'axios'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
 import { getText } from '@/Translation/profile'
 import Ln from '../utils/Ln'
-import Link from 'next/link'
 import EditNoteIcon from '@mui/icons-material/EditNote'
+import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded'
 import { showSnackBar } from '@/redux/notistackSlice'
 const Introduction = ({ data: profile, ln }) => {
   const router = useRouter()
@@ -28,7 +26,7 @@ const Introduction = ({ data: profile, ln }) => {
 
   useEffect(() => {
     setSaverIds(profile?.saverIds)
-  }, [router.query.id])
+  }, [router.query.id, profile?.saverIds])
 
   const saveProfile = async () => {
     try {
@@ -107,22 +105,7 @@ const Introduction = ({ data: profile, ln }) => {
       )}
 
       <div className={styles.flex}>
-        <div
-          className={styles.left}
-          style={
-            profile.gender == 'Male'
-              ? {
-                  backgroundImage:
-                    'linear-gradient(to right, #43e97b 0%, #38f9d7 100%)',
-                  color: 'white'
-                }
-              : {
-                  backgroundImage:
-                    'linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%)',
-                  color: 'black'
-                }
-          }
-        >
+        <div className={styles.left}>
           <Image
             src={
               profile.gender == 'Male'
@@ -136,8 +119,13 @@ const Introduction = ({ data: profile, ln }) => {
         </div>
         <div className={styles.right}>
           <div className={styles.top}>
-            <div className={styles.id}>
-              {profile?.profileId || profile?._id}
+            <div className={styles.meta}>
+              <div className={styles.id}>ID {profile?.profileId || profile?._id}</div>
+              {profile?.isVerified && (
+                <span className={styles.verified}>
+                  <VerifiedRoundedIcon /> {ln === 'bn' ? 'যাচাইকৃত' : 'Verified'}
+                </span>
+              )}
             </div>
             {isClient && (
               <div className={styles.action}>

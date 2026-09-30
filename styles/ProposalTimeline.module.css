@@ -1,0 +1,13 @@
+.form{display:grid;gap:12px;color:#234f40;font-size:14px}
+.form select,.form textarea{width:100%;box-sizing:border-box;padding:12px;border:1px solid #cddbd1;border-radius:10px;background:#fff;color:#234f40;font:inherit}
+.form button{padding:12px 18px;border:0;border-radius:10px;background:#166b52;color:#fff;font:inherit;font-weight:700;cursor:pointer}
+.form button:disabled{opacity:.5;cursor:not-allowed}
+.timeline{list-style:none;margin:0;padding:0 0 0 18px;border-left:2px solid #dce9df}
+.timeline li{position:relative;padding:0 0 24px 8px;font-size:14px;color:#234f40}
+.timeline li::before{content:'';position:absolute;left:-25px;top:4px;width:10px;height:10px;border-radius:50%;background:#148064;border:2px solid #fff}
+.timeline li:last-child{padding-bottom:0}
+.timeline time,.timeline span{display:block;margin-top:7px;color:#718579;font-size:12px}
+.timeline p{margin:10px 0 0;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.6}
+.stages{display:flex;flex-wrap:wrap;gap:10px;list-style:none;padding:0;margin:0}
+.stages li{padding:10px 14px;border:1px solid #dce9df;border-radius:10px;color:#718579;font-size:13px}
+.stages .currentStage{background:#166b52;color:#fff;border-color:#166b52;font-weight:700}

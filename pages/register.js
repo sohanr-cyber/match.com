@@ -1,158 +1,92 @@
 import React, { useState } from 'react'
 import styles from '../styles/Signin.module.css'
-import Logo from '@/components/utils/Logo'
 import { useRouter } from 'next/router'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
 import { useDispatch } from 'react-redux'
 import { login } from '@/redux/userSlice'
 import axios from 'axios'
-import { red } from '@mui/material/colors'
-import * as EmailValidator from 'email-validator'
+import { normalizePhone } from '@/utility/phone'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
 import { getText } from '@/Translation/account'
 import Ln from '@/components/utils/Ln'
 import { NextSeo } from 'next-seo'
 import { getText as seoText } from '@/Translation/seo'
 import { showSnackBar } from '@/redux/notistackSlice'
+import Link from 'next/link'
+import AuthFrame from '@/components/AuthFrame'
 
-const Login = () => {
+const Register = () => {
   const router = useRouter()
   const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
   const [gender, setGender] = useState('')
   const dispatch = useDispatch()
-  const [error, setError] = useState('')
   const ln = router.locale
+  const bn = ln === 'bn'
 
-  const register = async () => {
-    if (!EmailValidator.validate(email) || !password || !name || !gender) {
-      dispatch(
-        showSnackBar({
-          message: 'Fill All The  Field !',
-          option: {
-            variant: 'error'
-          }
-        })
-      )
+  const register = async event => {
+    event.preventDefault()
+    if (!normalizePhone(phone) || !password || !name || !gender) {
+      dispatch(showSnackBar({ message: 'Fill All The Field!', option: { variant: 'error' } }))
       return
     }
     dispatch(startLoading())
     try {
-      const { data } = await axios.post('/api/auth/register', {
-        name,
-        email,
-        password,
-        gender
-      })
-
+      const { data } = await axios.post('/api/auth/register', { name, phone, password, gender })
       if (data.error) {
-        dispatch(
-          showSnackBar({
-            message: data.error,
-            option: {
-              variant: 'error'
-            }
-          })
-        )
-      }
-
-      if (!data.error) {
-        console.log(data)
-        dispatch(
-          showSnackBar({
-            message: 'Registered ! Verification Code Sent To Your Mail'
-          })
-        )
+        dispatch(showSnackBar({ message: data.error, option: { variant: 'error' } }))
+      } else {
+        dispatch(showSnackBar({ message: data.smsSent ? 'Verification code sent to your phone.' : 'Account created, but SMS could not be sent. Please resend the code on the next screen.', option: { variant: data.smsSent ? 'success' : 'warning' } }))
         dispatch(login(data))
         router.push('/verify')
       }
-      dispatch(finishLoading())
     } catch (error) {
+      dispatch(showSnackBar({ message: 'Something Went Wrong!', option: { variant: 'error' } }))
+      console.error(error)
+    } finally {
       dispatch(finishLoading())
-      dispatch(
-        showSnackBar({
-          message: 'Something Went Wrong !',
-          option: {
-            variant: 'error'
-          }
-        })
-      )
-      console.log(error)
     }
   }
 
   return (
     <>
-      {' '}
-      <NextSeo
-        title={seoText('registerTitle', ln)}
-        description={seoText('registerDesc', ln)}
-      />
-      <div className={styles.wrapper}>
-        <div className={styles.logo}>
-          <Logo />
+      <NextSeo title={seoText('registerTitle', ln)} description={seoText('registerDesc', ln)} />
+      <AuthFrame mode='register' locale={ln}>
+        <div className={styles.heading}>
+          <span className={styles.kicker}>{bn ? 'আজই শুরু করুন' : 'GET STARTED'}</span>
+          <h2 id='auth-title'>{bn ? 'আপনার অ্যাকাউন্ট তৈরি করুন' : 'Create your account'}</h2>
+          <p>{bn ? 'কয়েকটি তথ্য দিয়ে আপনার যাত্রা শুরু করুন।' : 'A few details are all it takes to begin.'}</p>
         </div>
-        <div className={styles.form__container}>
-          <div className={styles.flex}>
-            <div className={styles.left} onClick={() => router.push('/login')}>
-              {getText('login', ln)}{' '}
-            </div>{' '}
-            <div
-              className={styles.right}
-              style={{ borderBottom: '2px solid blue' }}
-              onClick={() => router.push('/register')}
-            >
-              {getText('signup', ln)}{' '}
-            </div>
+        <form className={styles.form} onSubmit={register}>
+          <div className={styles.field}>
+            <label htmlFor='register-name'>{bn ? 'আপনার নাম' : 'Your name'}</label>
+            <input id='register-name' type='text' autoComplete='name' placeholder={getText('name', ln)} value={name} onChange={e => setName(e.target.value)} required />
           </div>
-          <form>
-            <input
-              type='text'
-              placeholder={getText('name', ln)}
-              value={name}
-              onChange={e => setName(e.target.value)}
-            />
-            <input
-              type='email'
-              placeholder={getText('email', ln)}
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-            />
-            <input
-              type='password'
-              placeholder={getText('password', ln)}
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-            />
-
-            <label style={{ color: 'grey' }}>{getText('choseG', ln)}</label>
+          <div className={styles.field}>
+            <label htmlFor='register-phone'>{bn ? 'ফোন নম্বর' : 'Phone number'}</label>
+            <input id='register-phone' type='tel' inputMode='tel' autoComplete='tel' placeholder='01XXXXXXXXX' value={phone} onChange={e => setPhone(e.target.value)} required />
+          </div>
+          <div className={styles.field}>
+            <label htmlFor='register-password'>{bn ? 'পাসওয়ার্ড' : 'Password'}</label>
+            <input id='register-password' type='password' autoComplete='new-password' placeholder={getText('password', ln)} value={password} onChange={e => setPassword(e.target.value)} required />
+          </div>
+          <fieldset className={styles.genderField}>
+            <legend>{getText('choseG', ln)}</legend>
             <div className={styles.options}>
-              {['Male', 'Female'].map((item, index) => (
-                <span
-                  style={
-                    gender == item ? { background: 'blue', color: 'white' } : {}
-                  }
-                  onClick={() => setGender(item)}
-                  key={index}
-                >
+              {['Male', 'Female'].map(item => (
+                <label className={gender === item ? styles.selectedOption : styles.option} key={item}>
+                  <input type='radio' name='gender' value={item} checked={gender === item} onChange={() => setGender(item)} required />
                   <Ln item={item} />
-                </span>
+                </label>
               ))}
             </div>
-
-            {error && (
-              <div style={{ color: 'red', fontSize: '90%' }}>{error}</div>
-            )}
-          </form>
-          <div className={styles.btn} onClick={() => register()}>
-            {getText('signup', ln)}
-          </div>
-        </div>
-      </div>
+          </fieldset>
+          <button className={styles.submit} type='submit'>{getText('signup', ln)} <span aria-hidden='true'>→</span></button>
+        </form>
+        <p className={styles.switchPrompt}>{bn ? 'ইতোমধ্যে অ্যাকাউন্ট আছে?' : 'Already have an account?'} <Link href='/login'>{getText('login', ln)}</Link></p>
+      </AuthFrame>
     </>
   )
 }
 
-export default Login
+export default Register

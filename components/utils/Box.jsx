@@ -1,191 +1,124 @@
-import React, { useState, useEffect, use } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '../../styles/Header.module.css'
-
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import {
-  professions,
-  maritalStatuses,
-  educationTypes,
-  institutes
-} from '@/pages/api/auth/data'
-import SearchIcon from '@mui/icons-material/Search'
+import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded'
+import WcRoundedIcon from '@mui/icons-material/WcRounded'
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
+import PublicRoundedIcon from '@mui/icons-material/PublicRounded'
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import Ln from './Ln'
 import BASE_URL from '@/config'
 
 const Box = ({ data }) => {
   const [city, setCity] = useState('All')
   const [districts, setDistricts] = useState([])
-  const [currentDistrict, setCurrentDistrict] = useState()
-  const [upazillas, setUpazzilas] = useState([])
+  const [currentDistrict, setCurrentDistrict] = useState('All')
+  const [upazillas, setUpazillas] = useState([])
   const [currentUpazilla, setCurrentUpazilla] = useState('All')
   const [gender, setGender] = useState('All')
   const [maritalStatus, setMaritalStatus] = useState('All')
-  const router = useRouter()
   const [profileId, setProfileId] = useState('')
+  const router = useRouter()
 
-  const fetch = async city => {
-    try {
-      if (city == 'All') {
-        setCurrentDistrict('All')
-        setDistricts(['All'])
-        setCurrentUpazilla(['All'])
-        setUpazzilas([])
-        return
-      }
-      const { data } = await axios.get(
-        `${BASE_URL}/api/location/division/${city.toLowerCase()}`
-      )
-      setDistricts(data.data)
-      // setCurrentDistrict(data.data[0].district);
-    } catch (error) {
-      console.log(error)
+  const fetchDistricts = async selectedCity => {
+    if (selectedCity === 'All') {
+      setDistricts([])
+      setCurrentDistrict('All')
+      setUpazillas([])
+      setCurrentUpazilla('All')
+      return
     }
-  }
-
-  const searchById = () => {
-    router.push(`/profile/${profileId}`)
-  }
-
-  const search = () => {
     try {
-      router.push(
-        `/profile?gender=${gender}&maritalStatuses=${[maritalStatus].join(
-          ','
-        )}&city=${city}&district=${currentDistrict}&upazilla=${currentUpazilla}&feetFrom=${4}&inchesFrom=${5}&feetTo=${6}&inchesTo=${5}&page=${1}`
+      const { data } = await axios.get(
+        `${BASE_URL}/api/location/division/${selectedCity.toLowerCase()}`
       )
+      setDistricts(data.data || [])
+      setCurrentDistrict('All')
+      setUpazillas([])
+      setCurrentUpazilla('All')
     } catch (error) {
       console.log(error)
     }
   }
 
   useEffect(() => {
-    fetch(city)
+    fetchDistricts(city)
   }, [city])
+
+  const search = () => {
+    router.push(
+      `/profile?gender=${gender}&maritalStatuses=${[maritalStatus].join(',')}&city=${city}&district=${currentDistrict}&upazilla=${currentUpazilla}&feetFrom=4&inchesFrom=5&feetTo=6&inchesTo=5&page=1`
+    )
+  }
+
+  const searchById = () => {
+    if (profileId.trim()) router.push(`/profile/${profileId.trim()}`)
+  }
+
+  const fields = [
+    { label: 'I am Looking for', icon: <WcRoundedIcon />, value: gender, onChange: setGender, options: ['All', 'Male', 'Female'] },
+    { label: 'Marital Status', icon: <FavoriteRoundedIcon />, value: maritalStatus, onChange: setMaritalStatus, options: ['All', 'Never Married', 'Married', 'Divorced', 'Widowed'] }
+  ]
+
   return (
     <div className={styles.box}>
-      <form>
+      <form onSubmit={event => event.preventDefault()}>
+        {fields.map(field => (
+          <div className={styles.field} key={field.label}>
+            <label>{field.icon}<Ln item={field.label} /></label>
+            <select value={field.value} onChange={event => field.onChange(event.target.value)}>
+              {field.options.map(option => <option key={option} value={option}><Ln item={option} /></option>)}
+            </select>
+          </div>
+        ))}
         <div className={styles.field}>
-          {' '}
-          <label>
-            <Ln item={'I am Looking for'} />
-          </label>
-          <select default='All' onChange={e => setGender(e.target.value)}>
-            {['All', 'Male', 'Female'].map((item, index) => (
-              <option key={index}>
-                <Ln item={item} />
-              </option>
+          <label><LocationOnRoundedIcon /><Ln item='City' /></label>
+          <select value={city} onChange={event => setCity(event.target.value)}>
+            <option value='All'><Ln item='All' /></option>
+            {(data?.data || []).map(item => (
+              <option key={item._id} value={item.division}><Ln item={item.division} /></option>
             ))}
           </select>
         </div>
         <div className={styles.field}>
-          {' '}
-          <label>
-            <Ln item={'Marital Status'} />
-          </label>
-          <select
-            default='Unmarried'
-            onChange={e => setMaritalStatus(e.target.value)}
-          >
-            {['All', 'Never Married', 'Married', 'Divorced', , 'Widowed'].map(
-              (item, index) => (
-                <option key={index}>
-                  {' '}
-                  <Ln item={item} />
-                </option>
-              )
-            )}
-          </select>
-        </div>
-
-        <div className={styles.field}>
-          <label>
-            <Ln item={'City'} />
-          </label>
-          <select onChange={e => setCity(e.target.value)}>
-            {[{ division: 'All' }, ...data.data].map((item, index) => (
-              <option
-                key={index}
-                value={item.division}
-                selected={item.division == 'All' ? true : false}
-              >
-                <Ln item={item.division} />
-              </option>
-            ))}
+          <label><PublicRoundedIcon /><Ln item='District' /></label>
+          <select value={currentDistrict} onChange={event => {
+            const nextDistrict = event.target.value
+            setCurrentDistrict(nextDistrict)
+            const match = districts.find(item => item.district === nextDistrict)
+            setUpazillas(match?.upazilla || [])
+            setCurrentUpazilla('All')
+          }}>
+            <option value='All'><Ln item='All' /></option>
+            {districts.map(item => <option key={item.district} value={item.district}><Ln item={item.district} /></option>)}
           </select>
         </div>
         <div className={styles.field}>
-          <label>
-            {' '}
-            <Ln item={'District'} />
-          </label>
-          <select
-            onChange={e => {
-              setCurrentDistrict(e.target.value)
-              setUpazzilas(
-                districts.find(item => item.district == e.target.value)
-                  ? districts.find(item => item.district == e.target.value)
-                      .upazilla
-                  : []
-              )
-              e.target.value = 'All' & setCurrentUpazilla('All')
-            }}
-          >
-            {[
-              {
-                district: 'All'
-              },
-              ...districts
-            ].map(
-              (item, index) =>
-                item.district && (
-                  <option
-                    key={index}
-                    value={item.district}
-                    selected={item.district == currentDistrict ? true : false}
-                  >
-                    <Ln item={item.district} />
-                  </option>
-                )
-            )}
-          </select>
-        </div>
-
-        <div className={styles.field}>
-          <label>
-            <Ln item={'Upazilla'} />
-          </label>
-          <select onChange={e => setCurrentUpazilla(e.target.value)}>
-            {['All', ...upazillas].map((item, index) => (
-              <option
-                key={index}
-                selected={item == currentUpazilla ? true : false}
-                value={item}
-              >
-                <Ln item={item} />
-              </option>
-            ))}
+          <label><LocationOnRoundedIcon /><Ln item='Upazilla' /></label>
+          <select value={currentUpazilla} onChange={event => setCurrentUpazilla(event.target.value)}>
+            <option value='All'><Ln item='All' /></option>
+            {upazillas.map(item => <option key={item} value={item}><Ln item={item} /></option>)}
           </select>
         </div>
       </form>
       <div className={styles.flex}>
-        <div className={styles.search} onClick={() => search()}>
-          <Ln item={'Search'} />
-        </div>
+        <button className={styles.search} type='button' onClick={search}>
+          <SearchRoundedIcon />
+          <Ln item='Search' />
+        </button>
         <div className={styles.searchbyId}>
           <input
             type='text'
-            placeholder={
-              router.locale == 'bn'
-                ? 'আইডি দ্বারা প্রোফাইল অনুসন্ধান করুন'
-                : 'Search Profile By Id'
-            }
+            placeholder={router.locale === 'bn' ? 'আইডি দিয়ে প্রোফাইল খুঁজুন' : 'Search by profile ID'}
             value={profileId}
-            onChange={e => setProfileId(e.target.value)}
+            onChange={event => setProfileId(event.target.value)}
+            onKeyDown={event => { if (event.key === 'Enter') searchById() }}
+            aria-label={router.locale === 'bn' ? 'প্রোফাইল আইডি' : 'Profile ID'}
           />
-          <div className={styles.icon}>
-            <SearchIcon onClick={() => searchById()} />
-          </div>
+          <button className={styles.icon} type='button' onClick={searchById} aria-label='Search profile ID'>
+            <SearchRoundedIcon />
+          </button>
         </div>
       </div>
     </div>

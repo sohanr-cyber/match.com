@@ -1,16 +1,10 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import Navbar from '@/components/Navbar'
 import Header from '@/components/Header'
 import Steps from '@/components/Steps'
 import Recent from '@/components/Recent'
-import Footer from '@/components/Footer'
 import RegisterBanner from '@/components/RegisterBanner'
-import axios from 'axios'
-import BASE_URL from '@/config'
-import Search from '@/components/Search'
-const inter = Inter({ subsets: ['latin'] })
+import db from '@/database/connection'
+import User from '@/database/model/User'
+import { divisions } from '@/utility/divisions'
 
 export default function Home ({ data, recent }) {
   return (
@@ -24,21 +18,20 @@ export default function Home ({ data, recent }) {
   )
 }
 
-const fetchData = async () => {
-  try {
-    const { data } = await axios.get(`${BASE_URL}/api/location/divisions`)
-    return data
-  } catch (error) {
-    console.log(error)
-  }
-}
+const fetchData = async () => divisions
 
 const recentUsers = async () => {
   try {
-    const { data } = await axios.get(`${BASE_URL}/api/auth/recent`)
-    return data
+    await db.connect()
+    const users = await User.find({ active: true })
+      .sort({ createdAt: -1 })
+      .limit(5)
+      .select('profileId gender bornAt height skinColor city profession isVerified saverIds')
+      .lean()
+    return JSON.parse(JSON.stringify(users))
   } catch (error) {
-    console.log(error)
+    console.error('Could not load recent profiles:', error.message)
+    return []
   }
 }
 
@@ -50,7 +43,8 @@ export async function getStaticProps() {
       props: {
         data,
         recent
-      }
+      },
+      revalidate: 600
     };
   } catch (error) {
     console.log(error);

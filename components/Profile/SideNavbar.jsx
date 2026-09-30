@@ -51,6 +51,13 @@ const SideNavbar = ({ handleLogout, setOpen }) => {
       <div className={styles.items}>
         <div
           className={styles.item}
+          onClick={() => router.push(userInfo.role === 'admin' ? '/admin' : '/profile/dashboard/' + userInfo.id)}
+        >
+          <div className={styles.icon}><DashboardIcon /></div>
+          <div className={styles.title}>{locale === 'bn' ? 'ড্যাশবোর্ড' : 'Dashboard'}</div>
+        </div>
+        <div
+          className={styles.item}
           onClick={() => router.push(`/profile/${userInfo.profileId}`)}
         >
           <div className={styles.icon}>
@@ -69,7 +76,7 @@ const SideNavbar = ({ handleLogout, setOpen }) => {
         </div>
         <div
           className={styles.item}
-          onClick={() => router.push(`/profile/proposal/${userInfo.id}`)}
+          onClick={() => router.push('/proposal')}
         >
           <div className={styles.icon}>
             <EmailIcon />

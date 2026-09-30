@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { showMissingRequiredFields } from '@/utility/profile-required-fields'
 import styles from '@/styles/Profile/Update/Basic.module.css'
 import {
   professions,
@@ -16,7 +17,6 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
-import SearchSelector from '@/components/utils/SearchSelector'
 
 import Moment from 'react-moment'
 import { getText } from '@/Translation/profile'
@@ -24,14 +24,28 @@ import Ln from '@/components/utils/Ln'
 import { showSnackBar } from '@/redux/notistackSlice'
 import { routes } from '@/utility/data'
 
+const excludedProfessionChoices = new Set(['BA', 'BSC', 'Fazel', 'Hafiz', 'MA', 'MSC', 'Other'])
+const occupationChoices = professions.filter(item => !excludedProfessionChoices.has(item))
+const popularOccupations = ['Student', 'Govt. Service Holder', 'Private Service Holder', 'Business', 'Teacher', 'Homemaker']
+
 const Basic = ({ profile, setProfile, locationData, ln }) => {
   const router = useRouter()
   const userInfo = useSelector(state => state.user.userInfo)
   const [error, setError] = useState('')
+  const formRef = useRef(null)
   const [districts, setDistricts] = useState([])
   const dispatch = useDispatch()
 
   const update = async () => {
+    if (showMissingRequiredFields(formRef.current, [
+    {label:getText('name', ln),value:profile.name},{label:getText('brithdate', ln),value:profile.bornAt},
+    {label:getText('ocupation', ln),value:profile.profession},{label:getText('education', ln),value:profile.education},
+    {label:getText('educationType', ln),value:profile.educationType},{label:getText('color', ln),value:profile.skinColor},
+    {label:getText('city', ln),value:profile.city},{label:getText('district', ln),value:profile.district},
+    {label:getText('upazilla', ln),value:profile.upazilla},{label:getText('maritalStatus', ln),value:profile.maritalStatus},
+    {label:getText('height', ln),value:profile.heightFeet && profile.heightInches}
+], ln)) return
+
     if (
       !profile.name ||
       !profile.bornAt ||
@@ -47,7 +61,8 @@ const Basic = ({ profile, setProfile, locationData, ln }) => {
       !profile.heightFeet ||
       !profile.heightInches
     ) {
-      dispatch(
+
+            dispatch(
         showSnackBar({
           message: 'Fill All The Required Field !',
           option: {
@@ -63,6 +78,7 @@ const Basic = ({ profile, setProfile, locationData, ln }) => {
         '/api/auth/register',
         {
           ...profile,
+          targetUserId: profile._id,
           height:
             parseInt(parseInt(profile.heightFeet) * 12) +
             parseInt(profile.heightInches)
@@ -88,7 +104,7 @@ const Basic = ({ profile, setProfile, locationData, ln }) => {
       dispatch(finishLoading())
       const index = routes.findIndex(i => i.query == router.query.update)
       index + 1 >= routes.length
-        ? router.push(`/profile//${router.query.id}`)
+        ? router.push(`/profile/${router.query.id}`)
         : router.push(
             `/profile/update/${router.query.id}?update=${
               routes[index + 1]?.query
@@ -109,9 +125,11 @@ const Basic = ({ profile, setProfile, locationData, ln }) => {
   }
 
   const fetchDistrict = async city => {
+    if (!city) return
+    if (!city) return
     try {
       const { data } = await axios.get(
-        `https://bdapis.com/api/v1.1/division/${city}`
+        `/api/location/division/${encodeURIComponent(city)}`
       )
       console.log(data)
       setDistricts(data.data)
@@ -121,7 +139,7 @@ const Basic = ({ profile, setProfile, locationData, ln }) => {
   }
 
   useEffect(() => {
-    fetchDistrict(profile.city || locationData[0].division)
+    fetchDistrict(profile.city || locationData?.[0]?.division)
   }, [profile.city])
 
   return (
@@ -146,7 +164,7 @@ const Basic = ({ profile, setProfile, locationData, ln }) => {
             <InfoIcon /> <span>{getText('hidden', ln)}</span>
           </p>{' '}
         </div>
-        <form className={styles.formContainer}>
+        <form ref={formRef} className={styles.formContainer} onSubmit={e => { e.preventDefault(); update() }}>
           <div className={styles.field}>
             <label>{getText('name', ln)}</label>
             <input
@@ -194,13 +212,9 @@ const Basic = ({ profile, setProfile, locationData, ln }) => {
               {' '}
               {educationTypes.map((item, index) => (
                 <span
-                  style={
-                    profile.educationType == item
-                      ? { background: 'blue', color: 'white' }
-                      : {}
-                  }
+                  data-selected={Boolean(profile.educationType == item)}
                   onClick={() =>
-                    setProfile({ ...profile, educationType: item })
+                    setProfile({ ...profile, educationType: profile.educationType === item ? '' : item })
                   }
                   key={index}
                 >
@@ -211,34 +225,41 @@ const Basic = ({ profile, setProfile, locationData, ln }) => {
           </div>
 
           <div className={styles.field}>
-            <label>{getText('ocupation', ln)}</label>
-            <div className={styles.options}>
-              {professions.map((item, index) => (
-                <span
-                  style={
-                    profile.profession == item
-                      ? { background: 'blue', color: 'white' }
-                      : {}
-                  }
-                  onClick={() => setProfile({ ...profile, profession: item })}
-                  key={index}
-                >
-                  <Ln item={item} />
-                </span>
-              ))}
+            <label htmlFor='profile-profession'>{getText('ocupation', ln)} ({getText('required', ln)})</label>
+            <div className={styles.quickChoices} role='group' aria-label={ln === 'bn' ? 'জনপ্রিয় পেশা' : 'Popular professions'}>
+              {popularOccupations.map(item => <button
+                type='button'
+                key={item}
+                data-selected={profile.profession === item}
+                aria-pressed={profile.profession === item}
+                onClick={() => setProfile({ ...profile, profession: item })}
+              ><Ln item={item} /></button>)}
             </div>
+            <input
+              id='profile-profession'
+              type='text'
+              list='profile-profession-options'
+              value={profile.profession || ''}
+              onChange={event => setProfile({ ...profile, profession: event.target.value })}
+              placeholder={ln === 'bn' ? 'পেশা খুঁজুন বা লিখুন' : 'Search or type a profession'}
+              aria-describedby='profile-profession-help'
+              autoComplete='off'
+              required
+            />
+            <datalist id='profile-profession-options'>
+              {occupationChoices.map(item => <option value={item} key={item} />)}
+            </datalist>
+            <small id='profile-profession-help' className={styles.professionHelp}>
+              {ln === 'bn' ? 'তালিকা থেকে বেছে নিন অথবা নিজের পেশা লিখুন।' : 'Choose a suggestion or type your own profession.'}
+            </small>
           </div>
           <div className={styles.field}>
             <label>{getText('education', ln)}</label>
             <div className={styles.options}>
               {educationalStatus.map((item, index) => (
                 <span
-                  style={
-                    profile.education == item
-                      ? { background: 'blue', color: 'white' }
-                      : {}
-                  }
-                  onClick={() => setProfile({ ...profile, education: item })}
+                  data-selected={Boolean(profile.education == item)}
+                  onClick={() => setProfile({ ...profile, education: profile.education === item ? '' : item })}
                   key={index}
                 >
                   <Ln item={item} />
@@ -251,12 +272,8 @@ const Basic = ({ profile, setProfile, locationData, ln }) => {
             <div className={styles.options}>
               {skinColors.map((item, index) => (
                 <span
-                  style={
-                    profile.skinColor == item
-                      ? { background: 'blue', color: 'white' }
-                      : {}
-                  }
-                  onClick={() => setProfile({ ...profile, skinColor: item })}
+                  data-selected={Boolean(profile.skinColor == item)}
+                  onClick={() => setProfile({ ...profile, skinColor: profile.skinColor === item ? '' : item })}
                   key={index}
                 >
                   <Ln item={item} />
@@ -269,11 +286,7 @@ const Basic = ({ profile, setProfile, locationData, ln }) => {
             <div className={styles.options}>
               {[...bodyTypes].map((item, index) => (
                 <span
-                  style={
-                    profile.bodyType == item
-                      ? { background: 'blue', color: 'white' }
-                      : {}
-                  }
+                  data-selected={Boolean(profile.bodyType == item)}
                   onClick={() => setProfile({ ...profile, bodyType: item })}
                   key={index}
                 >
@@ -288,11 +301,7 @@ const Basic = ({ profile, setProfile, locationData, ln }) => {
             <div className={styles.options}>
               {['Male', 'Female'].map((item, index) => (
                 <span
-                  style={
-                    profile.gender == item
-                      ? { background: 'blue', color: 'white' }
-                      : {}
-                  }
+                  data-selected={Boolean(profile.gender == item)}
                   onClick={() => setProfile({ ...profile, gender: item })}
                   key={index}
                 >
@@ -306,13 +315,9 @@ const Basic = ({ profile, setProfile, locationData, ln }) => {
             <div className={styles.options}>
               {[...maritalStatuses].map((item, index) => (
                 <span
-                  style={
-                    profile.maritalStatus == item
-                      ? { background: 'blue', color: 'white' }
-                      : {}
-                  }
+                  data-selected={Boolean(profile.maritalStatus == item)}
                   onClick={() =>
-                    setProfile({ ...profile, maritalStatus: item })
+                    setProfile({ ...profile, maritalStatus: profile.maritalStatus === item ? '' : item })
                   }
                   key={index}
                 >
@@ -437,9 +442,9 @@ const Basic = ({ profile, setProfile, locationData, ln }) => {
           </div>
         </form>
         {error && <p style={{ color: 'red', fontSize: '90%' }}>{error}</p>}
-        <div className={styles.save} onClick={() => update()}>
+        <button type="button" className={styles.save} onClick={() => update()}>
           {getText('save', ln)}
-        </div>
+        </button>
       </div>
     </>
   )

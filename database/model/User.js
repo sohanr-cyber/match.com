@@ -9,7 +9,7 @@ const userSchema = mongoose.Schema(
       unique: true,
       default: Math.floor(100000 + Math.random() * 900000)
     },
-    email: { type: String, required: true, unique: true },
+    email: { type: String, unique: true, sparse: true },
     password: { type: String },
     gender: {
       type: String
@@ -102,10 +102,13 @@ const userSchema = mongoose.Schema(
     ],
     categories: [{ type: String }],
     active: { type: Boolean, default: false },
-    phone: { type: String },
+    isDemo: { type: Boolean, default: false },
+    phone: { type: String, unique: true, sparse: true, select: false },
     isVerified: { type: Boolean, default: false },
-    verificationCode: { type: String },
-    expirationTime: { type: Date },
+    verificationCode: { type: String, select: false },
+    verificationAttempts: { type: Number, default: 0, select: false },
+    expirationTime: { type: Date, select: false },
+    lastVerificationSentAt: { type: Date, select: false },
     role: {
       type: String,
       default: 'user',
@@ -114,6 +117,9 @@ const userSchema = mongoose.Schema(
   },
   { timestamps: true }
 )
+
+userSchema.index({ active: 1, createdAt: -1 })
+userSchema.index({ active: 1, gender: 1, createdAt: -1 })
 
 const User = mongoose.models.User || mongoose.model('User', userSchema)
 export default User

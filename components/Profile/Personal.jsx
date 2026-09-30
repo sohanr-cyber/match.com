@@ -41,3 +41,4 @@ const Personal = ({ personal, ln }) => {
 }
 
 export default Personal
+

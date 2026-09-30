@@ -1,21 +1,31 @@
-.wrapper {
-    padding: 15px 25px;
-
+.proposalButton {
+  position: fixed;
+  right: max(24px, env(safe-area-inset-right));
+  bottom: calc(104px + env(safe-area-inset-bottom));
+  z-index: 45;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 58px;
+  max-width: calc(100vw - 32px);
+  padding: 9px 18px 9px 10px;
+  border: 1px solid #b18b3f;
+  border-radius: 999px;
+  background: linear-gradient(120deg, #e4c36f, #c99a3d);
+  box-shadow: 0 12px 30px rgba(92,65,14,.3), 0 3px 8px rgba(92,65,14,.18);
+  color: #173f32;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.3;
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
 }
-
-.wrapper .flex {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-
-
-.wrapper .flex .item {
-    /* background: var(--btn); */
-    padding: 5px;
-    border-radius: 5px;
-    /* color: white; */
-    cursor: pointer;
-    text-align: center;
-}
+.proposalButton:hover:not(:disabled) { transform: translateY(-3px); background: linear-gradient(120deg, #edd27f, #d5a642); box-shadow: 0 16px 34px rgba(92,65,14,.36); }
+.proposalButton:focus-visible { outline: 3px solid #c7a45f; outline-offset: 4px; }
+.proposalButton:disabled { background: #edf5ef; border-color: #b9d5c3; color: #27644b; box-shadow: 0 6px 20px rgba(12,85,62,.12); cursor: default; }
+.proposalIcon { display: grid; place-items: center; flex: none; width: 38px; height: 38px; border-radius: 50%; background: rgba(23,63,50,.12); color: #173f32; }
+.proposalIcon svg { width: 21px; height: 21px; }
+.proposalArrow { color: #173f32; font-size: 20px; }
+@media(max-width:768px) { .proposalButton { right: 16px; bottom: calc(90px + env(safe-area-inset-bottom)); gap: 9px; min-height: 52px; padding: 7px 15px 7px 8px; font-size: 13px; }.proposalIcon { width: 36px; height: 36px; } }
+@media(prefers-reduced-motion:reduce) { .proposalButton { transition: none; } }

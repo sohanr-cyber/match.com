@@ -1,88 +1,13 @@
-.wrapper {
-    padding: 25px;
-    background: lightcyan;
-    min-height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    overflow-y: scroll;
-    padding-top: 15px;
-
-
-}
-
-.wrapper .back {
-    position: absolute;
-    right: 0px;
-    top: 5px;
-    background-color: black;
-    color: white;
-    border-radius: 5px;
-    padding: 3px 5px;
-    cursor: pointer;
-}
-
-.wrapper .profile {
-    text-align: center;
-    font-weight: bold;
-
-}
-
-.wrapper .image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 250%;
-    margin: 20px 0;
-}
-
-
-
-.profile .btn {
-    background: var(--btn);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    margin: 10px 0;
-    cursor: pointer;
-    font-weight: normal;
-}
-
-
-.wrapper .image .pic {
-    border-radius: 50%;
-    border: 5px dotted rgb(0, 183, 255);
-    padding: 10px 22px;
-    color: green;
-    position: relative
-}
-
-.wrapper .image .pic span {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    aspect-ratio: 1/1;
-    min-width: 15px;
-    background-color: red;
-    border-radius: 50%;
-}
-
-
-.items {
-    margin: 10px 0;
-
-}
-
-.item {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 15px;
-    padding: 10px 0;
-    cursor: pointer;
-}
-
-.item:hover {
-    color: green;
-    /* font-weight: bold */
-}
+.wrapper { position: fixed; z-index: 50; inset: 0 auto 0 0; width: min(320px, 86vw); min-height: 100dvh; padding: 30px 22px; overflow-y: auto; border-right: 1px solid #dce9df; background: #f8fbf8; box-shadow: 15px 0 50px rgba(17,64,49,.18); }
+.back { position: absolute; top: 18px; right: 18px; display: grid; place-items: center; width: 31px; height: 31px; border-radius: 9px; background: #e8f3ec; color: #176b50; cursor: pointer; font-weight: 700; }
+.profile { padding: 15px 0 22px; border-bottom: 1px solid #e0ebe3; text-align: center; }
+.image { display: flex; justify-content: center; margin: 20px 0 13px; }
+.image .pic { position: relative; display: grid; place-items: center; width: 68px; height: 68px; border: 2px solid #b5d9c4; border-radius: 50%; background: #e7f5e9; color: #0b7857; font-family: var(--font-display); font-size: 28px; }
+.image .pic span { position: absolute; right: 2px; bottom: 3px; width: 12px; height: 12px; border: 2px solid #fff; border-radius: 50%; }
+.name { color: #214b3b; font-family: var(--font-display); font-size: 18px; }
+.items { display: grid; gap: 4px; margin-top: 22px; }
+.item { display: flex; align-items: center; gap: 13px; min-height: 46px; padding: 0 12px; border-radius: 11px; color: #45665a; cursor: pointer; font-size: 13px; font-weight: 650; }
+.item:hover { background: #e8f5eb; color: #0b7657; }
+.icon { display: grid; place-items: center; width: 23px; }
+.icon svg { font-size: 21px; }
+.title { flex: 1; }

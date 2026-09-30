@@ -1,18 +1,17 @@
-let BASE_URL, MONGODB_URI, GMAIL, PASSWORD
+let BASE_URL, GMAIL, PASSWORD
 
-// for development environement
+// Use one MongoDB URI in both environments so profile reads and writes share
+// the configured database. MONGODB_URI_PRODUCTION remains as a legacy fallback.
+const MONGODB_URI = process.env.MONGODB_URI || process.env.MONGODB_URI_PRODUCTION
+
 if (process.env.NODE_ENV !== 'production') {
   BASE_URL = 'http://localhost:3000'
-  MONGODB_URI = process.env.MONGODB_URI
   GMAIL = process.env.GMAIL_USER_DEV
   PASSWORD = process.env.GMAIL_PASS_DEV
 } else {
   // BASE_URL = 'https://main.dsxlpz487o1xu.amplifyapp.com'
   // BASE_URL = 'https://www.muslimmatchmaker.xyz'
   BASE_URL = 'https://www.muslimmatchmaker.life'
-  MONGODB_URI = process.env.MONGODB_URI_PRODUCTION
-  // MONGODB_URI = process.env.MONGODB_URI
-
   GMAIL = process.env.GMAIL_USER
   PASSWORD = process.env.GMAIL_PASS
 }

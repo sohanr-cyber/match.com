@@ -19,7 +19,7 @@ class UserRepository {
     this.expectation = new ExpectationRepository()
   }
   async CreateUser ({
-    email,
+    phone,
     password,
     name,
     salt,
@@ -32,13 +32,14 @@ class UserRepository {
 
     try {
       const user = new User({
-        email,
+        phone,
         password,
         salt,
         name,
         gender,
         verificationCode,
         expirationTime,
+        lastVerificationSentAt: new Date(),
         profileId
       })
 
@@ -64,14 +65,22 @@ class UserRepository {
     }
   }
 
-  async FindUser ({ email }) {
+  async FindUser ({ phone }) {
     try {
       await db.connect()
-      const existingCustomer = await User.findOne({ email: email })
+      const existingCustomer = await User.findOne({ phone }).select('+phone')
       return existingCustomer
     } catch (error) {
       console.log(error)
     }
+  }
+
+  async FindLegacyUserByEmail (email) {
+    await db.connect()
+    return User.findOne({
+      email,
+      $or: [{ phone: { $exists: false } }, { phone: null }, { phone: '' }]
+    })
   }
 
   async generateId () {

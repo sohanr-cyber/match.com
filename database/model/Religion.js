@@ -24,14 +24,18 @@ const religionScheama = mongoose.Schema(
     piety: { type: String },
     interest: { type: String },
     regularDeeds: { type: String },
-    badHabit: { Type: String },
-    mahr: { Type: String },
-    dowry: { Type: String },
-    sunnah: { Type: String },
-    beard: { Type: String }
+    badHabit: { type: String },
+    mahr: { type: String },
+    dowry: { type: String },
+    sunnah: { type: String },
+    beard: { type: String }
   },
   { timestamps: true }
 )
+
+if (mongoose.models.Religion && ['badHabit', 'mahr', 'dowry', 'sunnah', 'beard'].some(field => !mongoose.models.Religion.schema.path(field))) {
+  mongoose.deleteModel('Religion')
+}
 
 const Religion =
   mongoose.models.Religion || mongoose.model('Religion', religionScheama)

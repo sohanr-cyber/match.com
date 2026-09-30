@@ -1,6 +1,7 @@
 import BASE_URL from '@/config'
 import nc from 'next-connect'
-import axios from 'axios'
+import db from '@/database/connection'
+import User from '@/database/model/User'
 const handler = nc()
 
 function generateSiteMap (posts) {
@@ -40,14 +41,13 @@ function generateSiteMap (posts) {
 
 handler.get(async (req, res) => {
   try {
-    const { data } = await axios.get(`${BASE_URL}/api/auth/users`)
-
-    // We generate the XML sitemap with the posts data
-    const sitemap = generateSiteMap(
-      data.map(i => ({
-        _id: i._id
-      }))
-    )
+    await db.connect()
+    const users = await User.find({ active: true })
+      .select('profileId')
+      .lean()
+    const sitemap = generateSiteMap(users.map(user => ({ _id: user.profileId })))
+    res.setHeader('Content-Type', 'application/xml')
+    res.setHeader('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400')
     res.send(sitemap)
   } catch (error) {
     console.log(error)

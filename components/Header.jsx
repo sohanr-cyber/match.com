@@ -1,64 +1,56 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styles from '../styles/Header.module.css'
-const backgrounds = [
-  'https://images.pexels.com/photos/306066/pexels-photo-306066.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-
-  'https://images.pexels.com/photos/627975/pexels-photo-627975.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-  'https://images.pexels.com/photos/8891957/pexels-photo-8891957.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-]
-
-const mobileBackgrounds = [
-  'https://images.pexels.com/photos/306066/pexels-photo-306066.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-  'https://images.pexels.com/photos/6765928/pexels-photo-6765928.jpeg?auto=compress&cs=tinysrgb&w=600',
-  'https://images.pexels.com/photos/7784603/pexels-photo-7784603.jpeg?auto=compress&cs=tinysrgb&w=600'
-]
-
 import Box from './utils/Box'
 import { useRouter } from 'next/router'
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
+import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded'
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 
 const Header = ({ data }) => {
-  const [backgroundIndex, setBackgroundIndex] = useState(0)
   const router = useRouter()
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setBackgroundIndex(prevIndex => (prevIndex + 1) % backgrounds.length)
-    }, 5000)
-
-    return () => clearInterval(interval)
-  }, [backgroundIndex, backgrounds.length])
+  const isBangla = router.locale === 'bn'
 
   return (
-    <div
-      className={styles.wrapper}
-      style={{
-        backgroundImage: `url("${backgrounds[backgroundIndex]}")`,
-        backgroundSize: 'cover'
-      }}
-    >
-      <div className={styles.surface}></div>
-      {router.locale == 'en-US' ? (
-        <>
-          <h1 className={styles.heading1}>
-            find a <span>religious partner</span> of your choice
-          </h1>
-          <p>
-            we made it easy for you to get your <span>life partner</span> in{' '}
-            <span>your location </span>
+    <section className={styles.wrapper}>
+      <div className={styles.backdrop} aria-hidden='true' />
+      <div className={styles.heroContent}>
+        <div className={styles.heroCopy}>
+          <div className={styles.eyebrow}>
+            <FavoriteRoundedIcon />
+            <span>{isBangla ? 'আপনার জীবনের সঙ্গী খুঁজুন' : 'A more meaningful way to meet'}</span>
+          </div>
+          {isBangla ? (
+            <h1 className={styles.heading1}>
+              আপনার পছন্দের <span>জীবনসঙ্গী</span><br />খুঁজে নিন
+            </h1>
+          ) : (
+            <h1 className={styles.heading1}>
+              Find someone who <span>shares your values.</span>
+            </h1>
+          )}
+          <p className={styles.heroDescription}>
+            {isBangla
+              ? 'আপনার বিশ্বাস, মূল্যবোধ ও ভবিষ্যৎ পরিকল্পনার সঙ্গে মানানসই মানুষ খুঁজুন।'
+              : 'Meet people who share your faith, values, and hopes for the future.'}
           </p>
-        </>
-      ) : (
-        <>
-          <h1 className={styles.heading1}>
-            আপনার পছন্দের একজন <span>ধার্মিক জীবনসঙ্গী </span>খুঁজুন
-          </h1>
-          {/* <p>
-            we made it easy for you to get your <span>life partner</span> in{' '}
-            <span>your location </span>
-          </p> */}
-        </>
-      )}
-      <Box data={data} />
-    </div>
+          <div className={styles.promiseRow}>
+            <span><VerifiedRoundedIcon />{isBangla ? 'মূল্যবোধকে গুরুত্ব দিন' : 'Values come first'}</span>
+            <span><FavoriteRoundedIcon />{isBangla ? 'সম্পর্ক গড়ুন নিজের গতিতে' : 'Meet at your own pace'}</span>
+          </div>
+        </div>
+        <div className={styles.searchWrap} id='home-search'>
+          <div className={styles.searchHeading}>
+            <div>
+              <span className={styles.searchKicker}>{isBangla ? 'শুরু করুন' : 'YOUR NEXT CHAPTER'}</span>
+              <h2>{isBangla ? 'আপনার পছন্দের মানুষ খুঁজুন' : 'Start your search'}</h2>
+              <p>{isBangla ? 'আপনার জন্য গুরুত্বপূর্ণ বিষয়গুলো বেছে নিন' : 'Choose what matters to you in a partner.'}</p>
+            </div>
+            <div className={styles.searchMark}><SearchRoundedIcon /></div>
+          </div>
+          <Box data={data} />
+        </div>
+      </div>
+    </section>
   )
 }
 

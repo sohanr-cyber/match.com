@@ -10,6 +10,9 @@ import { useRouter } from 'next/router'
 const Expectation = ({ expectation, ln, myProfile }) => {
   const [open, setOpen] = useState(false)
   const router = useRouter()
+  const profileExpectation = expectation || {}
+  const educations = Array.isArray(profileExpectation.educations) ? profileExpectation.educations : []
+  const professions = Array.isArray(profileExpectation.professions) ? profileExpectation.professions : []
 
   return (
     <div className={styles.wrapper}>
@@ -40,32 +43,32 @@ const Expectation = ({ expectation, ln, myProfile }) => {
           <div className={styles.flex}>
             <div className={styles.key}>{getText('minAge', ln)} : </div>
             <div className={styles.value}>
-              {expectation.minAge
-                ? englishToBangla(expectation.minAge)
+              {profileExpectation.minAge
+                ? englishToBangla(profileExpectation.minAge)
                 : '_____'}{' '}
             </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('maxAge', ln)} : </div>
             <div className={styles.value}>
-              {expectation.maxAge
-                ? englishToBangla(expectation.maxAge)
+              {profileExpectation.maxAge
+                ? englishToBangla(profileExpectation.maxAge)
                 : '_____'}{' '}
             </div>{' '}
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('minHeight', ln)} : </div>
             <div className={styles.value}>
-              {expectation.minHeight
-                ? heightToFeet(expectation.minHeight, ln)
+              {profileExpectation.minHeight
+                ? heightToFeet(profileExpectation.minHeight, ln)
                 : '_____'}
             </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}>{getText('maxHeight', ln)}: </div>
             <div className={styles.value}>
-              {expectation.maxHeight
-                ? heightToFeet(expectation.maxHeight, ln)
+              {profileExpectation.maxHeight
+                ? heightToFeet(profileExpectation.maxHeight, ln)
                 : '_____'}
             </div>
           </div>
@@ -87,7 +90,7 @@ const Expectation = ({ expectation, ln, myProfile }) => {
           <div className={styles.flex}>
             <div className={styles.key}> {getText('education', ln)}: </div>
             <div className={styles.value}>
-              {expectation.educations.map((item, index) => (
+              {educations.map((item, index) => (
                 <span key={index}>
                   <Ln item={item} /> &nbsp;
                 </span>
@@ -98,7 +101,7 @@ const Expectation = ({ expectation, ln, myProfile }) => {
             <div className={styles.key}> {getText('ocupation', ln)} </div>
             <div className={styles.value}>
               {' '}
-              {expectation.professions.map((item, index) => (
+              {professions.map((item, index) => (
                 <span key={index}>{item} &nbsp;</span>
               ))}{' '}
             </div>
@@ -106,12 +109,12 @@ const Expectation = ({ expectation, ln, myProfile }) => {
           <div className={styles.flex}>
             <div className={styles.key}> {getText('pr', ln)}: </div>
             <div className={styles.value}>
-              {expectation.description || '_____'}
+              {profileExpectation.description || '_____'}
             </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.key}> {getText('moreE', ln)} </div>
-            <div className={styles.value}>{expectation.more || '_____'}</div>
+            <div className={styles.value}>{profileExpectation.more || '_____'}</div>
           </div>
         </div>
       )}

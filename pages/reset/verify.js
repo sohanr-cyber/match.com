@@ -1,140 +1,96 @@
 import React, { useEffect, useState } from 'react'
 import styles from '../../styles/Signin.module.css'
-import Logo from '@/components/utils/Logo'
 import { useRouter } from 'next/router'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import { useDispatch, useSelector } from 'react-redux'
-import { login } from '@/redux/userSlice'
 import axios from 'axios'
-import * as EmailValidator from 'email-validator'
+import { useDispatch } from 'react-redux'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
-import { getText } from '@/Translation/account'
-import Ln from '@/components/utils/Ln'
+import { showSnackBar } from '@/redux/notistackSlice'
 import { NextSeo } from 'next-seo'
 import { getText as seoText } from '@/Translation/seo'
-import { showSnackBar } from '@/redux/notistackSlice'
+import { normalizePhone } from '@/utility/phone'
+import AuthFrame from '@/components/AuthFrame'
 
-const Verify = () => {
+const ResetVerify = () => {
   const router = useRouter()
+  const dispatch = useDispatch()
+  const [phone, setPhone] = useState('')
+  const [email, setEmail] = useState('')
+  const [legacyEmail, setLegacyEmail] = useState(false)
   const [code, setCode] = useState('')
   const [newPassword, setNewPassword] = useState('')
-  const userInfo = useSelector(state => state.user.userInfo)
-  const dispatch = useDispatch()
-  const [error, setError] = useState('')
-  const ln = router.locale
+  const bn = router.locale === 'bn'
 
-  const verifyCode = async () => {
-    if (!code || !newPassword) {
-      dispatch(
-        showSnackBar({
-          message: 'Please Type The Code and New Password!',
-          option: {
-            variant: 'error'
-          }
-        })
-      )
+  useEffect(() => {
+    setPhone(sessionStorage.getItem('resetPhone') || '')
+    setEmail(sessionStorage.getItem('resetEmail') || '')
+  }, [])
+
+  useEffect(() => {
+    if (router.isReady) setLegacyEmail(router.query.legacy === '1')
+  }, [router.isReady, router.query.legacy])
+
+  const resetPassword = async event => {
+    event.preventDefault()
+    const normalized = normalizePhone(phone)
+    if (!(legacyEmail ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) : normalized) || !/^\d{6}$/.test(code) || !newPassword) {
+      dispatch(showSnackBar({ message: 'Enter your phone, six-digit code, and new password.', option: { variant: 'error' } }))
       return
     }
-    if (code.length != 6) {
-      dispatch(
-        showSnackBar({
-          message: 'Code must be of 6 Characters',
-          option: {
-            variant: 'error'
-          }
-        })
-      )
-      return
-    }
-
     dispatch(startLoading())
     try {
-      const { data } = await axios.post('/api/auth/reset', {
-        code,
-        newPassword
-      })
-
+      const { data } = await axios.post('/api/auth/reset', legacyEmail ? { email, code, newPassword } : { phone: normalized, code, newPassword })
       if (data.error) {
-        dispatch(
-          showSnackBar({
-            message: data.error,
-            option: {
-              variant: 'error'
-            }
-          })
-        )
-      }
-
-      if (data && !data.error) {
-        console.log(data)
-        dispatch(
-          showSnackBar({
-            message: 'Password Reset !',
-            option: {
-              variant: 'success'
-            }
-          })
-        )
+        dispatch(showSnackBar({ message: data.error, option: { variant: 'error' } }))
+      } else {
+        sessionStorage.removeItem('resetPhone')
+        sessionStorage.removeItem('resetEmail')
+        dispatch(showSnackBar({ message: data.message, option: { variant: 'success' } }))
         router.push('/login')
       }
-      dispatch(finishLoading())
     } catch (error) {
+      dispatch(showSnackBar({ message: 'Could not reset password.', option: { variant: 'error' } }))
+    } finally {
       dispatch(finishLoading())
-      console.log(error)
     }
   }
 
   return (
     <>
-      <NextSeo
-        title={seoText('registerTitle', ln)}
-        description={seoText('registerDesc', ln)}
-      />
-      <div className={styles.wrapper}>
-        <div className={styles.logo}>
-          <Logo />
+      <NextSeo title={seoText('loginTitle', router.locale)} />
+      <AuthFrame mode='login' locale={router.locale}>
+        <div className={styles.heading}>
+          <span className={styles.kicker}>{bn ? 'অ্যাকাউন্ট পুনরুদ্ধার' : 'ACCOUNT RECOVERY'}</span>
+          <h2 id='auth-title'>{bn ? 'নতুন পাসওয়ার্ড দিন' : 'Choose a new password'}</h2>
+          <p>{bn ? 'এসএমএস কোড এবং নতুন পাসওয়ার্ড লিখুন।' : 'Enter the SMS code and a new password.'}</p>
         </div>
-        <div className={styles.form__container}>
-          <div className={styles.flex}>
-            <div className={styles.left} onClick={() => router.push('/login')}>
-              {getText('login', ln)}{' '}
-            </div>{' '}
-            <div
-              className={styles.right}
-              style={{ borderBottom: '2px solid blue' }}
-              onClick={() => router.push('/reset')}
-            >
-              {getText('reset', ln)}{' '}
-            </div>
-          </div>
-          <form>
-            <input
-              type='text'
-              placeholder={getText('code', ln)}
-              value={code}
-              onChange={e => setCode(e.target.value)}
-            />
-            <input
-              type='text'
-              placeholder={getText('newPassword', ln)}
-              value={newPassword}
-              onChange={e => setNewPassword(e.target.value)}
-            />
-
-            {error && (
-              <div style={{ color: 'red', fontSize: '90%' }}>{error}</div>
+        <form className={styles.form} onSubmit={resetPassword}>
+          <div className={styles.field}>
+            {legacyEmail ? (
+              <>
+                <label htmlFor='reset-verify-email'>{bn ? 'আগের ইমেইল ঠিকানা' : 'Existing account email'}</label>
+                <input id='reset-verify-email' type='email' autoComplete='email' value={email} onChange={e => setEmail(e.target.value)} required />
+              </>
+            ) : (
+              <>
+                <label htmlFor='reset-verify-phone'>{bn ? 'ফোন নম্বর' : 'Phone number'}</label>
+                <input id='reset-verify-phone' type='tel' inputMode='tel' autoComplete='tel' placeholder='01XXXXXXXXX' value={phone} onChange={e => setPhone(e.target.value)} required />
+              </>
             )}
-           
-          </form>
-
-          <div className={styles.btn} onClick={() => verifyCode()}>
-            {getText('verify', ln)}
           </div>
-        </div>
-      </div>
+          <div className={styles.field}>
+            <label htmlFor='reset-code'>{bn ? 'যাচাইকরণ কোড' : 'Verification code'}</label>
+            <input id='reset-code' type='text' inputMode='numeric' autoComplete='one-time-code' maxLength={6} placeholder='000000' value={code} onChange={e => setCode(e.target.value.replace(/\D/g, ''))} required />
+          </div>
+          <div className={styles.field}>
+            <label htmlFor='reset-password'>{bn ? 'নতুন পাসওয়ার্ড' : 'New password'}</label>
+            <input id='reset-password' type='password' autoComplete='new-password' value={newPassword} onChange={e => setNewPassword(e.target.value)} required />
+          </div>
+          <button className={styles.submit} type='submit'>{bn ? 'পাসওয়ার্ড পরিবর্তন করুন' : 'Reset password'} <span aria-hidden='true'>→</span></button>
+        </form>
+        <p className={styles.legacySwitch}><button type='button' className={styles.inlineButton} onClick={() => setLegacyEmail(!legacyEmail)}>{legacyEmail ? (bn ? 'ফোন নম্বর ব্যবহার করুন' : 'Use phone instead') : (bn ? 'আগের অ্যাকাউন্ট? ইমেইল ব্যবহার করুন' : 'Existing account? Use email')}</button></p>
+      </AuthFrame>
     </>
   )
 }
 
-export default Verify
+export default ResetVerify

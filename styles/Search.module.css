@@ -1,120 +1,17 @@
-.wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 4;
-    background: aliceblue;
-    max-height: 100vh;
-    /* min-width: 180px; */
-    overflow-y: scroll;
-    background: rgba(255, 255, 255, 0.25);
-    /* box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); */
-    backdrop-filter: blur(6.5px);
-    border-right: 1px solid rgba(31, 38, 135, 0.37);
-    min-height: 100vh;
-
-}
-
-
-.top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px 15px;
-    font-weight: bold;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
-}
-
-.top .close {
-    border: 1px solid red;
-    padding: 3px 7px;
-    border-radius: 50%;
-    color: white;
-    background-color: red;
-    cursor: pointer;
-}
-
-.heading {
-    display: flex;
-    justify-content: space-between;
-    background-color: rgb(0, 0, 255, 0.1);
-    padding: 10px 15px;
-    font-weight: bold;
-    box-shadow: 1px 1px 1px rgb(0, 0, 255, 0.1);
-
-}
-
-.togle {
-    border: 1px solid lightblue;
-    padding: 0 5px;
-    min-width: 20px;
-    border-radius: 5px;
-    text-align: center;
-    background-color: rgb(0, 0, 255, 0.1);
-
-}
-
-.options {
-    padding: 10px 15px;
-}
-
-
-.flex {
-    display: flex;
-    gap: 10px;
-    margin: 5px 0;
-    max-width: 210px
-}
-
-
-
-.flex input,
-.flex label {
-    margin: 5px 0;
-    padding: 7px;
-    border: none;
-    border-radius: 5px;
-
-
-}
-
-.flex input {
-    border: none;
-    max-width: 80px;
-
-}
-
-
-.options .apply {
-    text-align: center;
-    background: var(--btn);
-    color: white;
-    padding: 6px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    box-shadow: var(--btn-shadow);
-
-}
-
-.location {}
-
-.location .flex {
-    display: flex;
-    justify-content: space-between;
-    margin: 10px 0;
-}
-
-.location .flex .icon {
-    font-weight: bold;
-}
-
-.location .flex select {
-    padding: 5px;
-    border-radius: 5px;
-    border: none;
-    min-width: 110px;
-    max-width: 110px;
-
-}
+.wrapper { position: fixed; z-index: 20; inset: 0 auto 0 0; width: min(380px,92vw); max-height: 100dvh; overflow-y: auto; border-right: 1px solid rgba(255,255,255,.8); background: rgba(250,254,252,.91); color: #264b45; box-shadow: 18px 0 55px rgba(4,72,55,.16); backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px); }
+.top { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; border-bottom: 1px solid rgba(0,128,0,.1); background: rgba(255,255,255,.78); color: #183f38; font-family: var(--font-display); font-size: 20px; font-weight: 600; backdrop-filter: blur(15px); }
+.top .close { width: 32px; height: 32px; display: grid; place-items: center; border: 1px solid rgba(0,128,0,.16); border-radius: 10px; background: rgba(0,183,255,.08); color: #087247; font-family: var(--font-body); font-size: 15px; cursor: pointer; }
+.heading { display: flex; align-items: center; justify-content: space-between; margin: 12px 12px 0; padding: 12px 14px; border: 1px solid rgba(0,128,0,.09); border-radius: 12px; background: rgba(255,255,255,.57); color: #294b44; font-size: 13px; font-weight: 700; }
+.togle { min-width: 25px; padding: 2px 6px; border: 1px solid rgba(0,183,255,.25); border-radius: 7px; background: rgba(0,183,255,.09); color: #008000; text-align: center; cursor: pointer; }
+.options { padding: 10px 18px 16px; }
+.flex { display: flex; align-items: center; gap: 10px; margin: 7px 0; }
+.flex input, .flex label { margin: 3px 0; padding: 8px; border: 1px solid rgba(0,128,0,.13); border-radius: 8px; }
+.flex input { width: 100%; max-width: 100px; background: rgba(255,255,255,.72); }
+.icon { display: flex; align-items: center; color: #008000; cursor: pointer; }
+.value { color: #526d68; font-size: 13px; }
+.options .apply { margin-top: 12px; padding: 10px 12px; border-radius: 9px; background: var(--btn); color: #fff; text-align: center; font-size: 13px; font-weight: 700; cursor: pointer; box-shadow: var(--btn-shadow); }
+.location .flex { justify-content: space-between; gap: 12px; margin: 10px 0; }
+.location .flex .icon { flex: 0 0 82px; font-size: 12px; font-weight: 600; }
+.location .flex select { width: 100%; min-width: 0; max-width: 190px; padding: 8px 10px; border: 1px solid rgba(0,128,0,.14); border-radius: 9px; background: rgba(255,255,255,.73); color: #294b44; font-size: 12px; }
+.options svg { color: #008000; }
+@media (max-width: 570px) { .wrapper { width: min(360px,94vw); } .top { padding: 15px 16px; } }

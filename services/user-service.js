@@ -9,7 +9,10 @@ import {
   ValidateSignature,
   FormateData
 } from '@/utility/index'
-import Notification from './notification-service'
+import Message from './message-service'
+import { normalizePhone } from '@/utility/phone'
+import db from '@/database/connection'
+import User from '@/database/model/User'
 
 function hideSensitiveInformation (userObject, reqUserId) {
   // Clone the existing user object to avoid modifying the original
@@ -26,6 +29,7 @@ function hideSensitiveInformation (userObject, reqUserId) {
   // Hide sensitive information in 'existingUser'
   newUserObject.existingUser.name = '*****'
   newUserObject.existingUser.email = '*****'
+  newUserObject.existingUser.phone = '*****'
   // newUserObject.existingUser.savedIds = "*****";
   // newUserObject.existingUser.saverIds = "*****";
 
@@ -42,32 +46,34 @@ function hideSensitiveInformation (userObject, reqUserId) {
 class UserService {
   constructor () {
     this.repository = new UserRepository()
-    this.notification = new Notification()
+    this.message = new Message()
   }
 
   async SignUp (userInputs) {
-    const { email, password, name, gender } = userInputs
-
-    // Check if user already exists
-    const existingUser = await this.repository.FindUser({ email })
-    if (existingUser) {
-      return FormateData({ error: 'Email Already Exist!' })
+    const { password, name, gender } = userInputs
+    const phone = normalizePhone(userInputs.phone)
+    if (!phone || !password || !name || !['Male', 'Female'].includes(gender)) {
+      return FormateData({ error: 'Enter a valid Bangladeshi phone number and complete all fields.' })
+    }
+    if (!process.env.BULK_SMS_API_KEY || !process.env.BULK_SMS_SENDER_ID) {
+      return FormateData({ error: 'SMS service is not configured.' })
     }
 
-    // Run independent operations concurrently
+    const existingUser = await this.repository.FindUser({ phone })
+    if (existingUser) {
+      return FormateData({ error: 'Phone number already registered.' })
+    }
+
     const [salt, profileId] = await Promise.all([
       GenerateSalt(),
       this.repository.generateId()
     ])
     const userPassword = await GeneratePassword(password, salt)
     const verificationCode = generateVerificationCode(6)
+    const expirationTime = new Date(Date.now() + 5 * 60 * 1000)
 
-    const expirationTime = new Date()
-    expirationTime.setMinutes(expirationTime.getMinutes() + 5)
-
-    // Create user
     const existUser = await this.repository.CreateUser({
-      email,
+      phone,
       password: userPassword,
       name,
       salt,
@@ -77,19 +83,21 @@ class UserService {
       profileId
     })
 
-    if (existUser) {
-      // Sending email doesn't need to block the next steps
-      this.notification.sendCodeToMail({
-        recieverEmail: existUser.email,
-        recieverName: existUser.name,
-        recieverId: existUser._id,
-        verificationCode: existUser.verificationCode
+    let smsSent = true
+    try {
+      await this.message.sendMessage({
+        number: phone,
+        message: 'Your Muslim Match Maker verification code is ' + verificationCode + '. It expires in 5 minutes.'
       })
+    } catch (error) {
+      smsSent = false
+      existUser.lastVerificationSentAt = undefined
+      await existUser.save()
+      console.error('Could not send registration SMS:', error.message)
     }
 
-    // Generate token
     const token = await GenerateSignature({
-      email: email,
+      phone,
       _id: existUser._id,
       isVerified: existUser.isVerified
     })
@@ -97,50 +105,58 @@ class UserService {
     return FormateData({
       id: existUser._id,
       token,
+      phone,
       name: existUser.name,
       active: existUser.active,
       isVerified: existUser.isVerified,
-      profileId: existUser.profileId
+      profileId: existUser.profileId,
+      role: existUser.role,
+      smsSent
     })
   }
 
   async SignIn (userInputs) {
-    try {
-      console.log(userInputs)
-      const { email, password } = userInputs
-      const existingUser = await this.repository.FindUser({ email })
-      if (!existingUser) {
-        return FormateData({ error: 'User Not Found With This Gmail !' })
-      }
-      if (existingUser) {
-        const validPassword = await ValidatePassword(
-          password.toString(),
-          existingUser.password,
-          existingUser.salt
-        )
-        if (validPassword) {
-          const token = await GenerateSignature({
-            email: existingUser.email,
-            _id: existingUser._id,
-            isVerified: existingUser.isVerified
-          })
-          return FormateData({
-            id: existingUser._id,
-            token,
-            name: existingUser.name,
-            active: existingUser.active,
-            isVerified: existingUser.isVerified,
-            profileId: existingUser.profileId
-          })
-        } else {
-          return FormateData({ error: "Password Didn't Match !" })
-        }
-      }
-
-      return FormateData({ error: 'User Not Found' })
-    } catch (error) {
-      console.log(error)
+    const phone = normalizePhone(userInputs.phone)
+    const email = typeof userInputs.email === 'string'
+      ? userInputs.email.trim().toLowerCase()
+      : ''
+    const { password } = userInputs
+    const legacyEmail = !phone && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    if ((!phone && !legacyEmail) || !password) {
+      return FormateData({ error: 'Enter a valid phone number or legacy email and password.' })
     }
+
+    const existingUser = phone
+      ? await this.repository.FindUser({ phone })
+      : await this.repository.FindLegacyUserByEmail(email)
+    if (!existingUser) {
+      return FormateData({ error: 'Invalid credentials.' })
+    }
+    const validPassword = await ValidatePassword(
+      password.toString(),
+      existingUser.password,
+      existingUser.salt
+    )
+    if (!validPassword) {
+      return FormateData({ error: 'Invalid credentials.' })
+    }
+
+    const token = await GenerateSignature({
+      ...(legacyEmail ? { email: existingUser.email } : { phone: existingUser.phone }),
+      _id: existingUser._id,
+      isVerified: existingUser.isVerified
+    })
+    return FormateData({
+      id: existingUser._id,
+      token,
+      phone: existingUser.phone,
+      name: existingUser.name,
+      active: existingUser.active,
+      isVerified: existingUser.isVerified,
+      profileId: existingUser.profileId,
+      role: existingUser.role,
+      legacyEmail
+    })
   }
 
   async FindUserProfileById (userId, reqUserId, update) {
@@ -153,13 +169,30 @@ class UserService {
   }
 
   async UpdateUser (userInputs) {
-    try {
-      const { email, password, ...DataToUpdate } = userInputs
-      const existingUser = await this.repository.UpdateUser(DataToUpdate)
-      return FormateData(existingUser)
-    } catch (error) {
-      console.log(error)
+    const allowedFields = [
+      'name', 'gender', 'maritalStatus', 'city', 'district', 'upazilla',
+      'educationType', 'education', 'institute', 'session', 'profession',
+      'height', 'skinColor', 'bodyType', 'bornAt', 'averageMonthlyIncome',
+      'categories', 'active'
+    ]
+    const changes = { _id: userInputs._id }
+    for (const field of allowedFields) {
+      if (Object.prototype.hasOwnProperty.call(userInputs, field)) {
+        changes[field] = userInputs[field]
+      }
     }
+    if (changes.active === true) {
+      await db.connect()
+      const account = await User.findById(userInputs._id).select('isVerified').lean()
+      if (!account?.isVerified) throw new Error('Verify the account before activating the profile')
+    }
+    const existingUser = await this.repository.UpdateUser(changes)
+    if (!existingUser) throw new Error('Account update failed')
+    const safe = existingUser.toObject()
+    for (const field of ['password', 'salt', 'verificationCode', 'verificationAttempts', 'expirationTime', 'lastVerificationSentAt', 'phone']) {
+      delete safe[field]
+    }
+    return FormateData(safe)
   }
   async UpdateUserProposal ({ sender, reciever }) {
     const existingUser = await this.repository.UpdateUserProposal({

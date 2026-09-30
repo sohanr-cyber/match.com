@@ -12,7 +12,6 @@ const GeneratePassword = async (password, salt) => {
 }
 
 const ValidatePassword = async (enteredPassword, savedPassword, salt) => {
-  console.log({ salt, enteredPassword })
   return (await GeneratePassword(enteredPassword, salt)) == savedPassword
 }
 
@@ -25,36 +24,32 @@ const GenerateSignature = async payload => {
   }
 }
 
+const readToken = req => {
+  const match = /^Bearer (\S+)$/i.exec(req.headers.authorization || '')
+  return match?.[1]
+}
+
 const ValidateSignature = async req => {
+  const token = readToken(req)
+  if (!token) return false
   try {
-    const { authorization: signature } = req.headers
-    console.log({ signature })
-    const payload = await jwt.verify(signature.split(' ')[1], APP_SECRET)
-    req.user = payload
+    req.user = jwt.verify(token, APP_SECRET)
     return true
-  } catch (error) {
-    console.log(error)
+  } catch {
     return false
   }
 }
 
 const ValidateSignatureOptional = async req => {
+  const token = readToken(req)
+  if (!token) {
+    req.user = {}
+    return true
+  }
   try {
-    const { authorization: signature } = req.headers
-    if (signature) {
-      const payload = await jwt.verify(signature.split(' ')[1], APP_SECRET)
-      req.user = payload
-      console.log('from authorized user')
-      return true
-    } else {
-      req.user = {}
-      console.log('from un-authorized user')
-      return true
-    }
-
-    console.log('req user', req.user)
-  } catch (error) {
-    console.log(error)
+    req.user = jwt.verify(token, APP_SECRET)
+    return true
+  } catch {
     return false
   }
 }

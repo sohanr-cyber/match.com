@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { useProfileSection } from '@/utility/use-profile-section'
+import { showMissingRequiredFields } from '@/utility/profile-required-fields'
 import styles from '../../../styles/Profile/Update/Basic.module.css'
 import {
   professions,
@@ -22,17 +24,19 @@ import { showSnackBar } from '@/redux/notistackSlice'
 import { isAddressValid } from '@/utility/validator'
 import { routes } from '@/utility/data'
 
-const Basic = ({ locationData, address: data, ln }) => {
+const Basic = ({ locationData, address: data, ln, onChange }) => {
   const [districts, setDistricts] = useState([])
-  const [address, setAddress] = useState({ ...data })
+  const [address, setAddress] = useProfileSection({ ...data }, onChange)
   const [error, setError] = useState('')
   const router = useRouter()
   const dispatch = useDispatch()
   const userInfo = useSelector(state => state.user.userInfo)
+  const formRef = useRef(null)
   const fetchDistrict = async city => {
+    if (!city) return
     try {
       const { data } = await axios.get(
-        `https://bdapis.com/api/v1.1/division/${city}`
+        `/api/location/division/${encodeURIComponent(city)}`
       )
       setDistricts(data.data)
     } catch (error) {
@@ -41,12 +45,20 @@ const Basic = ({ locationData, address: data, ln }) => {
   }
 
   useEffect(() => {
-    fetchDistrict(address.city || locationData[0].division)
+    fetchDistrict(address.city || locationData?.[0]?.division)
   }, [address.city])
 
   const update = async () => {
+    if (showMissingRequiredFields(formRef.current, [
+    {label:getText('city', ln),value:address.city},{label:getText('district', ln),value:address.district},
+    {label:getText('upazilla', ln),value:address.upazilla},{label:getText('location', ln),value:address.location},
+    {label:getText('phone', ln),value:address.phone},{label:getText('phone2', ln),value:address.phone2},
+    {label:getText('email', ln),value:address.email}
+], ln)) return
+
     if (!isAddressValid(address)) {
-      dispatch(
+
+            dispatch(
         showSnackBar({
           message: 'Fill All The  Field !',
           option: {
@@ -83,7 +95,7 @@ const Basic = ({ locationData, address: data, ln }) => {
         dispatch(finishLoading())
         const index = routes.findIndex(i => i.query == router.query.update)
         index + 1 >= routes.length
-          ? router.push(`/profile//${router.query.id}`)
+          ? router.push(`/profile/${router.query.id}`)
           : router.push(
               `/profile/update/${router.query.id}?update=${
                 routes[index + 1]?.query
@@ -108,7 +120,7 @@ const Basic = ({ locationData, address: data, ln }) => {
     <div
       Id={'addresss'}
       className={styles.wrapper}
-      style={{ backgroundColor: 'aliceblue' }}
+
     >
       <div className={styles.heading}>
         <div className={styles.left}>
@@ -126,7 +138,7 @@ const Basic = ({ locationData, address: data, ln }) => {
           <InfoIcon /> <span>{getText('hiddentContact', ln)}</span>
         </p>{' '}
       </div>
-      <form className={styles.form__Container}>
+      <form ref={formRef} className={styles.form__Container} onSubmit={e => { e.preventDefault(); update() }}>
         <div className={styles.field}>
           <label>{getText('city', ln)}</label>
           <select
@@ -225,9 +237,9 @@ const Basic = ({ locationData, address: data, ln }) => {
         </div>
       </form>{' '}
       {error && <p style={{ fontSize: '80%', color: 'red' }}>{error}</p>}
-      <div className={styles.save} onClick={() => update()}>
+      <button type="button" className={styles.save} onClick={() => update()}>
         {getText('save', ln)}
-      </div>
+      </button>
     </div>
   )
 }

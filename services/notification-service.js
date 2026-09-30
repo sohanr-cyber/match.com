@@ -184,7 +184,6 @@ class Notification {
     verificationCode,
     reset
   }) {
-    console.log({ recieverEmail, recieverId, recieverName, verificationCode })
     try {
       const info = await this.transporter.sendMail({
         from: this.from,
@@ -202,7 +201,7 @@ class Notification {
         }) // html body
       })
     } catch (error) {
-      console.log(error)
+      throw error
     }
   }
 }

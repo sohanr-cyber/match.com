@@ -1,4 +1,7 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
+import { useProfileSection } from '@/utility/use-profile-section'
+import { showMissingRequiredFields } from '@/utility/profile-required-fields'
+import { isExpectationValid } from '@/utility/validator'
 import styles from '@/styles/Profile/Update/Basic.module.css'
 import {
   professions,
@@ -19,19 +22,25 @@ import Ln from '@/components/utils/Ln'
 import { showSnackBar } from '@/redux/notistackSlice'
 import { routes } from '@/utility/data'
 
-const Basic = ({ expectation: data, ln }) => {
-  const [expectation, setExpectation] = useState({
+const Basic = ({ expectation: data, ln, onChange }) => {
+  const [expectation, setExpectation] = useProfileSection({
     ...data,
-    minHeightFeet: parseInt(data.minHeight / 12),
-    minHeightInches: data.minHeight % 12,
-    maxHeightFeet: parseInt(data.maxHeight / 12),
-    maxHeightInches: data.maxHeight % 12
-  })
+    minHeightFeet: data.minHeightFeet ?? (data.minHeight ? Math.floor(data.minHeight / 12) : ''),
+    minHeightInches: data.minHeightInches ?? (data.minHeight ? data.minHeight % 12 : ''),
+    maxHeightFeet: data.maxHeightFeet ?? (data.maxHeight ? Math.floor(data.maxHeight / 12) : ''),
+    maxHeightInches: data.maxHeightInches ?? (data.maxHeight ? data.maxHeight % 12 : '')
+  }, onChange)
   const dispatch = useDispatch()
   const router = useRouter()
   const userInfo = useSelector(state => state.user.userInfo)
   const [error, setError] = useState('')
+  const formRef = useRef(null)
   const update = async () => {
+    if (showMissingRequiredFields(formRef.current, [
+ {label:getText('minAge', ln),value:expectation.minAge},{label:getText('maxAge', ln),value:expectation.maxAge},
+ {label:getText('education', ln),value:expectation.educations},
+ {label:getText('ocupation', ln),value:expectation.professions}
+], ln)) return
     try {
       dispatch(startLoading())
       const { data } = await axios.put(
@@ -54,10 +63,10 @@ const Basic = ({ expectation: data, ln }) => {
 
       setExpectation({
         ...data,
-        maxHeightFeet: parseInt(data.maxHeight / 12),
-        maxHeightInches: data.maxHeight % 12,
-        minHeightFeet: parseInt(data.minHeight / 12),
-        minHeightInches: data.minHeight % 12
+        maxHeightFeet: data.maxHeightFeet ?? (data.maxHeight ? Math.floor(data.maxHeight / 12) : ''),
+        maxHeightInches: data.maxHeightInches ?? (data.maxHeight ? data.maxHeight % 12 : ''),
+        minHeightFeet: data.minHeightFeet ?? (data.minHeight ? Math.floor(data.minHeight / 12) : ''),
+        minHeightInches: data.minHeightInches ?? (data.minHeight ? data.minHeight % 12 : '')
       })
       dispatch(
         showSnackBar({
@@ -70,7 +79,7 @@ const Basic = ({ expectation: data, ln }) => {
       dispatch(finishLoading())
       const index = routes.findIndex(i => i.query == router.query.update)
       index + 1 >= routes.length
-        ? router.push(`/profile//${router.query.id}`)
+        ? router.push(`/profile/${router.query.id}`)
         : router.push(
             `/profile/update/${router.query.id}?update=${
               routes[index + 1]?.query
@@ -92,7 +101,7 @@ const Basic = ({ expectation: data, ln }) => {
 
   return (
     <>
-      <div className={styles.wrapper} style={{ backgroundColor: 'aliceblue' }}>
+      <div className={styles.wrapper} >
         <div className={styles.heading}>
           <div className={styles.left}>
             <span>6</span>
@@ -104,7 +113,7 @@ const Basic = ({ expectation: data, ln }) => {
             </div>
           )}
         </div>
-        <form className={styles.formContainer}>
+        <form ref={formRef} className={styles.formContainer} onSubmit={e => { e.preventDefault(); update() }}>
           <div className={styles.field}>
             <label>{getText('minAge', ln)}</label>
             <input
@@ -190,21 +199,14 @@ const Basic = ({ expectation: data, ln }) => {
             <div className={styles.options}>
               {bodyTypes.map((item, index) => (
                 <span
-                  style={
-                    expectation.bodyTypes.find(i => i == item)
-                      ? {
-                          background: 'blue',
-                          color: 'white'
-                        }
-                      : {}
-                  }
+                  data-selected={Boolean((expectation.bodyTypes || []).find(i => i == item))}
                   key={index}
                   onClick={() =>
                     setExpectation({
                       ...expectation,
-                      bodyTypes: expectation.bodyTypes.find(i => i == item)
-                        ? expectation.bodyTypes.filter(i => i != item)
-                        : [...expectation.bodyTypes, item]
+                      bodyTypes: (expectation.bodyTypes || []).find(i => i == item)
+                        ? (expectation.bodyTypes || []).filter(i => i != item)
+                        : [...(expectation.bodyTypes || []), item]
                     })
                   }
                 >
@@ -218,21 +220,14 @@ const Basic = ({ expectation: data, ln }) => {
             <div className={styles.options}>
               {skinColors.map((item, index) => (
                 <span
-                  style={
-                    expectation.skinColors.find(i => i == item)
-                      ? {
-                          background: 'blue',
-                          color: 'white'
-                        }
-                      : {}
-                  }
+                  data-selected={Boolean((expectation.skinColors || []).find(i => i == item))}
                   key={index}
                   onClick={() =>
                     setExpectation({
                       ...expectation,
-                      skinColors: expectation.skinColors.find(i => i == item)
-                        ? expectation.skinColors.filter(i => i != item)
-                        : [...expectation.skinColors, item]
+                      skinColors: (expectation.skinColors || []).find(i => i == item)
+                        ? (expectation.skinColors || []).filter(i => i != item)
+                        : [...(expectation.skinColors || []), item]
                     })
                   }
                 >
@@ -246,20 +241,13 @@ const Basic = ({ expectation: data, ln }) => {
             <div className={styles.options}>
               {professions.map((item, index) => (
                 <span
-                  style={
-                    expectation.professions.find(i => i == item)
-                      ? {
-                          background: 'blue',
-                          color: 'white'
-                        }
-                      : {}
-                  }
+                  data-selected={Boolean((expectation.professions || []).find(i => i == item))}
                   onClick={() =>
                     setExpectation({
                       ...expectation,
-                      professions: expectation.professions.find(i => i == item)
-                        ? expectation.professions.filter(i => i != item)
-                        : [...expectation.professions, item]
+                      professions: (expectation.professions || []).find(i => i == item)
+                        ? (expectation.professions || []).filter(i => i != item)
+                        : [...(expectation.professions || []), item]
                     })
                   }
                   key={index}
@@ -274,14 +262,7 @@ const Basic = ({ expectation: data, ln }) => {
             <div className={styles.options}>
               {educationTypes.map((item, index) => (
                 <span
-                  style={
-                    expectation.educationTypes?.find(i => i == item)
-                      ? {
-                          background: 'blue',
-                          color: 'white'
-                        }
-                      : {}
-                  }
+                  data-selected={Boolean(expectation.educationTypes?.find(i => i == item))}
                   onClick={() =>
                     setExpectation({
                       ...expectation,
@@ -289,7 +270,7 @@ const Basic = ({ expectation: data, ln }) => {
                         i => i == item
                       )
                         ? expectation.educationTypes?.filter(i => i != item)
-                        : [...expectation.educationTypes, item]
+                        : [...(expectation.educationTypes || []), item]
                     })
                   }
                   key={index}
@@ -304,20 +285,13 @@ const Basic = ({ expectation: data, ln }) => {
             <div className={styles.options}>
               {educationalStatus.map((item, index) => (
                 <span
-                  style={
-                    expectation.educations?.find(i => i == item)
-                      ? {
-                          background: 'blue',
-                          color: 'white'
-                        }
-                      : {}
-                  }
+                  data-selected={Boolean(expectation.educations?.find(i => i == item))}
                   onClick={() =>
                     setExpectation({
                       ...expectation,
                       educations: expectation.educations?.find(i => i == item)
                         ? expectation.educations?.filter(i => i != item)
-                        : [...expectation.educations, item]
+                        : [...(expectation.educations || []), item]
                     })
                   }
                   key={index}
@@ -347,9 +321,9 @@ const Basic = ({ expectation: data, ln }) => {
           </div>
         </form>
         {error && <p style={{ color: 'red', fontSize: '90%' }}>{error}</p>}
-        <div className={styles.save} onClick={() => update()}>
+        <button type="button" className={styles.save} onClick={() => update()}>
           {getText('save', ln)}
-        </div>
+        </button>
       </div>
     </>
   )

@@ -5,6 +5,7 @@ import Loading from './utils/Loading'
 import { useSelector } from 'react-redux'
 import { useSnackbar } from 'notistack'
 import Chat from './Chat'
+import BottomNav from './BottomNav'
 import { useRouter } from 'next/router'
 
 const Layout = ({ children }) => {
@@ -16,7 +17,7 @@ const Layout = ({ children }) => {
     if (notistack) {
       enqueueSnackbar(notistack.message, notistack.option || 'default')
     }
-  }, [notistack])
+  }, [notistack, enqueueSnackbar])
 
 
 
@@ -26,6 +27,7 @@ const Layout = ({ children }) => {
       {children}
       <Footer />
       <Chat />
+      <BottomNav />
       {loading && <Loading />}
     </div>
   )

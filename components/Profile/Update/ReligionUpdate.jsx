@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
+import { useProfileSection } from '@/utility/use-profile-section'
+import { showMissingRequiredFields } from '@/utility/profile-required-fields'
 import styles from '@/styles/Profile/Update/Basic.module.css'
 import {
   professions,
@@ -20,17 +22,31 @@ import { showSnackBar } from '@/redux/notistackSlice'
 import { isPersonalValid } from '@/utility/validator'
 import { routes } from '@/utility/data'
 
-const Religion = ({ religion: data, ln, user }) => {
-  const [religion, setReligion] = useState({
+const Religion = ({ religion: data, ln, user, onChange }) => {
+  const [religion, setReligion] = useProfileSection({
     ...data
-  })
+  }, onChange)
   const dispatch = useDispatch()
   const router = useRouter()
   const userInfo = useSelector(state => state.user.userInfo)
+  const formRef = useRef(null)
 
   const update = async () => {
+    if (showMissingRequiredFields(formRef.current, [
+    {label:getText('outfit', ln),value:religion.outfit},{label:getText('mahram', ln),value:religion.mahram},
+    {label:getText('quran', ln),value:religion.quranRecitation},{label:getText('watch', ln),value:religion.watch},
+    {label:getText('books', ln),value:religion.books},{label:getText('missing', ln),value:religion.missingPrayer},
+    {label:getText('scholars', ln),value:religion.scholars},{label:getText('piety', ln),value:religion.piety},
+    {label:getText('mahr', ln),value:religion.mahr},{label:getText('sunnah', ln),value:religion.sunnah},
+    {label:getText('dowry', ln),value:religion.dowry},{label:getText('habit', ln),value:religion.badHabit},
+    {label:getText('deeds', ln),value:religion.regularDeeds},
+    {label:getText('interest', ln),value:religion.interest},
+    ...(user.gender === 'Male' ? [{label:getText('beard', ln),value:religion.beard}] : [])
+], ln)) return
+
     if (!isPersonalValid(religion)) {
-      dispatch(
+
+            dispatch(
         showSnackBar({
           message: 'Fill All The Field',
           option: {
@@ -80,7 +96,7 @@ const Religion = ({ religion: data, ln, user }) => {
       dispatch(finishLoading())
       const index = routes.findIndex(i => i.query == router.query.update)
       index + 1 >= routes.length
-        ? router.push(`/profile//${router.query.id}`)
+        ? router.push(`/profile/${router.query.id}`)
         : router.push(
             `/profile/update/${router.query.id}?update=${
               routes[index + 1]?.query
@@ -113,7 +129,7 @@ const Religion = ({ religion: data, ln, user }) => {
           </div>
         )}
       </div>
-      <form className={styles.formContainer}>
+      <form ref={formRef} className={styles.formContainer} onSubmit={e => { e.preventDefault(); update() }}>
         <div className={styles.field}>
           <label>{getText('outfit', ln)}</label>
           <textarea
@@ -254,9 +270,9 @@ const Religion = ({ religion: data, ln, user }) => {
           ></textarea>
         </div>
       </form>
-      <div className={styles.save} onClick={() => update()}>
+      <button type="button" className={styles.save} onClick={() => update()}>
         {getText('save', ln)}
-      </div>
+      </button>
     </div>
   )
 }

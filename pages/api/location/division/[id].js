@@ -1,19 +1,13 @@
 import { districts } from '@/utility/districts'
-import fs from 'fs'
-import nextConnect from 'next-connect'
 
-const handler = nextConnect()
-
-handler.get(async (req, res) => {
-  try {
-    const district = districts.find(obj => req.query.id in obj)
-    console.log(district)
-
-    return res.json(district[req.query.id.toLowerCase()])
-  } catch (error) {
-    console.log(error)
+export default function handler (req, res) {
+  if (req.method !== 'GET') {
+    res.setHeader('Allow', 'GET')
+    return res.status(405).json({ error: 'Method not allowed.' })
   }
-})
-
-
-export default handler
+  const key = String(req.query.id || '').trim().toLowerCase()
+  const result = districts.find(item => Object.prototype.hasOwnProperty.call(item, key))?.[key]
+  if (!result) return res.status(404).json({ error: 'Division not found.' })
+  res.setHeader('Cache-Control', 'public, max-age=3600, stale-while-revalidate=86400')
+  return res.status(200).json(result)
+}

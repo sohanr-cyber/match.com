@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
+import { useProfileSection } from '@/utility/use-profile-section'
+import { showMissingRequiredFields } from '@/utility/profile-required-fields'
 import styles from '@/styles/Profile/Update/Basic.module.css'
 import {
   professions,
@@ -22,23 +24,31 @@ import { showSnackBar } from '@/redux/notistackSlice'
 import { isPhysicalValid } from '@/utility/validator'
 import { routes } from '@/utility/data'
 
-const Basic = ({ physical: data, ln }) => {
-  const [physical, setPhysical] = useState({
+const Basic = ({ physical: data, ln, onChange }) => {
+  const [physical, setPhysical] = useProfileSection({
     ...data,
-    heightFeet: parseInt(data.height / 12),
-    heightInches: data.height % 12
-  })
+    heightFeet: data.heightFeet ?? (data.height ? Math.floor(data.height / 12) : ''),
+    heightInches: data.heightInches ?? (data.height ? data.height % 12 : '')
+  }, onChange)
   const dispatch = useDispatch()
   const router = useRouter()
   const userInfo = useSelector(state => state.user.userInfo)
   const [error, setError] = useState('')
+  const formRef = useRef(null)
   const update = async () => {
+    if (showMissingRequiredFields(formRef.current, [
+    {label:getText('height', ln),value:physical.heightFeet && physical.heightInches},
+    {label:getText('weight', ln),value:physical.mass},{label:getText('color', ln),value:physical.skinColor},
+    {label:getText('blood', ln),value:physical.blood},{label:getText('issue', ln),value:physical.issue}
+], ln)) return
+
     if (
       !physical.heightFeet ||
       !physical.heightInches ||
       !isPhysicalValid(physical)
     ) {
-      dispatch(
+
+            dispatch(
         showSnackBar({
           message: 'Fill All The  Field !',
           option: {
@@ -82,7 +92,7 @@ const Basic = ({ physical: data, ln }) => {
       )
       const index = routes.findIndex(i => i.query == router.query.update)
       index + 1 >= routes.length
-        ? router.push(`/profile//${router.query.id}`)
+        ? router.push(`/profile/${router.query.id}`)
         : router.push(
             `/profile/update/${router.query.id}?update=${
               routes[index + 1]?.query
@@ -103,7 +113,7 @@ const Basic = ({ physical: data, ln }) => {
   }
 
   return (
-    <div className={styles.wrapper} style={{ backgroundColor: 'aliceblue' }}>
+    <div className={styles.wrapper} >
       <div className={styles.heading}>
         <div className={styles.left}>
           <span>4</span>
@@ -115,7 +125,7 @@ const Basic = ({ physical: data, ln }) => {
           </div>
         )}
       </div>
-      <form className={styles.form__Container}>
+      <form ref={formRef} className={styles.form__Container} onSubmit={e => { e.preventDefault(); update() }}>
         <div className={styles.field}>
           <label>{getText('height', ln)}</label>
           <div className={styles.flex}>
@@ -156,20 +166,15 @@ const Basic = ({ physical: data, ln }) => {
           <label>{getText('color', ln)}</label>
           <div className={styles.options}>
             {skinColors.map((item, index) => (
-              <span
-                onClick={() => setPhysical({ ...physical, skinColor: item })}
-                style={
-                  item == physical.skinColor
-                    ? {
-                        background: 'blue',
-                        color: 'white'
-                      }
-                    : {}
-                }
+              <button
+                type='button'
+                aria-pressed={physical.skinColor === item}
+                onClick={() => setPhysical(previous => ({ ...previous, skinColor: previous.skinColor === item ? '' : item }))}
+                data-selected={Boolean(item == physical.skinColor)}
                 key={index}
               >
                 <Ln item={item} />
-              </span>
+              </button>
             ))}
           </div>
         </div>
@@ -180,14 +185,7 @@ const Basic = ({ physical: data, ln }) => {
             {bodyTypes.map((item, index) => (
               <span
                 onClick={() => setPhysical({ ...physical, bodyType: item })}
-                style={
-                  item == physical.bodyType
-                    ? {
-                        background: 'blue',
-                        color: 'white'
-                      }
-                    : {}
-                }
+                data-selected={Boolean(item == physical.bodyType)}
                 key={index}
               >
                 {item}
@@ -199,20 +197,15 @@ const Basic = ({ physical: data, ln }) => {
           <label>{getText('blood', ln)}</label>
           <div className={styles.options}>
             {['O+', 'A+', 'B+', 'AB+', 'A-', 'B-', 'O-'].map((item, index) => (
-              <span
-                onClick={() => setPhysical({ ...physical, blood: item })}
-                style={
-                  item == physical.blood
-                    ? {
-                        background: 'blue',
-                        color: 'white'
-                      }
-                    : {}
-                }
+              <button
+                type='button'
+                aria-pressed={physical.blood === item}
+                onClick={() => setPhysical(previous => ({ ...previous, blood: previous.blood === item ? '' : item }))}
+                data-selected={Boolean(item == physical.blood)}
                 key={index}
               >
                 {item}
-              </span>
+              </button>
             ))}
           </div>
         </div>
@@ -227,9 +220,9 @@ const Basic = ({ physical: data, ln }) => {
         </div>
       </form>
       {error && <p style={{ color: 'red', fontSize: '90%' }}>{error}</p>}
-      <div className={styles.save} onClick={() => update()}>
+      <button type="button" className={styles.save} onClick={() => update()}>
         {getText('save', ln)}
-      </div>
+      </button>
     </div>
   )
 }

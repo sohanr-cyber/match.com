@@ -1,111 +1,86 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '../../styles/Signin.module.css'
-import Logo from '@/components/utils/Logo'
 import { useRouter } from 'next/router'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import { useDispatch, useSelector } from 'react-redux'
-import { login } from '@/redux/userSlice'
 import axios from 'axios'
-import * as EmailValidator from 'email-validator'
+import { useDispatch } from 'react-redux'
 import { finishLoading, startLoading } from '@/redux/stateSlice'
-import { getText } from '@/Translation/account'
-import Ln from '@/components/utils/Ln'
+import { showSnackBar } from '@/redux/notistackSlice'
 import { NextSeo } from 'next-seo'
 import { getText as seoText } from '@/Translation/seo'
-import { showSnackBar } from '@/redux/notistackSlice'
+import { normalizePhone } from '@/utility/phone'
+import AuthFrame from '@/components/AuthFrame'
 
-const Verify = () => {
+const ResetRequest = () => {
   const router = useRouter()
-  const [email, setEmail] = useState('')
-  const userInfo = useSelector(state => state.user.userInfo)
   const dispatch = useDispatch()
-  const [error, setError] = useState('')
-  const ln = router.locale
+  const [phone, setPhone] = useState('')
+  const [email, setEmail] = useState('')
+  const [legacyEmail, setLegacyEmail] = useState(false)
+  const bn = router.locale === 'bn'
 
-  const verifyCode = async () => {
-    if (!email) {
-      setError('Please Type The Code !')
+  useEffect(() => {
+    if (router.isReady) setLegacyEmail(router.query.legacy === '1')
+  }, [router.isReady, router.query.legacy])
+
+  const requestCode = async event => {
+    event.preventDefault()
+    const normalized = normalizePhone(phone)
+    if (!(legacyEmail ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) : normalized)) {
+      dispatch(showSnackBar({ message: 'Enter a valid phone number or existing account email.', option: { variant: 'error' } }))
       return
     }
-
     dispatch(startLoading())
     try {
-      setError('')
-      const { data } = await axios.post('/api/auth/existance', {
-        email
-      })
-
+      const { data } = await axios.post('/api/auth/existance', legacyEmail ? { email } : { phone: normalized })
       if (data.error) {
-        dispatch(
-          showSnackBar({
-            message: data.error,
-            option: {
-              variant: 'error'
-            }
-          })
-        )
+        dispatch(showSnackBar({ message: data.error, option: { variant: 'error' } }))
+      } else {
+        if (legacyEmail) {
+          sessionStorage.setItem('resetEmail', email)
+          sessionStorage.removeItem('resetPhone')
+        } else {
+          sessionStorage.setItem('resetPhone', normalized)
+          sessionStorage.removeItem('resetEmail')
+        }
+        dispatch(showSnackBar({ message: data.message, option: { variant: 'success' } }))
+        router.push(legacyEmail ? '/reset/verify?legacy=1' : '/reset/verify')
       }
-
-      if (data && !data.error) {
-        console.log(data)
-        dispatch(
-          showSnackBar({
-            message: 'A Code has been Sent To Your Mail'
-          })
-        )
-        router.push('/reset/verify')
-      }
-      dispatch(finishLoading())
     } catch (error) {
+      dispatch(showSnackBar({ message: 'Could not send a reset code.', option: { variant: 'error' } }))
+    } finally {
       dispatch(finishLoading())
-      setError('Something Went Wrong !')
-      console.log(error)
     }
   }
 
   return (
     <>
-      <NextSeo
-        title={seoText('registerTitle', ln)}
-        description={seoText('registerDesc', ln)}
-      />
-      <div className={styles.wrapper}>
-        <div className={styles.logo}>
-          <Logo />
+      <NextSeo title={seoText('loginTitle', router.locale)} />
+      <AuthFrame mode='login' locale={router.locale}>
+        <div className={styles.heading}>
+          <span className={styles.kicker}>{bn ? 'অ্যাকাউন্ট পুনরুদ্ধার' : 'ACCOUNT RECOVERY'}</span>
+          <h2 id='auth-title'>{bn ? 'পাসওয়ার্ড পরিবর্তন করুন' : 'Reset your password'}</h2>
+          <p>{legacyEmail ? (bn ? 'আপনার আগের অ্যাকাউন্টের ইমেইলে কোড পাঠানো হবে।' : 'We will email a code to your existing account.') : (bn ? 'আপনার ফোনে একটি যাচাইকরণ কোড পাঠানো হবে।' : 'We will text a verification code to your phone.')}</p>
         </div>
-        <div className={styles.form__container}>
-          <div className={styles.flex}>
-            <div className={styles.left} onClick={() => router.push('/login')}>
-              {getText('login', ln)}{' '}
-            </div>{' '}
-            <div
-              className={styles.right}
-              style={{ borderBottom: '2px solid blue' }}
-              onClick={() => router.push('/register')}
-            >
-              {getText('reset', ln)}{' '}
-            </div>
-          </div>
-          <form>
-            <input
-              type='text'
-              placeholder={getText('rEmail', ln)}
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-            />
-
-            {error && (
-              <div style={{ color: 'red', fontSize: '90%' }}>{error}</div>
+        <form className={styles.form} onSubmit={requestCode}>
+          <div className={styles.field}>
+            {legacyEmail ? (
+              <>
+                <label htmlFor='reset-email'>{bn ? 'আগের ইমেইল ঠিকানা' : 'Existing account email'}</label>
+                <input id='reset-email' type='email' autoComplete='email' value={email} onChange={e => setEmail(e.target.value)} required />
+              </>
+            ) : (
+              <>
+                <label htmlFor='reset-phone'>{bn ? 'ফোন নম্বর' : 'Phone number'}</label>
+                <input id='reset-phone' type='tel' inputMode='tel' autoComplete='tel' placeholder='01XXXXXXXXX' value={phone} onChange={e => setPhone(e.target.value)} required />
+              </>
             )}
-          </form>
-          <div className={styles.btn} onClick={() => verifyCode()}>
-            {getText('submit', ln)}
           </div>
-        </div>
-      </div>
+          <button className={styles.submit} type='submit'>{bn ? 'কোড পাঠান' : 'Send code'} <span aria-hidden='true'>→</span></button>
+        </form>
+        <p className={styles.legacySwitch}><button type='button' className={styles.inlineButton} onClick={() => setLegacyEmail(!legacyEmail)}>{legacyEmail ? (bn ? 'ফোন নম্বর ব্যবহার করুন' : 'Use phone instead') : (bn ? 'আগের অ্যাকাউন্ট? ইমেইল ব্যবহার করুন' : 'Existing account? Use email')}</button></p>
+      </AuthFrame>
     </>
   )
 }
 
-export default Verify
+export default ResetRequest

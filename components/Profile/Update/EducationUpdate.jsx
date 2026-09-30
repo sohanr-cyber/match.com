@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
+import { useProfileSection } from '@/utility/use-profile-section'
+import { showMissingRequiredFields } from '@/utility/profile-required-fields'
 import styles from '@/styles/Profile/Update/Basic.module.css'
 import {
   professions,
@@ -21,15 +23,23 @@ import { showSnackBar } from '@/redux/notistackSlice'
 import { isEducationValid } from '@/utility/validator'
 import { routes } from '@/utility/data'
 
-const Education = ({ education: data, profile, ln }) => {
-  const [education, setEducation] = useState({ ...data })
+const Education = ({ education: data, profile, ln, onChange }) => {
+  const [education, setEducation] = useProfileSection({ ...data }, onChange)
   const dispatch = useDispatch()
   const router = useRouter()
   const userInfo = useSelector(state => state.user.userInfo)
   const [error, setError] = useState('')
+  const formRef = useRef(null)
   const update = async () => {
+    if (showMissingRequiredFields(formRef.current, [
+    {label:getText('educationType', ln),value:education.educationType},
+    {label:getText('ocupation', ln),value:education.profession},
+    {label:getText('education', ln),value:education.education}
+], ln)) return
+
     if (!isEducationValid(education)) {
-      dispatch(
+
+            dispatch(
         showSnackBar({
           message: 'Fill All The Required Field!',
           option: {
@@ -68,7 +78,7 @@ const Education = ({ education: data, profile, ln }) => {
 
       const index = routes.findIndex(i => i.query == router.query.update)
       index + 1 >= routes.length
-        ? router.push(`/profile//${router.query.id}`)
+        ? router.push(`/profile/${router.query.id}`)
         : router.push(
             `/profile/update/${router.query.id}?update=${
               routes[index + 1]?.query
@@ -100,7 +110,7 @@ const Education = ({ education: data, profile, ln }) => {
           </div>
         )}
       </div>
-      <form className={styles.formContainer}>
+      <form ref={formRef} className={styles.formContainer} onSubmit={e => { e.preventDefault(); update() }}>
         <div className={styles.field}>
           <label>
             {getText('educationType', ln)}({getText('required', ln)})
@@ -109,16 +119,9 @@ const Education = ({ education: data, profile, ln }) => {
             {educationTypes.map((item, index) => (
               <span
                 onClick={() =>
-                  setEducation({ ...education, educationType: item })
+                  setEducation({ ...education, educationType: education.educationType === item ? '' : item })
                 }
-                style={
-                  item == education.educationType
-                    ? {
-                        background: 'blue',
-                        color: 'white'
-                      }
-                    : {}
-                }
+                data-selected={Boolean(item == education.educationType)}
                 key={index}
               >
                 <Ln item={item} />{' '}
@@ -238,15 +241,8 @@ const Education = ({ education: data, profile, ln }) => {
           <div className={styles.options}>
             {educationalStatus.map((item, index) => (
               <span
-                onClick={() => setEducation({ ...education, education: item })}
-                style={
-                  item == education.education
-                    ? {
-                        background: 'blue',
-                        color: 'white'
-                      }
-                    : {}
-                }
+                onClick={() => setEducation({ ...education, education: education.education === item ? '' : item })}
+                data-selected={Boolean(item == education.education)}
                 key={index}
               >
                 <Ln item={item} />{' '}
@@ -290,9 +286,9 @@ const Education = ({ education: data, profile, ln }) => {
         </div>
       </form>
       {error && <p style={{ color: 'red', fontSize: '90%' }}>{error}</p>}
-      <div className={styles.save} onClick={() => update()}>
+      <button type="button" className={styles.save} onClick={() => update()}>
         {getText('save', ln)}
-      </div>
+      </button>
     </div>
   )
 }

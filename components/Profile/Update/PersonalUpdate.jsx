@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
+import { showMissingRequiredFields } from '@/utility/profile-required-fields'
 import styles from '@/styles/Profile/Update/Basic.module.css'
 import {
   professions,
@@ -24,14 +25,21 @@ const Basic = ({ personal: data }) => {
   const userInfo = useSelector(state => state.user.userInfo)
   console.log({ personal })
   const [error, setError] = useState('')
+  const formRef = useRef(null)
   const update = async () => {
+    if (showMissingRequiredFields(formRef.current, [
+    {label:'First Name',value:personal.firstName},{label:'Last Name',value:personal.lastName},
+    {label:'Date Of Birth',value:personal.bornAt},{label:'Marital Status',value:personal.maritalStatus}
+], ln)) return
+
     if (
       !personal.bornAt ||
       !personal.firstName ||
       !personal.lastName ||
       !personal.maritalStatus
     ) {
-      dispatch(
+
+            dispatch(
         showSnackBar({
           message: 'Fill All The Required Field !',
           option: {
@@ -79,7 +87,7 @@ const Basic = ({ personal: data }) => {
           </div>
         )}
       </div>
-      <form className={styles.formContainer}>
+      <form ref={formRef} className={styles.formContainer} onSubmit={e => { e.preventDefault(); update() }}>
         <div className={styles.field}>
           <label>First Name</label>
           <input
@@ -117,13 +125,9 @@ const Basic = ({ personal: data }) => {
           <div className={styles.options}>
             {[...maritalStatuses].map((item, index) => (
               <span
-                style={
-                  personal.maritalStatus == item
-                    ? { background: 'blue', color: 'white' }
-                    : {}
-                }
+                data-selected={Boolean(personal.maritalStatus == item)}
                 onClick={() =>
-                  setPersonal({ ...personal, maritalStatus: item })
+                  setPersonal({ ...personal, maritalStatus: personal.maritalStatus === item ? '' : item })
                 }
                 key={index}
               >
@@ -134,9 +138,9 @@ const Basic = ({ personal: data }) => {
         </div>
       </form>
       {error && <p style={{ fontSize: '80%', color: 'red' }}>{error}</p>}
-      <div className={styles.save} onClick={() => update()}>
+      <button type="button" className={styles.save} onClick={() => update()}>
         Save
-      </div>
+      </button>
     </div>
   )
 }

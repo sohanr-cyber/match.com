@@ -1,18 +1,14 @@
 import React from 'react'
-import styles from '../../styles/Utils/Logo.module.css'
-import { useRouter } from 'next/router'
+import Link from 'next/link'
+import Logo2 from './Logo2'
+import styles from '@/styles/Utils/Logo.module.css'
 
-const Logo = () => {
-  const router = useRouter()
-  return (
-    <div className={styles.wrapper} onClick={() => router.push('/')}>
-      <div className={styles.top}>Muslim</div>
-      <div className={styles.bottom}>
-        <span>Match </span>
-        <span>Maker</span>
-      </div>
-    </div>
-  )
+export default function Logo ({ className = '' }) {
+  return <Link href='/' className={styles.wrapper + ' ' + className} aria-label='Muslim Match Maker home'>
+    <Logo2 className={styles.mark} />
+    <span className={styles.wordmark}>
+      <span className={styles.name}>Muslim</span>
+      <span className={styles.subtitle}>MATCH MAKER</span>
+    </span>
+  </Link>
 }
-
-export default Logo

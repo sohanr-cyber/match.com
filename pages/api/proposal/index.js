@@ -3,68 +3,49 @@ import { isAuth } from '@/utils'
 import nextConnect from 'next-connect'
 
 const handler = nextConnect()
+handler.use(isAuth)
 
-// create proposals
-// handler.use(isAuth)
-handler.post(async (req, res) => {
-  try {
-    const service = new ProposalService()
-    const { sender, reciever, message } = req.body
-    const user = await service.CreateProposal({ sender, reciever, message })
-    res.status(200).json(user)
-  } catch (error) {
-    console.log(error)
-    res.status(400)
-  }
-})
-
-// retrieve proposals
 handler.get(async (req, res) => {
   try {
-    const service = new ProposalService()
-    const { userId } = req.query
-
-    const user = await service.FindProposalsByUserId(userId)
-    res.status(200).json(user)
+    const proposals = await new ProposalService().FindProposalsByUserId(req.user._id)
+    return res.status(200).json(proposals)
   } catch (error) {
-    console.log(error)
-    res.status(400)
+    console.error(error)
+    return res.status(500).json({ error: 'Could not load proposals.' })
   }
 })
 
-// Accept Proposal
+handler.post(async (req, res) => {
+  try {
+    const proposal = await new ProposalService().CreateProposal({
+      sender: req.user._id,
+      reciever: req.body.reciever,
+      message: req.body.message
+    })
+    return res.status(200).json(proposal)
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ error: 'Could not send proposal.' })
+  }
+})
+
 handler.put(async (req, res) => {
   try {
-    const { Id, acceptor, sender } = req.body
-    const service = new ProposalService()
-
-    const user = await service.UpdateProposal({
-      Id: req.body.Id,
-      acceptor,
-      sender,
-      status: 'Accepted'
-    })
-    res.status(200).json(user)
+    const proposal = await new ProposalService().UpdateProposal({ Id: req.body.Id, actorId: req.user._id })
+    return res.status(200).json(proposal)
   } catch (error) {
-    console.log(error)
+    console.error(error)
+    return res.status(500).json({ error: 'Could not accept proposal.' })
   }
 })
 
-// withdraw proposal
 handler.patch(async (req, res) => {
   try {
-    const { Id, reciever, sender } = req.body
-    const service = new ProposalService()
-
-    const user = await service.WithdrawUserProposal({
-      Id,
-      reciever,
-      sender,
-      status: 'Withdrawn'
-    })
-    res.status(200).json(user)
+    const proposal = await new ProposalService().WithdrawUserProposal({ Id: req.body.Id, actorId: req.user._id })
+    return res.status(200).json(proposal)
   } catch (error) {
-    console.log(error)
+    console.error(error)
+    return res.status(500).json({ error: 'Could not withdraw proposal.' })
   }
 })
 

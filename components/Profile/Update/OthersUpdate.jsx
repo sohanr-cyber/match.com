@@ -31,7 +31,8 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
       const { data } = await axios.put(
         '/api/auth/register',
         {
-          ...profile
+          ...profile,
+          targetUserId: profile._id
         },
         {
           headers: {
@@ -51,7 +52,7 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
       dispatch(finishLoading())
       const index = routes.findIndex(i => i.query == router.query.update)
       index + 1 >= routes.length
-        ? router.push(`/profile//${router.query.id}`)
+        ? router.push(`/profile/${router.query.id}`)
         : router.push(
             `/profile/update/${router.query.id}?update=${
               routes[index + 1]?.query
@@ -72,7 +73,7 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
   }
 
   return (
-    <div className={styles.wrapper} style={{ backgroundColor: 'aliceblue' }}>
+    <div className={styles.wrapper} >
       <div className={styles.heading}>
         <div className={styles.left}>
           <span>7</span>
@@ -84,16 +85,12 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
           </div>
         )}
       </div>
-      <form className={styles.formContainer}>
+      <form className={styles.formContainer} onSubmit={e => { e.preventDefault(); update() }}>
         <div className={styles.field}>
           <label> {getText('InterestedInDivorced', ln)}</label>
           <div className={styles.options}>
             <span
-              style={
-                profile.categories?.find(i => i == 'InterestedInDivorced')
-                  ? { background: 'blue', color: 'white' }
-                  : {}
-              }
+              data-selected={Boolean(profile.categories?.find(i => i == 'InterestedInDivorced'))}
               onClick={() =>
                 setProfile({
                   ...profile,
@@ -106,11 +103,7 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
               {getText('yes', ln)}
             </span>
             <span
-              style={
-                !profile.categories?.find(i => i == 'InterestedInDivorced')
-                  ? { background: 'blue', color: 'white' }
-                  : {}
-              }
+              data-selected={Boolean(!profile.categories?.find(i => i == 'InterestedInDivorced'))}
               onClick={() =>
                 setProfile({
                   ...profile,
@@ -131,11 +124,7 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
           <label>{getText('InterestedInDivorcedChild', ln)}</label>
           <div className={styles.options}>
             <span
-              style={
-                profile.categories?.find(i => i == 'InterestedInDivorcedChild')
-                  ? { background: 'blue', color: 'white' }
-                  : {}
-              }
+              data-selected={Boolean(profile.categories?.find(i => i == 'InterestedInDivorcedChild'))}
               onClick={() =>
                 setProfile({
                   ...profile,
@@ -148,11 +137,7 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
               {getText('yes', ln)}
             </span>
             <span
-              style={
-                !profile.categories?.find(i => i == 'InterestedInDivorcedChild')
-                  ? { background: 'blue', color: 'white' }
-                  : {}
-              }
+              data-selected={Boolean(!profile.categories?.find(i => i == 'InterestedInDivorcedChild'))}
               onClick={() =>
                 setProfile({
                   ...profile,
@@ -175,11 +160,7 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
           <label>{getText('student', ln)}</label>
           <div className={styles.options}>
             <span
-              style={
-                profile.categories?.find(i => i == 'Student')
-                  ? { background: 'blue', color: 'white' }
-                  : {}
-              }
+              data-selected={Boolean(profile.categories?.find(i => i == 'Student'))}
               onClick={() =>
                 setProfile({
                   ...profile,
@@ -192,11 +173,7 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
               {getText('yes', ln)}
             </span>
             <span
-              style={
-                !profile.categories?.find(i => i == 'Student')
-                  ? { background: 'blue', color: 'white' }
-                  : {}
-              }
+              data-selected={Boolean(!profile.categories?.find(i => i == 'Student'))}
               onClick={() =>
                 setProfile({
                   ...profile,
@@ -214,11 +191,7 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
           <label>{getText('studentWithJob', ln)}</label>
           <div className={styles.options}>
             <span
-              style={
-                profile.categories?.find(i => i == 'StudentWithJob')
-                  ? { background: 'blue', color: 'white' }
-                  : {}
-              }
+              data-selected={Boolean(profile.categories?.find(i => i == 'StudentWithJob'))}
               onClick={() =>
                 setProfile({
                   ...profile,
@@ -231,11 +204,7 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
               {getText('yes', ln)}
             </span>
             <span
-              style={
-                !profile.categories?.find(i => i == 'StudentWithJob')
-                  ? { background: 'blue', color: 'white' }
-                  : {}
-              }
+              data-selected={Boolean(!profile.categories?.find(i => i == 'StudentWithJob'))}
               onClick={() =>
                 setProfile({
                   ...profile,
@@ -254,11 +223,7 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
           <label>{getText('polynomy', ln)}</label>
           <div className={styles.options}>
             <span
-              style={
-                profile?.categories?.find(i => i == 'SecondWife')
-                  ? { background: 'blue', color: 'white' }
-                  : {}
-              }
+              data-selected={Boolean(profile?.categories?.find(i => i == 'SecondWife'))}
               onClick={() =>
                 setProfile({
                   ...profile,
@@ -271,11 +236,7 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
               {getText('yes', ln)}
             </span>
             <span
-              style={
-                !profile.categories?.find(i => i == 'SecondWife')
-                  ? { background: 'blue', color: 'white' }
-                  : {}
-              }
+              data-selected={Boolean(!profile.categories?.find(i => i == 'SecondWife'))}
               onClick={() =>
                 setProfile({
                   ...profile,
@@ -294,11 +255,7 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
           <label>{getText('emigrant', ln)}</label>
           <div className={styles.options}>
             <span
-              style={
-                profile.categories?.find(i => i == 'Emigrant')
-                  ? { background: 'blue', color: 'white' }
-                  : {}
-              }
+              data-selected={Boolean(profile.categories?.find(i => i == 'Emigrant'))}
               onClick={() =>
                 setProfile({
                   ...profile,
@@ -311,11 +268,7 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
               {getText('yes', ln)}
             </span>
             <span
-              style={
-                !profile.categories?.find(i => i == 'Emigrant')
-                  ? { background: 'blue', color: 'white' }
-                  : {}
-              }
+              data-selected={Boolean(!profile.categories?.find(i => i == 'Emigrant'))}
               onClick={() =>
                 setProfile({
                   ...profile,
@@ -334,11 +287,7 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
           <label> {getText('interestedInEmigrant', ln)}</label>
           <div className={styles.options}>
             <span
-              style={
-                profile.categories?.find(i => i == 'InterestedInEmigrant')
-                  ? { background: 'blue', color: 'white' }
-                  : {}
-              }
+              data-selected={Boolean(profile.categories?.find(i => i == 'InterestedInEmigrant'))}
               onClick={() =>
                 setProfile({
                   ...profile,
@@ -351,11 +300,7 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
               {getText('yes', ln)}
             </span>
             <span
-              style={
-                !profile.categories?.find(i => i == 'InterestedInEmigrant')
-                  ? { background: 'blue', color: 'white' }
-                  : {}
-              }
+              data-selected={Boolean(!profile.categories?.find(i => i == 'InterestedInEmigrant'))}
               onClick={() =>
                 setProfile({
                   ...profile,
@@ -373,9 +318,9 @@ const OthersUpdate = ({ profile, setProfile, ln }) => {
         </div>
       </form>
       {error && <p style={{ fontSize: '80%', color: 'red' }}>{error}</p>}
-      <div className={styles.save} onClick={() => update()}>
+      <button type="button" className={styles.save} onClick={() => update()}>
         {getText('save', ln)}
-      </div>
+      </button>
     </div>
   )
 }

@@ -1,0 +1,6 @@
+.nav { position: fixed; z-index: 40; right: 10px; bottom: max(10px, env(safe-area-inset-bottom)); left: 10px; display: flex; align-items: stretch; justify-content: space-around; gap: 2px; width: min(520px, calc(100vw - 20px)); min-height: 66px; margin: 0 auto; padding: 5px; border: 1px solid rgba(17,94,68,.14); border-radius: 18px; background: rgba(255,255,255,.96); box-shadow: 0 10px 35px rgba(19,70,52,.17); backdrop-filter: blur(16px); }
+.item,.active { display: flex; flex: 1; flex-direction: column; align-items: center; justify-content: center; gap: 3px; min-width: 0; border-radius: 13px; color: #7c9185; font-size: 10px; font-weight: 700; line-height: 1.2; text-align: center; }
+.active { background: #e8f5eb; color: #0b785a; }
+.item svg,.active svg { width: 21px; height: 21px; fill: currentColor; }
+.item:focus-visible,.active:focus-visible { outline: 2px solid #bb9458; outline-offset: -2px; }
+@media (min-width: 769px) { .nav { bottom: 18px; min-height: 72px; width: min(620px, calc(100vw - 48px)); padding: 7px; border-radius: 20px; } .item,.active { font-size: 11px; } .item svg,.active svg { width: 23px; height: 23px; } }

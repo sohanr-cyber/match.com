@@ -6,15 +6,12 @@ const handler = nextConnect()
 handler.post(async (req, res) => {
   try {
     const service = new UserService()
-    const { email, password } = req.body
-    const user = await service.SignIn({
-      email,
-      password: password
-    })
-
+    const { phone, email, password } = req.body
+    const user = await service.SignIn({ phone, email, password })
     return res.status(200).json(user)
   } catch (error) {
-    res.status(400)
+    console.error(error)
+    return res.status(500).json({ error: 'Could not sign in.' })
   }
 })
 

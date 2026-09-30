@@ -55,7 +55,10 @@ handler.get(async (req, res) => {
     const filters = {
       active: true
     }
-    if (name && name !== 'All') filters.name = { $regex: new RegExp(name, 'i') }
+    if (name && name !== 'All') {
+      const safeName = String(name).slice(0, 80).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+      filters.name = { $regex: safeName, $options: 'i' }
+    }
     if (gender && gender !== 'All') filters.gender = gender
     if (maritalStatus && maritalStatus !== 'All')
       filters.maritalStatus = maritalStatus
@@ -97,7 +100,6 @@ handler.get(async (req, res) => {
 
     if (universityNames && universityNames !== 'All')
       filters.institute = { $in: universityNames.split(',') }
-    console.log({ filters, time: new Date() })
 
     if (educationalStatuses && educationalStatuses !== 'All')
       filters.education = { $in: educationalStatuses.split(',') }
@@ -106,16 +108,18 @@ handler.get(async (req, res) => {
       filters.categories = { $in: categories.split(',') }
 
     await db.connect()
-    page = page || 1
+    page = Math.max(1, Number.parseInt(page, 10) || 1)
+    limit = Math.min(24, Math.max(1, Number.parseInt(limit, 10) || 10))
     const skip = (page - 1) * limit
-    const totalUsers = await User.countDocuments(filters)
-    const totalPages = Math.ceil(totalUsers / limit)
 
-    const users = await User.find(
+    const [totalUsers, users] = await Promise.all([
+      User.countDocuments(filters),
+      User.find(
       // Object.keys(filters).length > 0 ? filters : {}
       filters,
       {
         password: 0,
+        salt: 0,
         email: 0,
         categories: 0,
         proposalAccepted: 0,
@@ -123,9 +127,13 @@ handler.get(async (req, res) => {
         name: 0
       }
     )
+      .sort({ createdAt: -1 })
       .skip(skip)
-      .limit(parseInt(limit))
-      .exec()
+      .limit(limit)
+      .lean()
+    ])
+    const totalPages = Math.ceil(totalUsers / limit)
+    res.setHeader('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300')
     return res
       .status(200)
       .json({ users, totalPages, totalUsers, currentPage: page })

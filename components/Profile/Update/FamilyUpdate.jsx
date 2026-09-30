@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
+import { useProfileSection } from '@/utility/use-profile-section'
+import { showMissingRequiredFields } from '@/utility/profile-required-fields'
 import styles from '@/styles/Profile/Update/Basic.module.css'
 import {
   professions,
@@ -21,18 +23,27 @@ import { showSnackBar } from '@/redux/notistackSlice'
 import { isFamilyValid } from '@/utility/validator'
 import { routes } from '@/utility/data'
 
-const Religion = ({ family: data, ln }) => {
-  const [family, setFamily] = useState({
+const Religion = ({ family: data, ln, onChange }) => {
+  const [family, setFamily] = useProfileSection({
     ...data
-  })
+  }, onChange)
   const dispatch = useDispatch()
   const router = useRouter()
   const userInfo = useSelector(state => state.user.userInfo)
+  const formRef = useRef(null)
   const [error, setError] = useState('')
 
   const update = async () => {
+    if (showMissingRequiredFields(formRef.current, [
+    {label:getText('father', ln),value:family.father},{label:getText('mother', ln),value:family.mother},
+    {label:getText('brother', ln),value:family.brother},{label:getText('sister', ln),value:family.sister},
+    {label:getText('rStatus', ln),value:family.rStatus},{label:getText('eStatus', ln),value:family.eStatus},
+    {label:getText('agreement', ln),value:family.agreement}
+], ln)) return
+
     if (!isFamilyValid(family)) {
-      dispatch(
+
+            dispatch(
         showSnackBar({
           message: 'Fill All The Required Field !',
           option: {
@@ -69,7 +80,7 @@ const Religion = ({ family: data, ln }) => {
       dispatch(finishLoading())
       const index = routes.findIndex(i => i.query == router.query.update)
       index + 1 >= routes.length
-        ? router.push(`/profile//${router.query.id}`)
+        ? router.push(`/profile/${router.query.id}`)
         : router.push(
             `/profile/update/${router.query.id}?update=${
               routes[index + 1]?.query
@@ -102,7 +113,7 @@ const Religion = ({ family: data, ln }) => {
           </div>
         )}
       </div>
-      <form className={styles.formContainer}>
+      <form ref={formRef} className={styles.formContainer} onSubmit={e => { e.preventDefault(); update() }}>
         <div className={styles.field}>
           <label>{getText('father', ln)}</label>
           <textarea
@@ -149,12 +160,8 @@ const Religion = ({ family: data, ln }) => {
               'Higher Class'
             ].map((item, index) => (
               <span
-                style={
-                  family.eStatus == item
-                    ? { background: 'blue', color: 'white' }
-                    : {}
-                }
-                onClick={() => setFamily({ ...family, eStatus: item })}
+                data-selected={Boolean(family.eStatus == item)}
+                onClick={() => setFamily({ ...family, eStatus: family.eStatus === item ? '' : item })}
                 key={index}
               >
                 <Ln item={item} />{' '}
@@ -180,9 +187,9 @@ const Religion = ({ family: data, ln }) => {
         </div>
       </form>{' '}
       {error && <p style={{ color: 'red', fontSize: '90%' }}>{error}</p>}
-      <div className={styles.save} onClick={() => update()}>
+      <button type="button" className={styles.save} onClick={() => update()}>
         {getText('save', ln)}
-      </div>
+      </button>
     </div>
   )
 }

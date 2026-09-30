@@ -1,110 +1,45 @@
 const isPhysicalValid = physical => {
-  if (
-    !physical.issue ||
-    !physical.skinColor ||
-    // !physical.bodyType ||
-    !physical.blood ||
-    !physical.mass
-  ) {
-    return false
-  } else {
-    return true
-  }
+  const value = physical || {}
+  return Boolean(value.issue && value.skinColor && value.blood && value.mass)
 }
 
 const isEducationValid = education => {
-  if (
-    !education.educationType ||
-    !education.profession ||
-    !education.education
-  ) {
-    return false
-  }
-  return true
+  const value = education || {}
+  return Boolean(value.educationType && value.profession && value.education)
 }
 
 const isAddressValid = address => {
-  if (
-    !address.city ||
-    !address.district ||
-    !address.upazilla ||
-    !address.location ||
-    !address.phone ||
-    !address.phone2 ||
-    !address.email
-  ) {
-    return false
-  }
-  return true
+  const value = address || {}
+  return Boolean(value.city && value.district && value.upazilla && value.location && value.phone && value.phone2 && value.email)
 }
 
 const isPersonalValid = personal => {
-  if (
-    !personal.outfit ||
-    // !personal.outfitDate ||
-    !personal.mahram ||
-    !personal.quranRecitation ||
-    !personal.watch ||
-    !personal.books ||
-    !personal.missingPrayer ||
-    !personal.scholars ||
-    !personal.piety ||
-    !personal.mahr ||
-    !personal.sunnah ||
-    !personal.dowry ||
-    !personal.badHabit ||
-    !personal.regularDeeds ||
-    !personal.interest
-  ) {
-    return false
-  }
-  return true
+  const value = personal || {}
+  return Boolean(
+    value.outfit && value.mahram && value.quranRecitation && value.watch &&
+    value.books && value.missingPrayer && value.scholars && value.piety &&
+    value.mahr && value.sunnah && value.dowry && value.badHabit &&
+    value.regularDeeds && value.interest
+  )
 }
 
 const isExpectationValid = expectation => {
-  if (
-    !education.educationType ||
-    !education.outfitDate ||
-    !education.mahram ||
-    !education.quranRecitation ||
-    !education.watch ||
-    !education.books ||
-    !education.missingPrayer ||
-    !education.scholars ||
-    !education.piety ||
-    !education.mahr ||
-    !education.sunnah ||
-    !education.dowry
-  ) {
-    return false
-  }
-  return true
+  const value = expectation || {}
+  return Boolean(
+    value.minAge && value.maxAge &&
+    Array.isArray(value.educations) && value.educations.length &&
+    Array.isArray(value.professions) && value.professions.length
+  )
 }
 
-const isReligionValid = religion => {
-  if (
-    !education.educationType ||
-    !education.profession ||
-    !education.education
-  ) {
-    return false
-  }
-  return true
-}
+const isReligionValid = religion => isPersonalValid(religion)
 
 const isFamilyValid = family => {
-  if (
-    !family.father ||
-    !family.mother ||
-    !family.brother ||
-    !family.sister ||
-    !family.rStatus ||
-    !family.eStatus ||
-    !family.agreement
-  ) {
-    return false
-  }
-  return true
+  const value = family || {}
+  return Boolean(
+    value.father && value.mother && value.brother && value.sister &&
+    value.rStatus && value.eStatus && value.agreement
+  )
 }
 
 export {

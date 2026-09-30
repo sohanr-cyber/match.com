@@ -1,129 +1,74 @@
 import React, { useState } from 'react'
-import styles from '../../../styles/Profile/Update/Basic.module.css'
-import Icon from '@/components/utils/Icon'
 import { useDispatch, useSelector } from 'react-redux'
-import { finishLoading, startLoading } from '@/redux/stateSlice'
 import axios from 'axios'
-import { Router, useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { login } from '@/redux/userSlice'
-import { getText } from '@/Translation/profile'
+import { finishLoading, startLoading } from '@/redux/stateSlice'
 import { showSnackBar } from '@/redux/notistackSlice'
-const Activate = ({ profile }) => {
-  const [worthActivating, setActivating] = useState(
-    profile.user.gender &&
-      profile.user.isVerified &&
-      profile.user.maritalStatus &&
-      profile.user.city &&
-      profile.religion.prayer &&
-      // profile.expectation.minAge &&
-      profile.education.educationType &&
-      profile.physical.skinColor &&
-      profile.user.gender &&
-      profile.family.father
-      ? true
-      : false
-  )
+import { getText } from '@/Translation/profile'
+import styles from '@/styles/Profile/Activation.module.css'
 
+const Activate = ({ profile }) => {
+  const [confirming, setConfirming] = useState(false)
+  const [saving, setSaving] = useState(false)
   const router = useRouter()
   const userInfo = useSelector(state => state.user.userInfo)
-  const ln = router.locale
-  const [error, setError] = useState('')
   const dispatch = useDispatch()
+  const active = Boolean(profile.user.active)
+  const eligible = Boolean(profile.user.isVerified)
+  const targetActive = !active
+  const verb = targetActive ? getText('activate', router.locale) : getText('deactivate', router.locale)
 
   const update = async () => {
+    if (saving || (targetActive && !eligible)) return
+    setSaving(true)
+    dispatch(startLoading())
     try {
-      dispatch(startLoading())
-      const { data } = await axios.put(
-        '/api/auth/register',
-        {
-          ...profile.user,
-          active: profile.user.active == true ? false : true
-        },
-        {
-          headers: {
-            Authorization: 'Bearer ' + userInfo.token
-          }
-        }
-      )
-
-      dispatch(
-        showSnackBar({
-          message: `Now Your Prfile Is ${data.active ? 'Active' : 'De-Active'}`
-        })
-      )
-      dispatch(
-        login({
-          ...userInfo,
-          active: profile.user.active == true ? false : true
-        })
-      )
+      const { data } = await axios.put('/api/auth/register', {
+        ...profile.user, active: targetActive
+      }, { headers: { Authorization: 'Bearer ' + userInfo.token } })
+      dispatch(login({ ...userInfo, active: Boolean(data.active) }))
+      dispatch(showSnackBar({ message: data.active ? 'Your profile is now active.' : 'Your profile is now inactive.' }))
+      setConfirming(false)
       router.reload()
-
-      dispatch(finishLoading())
     } catch (error) {
+      dispatch(showSnackBar({ message: 'Could not update profile status.', option: { variant: 'error' } }))
+    } finally {
       dispatch(finishLoading())
-      console.log(error)
-      dispatch(
-        showSnackBar({
-          message: 'Something Went Wrong !',
-          option: {
-            variant: 'error'
-          }
-        })
-      )
+      setSaving(false)
     }
   }
-  return (
-    <div className={styles.wrapper}>
-      <div className={styles.container} style={{ marginBottom: '10px' }}>
-        {' '}
-        {!worthActivating ? (
-          <div
-            style={{
-              color: 'red',
-              marginBottom: '10px'
-            }}
-          >
-            {getText('ActivateError', ln)}
-          </div>
-        ) : profile.user.active ? (
-          <div
-            style={{
-              color: 'green',
-              marginBottom: '10px'
-            }}
-          >
-            {getText('deactivateText', ln)}
-          </div>
-        ) : (
-          <div
-            style={{
-              color: 'green',
-              marginBottom: '10px'
-            }}
-          >
-            {getText('activateText', ln)}
-          </div>
-        )}
-        {profile.user && (
-          <Icon
-            allowed={worthActivating}
-            image={
-              profile.user.active == true
-                ? 'https://cdn-icons-png.flaticon.com/128/10134/10134253.png'
-                : 'https://cdn-icons-png.flaticon.com/128/4943/4943215.png'
-            }
-            handleClick={update}
-            title={
-              profile.user.active
-                ? getText('deactivate', ln)
-                : getText('activate', ln)
-            }
-          />
-        )}
-      </div>
+
+  return <>
+    <div className={styles.navControl}>
+      <button type='button' role='switch'
+        className={active ? styles.navSwitchActive : styles.navSwitchInactive}
+        aria-checked={active} aria-label='Profile active status'
+        title={active ? 'Profile active' : 'Profile inactive'}
+        onClick={() => setConfirming(true)} disabled={saving || (!active && !eligible)}>
+        <span className={active ? styles.activeDot : styles.inactiveDot} aria-hidden='true' />
+        <span>{active ? 'Active' : 'Inactive'}</span>
+        <span className={styles.navThumb} aria-hidden='true' />
+      </button>
     </div>
-  )
+    {confirming && <div className={styles.backdrop}
+      onMouseDown={event => { if (event.target === event.currentTarget) setConfirming(false) }}>
+      <section className={styles.dialog} role='alertdialog' aria-modal='true'
+        aria-labelledby='visibility-confirm-title' aria-describedby='visibility-confirm-description'>
+        <span className={styles.dialogIcon} aria-hidden='true'>{targetActive ? '✓' : '◌'}</span>
+        <h2 id='visibility-confirm-title'>Are you sure you want to {verb.toLowerCase()} your profile?</h2>
+        <p id='visibility-confirm-description'>{targetActive
+          ? 'Your profile will become visible to other members.'
+          : 'Your profile will be hidden from other members.'}</p>
+        <div className={styles.dialogActions}>
+          <button type='button' className={styles.cancel} onClick={() => setConfirming(false)} disabled={saving}>{getText('cancel', router.locale)}</button>
+          <button type='button' className={targetActive ? styles.confirm : styles.confirmOff} onClick={update} disabled={saving}>
+            {saving ? 'Saving…' : 'Yes, ' + verb.toLowerCase()}
+          </button>
+        </div>
+      </section>
+    </div>}
+  </>
 }
 
 export default Activate
