@@ -3,6 +3,7 @@ import Logo from './utils/Logo'
 import styles from '../styles/Footer.module.css'
 import Image from 'next/image'
 import CopyrightIcon from '@mui/icons-material/Copyright'
+import GetAppIcon from '@mui/icons-material/GetApp'
 import { useRouter } from 'next/router'
 import { getText } from '@/Translation/footer'
 import { mail, phone } from '@/const'
@@ -42,6 +43,18 @@ const Footer = () => {
             >
               {getText('software', ln)}
             </div>
+          </div>
+          <div className={styles.flex}>
+            <a
+              className={`${styles.link} ${styles.downloadApp}`}
+              href='https://expo.dev/artifacts/eas/LxK2LoqfHnod3mEbWSG8XOBFjwaKnwWZo0s6cmYdIVI.apk'
+              target='_blank'
+              rel='noopener noreferrer'
+              download
+            >
+              <GetAppIcon aria-hidden='true' fontSize='small' />
+              <span>{getText('downloadApp', ln)}</span>
+            </a>
           </div>
           <div className={styles.flex}>
             <div

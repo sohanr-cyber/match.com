@@ -19,6 +19,10 @@ const dict = {
     en: 'Search',
     bn: 'খুঁজুন'
   },
+  downloadApp: {
+    en: 'Download Android app',
+    bn: 'অ্যান্ড্রয়েড অ্যাপ ডাউনলোড'
+  },
   plans: {
     en: 'Plans',
     bn: 'প্ল্যান'

@@ -4,6 +4,8 @@
 .heading { margin: 0 0 15px; color: #183f38; font-family: var(--font-display); font-size: 19px; }
 .mid .flex { display: flex; gap: 18px; margin: 11px 0; }
 .mid .flex .link { flex: 1; color: #526d68; font-size: 13px; }
+.mid .flex .downloadApp { display: inline-flex; flex: 0 1 auto; align-items: center; gap: 7px; color: #087f68; font-weight: 600; text-decoration: none; }
+.mid .flex .downloadApp:hover { color: #075e50; }
 .right .mail { margin: 11px 0; color: #657b79; font-size: 13px; }
 .right .mail span { color: #008000; }
 .right .social__media__links { display: flex; gap: 11px; margin: 17px 0; }
